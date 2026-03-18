@@ -1,1 +1,1509 @@
+''
+             .-.
+          [.-''-.,
+          |  //`~\)
+          (<| 0\0|>_
+          ";\  _"/ \\_ _,
+         __\|'._/_  \ '='-,
+        /\ \    || )_///_\>>
+       (  '._ T |\ | _/),-'
+        '.   '._.-' /'/ |
+        | '._   _.'`-.._/
+        ,\ / '-' |/
+        [_/\-----j
+   _.--.__[_.--'_\__
+  /         `--'    '---._
+ /  '---.  -'. .'  _.--   '.
+ \_      '--.___ _;.-o     /
+   '.__ ___/______.__8----'
+     c-'----'
 
+
+''
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Grammar Lab — Present vs Preterit</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #11111a;
+    --bg3: #1a1a28;
+    --surface: #1e1e2e;
+    --surface2: #252538;
+    --border: rgba(255,255,255,0.07);
+    --present: #00e5a0;
+    --present-dim: rgba(0,229,160,0.12);
+    --present-glow: rgba(0,229,160,0.25);
+    --past: #ff6b6b;
+    --past-dim: rgba(255,107,107,0.12);
+    --past-glow: rgba(255,107,107,0.25);
+    --accent: #c084fc;
+    --accent-dim: rgba(192,132,252,0.12);
+    --gold: #fbbf24;
+    --text: #e8e8f0;
+    --text-muted: #7a7a9a;
+    --text-dim: #4a4a6a;
+    --radius: 16px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    letter-spacing: -0.5px;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .nav-logo span {
+    background: linear-gradient(135deg, var(--present), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--present), var(--accent));
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 0 var(--present-glow); }
+    50% { box-shadow: 0 0 0 8px transparent; }
+  }
+
+  .nav-links {
+    display: flex; gap: 6px; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.3px;
+    padding: 6px 14px; border-radius: 20px;
+    transition: all 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--text); background: var(--surface);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 120px 40px 80px;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .hero-orb {
+    position: absolute; border-radius: 50%; filter: blur(80px); z-index: 0;
+  }
+  .hero-orb-1 {
+    width: 500px; height: 500px; top: 10%; left: -10%;
+    background: radial-gradient(circle, rgba(0,229,160,0.15), transparent 70%);
+    animation: float1 8s ease-in-out infinite;
+  }
+  .hero-orb-2 {
+    width: 400px; height: 400px; bottom: 10%; right: -5%;
+    background: radial-gradient(circle, rgba(255,107,107,0.12), transparent 70%);
+    animation: float2 10s ease-in-out infinite;
+  }
+  .hero-orb-3 {
+    width: 300px; height: 300px; top: 40%; left: 55%;
+    background: radial-gradient(circle, rgba(192,132,252,0.1), transparent 70%);
+    animation: float3 12s ease-in-out infinite;
+  }
+
+  @keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-30px)} }
+  @keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,20px)} }
+  @keyframes float3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(15px,-15px)} }
+
+  .hero-badge {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 6px 16px; border-radius: 20px;
+    font-size: 0.8rem; font-weight: 500; color: var(--text-muted);
+    margin-bottom: 32px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .hero-badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--present); animation: pulse 2s ease-in-out infinite;
+  }
+
+  .hero-title {
+    position: relative; z-index: 1; text-align: center;
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 1.05;
+    letter-spacing: -2px;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+
+  .hero-title .word-present {
+    color: var(--present);
+    text-shadow: 0 0 60px rgba(0,229,160,0.4);
+  }
+
+  .hero-title .word-vs {
+    color: var(--text-dim); font-size: 0.6em;
+    display: inline-block; padding: 0 0.2em;
+  }
+
+  .hero-title .word-past {
+    color: var(--past);
+    text-shadow: 0 0 60px rgba(255,107,107,0.4);
+  }
+
+  .hero-subtitle {
+    position: relative; z-index: 1;
+    font-size: 1.05rem; color: var(--text-muted); font-weight: 300;
+    margin-top: 20px; text-align: center; max-width: 500px;
+    animation: fadeDown 0.6s 0.2s ease both;
+  }
+
+  .hero-cta-row {
+    position: relative; z-index: 1;
+    display: flex; gap: 12px; margin-top: 44px;
+    animation: fadeDown 0.6s 0.3s ease both;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 28px; border-radius: 50px; font-family: 'DM Sans';
+    font-size: 0.9rem; font-weight: 500; cursor: pointer;
+    text-decoration: none; transition: all 0.25s; border: none;
+  }
+
+  .btn-primary {
+    background: var(--present); color: #0a0a0f;
+    box-shadow: 0 0 30px rgba(0,229,160,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,229,160,0.5); }
+
+  .btn-secondary {
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { background: var(--surface2); transform: translateY(-2px); }
+
+  .hero-stats {
+    position: relative; z-index: 1;
+    display: flex; gap: 40px; margin-top: 60px;
+    animation: fadeDown 0.6s 0.4s ease both;
+  }
+
+  .stat { text-align: center; }
+  .stat-number {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 2rem; letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--present), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    position: relative; z-index: 1;
+    max-width: 1100px; margin: 0 auto; padding: 0 40px 120px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 40px; padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 2rem; letter-spacing: -1px;
+  }
+
+  /* ── MODULE TABS ── */
+  .module-tabs {
+    display: flex; gap: 4px; margin-bottom: 48px;
+    background: var(--surface); padding: 6px; border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  .tab {
+    flex: 1; padding: 11px 20px; border-radius: 8px;
+    font-family: 'DM Sans'; font-size: 0.88rem; font-weight: 500;
+    cursor: pointer; background: transparent; border: none; color: var(--text-muted);
+    transition: all 0.2s; position: relative;
+  }
+
+  .tab.active {
+    background: var(--bg2); color: var(--text);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .tab-icon { margin-right: 8px; }
+
+  /* ── MODULE PANEL ── */
+  .module-panel { display: none; animation: fadeIn 0.4s ease; }
+  .module-panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── LESSON CARDS ── */
+  .lesson-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px;
+  }
+
+  .lesson-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px; position: relative; overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+
+  .lesson-card:hover { transform: translateY(-3px); }
+
+  .lesson-card.present-card {
+    border-color: rgba(0,229,160,0.2);
+    box-shadow: inset 0 0 60px rgba(0,229,160,0.03);
+  }
+  .lesson-card.present-card:hover { box-shadow: 0 8px 40px rgba(0,229,160,0.15), inset 0 0 60px rgba(0,229,160,0.05); }
+
+  .lesson-card.past-card {
+    border-color: rgba(255,107,107,0.2);
+    box-shadow: inset 0 0 60px rgba(255,107,107,0.03);
+  }
+  .lesson-card.past-card:hover { box-shadow: 0 8px 40px rgba(255,107,107,0.15), inset 0 0 60px rgba(255,107,107,0.05); }
+
+  .card-accent-line {
+    position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 16px 16px 0 0;
+  }
+  .present-card .card-accent-line { background: linear-gradient(90deg, var(--present), transparent); }
+  .past-card .card-accent-line { background: linear-gradient(90deg, var(--past), transparent); }
+
+  .card-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 20px; font-size: 0.72rem;
+    font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .present-card .card-tag { background: var(--present-dim); color: var(--present); }
+  .past-card .card-tag { background: var(--past-dim); color: var(--past); }
+
+  .card-title {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.25rem;
+    margin-bottom: 12px; letter-spacing: -0.5px;
+  }
+
+  .card-desc {
+    color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 20px;
+  }
+
+  .usage-list {
+    list-style: none; display: flex; flex-direction: column; gap: 8px;
+  }
+
+  .usage-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.875rem; color: var(--text-muted);
+  }
+
+  .usage-bullet {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 7px;
+  }
+  .present-card .usage-bullet { background: var(--present); }
+  .past-card .usage-bullet { background: var(--past); }
+
+  /* ── EXAMPLE SENTENCES ── */
+  .examples-block {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px; margin-top: 24px;
+  }
+
+  .examples-title {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px;
+  }
+
+  .example-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .example-row:last-child { border-bottom: none; }
+
+  .example-en {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.88rem;
+    color: var(--text); flex: 1;
+  }
+
+  .example-tag-sm {
+    font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; white-space: nowrap; font-weight: 600;
+  }
+  .tag-present { background: var(--present-dim); color: var(--present); }
+  .tag-past { background: var(--past-dim); color: var(--past); }
+
+  /* ── FORMULA TABLE ── */
+  .formula-section { margin-top: 32px; }
+
+  .formula-section-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 1.1rem; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+  }
+
+  .formula-pills { display: flex; flex-direction: column; gap: 10px; }
+
+  .formula-pill {
+    display: flex; align-items: center; gap: 0;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+
+  .pill-label {
+    padding: 12px 16px; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase; min-width: 120px;
+    white-space: nowrap;
+  }
+  .pill-label.aff { background: rgba(0,229,160,0.1); color: var(--present); }
+  .pill-label.neg { background: rgba(255,107,107,0.1); color: var(--past); }
+  .pill-label.int { background: rgba(192,132,252,0.1); color: var(--accent); }
+
+  .pill-formula {
+    padding: 12px 16px; font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem; color: var(--text); flex: 1;
+    border-left: 1px solid var(--border);
+  }
+
+  .pill-formula .token-sub { color: var(--present); }
+  .pill-formula .token-verb { color: var(--past); }
+  .pill-formula .token-aux { color: var(--accent); }
+  .pill-formula .token-not { color: var(--gold); }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%; border-collapse: collapse; margin-top: 24px;
+    border-radius: var(--radius); overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .compare-table th {
+    padding: 14px 20px; font-family: 'Syne', sans-serif;
+    font-size: 0.85rem; font-weight: 700; letter-spacing: -0.3px;
+    text-align: left;
+  }
+
+  .compare-table th:first-child { background: var(--surface2); color: var(--text-muted); }
+  .compare-table th.present-th { background: var(--present-dim); color: var(--present); }
+  .compare-table th.past-th { background: var(--past-dim); color: var(--past); }
+
+  .compare-table td {
+    padding: 13px 20px; font-size: 0.87rem; color: var(--text-muted);
+    border-top: 1px solid var(--border); vertical-align: top;
+  }
+
+  .compare-table td:first-child {
+    font-weight: 500; color: var(--text-dim);
+    background: var(--bg2); width: 140px; font-size: 0.8rem; letter-spacing: 0.5px;
+  }
+
+  .compare-table tr:hover td { background-color: rgba(255,255,255,0.02); }
+
+  .compare-table code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem; color: var(--text);
+    background: var(--surface2); padding: 1px 6px; border-radius: 4px;
+  }
+
+  /* ── EXERCISES ── */
+  .ex-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 28px;
+  }
+
+  .score-badge {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 8px 16px; border-radius: 20px; font-size: 0.83rem; font-weight: 500;
+  }
+
+  .score-num { color: var(--present); font-family: 'Syne', sans-serif; font-weight: 700; }
+
+  /* ── EXERCISE CARD ── */
+  .exercise-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 16px;
+    overflow: hidden; transition: border-color 0.3s;
+  }
+
+  .exercise-card.correct { border-color: var(--present); }
+  .exercise-card.incorrect { border-color: var(--past); }
+
+  .exercise-card-header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 22px; cursor: pointer;
+  }
+
+  .ex-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+    color: var(--text-dim); min-width: 28px;
+  }
+
+  .ex-question { font-size: 0.92rem; flex: 1; line-height: 1.5; }
+
+  .ex-question .blank {
+    display: inline-block;
+    border-bottom: 2px solid var(--border);
+    min-width: 80px; text-align: center; margin: 0 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.88rem;
+    color: var(--present); padding: 0 4px;
+  }
+
+  .ex-status {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700; flex-shrink: 0;
+  }
+
+  .ex-status.correct { background: var(--present); color: #000; }
+  .ex-status.incorrect { background: var(--past); color: #fff; }
+  .ex-status.pending { background: var(--surface2); color: var(--text-dim); border: 1px solid var(--border); }
+
+  /* ── TRANSLATION EXERCISE ── */
+  .trans-exercise {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 22px; margin-bottom: 12px;
+    transition: border-color 0.3s;
+  }
+  .trans-exercise.correct { border-color: var(--present); }
+  .trans-exercise.incorrect { border-color: var(--past); }
+
+  .trans-num { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 8px; }
+
+  .trans-fr {
+    font-size: 0.93rem; color: var(--text-muted); margin-bottom: 12px;
+    padding-left: 12px; border-left: 2px solid var(--border);
+    font-style: italic;
+  }
+
+  .trans-input {
+    width: 100%; background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 14px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.88rem;
+    color: var(--text); outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    resize: none;
+  }
+  .trans-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+  .trans-feedback {
+    margin-top: 10px; font-size: 0.82rem; padding: 8px 12px;
+    border-radius: 8px; display: none;
+  }
+  .trans-feedback.show { display: block; }
+  .trans-feedback.correct-fb { background: var(--present-dim); color: var(--present); }
+  .trans-feedback.incorrect-fb { background: var(--past-dim); color: var(--past); }
+
+  /* ── FILL BLANKS EXERCISE ── */
+  .fill-sentence {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 22px; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    transition: border-color 0.3s;
+  }
+  .fill-sentence.correct { border-color: var(--present); }
+  .fill-sentence.incorrect { border-color: var(--past); }
+
+  .fill-num { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); margin-right: 4px; }
+  .fill-text { font-size: 0.92rem; font-family: 'JetBrains Mono', monospace; color: var(--text); }
+
+  .fill-input {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.88rem;
+    color: var(--text); outline: none; width: 140px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .fill-input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-dim); }
+  .fill-input.correct { border-color: var(--present); background: var(--present-dim); }
+  .fill-input.incorrect { border-color: var(--past); background: var(--past-dim); }
+
+  .fill-icon { font-size: 0.85rem; }
+
+  /* ── REWRITE EXERCISE ── */
+  .rewrite-area {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+  }
+
+  .rewrite-source {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+    line-height: 1.8; color: var(--text-muted); margin-bottom: 20px;
+    padding: 16px; background: var(--surface);
+    border-radius: 10px; border-left: 3px solid var(--present);
+  }
+
+  .rewrite-textarea {
+    width: 100%; min-height: 160px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem; line-height: 1.8; color: var(--text);
+    outline: none; resize: vertical; transition: border-color 0.2s;
+  }
+  .rewrite-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+  .rewrite-hint {
+    margin-top: 16px; padding: 14px 16px;
+    background: var(--surface); border-radius: 10px;
+    border-left: 3px solid var(--past); display: none;
+  }
+  .rewrite-hint.show { display: block; }
+  .rewrite-hint-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--past); margin-bottom: 8px; }
+  .rewrite-hint-text { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; line-height: 1.8; color: var(--text-muted); }
+
+  /* ── QUIZ ── */
+  .quiz-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px; margin-bottom: 16px;
+    transition: border-color 0.3s;
+  }
+  .quiz-card.answered-correct { border-color: var(--present); }
+  .quiz-card.answered-incorrect { border-color: var(--past); }
+
+  .quiz-q {
+    font-size: 0.98rem; margin-bottom: 18px; line-height: 1.6;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+
+  .quiz-option {
+    padding: 11px 16px; border-radius: 10px;
+    background: var(--bg2); border: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace; font-size: 0.88rem;
+    cursor: pointer; transition: all 0.2s; text-align: left;
+    color: var(--text-muted);
+  }
+  .quiz-option:hover:not(:disabled) { background: var(--surface2); color: var(--text); border-color: rgba(255,255,255,0.15); }
+  .quiz-option.selected-correct { background: var(--present-dim); border-color: var(--present); color: var(--present); }
+  .quiz-option.selected-incorrect { background: var(--past-dim); border-color: var(--past); color: var(--past); }
+  .quiz-option.reveal-correct { background: var(--present-dim); border-color: var(--present); color: var(--present); }
+  .quiz-option:disabled { cursor: not-allowed; }
+
+  .quiz-explain {
+    margin-top: 14px; padding: 12px 16px;
+    background: var(--bg2); border-radius: 10px;
+    font-size: 0.83rem; color: var(--text-muted); line-height: 1.5;
+    border-left: 3px solid var(--accent);
+    display: none;
+  }
+  .quiz-explain.show { display: block; }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 24px; margin-bottom: 28px;
+  }
+
+  .progress-row {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+  }
+
+  .progress-label { font-size: 0.83rem; color: var(--text-muted); font-weight: 500; }
+  .progress-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; }
+
+  .progress-bar {
+    height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%; border-radius: 3px;
+    background: linear-gradient(90deg, var(--present), var(--accent));
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ── SUBMIT BUTTON ── */
+  .submit-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 32px; background: linear-gradient(135deg, var(--present), #00c080);
+    color: #0a0a0f; border: none; border-radius: 50px; font-family: 'DM Sans';
+    font-size: 0.9rem; font-weight: 600; cursor: pointer;
+    transition: all 0.25s; box-shadow: 0 4px 20px rgba(0,229,160,0.3);
+    margin-top: 20px;
+  }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,160,0.4); }
+
+  .hint-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 24px; background: var(--surface); color: var(--text-muted);
+    border: 1px solid var(--border); border-radius: 50px; font-family: 'DM Sans';
+    font-size: 0.85rem; font-weight: 500; cursor: pointer;
+    transition: all 0.2s; margin-top: 20px; margin-left: 12px;
+  }
+  .hint-btn:hover { background: var(--surface2); color: var(--text); }
+
+  /* ── RESULTS PANEL ── */
+  .results-panel {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px; text-align: center;
+    display: none; margin-top: 24px;
+    animation: fadeIn 0.4s ease;
+  }
+  .results-panel.show { display: block; }
+
+  .results-emoji { font-size: 3rem; margin-bottom: 12px; }
+  .results-score {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 3rem;
+    letter-spacing: -2px; margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--present), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .results-msg { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; }
+
+  .retry-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 24px; background: var(--surface2);
+    color: var(--text); border: 1px solid var(--border);
+    border-radius: 50px; cursor: pointer; font-family: 'DM Sans';
+    font-size: 0.88rem; font-weight: 500; transition: all 0.2s;
+  }
+  .retry-btn:hover { background: var(--bg3); }
+
+  /* ── MEMO CARD ── */
+  .memo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .memo-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px; cursor: pointer;
+    position: relative; overflow: hidden; perspective: 600px;
+    min-height: 140px; transition: transform 0.2s;
+  }
+  .memo-card:hover { transform: translateY(-2px); }
+
+  .memo-front, .memo-back {
+    position: absolute; inset: 0; padding: 24px;
+    backface-visibility: hidden; transition: transform 0.5s;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+
+  .memo-back { transform: rotateY(180deg); background: var(--surface2); border-radius: var(--radius); }
+  .memo-card.flipped .memo-front { transform: rotateY(-180deg); }
+  .memo-card.flipped .memo-back { transform: rotateY(0); }
+
+  .memo-type { font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+  .memo-text { font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: var(--text); line-height: 1.5; }
+  .memo-answer { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--present); line-height: 1.6; }
+  .memo-flip-hint { font-size: 0.72rem; color: var(--text-dim); margin-top: 12px; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 32px 40px; text-align: center;
+    color: var(--text-dim); font-size: 0.8rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 20px 60px; }
+    .hero-stats { gap: 24px; }
+    main { padding: 0 20px 80px; }
+    .lesson-grid { grid-template-columns: 1fr; }
+    .memo-grid { grid-template-columns: 1fr; }
+    .module-tabs { flex-wrap: wrap; }
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-dot"></div>
+    <span>Grammar Lab</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#lessons" class="active">Leçons</a></li>
+    <li><a href="#exercises">Exercices</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+    <li><a href="#memo">Mémo cards</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+
+  <div class="hero-badge">
+    <div class="hero-badge-dot"></div>
+    Grammaire Anglaise — Niveau B1/B2
+  </div>
+
+  <h1 class="hero-title">
+    <span class="word-present">Present</span>
+    <span class="word-vs">VS</span>
+    <span class="word-past">Preterit</span>
+  </h1>
+
+  <p class="hero-subtitle">
+    Maîtrise les deux temps fondamentaux de l'anglais grâce à des leçons interactives et des exercices progressifs.
+  </p>
+
+  <div class="hero-cta-row">
+    <a href="#lessons" class="btn btn-primary">▶ Commencer les leçons</a>
+    <a href="#exercises" class="btn btn-secondary">✏️ Aller aux exercices</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-number">4</div><div class="stat-label">Leçons</div></div>
+    <div class="stat"><div class="stat-number">30+</div><div class="stat-label">Exercices</div></div>
+    <div class="stat"><div class="stat-number">10</div><div class="stat-label">Quiz QCM</div></div>
+    <div class="stat"><div class="stat-number">16</div><div class="stat-label">Mémo cards</div></div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main>
+
+  <!-- ═══ LESSONS ═══ -->
+  <section id="lessons" style="padding-top: 80px;">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Module 01</div>
+        <div class="section-title">Les leçons</div>
+      </div>
+    </div>
+
+    <div class="module-tabs">
+      <button class="tab active" onclick="switchTab('lesson', 'overview')"><span class="tab-icon">📖</span>Aperçu</button>
+      <button class="tab" onclick="switchTab('lesson', 'present')"><span class="tab-icon" style="color:var(--present)">●</span>Présent Simple</button>
+      <button class="tab" onclick="switchTab('lesson', 'past')"><span class="tab-icon" style="color:var(--past)">●</span>Prétérit Simple</button>
+      <button class="tab" onclick="switchTab('lesson', 'comparison')"><span class="tab-icon">⚡</span>Comparaison</button>
+    </div>
+
+    <!-- TAB: OVERVIEW -->
+    <div class="module-panel active" id="lesson-overview">
+      <div class="lesson-grid">
+        <!-- PRESENT CARD -->
+        <div class="lesson-card present-card">
+          <div class="card-accent-line"></div>
+          <div class="card-tag">● Simple Present</div>
+          <div class="card-title">Présent Simple</div>
+          <div class="card-desc">Le temps du quotidien, des habitudes et des vérités générales. Aussi utilisé pour décrire le contenu d'un film (présent de narration).</div>
+          <ul class="usage-list">
+            <li class="usage-item"><div class="usage-bullet"></div>Faits généraux et vérités universelles</li>
+            <li class="usage-item"><div class="usage-bullet"></div>Habitudes et routines (every day, usually…)</li>
+            <li class="usage-item"><div class="usage-bullet"></div>Décrire le contenu d'un film ou d'un livre</li>
+          </ul>
+        </div>
+        <!-- PAST CARD -->
+        <div class="lesson-card past-card">
+          <div class="card-accent-line"></div>
+          <div class="card-tag">● Simple Past</div>
+          <div class="card-title">Prétérit Simple</div>
+          <div class="card-desc">Le temps du passé révolu. Utilisé pour des actions terminées à un moment précis du passé, souvent avec un indicateur temporel.</div>
+          <ul class="usage-list">
+            <li class="usage-item"><div class="usage-bullet"></div>Actions terminées dans le passé</li>
+            <li class="usage-item"><div class="usage-bullet"></div>Événements datés (yesterday, in 2010, last week…)</li>
+            <li class="usage-item"><div class="usage-bullet"></div>Raconter quand on a vu un film / voyage</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="examples-block">
+        <div class="examples-title">🎯 Exemples côte à côte</div>
+        <div class="example-row"><span class="example-tag-sm tag-present">Present</span><span class="example-en">The film <strong style="color:var(--present)">tells</strong> the story of a young woman.</span></div>
+        <div class="example-row"><span class="example-tag-sm tag-past">Past</span><span class="example-en">I <strong style="color:var(--past)">watched</strong> a Bollywood movie yesterday.</span></div>
+        <div class="example-row"><span class="example-tag-sm tag-present">Present</span><span class="example-en">Many directors <strong style="color:var(--present)">use</strong> music and dance.</span></div>
+        <div class="example-row"><span class="example-tag-sm tag-past">Past</span><span class="example-en">The director <strong style="color:var(--past)">made</strong> this film in 2010.</span></div>
+        <div class="example-row"><span class="example-tag-sm tag-present">Present</span><span class="example-en">She <strong style="color:var(--present)">doesn't like</strong> horror movies.</span></div>
+        <div class="example-row"><span class="example-tag-sm tag-past">Past</span><span class="example-en">The film <strong style="color:var(--past)">didn't represent</strong> reality.</span></div>
+      </div>
+    </div>
+
+    <!-- TAB: PRESENT -->
+    <div class="module-panel" id="lesson-present">
+      <div class="lesson-card present-card" style="max-width:100%;">
+        <div class="card-accent-line"></div>
+        <div class="card-tag">● Simple Present</div>
+        <div class="card-title">Le Présent Simple en détail</div>
+        <div class="card-desc">Utilisé pour exprimer ce qui est toujours vrai, ce qu'on fait régulièrement ou ce qui se passe dans un film/récit.</div>
+
+        <div class="formula-section">
+          <div class="formula-section-title" style="color:var(--present)">● Formes Affirmative / Négative / Interrogative</div>
+          <div class="formula-pills">
+            <div class="formula-pill">
+              <div class="pill-label aff">✅ Affirmatif</div>
+              <div class="pill-formula"><span class="token-sub">Sujet</span> + <span class="token-verb">Verbe (base)</span> <span style="color:var(--text-dim)">— (+s à la 3ème pers. sg.)</span></div>
+            </div>
+            <div class="formula-pill">
+              <div class="pill-label neg">❌ Négatif</div>
+              <div class="pill-formula"><span class="token-sub">Sujet</span> + <span class="token-aux">do/does</span> + <span class="token-not">not</span> + <span class="token-verb">Verbe (base)</span></div>
+            </div>
+            <div class="formula-pill">
+              <div class="pill-label int">❓ Interrogatif</div>
+              <div class="pill-formula">(<span style="color:var(--gold)">Wh-</span>) + <span class="token-aux">Do/Does</span> + <span class="token-sub">sujet</span> + <span class="token-verb">Verbe (base)</span> ?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="examples-block" style="margin-top:20px;">
+        <div class="examples-title">📝 Exemples complets</div>
+        <div class="example-row"><span class="example-tag-sm tag-present">+</span><span class="example-en">People <strong style="color:var(--present)">watch</strong> movies every day. / The film <strong style="color:var(--present)">shows</strong> Indian culture.</span></div>
+        <div class="example-row"><span class="example-tag-sm tag-present">-</span><span class="example-en">I <strong style="color:var(--present)">do not like</strong> this film. / The story <strong style="color:var(--present)">doesn't represent</strong> reality.</span></div>
+        <div class="example-row"><span class="example-tag-sm tag-present">?</span><span class="example-en"><strong style="color:var(--present)">Do</strong> Bollywood films represent India? / <strong style="color:var(--present)">Does</strong> the director show inequalities?</span></div>
+        <div class="example-row"><span class="example-tag-sm tag-present">🎬</span><span class="example-en">The director <strong style="color:var(--present)">shows</strong> the contrast between rich and poor. <span style="color:var(--text-dim)">(présent de narration)</span></span></div>
+      </div>
+
+      <div class="examples-block" style="margin-top:16px; border-left: 3px solid var(--present);">
+        <div class="examples-title">⚠️ Règle importante : 3ème personne du singulier</div>
+        <div class="example-row"><span class="example-tag-sm tag-present">he/she/it</span><span class="example-en">I <strong>watch</strong> → He <strong style="color:var(--present)">watches</strong> | She <strong style="color:var(--present)">goes</strong> | It <strong style="color:var(--present)">shows</strong></span></div>
+        <div class="example-row"><span class="example-tag-sm" style="background:var(--accent-dim);color:var(--accent)">Exceptions</span><span class="example-en">do → <strong style="color:var(--present)">does</strong> | have → <strong style="color:var(--present)">has</strong> | go → <strong style="color:var(--present)">goes</strong></span></div>
+      </div>
+    </div>
+
+    <!-- TAB: PAST -->
+    <div class="module-panel" id="lesson-past">
+      <div class="lesson-card past-card" style="max-width:100%;">
+        <div class="card-accent-line"></div>
+        <div class="card-tag">● Simple Past</div>
+        <div class="card-title">Le Prétérit Simple en détail</div>
+        <div class="card-desc">Utilisé pour parler d'actions ou d'événements passés et terminés, souvent accompagnés d'un marqueur de temps.</div>
+
+        <div class="formula-section">
+          <div class="formula-section-title" style="color:var(--past)">● Formes Affirmative / Négative / Interrogative</div>
+          <div class="formula-pills">
+            <div class="formula-pill">
+              <div class="pill-label aff">✅ Affirmatif</div>
+              <div class="pill-formula"><span class="token-sub">Sujet</span> + <span class="token-verb">Verbe+ed</span> <span style="color:var(--text-dim)">ou forme irrégulière (2ème colonne)</span></div>
+            </div>
+            <div class="formula-pill">
+              <div class="pill-label neg">❌ Négatif</div>
+              <div class="pill-formula"><span class="token-sub">Sujet</span> + <span class="token-aux">did</span> + <span class="token-not">not</span> + <span class="token-verb">Verbe (base)</span></div>
+            </div>
+            <div class="formula-pill">
+              <div class="pill-label int">❓ Interrogatif</div>
+              <div class="pill-formula">(<span style="color:var(--gold)">Wh-</span>) + <span class="token-aux">Did</span> + <span class="token-sub">sujet</span> + <span class="token-verb">Verbe (base)</span> ?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="examples-block" style="margin-top:20px;">
+        <div class="examples-title">📝 Verbes réguliers (+ ed)</div>
+        <div class="example-row"><span class="example-tag-sm tag-past">watch</span><span class="example-en">I <strong style="color:var(--past)">watched</strong> a Bollywood movie yesterday.</span></div>
+        <div class="example-row"><span class="example-tag-sm tag-past">represent</span><span class="example-en">The film <strong style="color:var(--past)">represented</strong> Indian culture perfectly.</span></div>
+        <div class="example-row"><span class="example-tag-sm tag-past">release</span><span class="example-en">The director <strong style="color:var(--past)">released</strong> the movie in 2015.</span></div>
+      </div>
+
+      <div class="examples-block" style="margin-top:16px;">
+        <div class="examples-title">⚡ Verbes irréguliers (formes à retenir !)</div>
+        <div class="example-row"><span class="example-tag-sm" style="background:var(--accent-dim);color:var(--accent)">take → took</span><span class="example-en">The story <strong style="color:var(--past)">took</strong> place in Mumbai.</span></div>
+        <div class="example-row"><span class="example-tag-sm" style="background:var(--accent-dim);color:var(--accent)">make → made</span><span class="example-en">The director <strong style="color:var(--past)">made</strong> this film in 2010.</span></div>
+        <div class="example-row"><span class="example-tag-sm" style="background:var(--accent-dim);color:var(--accent)">give → gave</span><span class="example-en">The actors <strong style="color:var(--past)">gave</strong> excellent performances.</span></div>
+        <div class="example-row"><span class="example-tag-sm" style="background:var(--accent-dim);color:var(--accent)">see → saw</span><span class="example-en">I <strong style="color:var(--past)">saw</strong> this film last week.</span></div>
+        <div class="example-row"><span class="example-tag-sm" style="background:var(--accent-dim);color:var(--accent)">drive → drove</span><span class="example-en">She <strong style="color:var(--past)">drove</strong> to the cinema.</span></div>
+      </div>
+    </div>
+
+    <!-- TAB: COMPARISON -->
+    <div class="module-panel" id="lesson-comparison">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="present-th">● Simple Present</th>
+            <th class="past-th">● Simple Past</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Quand ?</td>
+            <td>Maintenant / toujours / habitude</td>
+            <td>Passé terminé, moment précis</td>
+          </tr>
+          <tr>
+            <td>Marqueurs</td>
+            <td><code>every day</code> <code>usually</code> <code>often</code> <code>always</code></td>
+            <td><code>yesterday</code> <code>last week</code> <code>in 2010</code> <code>ago</code></td>
+          </tr>
+          <tr>
+            <td>Affirmatif</td>
+            <td><code>I watch</code> / <code>He watches</code></td>
+            <td><code>I watched</code> / <code>He took</code></td>
+          </tr>
+          <tr>
+            <td>Négatif</td>
+            <td><code>I don't / He doesn't + BV</code></td>
+            <td><code>I/He didn't + BV</code></td>
+          </tr>
+          <tr>
+            <td>Interrogatif</td>
+            <td><code>Do / Does + sujet + BV ?</code></td>
+            <td><code>Did + sujet + BV ?</code></td>
+          </tr>
+          <tr>
+            <td>Critique film</td>
+            <td>Contenu du film (narration)</td>
+            <td>Production, quand on a vu le film</td>
+          </tr>
+          <tr>
+            <td>Exemple +</td>
+            <td><code>The film shows Indian culture.</code></td>
+            <td><code>The director made this film in 2010.</code></td>
+          </tr>
+          <tr>
+            <td>Exemple -</td>
+            <td><code>It doesn't represent reality.</code></td>
+            <td><code>The film didn't win any prize.</code></td>
+          </tr>
+          <tr>
+            <td>Exemple ?</td>
+            <td><code>Does he show social inequalities?</code></td>
+            <td><code>Did you like the movie?</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══ EXERCISES ═══ -->
+  <section id="exercises" style="padding-top: 80px;">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Module 02</div>
+        <div class="section-title">Exercices</div>
+      </div>
+    </div>
+
+    <div class="module-tabs">
+      <button class="tab active" onclick="switchTab('ex', 'fill')"><span class="tab-icon">✏️</span>Compléter</button>
+      <button class="tab" onclick="switchTab('ex', 'translate')"><span class="tab-icon">🇫🇷</span>Traduction</button>
+      <button class="tab" onclick="switchTab('ex', 'rewrite')"><span class="tab-icon">🔄</span>Réécriture</button>
+    </div>
+
+    <!-- FILL BLANKS -->
+    <div class="module-panel active" id="ex-fill">
+      <div class="ex-header">
+        <div>
+          <div class="section-label">Exercice 1</div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;">Complétez avec la forme correcte</div>
+          <div style="color:var(--text-muted);font-size:0.85rem;margin-top:4px;">Present Simple ou Simple Past ? Conjuguez le verbe entre parenthèses.</div>
+        </div>
+        <div class="score-badge">Score : <span class="score-num" id="fill-score">0</span>/10</div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-row">
+          <span class="progress-label">Progression</span>
+          <span class="progress-val" id="fill-progress-text">0 / 10 répondus</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="fill-progress-bar" style="width:0%"></div></div>
+      </div>
+
+      <div id="fill-container"></div>
+
+      <button class="submit-btn" onclick="submitFill()">✅ Vérifier mes réponses</button>
+      <button class="hint-btn" onclick="resetFill()">↺ Réinitialiser</button>
+
+      <div class="results-panel" id="fill-results">
+        <div class="results-emoji" id="fill-emoji">🎉</div>
+        <div class="results-score" id="fill-final-score"></div>
+        <div class="results-msg" id="fill-msg"></div>
+        <button class="retry-btn" onclick="resetFill()">↺ Réessayer</button>
+      </div>
+    </div>
+
+    <!-- TRANSLATION -->
+    <div class="module-panel" id="ex-translate">
+      <div class="ex-header">
+        <div>
+          <div class="section-label">Exercice 2</div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;">Traduisez en anglais</div>
+          <div style="color:var(--text-muted);font-size:0.85rem;margin-top:4px;">Choisissez le bon temps et écrivez la phrase complète en anglais.</div>
+        </div>
+        <div class="score-badge">Score : <span class="score-num" id="trans-score">0</span>/15</div>
+      </div>
+
+      <div id="trans-container"></div>
+
+      <button class="submit-btn" onclick="submitTranslations()">✅ Vérifier</button>
+      <button class="hint-btn" onclick="resetTranslations()">↺ Réinitialiser</button>
+
+      <div class="results-panel" id="trans-results">
+        <div class="results-emoji" id="trans-emoji">🎉</div>
+        <div class="results-score" id="trans-final-score"></div>
+        <div class="results-msg" id="trans-msg"></div>
+        <button class="retry-btn" onclick="resetTranslations()">↺ Réessayer</button>
+      </div>
+    </div>
+
+    <!-- REWRITE -->
+    <div class="module-panel" id="ex-rewrite">
+      <div>
+        <div class="section-label">Exercice 3</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;margin-bottom:6px;">Réécris au passé</div>
+        <div style="color:var(--text-muted);font-size:0.85rem;margin-bottom:24px;">Réécris ce texte entièrement au <strong style="color:var(--past)">prétérit simple</strong>. Attention aux verbes irréguliers !</div>
+      </div>
+      <div class="rewrite-area">
+        <div class="rewrite-source">Every year, many tourists <strong style="color:var(--present)">travel</strong> to India. They <strong style="color:var(--present)">want</strong> to discover the culture and traditions of the country. Many visitors <strong style="color:var(--present)">visit</strong> famous cities like Delhi or Mumbai, but some travelers <strong style="color:var(--present)">do not visit</strong> big cities because they <strong style="color:var(--present)">prefer</strong> quieter places. During their trip, tourists <strong style="color:var(--present)">meet</strong> local people and <strong style="color:var(--present)">learn</strong> about Indian culture. They often <strong style="color:var(--present)">take</strong> photos of temples and markets. Sometimes they <strong style="color:var(--present)">see</strong> Bollywood posters everywhere in the streets. Do tourists <strong style="color:var(--present)">understand</strong> all the traditions? Not always. But most travelers <strong style="color:var(--present)">say</strong> that India is an unforgettable experience.</div>
+        <textarea class="rewrite-textarea" id="rewrite-text" placeholder="Écris ta réécriture ici..."></textarea>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
+          <button class="submit-btn" onclick="showRewriteHint()">🔍 Voir la correction</button>
+          <button class="hint-btn" onclick="clearRewrite()">↺ Effacer</button>
+        </div>
+        <div class="rewrite-hint" id="rewrite-hint">
+          <div class="rewrite-hint-title">✅ Correction complète</div>
+          <div class="rewrite-hint-text">Every year, many tourists <strong style="color:var(--past)">travelled</strong> to India. They <strong style="color:var(--past)">wanted</strong> to discover the culture and traditions of the country. Many visitors <strong style="color:var(--past)">visited</strong> famous cities like Delhi or Mumbai, but some travelers <strong style="color:var(--past)">did not visit</strong> big cities because they <strong style="color:var(--past)">preferred</strong> quieter places. During their trip, tourists <strong style="color:var(--past)">met</strong> local people and <strong style="color:var(--past)">learned</strong> about Indian culture. They often <strong style="color:var(--past)">took</strong> photos of temples and markets. Sometimes they <strong style="color:var(--past)">saw</strong> Bollywood posters everywhere in the streets. <strong style="color:var(--past)">Did</strong> tourists <strong style="color:var(--past)">understand</strong> all the traditions? Not always. But most travelers <strong style="color:var(--past)">said</strong> that India was an unforgettable experience.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ QUIZ ═══ -->
+  <section id="quiz" style="padding-top: 80px;">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Module 03</div>
+        <div class="section-title">Quiz QCM</div>
+      </div>
+      <div class="score-badge">Score : <span class="score-num" id="quiz-score">0</span>/10</div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-row">
+        <span class="progress-label">Questions répondues</span>
+        <span class="progress-val" id="quiz-progress-text">0 / 10</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="quiz-progress-bar" style="width:0%"></div></div>
+    </div>
+
+    <div id="quiz-container"></div>
+
+    <div class="results-panel" id="quiz-results">
+      <div class="results-emoji" id="quiz-emoji">🎉</div>
+      <div class="results-score" id="quiz-final-score"></div>
+      <div class="results-msg" id="quiz-msg"></div>
+      <button class="retry-btn" onclick="resetQuiz()">↺ Recommencer le quiz</button>
+    </div>
+  </section>
+
+  <!-- ═══ MEMO CARDS ═══ -->
+  <section id="memo" style="padding-top: 80px;">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Module 04</div>
+        <div class="section-title">Mémo cards</div>
+      </div>
+    </div>
+    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:28px;">Clique sur chaque carte pour révéler la réponse. Parfait pour mémoriser les formules clés !</p>
+    <div class="memo-grid" id="memo-grid"></div>
+  </section>
+
+</main>
+
+<footer>
+  <p>English Grammar Lab · Présent Simple vs Prétérit · Fait avec ❤️ pour progresser</p>
+</footer>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────
+
+const fillData = [
+  { before: "I always", verb: "(watch)", after: "movies on weekends.", answer: "watch", tense: "present" },
+  { before: "The director", verb: "(make)", after: "this film in 2010.", answer: "made", tense: "past" },
+  { before: "Bollywood films often", verb: "(show)", after: "Indian culture.", answer: "show", tense: "present" },
+  { before: "She", verb: "(see)", after: "this movie last week.", answer: "saw", tense: "past" },
+  { before: "Many tourists", verb: "(visit)", after: "India every year.", answer: "visit", tense: "present" },
+  { before: "The actors", verb: "(give)", after: "excellent performances last night.", answer: "gave", tense: "past" },
+  { before: "He", verb: "(not / like)", after: "horror movies.", answer: "doesn't like", tense: "present" },
+  { before: "They", verb: "(not / understand)", after: "the traditions during their trip.", answer: "didn't understand", tense: "past" },
+  { before: "The story", verb: "(take)", after: "place in Mumbai.", answer: "took", tense: "past" },
+  { before: "The film", verb: "(depict)", after: "social inequalities.", answer: "depicts", tense: "present" },
+];
+
+const transData = [
+  { fr: "Beaucoup de gens regardent des films Bollywood chaque année.", en: "Many people watch Bollywood movies every year.", tense: "present" },
+  { fr: "J'ai vu ce film indien hier soir.", en: "I watched / saw this Indian film last night.", tense: "past" },
+  { fr: "Le film ne montre pas toujours la vraie vie en Inde.", en: "The film doesn't always show real life in India.", tense: "present" },
+  { fr: "As-tu aimé la musique dans ce film ?", en: "Did you like the music in this film?", tense: "past" },
+  { fr: "Le réalisateur raconte une histoire d'amour dans une grande ville.", en: "The director tells a love story in a big city.", tense: "present" },
+  { fr: "Les acteurs ont donné une excellente performance dans ce film.", en: "The actors gave an excellent performance in this film.", tense: "past" },
+  { fr: "Beaucoup de touristes visitent l'Inde après avoir vu des films Bollywood.", en: "Many tourists visit India after watching Bollywood films.", tense: "present" },
+  { fr: "Le film n'a pas gagné de prix l'année dernière.", en: "The film didn't win any prize last year.", tense: "past" },
+  { fr: "Les spectateurs comprennent-ils toutes les traditions montrées dans le film ?", en: "Do viewers / spectators understand all the traditions shown in the film?", tense: "present" },
+  { fr: "La musique et la danse créent une atmosphère très spéciale.", en: "Music and dance create a very special atmosphere.", tense: "present" },
+  { fr: "J'ai pris beaucoup de photos pendant mon voyage en Inde.", en: "I took many photos during my trip to India.", tense: "past" },
+  { fr: "Les personnages ne vivent pas dans un monde parfait.", en: "The characters don't live in a perfect world.", tense: "present" },
+  { fr: "Le film a montré le contraste entre richesse et pauvreté.", en: "The film showed the contrast between wealth and poverty.", tense: "past" },
+  { fr: "Les touristes rencontrent souvent des habitants très accueillants.", en: "Tourists often meet very welcoming people.", tense: "present" },
+  { fr: "As-tu compris le message du film ?", en: "Did you understand the message of the film?", tense: "past" },
+];
+
+const quizData = [
+  { q: "She _____ to Bollywood concerts every month.", options: ["go", "goes", "went", "did go"], answer: 1, explain: "3ème personne du singulier (she) → on ajoute -s au verbe : 'goes'. C'est une habitude (every month)." },
+  { q: "I _____ this movie last Friday.", options: ["watch", "watches", "watched", "did watch"], answer: 2, explain: "'Last Friday' indique un passé terminé → prétérit : 'watched' (verbe régulier + ed)." },
+  { q: "The film _____ the story of a young dancer.", options: ["told", "tell", "tells", "telling"], answer: 2, explain: "On décrit le contenu d'un film → présent de narration. 3ème pers. sg. : 'tells'." },
+  { q: "_____ you like the music in that film?", options: ["Do", "Does", "Did", "Were"], answer: 2, explain: "'That film' = passé. Question au prétérit → auxiliaire 'Did'." },
+  { q: "Many tourists _____ India every year.", options: ["visited", "visit", "visits", "are visiting"], answer: 1, explain: "'Every year' = habitude régulière → présent simple. Sujet pluriel → pas de -s : 'visit'." },
+  { q: "The director _____ this film in 2015.", options: ["make", "makes", "made", "makes"], answer: 2, explain: "'In 2015' = date passée précise → prétérit. 'make' est irrégulier : make → 'made'." },
+  { q: "He _____ understand all the traditions during his trip.", options: ["doesn't", "don't", "didn't", "wasn't"], answer: 2, explain: "Action passée terminée (during his trip) → prétérit négatif : 'didn't understand'." },
+  { q: "The story _____ place in Mumbai.", options: ["take", "takes", "took", "taked"], answer: 2, explain: "Contexte passé. 'take' est irrégulier : take → 'took'." },
+  { q: "_____ Bollywood films represent Indian culture well?", options: ["Did", "Do", "Does", "Are"], answer: 1, explain: "Question sur un fait général / habituel → présent simple. Sujet pluriel → 'Do'." },
+  { q: "She _____ many photos during her visit to India.", options: ["takes", "take", "took", "taken"], answer: 2, explain: "'During her visit' = passé terminé → prétérit. 'take' → 'took'." },
+];
+
+const memoData = [
+  { type: "Règle", front: "Quand utilise-t-on le Present Simple ?", back: "Pour les habitudes, faits généraux, vérités universelles, et le contenu d'un film (présent de narration)." },
+  { type: "Formule", front: "Forme NÉGATIVE du Present Simple (he/she/it)", back: "he/she/it + DOES NOT (doesn't) + base verbale\nEx: She doesn't like horror films." },
+  { type: "Formule", front: "Forme INTERROGATIVE du Present Simple", back: "Do / Does + sujet + base verbale ?\nEx: Does the director show inequalities?" },
+  { type: "Règle", front: "Quand utilise-t-on le Simple Past ?", back: "Pour des actions terminées dans le passé, souvent avec: yesterday, last week, in 2010, ago..." },
+  { type: "Formule", front: "Forme NÉGATIVE du Simple Past", back: "Sujet + DID NOT (didn't) + base verbale\nEx: The film didn't represent reality." },
+  { type: "Formule", front: "Forme INTERROGATIVE du Simple Past", back: "Did + sujet + base verbale ?\nEx: Did you understand the message?" },
+  { type: "Irrégulier", front: "take → ?", back: "took\n→ The story took place in Mumbai." },
+  { type: "Irrégulier", front: "make → ?", back: "made\n→ The director made this film in 2010." },
+  { type: "Irrégulier", front: "see → ?", back: "saw\n→ I saw this movie last week." },
+  { type: "Irrégulier", front: "give → ?", back: "gave\n→ The actors gave excellent performances." },
+  { type: "Irrégulier", front: "go → ?", back: "went\n→ She went to the cinema yesterday." },
+  { type: "Irrégulier", front: "meet → ?", back: "met\n→ Tourists met local people." },
+  { type: "Piège", front: "Quelle est la différence entre ces deux phrases ?\n'The film shows poverty.' vs 'The film showed poverty.'", back: "PRÉSENT → on décrit le contenu (narration)\nPASSÉ → on parle d'un film spécifique qu'on a vu à une date précise." },
+  { type: "Piège", front: "Attention ! En négatif/interrogatif au prétérit, le verbe prend quelle forme ?", back: "La BASE VERBALE (infinitif sans 'to')\nEx: I didn't GO (not 'went') / Did he MAKE (not 'made')?" },
+  { type: "Marqueurs", front: "Quels mots indiquent le Present Simple ?", back: "every day/week/year, usually, often, always, sometimes, never, in general" },
+  { type: "Marqueurs", front: "Quels mots indiquent le Simple Past ?", back: "yesterday, last week/year, in 2010, two days ago, when I was a child" },
+];
+
+// ─── STATE ─────────────────────────────────────────────
+let fillAnswers = {};
+let fillChecked = false;
+let quizAnswers = {};
+let quizScore = 0;
+let quizDone = 0;
+
+// ─── TABS ──────────────────────────────────────────────
+function switchTab(group, id) {
+  const panels = document.querySelectorAll(`[id^="${group}-"]`);
+  const tabs = document.querySelectorAll(`.module-tabs .tab`);
+  panels.forEach(p => p.classList.remove('active'));
+  document.getElementById(`${group}-${id}`)?.classList.add('active');
+  // find the tab index
+  const allGroups = document.querySelectorAll('.module-tabs');
+  // simple approach: toggle active by sibling order
+}
+
+// override tab click to handle active state
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('tab')) {
+    const tabs = e.target.closest('.module-tabs').querySelectorAll('.tab');
+    tabs.forEach(t => t.classList.remove('active'));
+    e.target.classList.add('active');
+  }
+});
+
+// ─── FILL BLANKS ────────────────────────────────────────
+function buildFill() {
+  const c = document.getElementById('fill-container');
+  c.innerHTML = '';
+  fillData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'fill-sentence';
+    div.id = `fill-row-${i}`;
+    div.innerHTML = `
+      <span class="fill-num">${String(i+1).padStart(2,'0')}.</span>
+      <span class="fill-text">${item.before}</span>
+      <input class="fill-input" type="text" id="fill-${i}" placeholder="${item.verb}" oninput="updateFillProgress()">
+      <span class="fill-text">${item.after}</span>
+      <span class="fill-icon" id="fill-icon-${i}"></span>
+    `;
+    c.appendChild(div);
+  });
+}
+
+function updateFillProgress() {
+  let answered = 0;
+  fillData.forEach((_,i) => {
+    if (document.getElementById(`fill-${i}`)?.value.trim()) answered++;
+  });
+  document.getElementById('fill-progress-text').textContent = `${answered} / ${fillData.length} répondus`;
+  document.getElementById('fill-progress-bar').style.width = `${(answered/fillData.length)*100}%`;
+}
+
+function submitFill() {
+  let score = 0;
+  fillData.forEach((item, i) => {
+    const inp = document.getElementById(`fill-${i}`);
+    const row = document.getElementById(`fill-row-${i}`);
+    const icon = document.getElementById(`fill-icon-${i}`);
+    const val = inp.value.trim().toLowerCase().replace(/'/g,"'");
+    const correct = item.answer.toLowerCase().replace(/'/g,"'");
+    if (val === correct || correct.split('/').map(s=>s.trim()).includes(val)) {
+      inp.classList.add('correct'); inp.classList.remove('incorrect');
+      icon.textContent = '✅'; row.classList.add('correct'); row.classList.remove('incorrect');
+      score++;
+    } else {
+      inp.classList.add('incorrect'); inp.classList.remove('correct');
+      icon.textContent = '❌'; inp.value = item.answer;
+      row.classList.add('incorrect'); row.classList.remove('correct');
+    }
+    inp.disabled = true;
+  });
+  document.getElementById('fill-score').textContent = score;
+  const panel = document.getElementById('fill-results');
+  panel.classList.add('show');
+  const pct = score / fillData.length;
+  document.getElementById('fill-emoji').textContent = pct >= 0.9 ? '🏆' : pct >= 0.7 ? '🎉' : pct >= 0.5 ? '💪' : '😅';
+  document.getElementById('fill-final-score').textContent = `${score} / ${fillData.length}`;
+  document.getElementById('fill-msg').textContent = pct >= 0.9 ? 'Excellent ! Tu maîtrises parfaitement !' : pct >= 0.7 ? 'Très bien ! Encore un peu de pratique !' : pct >= 0.5 ? 'Pas mal, continue tes révisions !' : 'Relis les leçons et réessaie !';
+}
+
+function resetFill() {
+  buildFill();
+  fillChecked = false;
+  document.getElementById('fill-score').textContent = '0';
+  document.getElementById('fill-progress-text').textContent = '0 / 10 répondus';
+  document.getElementById('fill-progress-bar').style.width = '0%';
+  document.getElementById('fill-results').classList.remove('show');
+}
+
+// ─── TRANSLATIONS ────────────────────────────────────────
+function buildTranslations() {
+  const c = document.getElementById('trans-container');
+  c.innerHTML = '';
+  transData.forEach((item, i) => {
+    const color = item.tense === 'present' ? 'var(--present)' : 'var(--past)';
+    const label = item.tense === 'present' ? 'Present' : 'Past';
+    const div = document.createElement('div');
+    div.className = 'trans-exercise';
+    div.id = `trans-card-${i}`;
+    div.innerHTML = `
+      <div class="trans-num">${String(i+1).padStart(2,'0')} — <span style="color:${color};font-weight:600;">${label}</span></div>
+      <div class="trans-fr">${item.fr}</div>
+      <textarea class="trans-input" id="trans-${i}" rows="2" placeholder="Tapez la traduction en anglais..."></textarea>
+      <div class="trans-feedback" id="trans-fb-${i}"></div>
+    `;
+    c.appendChild(div);
+  });
+}
+
+function submitTranslations() {
+  let score = 0;
+  transData.forEach((item, i) => {
+    const inp = document.getElementById(`trans-${i}`);
+    const fb = document.getElementById(`trans-fb-${i}`);
+    const card = document.getElementById(`trans-card-${i}`);
+    const val = inp.value.trim().toLowerCase().replace(/['"]/g,"");
+    // Check key words presence
+    const keyWords = item.en.toLowerCase().replace(/['"?!.]/g,"").split(' ').filter(w => w.length > 3);
+    const matchCount = keyWords.filter(w => val.includes(w)).length;
+    const isCorrect = matchCount >= Math.ceil(keyWords.length * 0.7);
+    if (isCorrect) {
+      card.classList.add('correct'); card.classList.remove('incorrect');
+      fb.className = 'trans-feedback show correct-fb';
+      fb.innerHTML = `✅ Correct ! <span style="opacity:0.7">Réponse suggérée : ${item.en}</span>`;
+      score++;
+    } else {
+      card.classList.add('incorrect'); card.classList.remove('correct');
+      fb.className = 'trans-feedback show incorrect-fb';
+      fb.innerHTML = `❌ Réponse correcte : <strong>${item.en}</strong>`;
+    }
+    inp.disabled = true;
+  });
+  document.getElementById('trans-score').textContent = score;
+  const panel = document.getElementById('trans-results');
+  panel.classList.add('show');
+  const pct = score / transData.length;
+  document.getElementById('trans-emoji').textContent = pct >= 0.9 ? '🏆' : pct >= 0.7 ? '🎉' : '💪';
+  document.getElementById('trans-final-score').textContent = `${score} / ${transData.length}`;
+  document.getElementById('trans-msg').textContent = pct >= 0.9 ? 'Parfait ! Traduction maîtrisée !' : pct >= 0.7 ? 'Très bien ! Quelques erreurs à corriger.' : 'Continue à t\'entraîner !';
+}
+
+function resetTranslations() {
+  buildTranslations();
+  document.getElementById('trans-score').textContent = '0';
+  document.getElementById('trans-results').classList.remove('show');
+}
+
+// ─── REWRITE ────────────────────────────────────────────
+function showRewriteHint() {
+  document.getElementById('rewrite-hint').classList.add('show');
+}
+function clearRewrite() {
+  document.getElementById('rewrite-text').value = '';
+  document.getElementById('rewrite-hint').classList.remove('show');
+}
+
+// ─── QUIZ ───────────────────────────────────────────────
+function buildQuiz() {
+  const c = document.getElementById('quiz-container');
+  c.innerHTML = '';
+  quizAnswers = {}; quizScore = 0; quizDone = 0;
+  quizData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-card';
+    div.id = `quiz-card-${i}`;
+    const opts = item.options.map((o, j) => `<button class="quiz-option" id="qopt-${i}-${j}" onclick="answerQuiz(${i},${j})">${o}</button>`).join('');
+    div.innerHTML = `
+      <div class="quiz-q">${String(i+1).padStart(2,'0')}.  ${item.q}</div>
+      <div class="quiz-options">${opts}</div>
+      <div class="quiz-explain" id="quiz-exp-${i}">💡 ${item.explain}</div>
+    `;
+    c.appendChild(div);
+  });
+  updateQuizProgress();
+}
+
+function answerQuiz(qIdx, optIdx) {
+  if (quizAnswers[qIdx] !== undefined) return;
+  quizAnswers[qIdx] = optIdx;
+  quizDone++;
+  const isCorrect = optIdx === quizData[qIdx].answer;
+  if (isCorrect) quizScore++;
+
+  const card = document.getElementById(`quiz-card-${qIdx}`);
+  card.classList.add(isCorrect ? 'answered-correct' : 'answered-incorrect');
+
+  quizData[qIdx].options.forEach((_, j) => {
+    const btn = document.getElementById(`qopt-${qIdx}-${j}`);
+    btn.disabled = true;
+    if (j === quizData[qIdx].answer) btn.classList.add('reveal-correct');
+    if (j === optIdx && !isCorrect) btn.classList.add('selected-incorrect');
+    if (j === optIdx && isCorrect) btn.classList.add('selected-correct');
+  });
+
+  document.getElementById(`quiz-exp-${qIdx}`).classList.add('show');
+  document.getElementById('quiz-score').textContent = quizScore;
+  updateQuizProgress();
+
+  if (quizDone === quizData.length) {
+    setTimeout(() => {
+      const panel = document.getElementById('quiz-results');
+      panel.classList.add('show');
+      const pct = quizScore / quizData.length;
+      document.getElementById('quiz-emoji').textContent = pct >= 0.9 ? '🏆' : pct >= 0.7 ? '🎉' : pct >= 0.5 ? '💪' : '😅';
+      document.getElementById('quiz-final-score').textContent = `${quizScore} / ${quizData.length}`;
+      document.getElementById('quiz-msg').textContent = pct >= 0.9 ? 'Exceptionnel ! Tu es un(e) champion(ne) !' : pct >= 0.7 ? 'Super boulot ! Relis les explications pour la suite.' : pct >= 0.5 ? 'Pas mal ! Encore un peu d\'entraînement.' : 'Revois les leçons et retente le quiz !';
+    }, 400);
+  }
+}
+
+function updateQuizProgress() {
+  document.getElementById('quiz-progress-text').textContent = `${quizDone} / ${quizData.length}`;
+  document.getElementById('quiz-progress-bar').style.width = `${(quizDone/quizData.length)*100}%`;
+}
+
+function resetQuiz() {
+  document.getElementById('quiz-results').classList.remove('show');
+  document.getElementById('quiz-score').textContent = '0';
+  buildQuiz();
+}
+
+// ─── MEMO CARDS ─────────────────────────────────────────
+function buildMemo() {
+  const g = document.getElementById('memo-grid');
+  g.innerHTML = '';
+  const typeColors = { 'Règle': 'var(--present)', 'Formule': 'var(--accent)', 'Irrégulier': 'var(--past)', 'Piège': 'var(--gold)', 'Marqueurs': '#60a5fa' };
+  memoData.forEach((item, i) => {
+    const color = typeColors[item.type] || 'var(--text-muted)';
+    const div = document.createElement('div');
+    div.className = 'memo-card';
+    div.innerHTML = `
+      <div class="memo-front">
+        <div class="memo-type" style="color:${color}">${item.type}</div>
+        <div class="memo-text">${item.front.replace(/\n/g,'<br>')}</div>
+        <div class="memo-flip-hint">👆 Clique pour voir la réponse</div>
+      </div>
+      <div class="memo-back">
+        <div class="memo-type" style="color:${color}">Réponse</div>
+        <div class="memo-answer">${item.back.replace(/\n/g,'<br>')}</div>
+        <div class="memo-flip-hint">👆 Clique pour masquer</div>
+      </div>
+    `;
+    div.addEventListener('click', () => div.classList.toggle('flipped'));
+    g.appendChild(div);
+  });
+}
+
+// ─── INIT ───────────────────────────────────────────────
+buildFill();
+buildTranslations();
+buildQuiz();
+buildMemo();
+
+// Smooth scroll offset for fixed nav
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+  });
+});
+
+// Nav active state on scroll
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === `#${cur}`);
+  });
+});
+</script>
+</body>
+</html>
