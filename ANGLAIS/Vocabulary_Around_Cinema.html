@@ -1,1 +1,1260 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CINÉ·VOCAB — Anglais ↔ Français</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080608;
+  --film: #0e0a0e;
+  --surface: #141018;
+  --surface2: #1c1422;
+  --border: rgba(255,220,100,0.08);
+  --gold: #f5c842;
+  --gold2: #e8a020;
+  --red: #e8283a;
+  --cream: #f0e8d5;
+  --silver: #b8b0c0;
+  --neon: #00e5ff;
+  --text: #f0e8d5;
+  --muted: #7a6e80;
+  --r: 16px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Crimson Pro', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor — clapperboard dot */
+.cursor {
+  width: 12px; height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed; z-index: 9999;
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s, background 0.2s;
+  box-shadow: 0 0 12px var(--gold);
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(245,200,66,0.4);
+  border-radius: 50%;
+  position: fixed; z-index: 9998;
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+  transition: all 0.15s ease;
+}
+
+/* ── FILM STRIP BACKGROUND ── */
+body::before {
+  content: '';
+  position: fixed; top:0; left:0; width:40px; height:100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 30px,
+    rgba(255,220,100,0.05) 30px, rgba(255,220,100,0.05) 32px,
+    transparent 32px, transparent 46px,
+    rgba(255,220,100,0.05) 46px, rgba(255,220,100,0.05) 50px,
+    transparent 50px, transparent 80px
+  );
+  pointer-events: none; z-index:0;
+}
+body::after {
+  content: '';
+  position: fixed; top:0; right:0; width:40px; height:100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 30px,
+    rgba(255,220,100,0.05) 30px, rgba(255,220,100,0.05) 32px,
+    transparent 32px, transparent 46px,
+    rgba(255,220,100,0.05) 46px, rgba(255,220,100,0.05) 50px,
+    transparent 50px, transparent 80px
+  );
+  pointer-events: none; z-index:0;
+}
+
+/* ══════════════════════════════════
+   HEADER — Cinema Marquee
+══════════════════════════════════ */
+header {
+  position: relative; z-index: 10;
+  padding: 50px 60px 36px;
+  background: linear-gradient(180deg, rgba(245,200,66,0.04) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(245,200,66,0.12);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Marquee lights */
+.marquee-lights {
+  display: flex; justify-content: center; gap: 18px;
+  margin-bottom: 20px;
+}
+.bulb {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold), 0 0 20px rgba(245,200,66,0.4);
+  animation: bulb-blink 1.6s infinite;
+}
+.bulb:nth-child(2n) { animation-delay: 0.4s; background: var(--red); box-shadow: 0 0 8px var(--red), 0 0 20px rgba(232,40,58,0.4); }
+.bulb:nth-child(3n) { animation-delay: 0.8s; }
+@keyframes bulb-blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+h1 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: clamp(52px, 10vw, 108px);
+  letter-spacing: 16px;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-shadow: 0 0 60px rgba(245,200,66,0.3), 0 2px 0 rgba(0,0,0,0.8);
+  line-height: 1;
+}
+
+.tagline {
+  font-family: 'Courier Prime', monospace;
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: var(--silver);
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+.tagline span { color: var(--gold2); }
+
+/* XP Film Reel Bar */
+.reel-bar-wrap {
+  max-width: 480px; margin: 28px auto 0;
+  position: relative;
+}
+.reel-label {
+  display: flex; justify-content: space-between;
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px; letter-spacing:2px; text-transform:uppercase;
+  color: var(--muted); margin-bottom: 8px;
+}
+.reel-label span { color: var(--gold); }
+.reel-track {
+  height: 6px; background: rgba(255,255,255,0.05);
+  border-radius: 100px; overflow:hidden;
+  border: 1px solid rgba(245,200,66,0.1);
+}
+.reel-fill {
+  height: 100%; border-radius: 100px;
+  background: linear-gradient(90deg, var(--gold2), var(--gold));
+  box-shadow: 0 0 16px rgba(245,200,66,0.5);
+  transition: width 0.7s cubic-bezier(.22,1,.36,1);
+}
+
+/* ══════════════════════════════════
+   STATS ROW
+══════════════════════════════════ */
+.stats-row {
+  display: flex; justify-content: center; gap: 20px;
+  padding: 18px 40px; position: relative; z-index:10;
+  flex-wrap: wrap;
+}
+.stat-chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 18px;
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Courier Prime', monospace; font-size:12px;
+  letter-spacing: 1px; text-transform: uppercase;
+  transition: all 0.2s;
+}
+.stat-chip:hover { border-color: rgba(245,200,66,0.25); background: var(--surface2); }
+.stat-chip .val { color: var(--gold); font-weight: 700; font-size:14px; }
+.stat-chip .lbl { color: var(--muted); }
+
+/* ══════════════════════════════════
+   NAV TABS — Cinema ticket style
+══════════════════════════════════ */
+.nav-tabs {
+  display: flex; justify-content: center; gap: 6px;
+  padding: 0 40px 36px; position: relative; z-index:10;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  background: var(--surface);
+  border: 1px solid rgba(245,200,66,0.12);
+  border-radius: 8px; padding: 11px 22px;
+  color: var(--muted); font-family: 'Oswald', sans-serif;
+  font-size: 13px; font-weight: 400; letter-spacing: 2px;
+  text-transform: uppercase; cursor: pointer;
+  transition: all 0.25s; display: flex; align-items: center; gap: 8px;
+}
+.tab-btn:hover { color: var(--cream); border-color: rgba(245,200,66,0.3); background: var(--surface2); }
+.tab-btn.active {
+  background: var(--gold);
+  border-color: var(--gold); color: #080608;
+  font-weight: 700;
+  box-shadow: 0 4px 24px rgba(245,200,66,0.35);
+}
+
+/* ══════════════════════════════════
+   MAIN
+══════════════════════════════════ */
+main {
+  max-width: 860px; margin: 0 auto;
+  padding: 0 24px 80px; position: relative; z-index: 10;
+}
+
+.section { display:none; }
+.section.active { display:block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+.section-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 38px; font-weight: 700; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--cream);
+  margin-bottom: 4px; display: flex; align-items: center; gap: 14px;
+}
+.section-title .acc { color: var(--gold); }
+.section-desc {
+  font-family: 'Crimson Pro', serif; font-style: italic;
+  font-size: 16px; color: var(--muted); margin-bottom: 30px; line-height: 1.6;
+}
+
+/* ══════════════════════════════════
+   S1 — FLASHCARDS — clapperboard flip
+══════════════════════════════════ */
+.cat-row {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+}
+.cat-pill {
+  padding: 6px 16px; border-radius: 6px;
+  border: 1px solid rgba(245,200,66,0.15);
+  background: var(--surface); cursor: pointer;
+  font-family: 'Oswald', sans-serif; font-size: 12px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); transition: all 0.2s;
+}
+.cat-pill.active { background: var(--gold); border-color:var(--gold); color:#080608; font-weight:700; }
+
+.fc-arena { perspective: 1400px; margin-bottom: 20px; }
+
+.fc-card {
+  width: 100%; height: 260px;
+  position: relative; cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(.22,1,.36,1);
+}
+.fc-card.flipped { transform: rotateY(180deg); }
+
+.fc-face {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  border-radius: 18px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+}
+
+/* Front: dark cinema screen look */
+.fc-front {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 40%, rgba(245,200,66,0.06), transparent),
+    linear-gradient(160deg, #1a1018 0%, #0e0a0e 100%);
+  border: 1px solid rgba(245,200,66,0.18);
+}
+.fc-front::before {
+  content:'';
+  position:absolute; inset:0; border-radius:18px;
+  background: repeating-linear-gradient(
+    0deg, transparent 0px, transparent 3px, rgba(0,0,0,0.15) 3px, rgba(0,0,0,0.15) 4px
+  );
+  pointer-events:none;
+}
+
+/* Back: french subtitle card */
+.fc-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(160deg, #0a1a12 0%, #0a0e18 100%);
+  border: 1px solid rgba(0,229,255,0.2);
+}
+
+.fc-lang {
+  font-family: 'Courier Prime', monospace; font-size: 10px;
+  letter-spacing: 3px; text-transform: uppercase;
+  padding: 4px 14px; border-radius: 4px;
+}
+.fc-front .fc-lang { background: rgba(245,200,66,0.1); color: var(--gold); }
+.fc-back .fc-lang { background: rgba(0,229,255,0.1); color: var(--neon); }
+
+.fc-word {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(32px, 6vw, 58px);
+  font-weight: 700; letter-spacing: 2px;
+  text-align: center; padding: 0 28px; line-height: 1.1;
+}
+.fc-front .fc-word { color: var(--cream); }
+.fc-back .fc-word { color: var(--neon); }
+
+.fc-sub { font-family:'Crimson Pro',serif; font-style:italic; font-size:15px; color:var(--muted); }
+
+.fc-tap { 
+  position:absolute; bottom:16px; right:20px;
+  font-family:'Courier Prime',monospace; font-size:10px;
+  letter-spacing:2px; color:rgba(255,255,255,0.15); text-transform:uppercase;
+}
+
+.fc-btns { display:flex; gap:12px; justify-content:center; }
+.fc-btn {
+  flex:1; max-width:190px; padding:13px; border-radius:10px; border:none;
+  font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:2px;
+  text-transform:uppercase; cursor:pointer; transition:all 0.2s;
+}
+.fc-btn.no { background:rgba(232,40,58,0.1); color:var(--red); border:1px solid rgba(232,40,58,0.3); }
+.fc-btn.yes { background:rgba(34,200,100,0.1); color:#22c864; border:1px solid rgba(34,200,100,0.3); }
+.fc-btn.flip { background:var(--gold); color:#080608; font-weight:700; flex:1; max-width:100%; box-shadow:0 4px 20px rgba(245,200,66,0.3); }
+.fc-btn:hover { transform:translateY(-2px); filter:brightness(1.15); }
+
+.fc-score-row {
+  text-align:center; margin-top:12px;
+  font-family:'Courier Prime',monospace; font-size:12px; color:var(--muted); letter-spacing:2px;
+}
+.fc-score-row strong { color:var(--cream); }
+
+/* ══════════════════════════════════
+   S2 — QUIZ
+══════════════════════════════════ */
+.quiz-top {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:18px; flex-wrap:wrap; gap:12px;
+}
+.q-counter {
+  font-family:'Courier Prime',monospace; font-size:12px;
+  letter-spacing:3px; color:var(--muted); text-transform:uppercase;
+}
+.q-timer {
+  font-family:'Oswald',sans-serif; font-size:30px; font-weight:700;
+  color:var(--gold); letter-spacing:2px;
+}
+.q-timer.hot { color:var(--red); animation:shake 0.4s infinite; }
+@keyframes shake { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
+
+.quiz-q-box {
+  background: var(--surface);
+  border: 1px solid rgba(245,200,66,0.14);
+  border-radius:18px; padding:36px; text-align:center;
+  margin-bottom:18px; position:relative; overflow:hidden;
+}
+.quiz-q-box::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.q-dir {
+  font-family:'Courier Prime',monospace; font-size:10px;
+  letter-spacing:3px; color:var(--gold2); text-transform:uppercase; margin-bottom:10px;
+}
+.q-word {
+  font-family:'Oswald',sans-serif; font-size:clamp(36px,7vw,64px);
+  font-weight:700; letter-spacing:3px; color:var(--cream); line-height:1;
+}
+.q-hint { font-family:'Crimson Pro',serif; font-style:italic; font-size:14px; color:var(--muted); margin-top:8px; }
+
+.quiz-opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+.q-opt {
+  background:var(--surface); border:1px solid rgba(245,200,66,0.1);
+  border-radius:12px; padding:16px 18px; cursor:pointer;
+  font-family:'Crimson Pro',serif; font-size:16px; color:var(--cream);
+  display:flex; align-items:center; gap:12px; transition:all 0.2s;
+  text-align:left;
+}
+.q-opt:hover:not(:disabled) { background:var(--surface2); border-color:rgba(245,200,66,0.3); transform:translateY(-2px); }
+.q-opt-letter {
+  width:28px; height:28px; border-radius:6px; flex-shrink:0;
+  background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;
+  font-family:'Courier Prime',monospace; font-size:11px; font-weight:700; color:var(--muted);
+}
+.q-opt.correct { background:rgba(34,200,100,0.1); border-color:#22c864; }
+.q-opt.correct .q-opt-letter { background:#22c864; color:#080608; }
+.q-opt.wrong-pick { background:rgba(232,40,58,0.1); border-color:var(--red); }
+.q-opt.wrong-pick .q-opt-letter { background:var(--red); color:#fff; }
+
+.q-feedback {
+  border-radius:12px; padding:14px 18px; font-size:15px; font-weight:400;
+  font-family:'Crimson Pro',serif; text-align:center; margin-bottom:14px; display:none;
+}
+.q-feedback.show { display:block; }
+.q-feedback.ok { background:rgba(34,200,100,0.08); color:#22c864; border:1px solid rgba(34,200,100,0.2); }
+.q-feedback.ko { background:rgba(232,40,58,0.08); color:var(--red); border:1px solid rgba(232,40,58,0.2); }
+
+.btn-main {
+  display:none; width:100%; padding:16px; border-radius:12px; border:none;
+  background: linear-gradient(90deg, var(--gold2), var(--gold));
+  color:#080608; font-family:'Oswald',sans-serif; font-size:16px;
+  font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer;
+  box-shadow:0 6px 24px rgba(245,200,66,0.3); transition:all 0.2s;
+}
+.btn-main.show { display:block; animation:fadeIn 0.3s ease; }
+.btn-main:hover { transform:translateY(-2px); box-shadow:0 10px 36px rgba(245,200,66,0.45); }
+
+.quiz-end {
+  display:none; text-align:center; padding:50px 0;
+}
+.end-score {
+  font-family:'Oswald',sans-serif; font-size:90px; font-weight:700; letter-spacing:8px; line-height:1;
+}
+.end-score.s-great { color:var(--gold); text-shadow:0 0 50px rgba(245,200,66,0.5); }
+.end-score.s-mid { color:var(--silver); text-shadow:0 0 30px rgba(184,176,192,0.4); }
+.end-score.s-low { color:var(--red); text-shadow:0 0 30px rgba(232,40,58,0.4); }
+.end-msg { font-family:'Crimson Pro',serif; font-style:italic; font-size:20px; color:var(--muted); margin:10px 0 28px; }
+
+/* ══════════════════════════════════
+   S3 — FILL (Screenplay style)
+══════════════════════════════════ */
+.screenplay-box {
+  background: #f5f0e8;
+  border-radius:16px; padding:32px 40px;
+  font-family:'Courier Prime',monospace; font-size:15px;
+  line-height:2.4; color:#1a1018; margin-bottom:18px;
+  position:relative; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+.screenplay-box::before {
+  content: 'SCREENPLAY — EXERCICE';
+  position:absolute; top:14px; right:20px;
+  font-size:9px; letter-spacing:3px; color:rgba(0,0,0,0.2);
+}
+.sp-blank {
+  display:inline-block; min-width:130px; position:relative;
+  border-bottom:2px solid #8b5520;
+  background:rgba(139,85,32,0.06); border-radius:4px 4px 0 0; padding:1px 8px; margin:0 3px;
+}
+.sp-blank input {
+  background:transparent; border:none; outline:none;
+  font-family:'Courier Prime',monospace; font-size:15px; font-weight:700;
+  color:#8b5520; min-width:110px; width:100%; text-align:center;
+}
+.sp-blank.ok { border-color:#2a8a2a; background:rgba(42,138,42,0.06); }
+.sp-blank.ok input { color:#2a8a2a; }
+.sp-blank.ko { border-color:#cc2222; background:rgba(204,34,34,0.06); }
+.sp-blank.ko input { color:#cc2222; }
+
+.fill-hint-box {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:14px 20px; margin-bottom:18px;
+  font-family:'Courier Prime',monospace; font-size:12px; letter-spacing:1px; color:var(--muted);
+}
+.fill-hint-box strong { color:var(--gold2); }
+
+.fill-btns { display:flex; gap:10px; }
+.fill-btn {
+  padding:12px 26px; border-radius:10px; border:none; cursor:pointer;
+  font-family:'Oswald',sans-serif; font-size:13px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase; transition:all 0.2s;
+}
+.fill-btn.check { background:linear-gradient(90deg,var(--gold2),var(--gold)); color:#080608; flex:1; }
+.fill-btn.reveal { background:var(--surface2); border:1px solid var(--border); color:var(--muted); }
+.fill-btn.next { background:var(--surface2); border:1px solid var(--border); color:var(--silver); }
+.fill-btn:hover { transform:translateY(-2px); filter:brightness(1.1); }
+
+/* ══════════════════════════════════
+   S4 — EXAM (Director's Cut)
+══════════════════════════════════ */
+.slate-banner {
+  background: #111; border:2px solid var(--gold);
+  border-radius:16px; padding:22px 28px; margin-bottom:26px;
+  display:flex; align-items:center; gap:18px;
+  box-shadow:0 0 40px rgba(245,200,66,0.08);
+}
+.slate-lines {
+  width:48px; height:40px; position:relative; flex-shrink:0;
+  background:#333;
+  border-radius:4px;
+  overflow:hidden;
+}
+.slate-lines::before {
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(
+    -45deg,
+    #000 0px, #000 4px, #fff 4px, #fff 8px
+  );
+  opacity:0.8;
+}
+.slate-title { font-family:'Oswald',sans-serif; font-size:26px; font-weight:700; letter-spacing:3px; color:var(--gold); }
+.slate-sub { font-family:'Courier Prime',monospace; font-size:12px; letter-spacing:2px; color:var(--muted); margin-top:3px; }
+
+.exam-list { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:22px; }
+.exam-item {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:16px 18px;
+  display:flex; align-items:center; gap:14px;
+}
+.exam-n {
+  width:32px; height:32px; border-radius:8px; flex-shrink:0;
+  background:rgba(245,200,66,0.1); border:1px solid rgba(245,200,66,0.2);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Oswald',sans-serif; font-size:13px; font-weight:700; color:var(--gold);
+}
+.exam-en { font-size:15px; color:var(--cream); margin-bottom:6px; font-family:'Crimson Pro',serif; }
+.exam-inp {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06);
+  border-radius:7px; padding:7px 11px; color:var(--cream);
+  font-family:'Courier Prime',monospace; font-size:13px; width:100%; outline:none;
+  transition:border 0.2s;
+}
+.exam-inp:focus { border-color:rgba(245,200,66,0.4); background:rgba(245,200,66,0.04); }
+.exam-inp.ok { border-color:#22c864; background:rgba(34,200,100,0.04); color:#22c864; }
+.exam-inp.ko { border-color:var(--red); background:rgba(232,40,58,0.04); color:var(--red); }
+
+.exam-cta {
+  width:100%; padding:18px; border-radius:12px; border:none;
+  background: linear-gradient(90deg, #7a0010, #cc0020);
+  color:#fff; font-family:'Oswald',sans-serif;
+  font-size:18px; font-weight:700; letter-spacing:4px; text-transform:uppercase;
+  cursor:pointer; transition:all 0.2s;
+  box-shadow:0 6px 28px rgba(232,40,58,0.3);
+}
+.exam-cta:hover { transform:translateY(-3px); box-shadow:0 10px 40px rgba(232,40,58,0.45); }
+
+.exam-result {
+  display:none; text-align:center; padding:36px 20px;
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:20px; margin-top:20px;
+}
+.exam-result.show { display:block; animation:fadeIn 0.4s ease; }
+.exam-result-score {
+  font-family:'Oswald',sans-serif; font-size:80px; font-weight:700; letter-spacing:6px; line-height:1;
+}
+.s-gold { color:var(--gold); text-shadow:0 0 40px rgba(245,200,66,0.5); }
+.s-silver { color:var(--silver); text-shadow:0 0 30px rgba(184,176,192,0.4); }
+.s-red { color:var(--red); text-shadow:0 0 30px rgba(232,40,58,0.4); }
+.exam-verdict { font-family:'Crimson Pro',serif; font-style:italic; font-size:18px; color:var(--muted); margin:8px 0 20px; }
+.breakdown { font-family:'Courier Prime',monospace; font-size:12px; color:var(--muted); line-height:2; text-align:left; max-width:500px; margin:0 auto 20px; }
+
+/* ══════════════════════════════════
+   S5 — VOCAB (Movie Poster Grid)
+══════════════════════════════════ */
+.cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; margin-bottom:28px; }
+.cat-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:14px; padding:20px; cursor:pointer;
+  transition:all 0.25s; text-align:center;
+  position:relative; overflow:hidden;
+}
+.cat-card::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  transform:scaleX(0); transition:transform 0.3s;
+}
+.cat-card:hover { transform:translateY(-4px); border-color:rgba(245,200,66,0.25); background:var(--surface2); }
+.cat-card:hover::after { transform:scaleX(1); }
+.cat-card.c0::after { background:var(--gold); }
+.cat-card.c1::after { background:var(--red); }
+.cat-card.c2::after { background:var(--neon); }
+.cat-card.c3::after { background:#a78bfa; }
+.cat-card.c4::after { background:#fb923c; }
+
+.cat-card-ico { font-size:30px; margin-bottom:8px; }
+.cat-card-name { font-family:'Oswald',sans-serif; font-size:16px; letter-spacing:2px; text-transform:uppercase; color:var(--cream); }
+.cat-card-cnt { font-family:'Courier Prime',monospace; font-size:11px; color:var(--muted); margin-top:4px; }
+
+.vocab-detail { display:none; }
+.vocab-detail.show { display:block; animation:fadeIn 0.35s ease; }
+.back-link {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:9px 18px; border-radius:8px;
+  background:var(--surface); border:1px solid var(--border);
+  color:var(--muted); cursor:pointer; font-family:'Oswald',sans-serif;
+  font-size:12px; letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:18px; transition:all 0.2s;
+}
+.back-link:hover { color:var(--cream); border-color:rgba(245,200,66,0.25); }
+
+.vocab-rows { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.vrow {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:12px 16px;
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  transition:all 0.2s;
+}
+.vrow:hover { background:var(--surface2); border-color:rgba(245,200,66,0.18); }
+.v-en { font-family:'Crimson Pro',serif; font-size:15px; color:var(--cream); }
+.v-fr { font-family:'Crimson Pro',serif; font-style:italic; font-size:14px; color:var(--neon); }
+.v-type {
+  font-family:'Courier Prime',monospace; font-size:9px; letter-spacing:1px;
+  text-transform:uppercase; padding:2px 7px; border-radius:4px;
+  background:rgba(245,200,66,0.08); color:var(--gold2); flex-shrink:0;
+}
+
+/* ══════════════════════════════════
+   POPUP
+══════════════════════════════════ */
+.popup {
+  position:fixed; top:24px; right:24px; z-index:1000;
+  background:var(--surface2); border:1px solid rgba(245,200,66,0.2);
+  border-radius:14px; padding:14px 22px;
+  display:flex; align-items:center; gap:12px;
+  transform:translateX(120%); transition:transform 0.4s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+}
+.popup.show { transform:translateX(0); }
+.p-ico { font-size:26px; }
+.p-txt { font-family:'Oswald',sans-serif; font-size:16px; letter-spacing:2px; color:var(--gold); }
+.p-sub { font-family:'Courier Prime',monospace; font-size:11px; color:var(--muted); }
+
+#confetti { position:fixed; inset:0; pointer-events:none; z-index:500; }
+
+/* ══════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════ */
+@media(max-width:600px) {
+  header { padding:36px 20px 24px; }
+  .quiz-opts, .exam-list, .vocab-rows { grid-template-columns:1fr; }
+  .fc-btns { flex-direction:column; }
+  .fill-btns { flex-wrap:wrap; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+<canvas id="confetti"></canvas>
+
+<div class="popup" id="popup">
+  <div class="p-ico" id="p-ico">🎬</div>
+  <div>
+    <div class="p-txt" id="p-txt">+10 XP</div>
+    <div class="p-sub" id="p-sub">Bonne réponse !</div>
+  </div>
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <div class="marquee-lights">
+    <div class="bulb"></div><div class="bulb"></div><div class="bulb"></div>
+    <div class="bulb"></div><div class="bulb"></div><div class="bulb"></div>
+    <div class="bulb"></div><div class="bulb"></div><div class="bulb"></div>
+    <div class="bulb"></div><div class="bulb"></div><div class="bulb"></div>
+  </div>
+  <h1>CINÉ·VOCAB</h1>
+  <div class="tagline">Anglais <span>↔</span> Français — Vocabulaire du Cinéma</div>
+  <div class="reel-bar-wrap">
+    <div class="reel-label"><span>Progression</span><span id="xp-lbl">40 / 500 XP</span></div>
+    <div class="reel-track"><div class="reel-fill" id="reel-fill" style="width:8%"></div></div>
+  </div>
+</header>
+
+<!-- ══════════ STATS ══════════ -->
+<div class="stats-row">
+  <div class="stat-chip"><span class="val" id="st-xp">40</span><span class="lbl">&nbsp;XP</span></div>
+  <div class="stat-chip">🔥<span class="val" id="st-streak">0</span><span class="lbl">&nbsp;Série</span></div>
+  <div class="stat-chip">✅<span class="val" id="st-ok">0</span><span class="lbl">&nbsp;Corrects</span></div>
+  <div class="stat-chip">🎯<span class="val" id="st-acc">—</span><span class="lbl">&nbsp;Précision</span></div>
+</div>
+
+<!-- ══════════ TABS ══════════ -->
+<nav class="nav-tabs">
+  <button class="tab-btn active" onclick="goTab('flashcards',this)">🎞 Flashcards</button>
+  <button class="tab-btn" onclick="goTab('quiz',this)">⚡ Quiz</button>
+  <button class="tab-btn" onclick="goTab('fill',this)">✍️ Trous</button>
+  <button class="tab-btn" onclick="goTab('exam',this)">🎓 Exam</button>
+  <button class="tab-btn" onclick="goTab('vocab',this)">🎬 Lexique</button>
+</nav>
+
+<main>
+
+  <!-- ╔══════════════════════════════╗
+       ║  S1 FLASHCARDS              ║
+       ╚══════════════════════════════╝ -->
+  <section class="section active" id="s-flashcards">
+    <div class="section-title">🎞 Flash<span class="acc">cards</span></div>
+    <p class="section-desc">Retournez chaque carte pour voir la traduction. Évaluez-vous sincèrement.</p>
+
+    <div class="cat-row" id="fc-cats">
+      <div class="cat-pill active" onclick="pickCat('all',this)">Tout</div>
+      <div class="cat-pill" onclick="pickCat('equipe',this)">🎭 Équipe</div>
+      <div class="cat-pill" onclick="pickCat('technique',this)">🎥 Technique</div>
+      <div class="cat-pill" onclick="pickCat('salle',this)">🍿 Salle</div>
+      <div class="cat-pill" onclick="pickCat('genres',this)">🎬 Genres</div>
+      <div class="cat-pill" onclick="pickCat('narration',this)">📖 Narration</div>
+    </div>
+
+    <div class="fc-arena">
+      <div class="fc-card" id="fc-card" onclick="flipFC()">
+        <div class="fc-face fc-front">
+          <div class="fc-lang">English</div>
+          <div class="fc-word" id="fc-en">—</div>
+          <div class="fc-sub" id="fc-hint"></div>
+          <div class="fc-tap">Cliquez pour retourner →</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-lang">Français</div>
+          <div class="fc-word" id="fc-fr">—</div>
+          <div class="fc-sub" id="fc-extra"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-btns" id="fc-ans-btns" style="display:none">
+      <button class="fc-btn no" onclick="ansFC(false)">😬 À revoir</button>
+      <button class="fc-btn yes" onclick="ansFC(true)">✅ Je savais !</button>
+    </div>
+    <div class="fc-btns" id="fc-reveal-btn">
+      <button class="fc-btn flip" onclick="flipFC()">👁 Voir la traduction</button>
+    </div>
+
+    <div class="fc-score-row">
+      Carte <strong id="fc-i">1</strong> / <strong id="fc-tot">—</strong>
+      &nbsp;·&nbsp; ✅ <span id="fc-good">0</span>
+      &nbsp; ❌ <span id="fc-bad">0</span>
+    </div>
+  </section>
+
+  <!-- ╔══════════════════════════════╗
+       ║  S2 QUIZ                    ║
+       ╚══════════════════════════════╝ -->
+  <section class="section" id="s-quiz">
+    <div class="section-title">⚡ <span class="acc">Quiz</span> Chrono</div>
+    <p class="section-desc">Trouvez la bonne traduction avant la fin du compte à rebours !</p>
+
+    <div id="quiz-main">
+      <div class="quiz-top">
+        <div class="q-counter">Question <span id="qn">1</span>/10</div>
+        <div class="q-timer" id="q-timer">⏱ <span id="t-val">15</span>s</div>
+      </div>
+      <div class="quiz-q-box">
+        <div class="q-dir" id="q-dir">EN → FR</div>
+        <div class="q-word" id="q-word">—</div>
+        <div class="q-hint" id="q-hint"></div>
+      </div>
+      <div class="quiz-opts" id="quiz-opts"></div>
+      <div class="q-feedback" id="q-fb"></div>
+      <button class="btn-main" id="btn-next" onclick="nextQ()">Question suivante →</button>
+    </div>
+
+    <div class="quiz-end" id="quiz-end">
+      <div class="end-score" id="end-score">—</div>
+      <div class="end-msg" id="end-msg"></div>
+      <button class="btn-main show" onclick="startQuiz()" style="max-width:320px;margin:0 auto;">🔄 Rejouer</button>
+    </div>
+  </section>
+
+  <!-- ╔══════════════════════════════╗
+       ║  S3 FILL                    ║
+       ╚══════════════════════════════╝ -->
+  <section class="section" id="s-fill">
+    <div class="section-title">✍️ Texte à <span class="acc">Trous</span></div>
+    <p class="section-desc">Complétez ce dialogue de film avec les mots manquants.</p>
+
+    <div class="fill-hint-box">
+      Mots à placer : <strong id="fill-pool"></strong>
+    </div>
+    <div class="screenplay-box" id="sp-box"></div>
+    <div class="fill-btns">
+      <button class="fill-btn check" onclick="checkFill()">VÉRIFIER</button>
+      <button class="fill-btn reveal" onclick="revealFill()">RÉVÉLER</button>
+      <button class="fill-btn next" onclick="nextFill()">SUIVANT →</button>
+    </div>
+  </section>
+
+  <!-- ╔══════════════════════════════╗
+       ║  S4 EXAM                    ║
+       ╚══════════════════════════════╝ -->
+  <section class="section" id="s-exam">
+    <div class="section-title">🎓 <span class="acc">Exam</span></div>
+    <p class="section-desc">Mode examen blanc — traduisez sans aide extérieure.</p>
+
+    <div class="slate-banner">
+      <div class="slate-lines"></div>
+      <div>
+        <div class="slate-title">DIRECTOR'S TEST</div>
+        <div class="slate-sub">10 mots · Anglais → Français</div>
+      </div>
+    </div>
+
+    <div class="exam-list" id="exam-list"></div>
+    <button class="exam-cta" onclick="submitExam()">🎬 RENDRE LA COPIE</button>
+
+    <div class="exam-result" id="exam-result">
+      <div class="exam-result-score" id="exam-score">—</div>
+      <div class="exam-verdict" id="exam-verdict"></div>
+      <div class="breakdown" id="breakdown"></div>
+      <button class="btn-main show" onclick="resetExam()" style="max-width:300px;margin:0 auto;">🔄 Nouvel examen</button>
+    </div>
+  </section>
+
+  <!-- ╔══════════════════════════════╗
+       ║  S5 VOCAB                   ║
+       ╚══════════════════════════════╝ -->
+  <section class="section" id="s-vocab">
+    <div class="section-title">🎬 <span class="acc">Lexique</span></div>
+    <p class="section-desc">Tout le vocabulaire cinéma, organisé par catégorie.</p>
+
+    <div class="cat-grid" id="cat-grid"></div>
+    <div class="vocab-detail" id="vocab-detail">
+      <button class="back-link" onclick="closeVocab()">← Retour</button>
+      <div class="vocab-rows" id="vocab-rows"></div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════════════════════ */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px';
+  ring.style.left = e.clientX+'px'; ring.style.top = e.clientY+'px';
+});
+
+/* ═══════════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════════ */
+const VOCAB = {
+  equipe: {
+    name: "L'Équipe du Film", icon: "🎭", color: "c0",
+    words: [
+      { en: "a film (US: movie / UK: film)", fr: "un film", type: "nom" },
+      { en: "a director", fr: "un réalisateur", type: "nom" },
+      { en: "an actor / an actress", fr: "un acteur / une actrice", type: "nom" },
+      { en: "a character / the main character", fr: "un personnage / le personnage principal", type: "nom" },
+      { en: "a screenplay / a script", fr: "un scénario", type: "nom" },
+      { en: "to play a role", fr: "jouer un rôle", type: "verbe" },
+    ]
+  },
+  salle: {
+    name: "La Salle & Promotion", icon: "🍿", color: "c1",
+    words: [
+      { en: "a movie theater (US) / a cinema (UK)", fr: "une salle de cinéma", type: "nom" },
+      { en: "a viewer / a spectator", fr: "un spectateur", type: "nom" },
+      { en: "a film review / a film critic", fr: "une critique de film", type: "nom" },
+      { en: "a movie poster", fr: "une affiche de film", type: "nom" },
+      { en: "a trailer", fr: "une bande-annonce", type: "nom" },
+      { en: "a soundtrack", fr: "une bande sonore", type: "nom" },
+    ]
+  },
+  technique: {
+    name: "Technique & Tournage", icon: "🎥", color: "c2",
+    words: [
+      { en: "a close-up", fr: "un gros plan", type: "cadrage" },
+      { en: "a medium shot", fr: "un plan moyen", type: "cadrage" },
+      { en: "a wide shot / an establishing shot", fr: "un plan large / plan d'ensemble", type: "cadrage" },
+      { en: "a camera movement", fr: "un mouvement de caméra", type: "technique" },
+      { en: "a camera angle", fr: "un angle de caméra", type: "technique" },
+      { en: "a high-angle shot", fr: "un plan en plongée", type: "cadrage" },
+      { en: "a low-angle shot", fr: "un plan en contre-plongée", type: "cadrage" },
+      { en: "a camera", fr: "une caméra", type: "matériel" },
+      { en: "a microphone / a mic", fr: "un micro", type: "matériel" },
+      { en: "lighting / light", fr: "l'éclairage / la lumière", type: "technique" },
+      { en: "editing", fr: "le montage", type: "technique" },
+      { en: "a special effect", fr: "un effet spécial", type: "technique" },
+    ]
+  },
+  genres: {
+    name: "Les Genres", icon: "🎬", color: "c3",
+    words: [
+      { en: "an action film", fr: "un film d'action", type: "genre" },
+      { en: "a comedy", fr: "une comédie", type: "genre" },
+      { en: "a romantic film / rom-com", fr: "un film romantique", type: "genre" },
+      { en: "a drama", fr: "un film dramatique", type: "genre" },
+      { en: "a horror film", fr: "un film d'horreur", type: "genre" },
+      { en: "a science-fiction film / sci-fi", fr: "un film de science-fiction", type: "genre" },
+      { en: "a fantasy film", fr: "un film fantastique", type: "genre" },
+      { en: "an animated film", fr: "un film d'animation", type: "genre" },
+      { en: "a detective film / crime film", fr: "un film policier", type: "genre" },
+      { en: "a cartoon", fr: "un dessin animé", type: "genre" },
+      { en: "a documentary", fr: "un documentaire", type: "genre" },
+    ]
+  },
+  narration: {
+    name: "Narration & Corps", icon: "📖", color: "c4",
+    words: [
+      { en: "a plot / a storyline", fr: "une intrigue", type: "narration" },
+      { en: "a scene", fr: "une scène", type: "narration" },
+      { en: "a twist / a plot twist", fr: "un rebondissement", type: "narration" },
+      { en: "a voice-over / a narration", fr: "une voix off", type: "narration" },
+      { en: "facial expression", fr: "l'expression du visage", type: "langage" },
+      { en: "body language", fr: "le langage corporel", type: "langage" },
+    ]
+  }
+};
+
+const ALL = [];
+Object.keys(VOCAB).forEach(k => VOCAB[k].words.forEach(w => ALL.push({...w, cat: k})));
+
+/* ═══════════════════════════════════════════════════════
+   STATE & STATS
+═══════════════════════════════════════════════════════ */
+let xp=40, streak=0, okCount=0, totalAns=0;
+
+function sync() {
+  document.getElementById('st-xp').textContent = xp;
+  document.getElementById('st-streak').textContent = streak;
+  document.getElementById('st-ok').textContent = okCount;
+  document.getElementById('st-acc').textContent = totalAns ? Math.round(okCount/totalAns*100)+'%' : '—';
+  document.getElementById('xp-lbl').textContent = xp+' / 500 XP';
+  document.getElementById('reel-fill').style.width = Math.min(xp/500*100,100)+'%';
+}
+function good(pts, msg) { xp+=pts; streak++; okCount++; totalAns++; sync(); pop('⭐',`+${pts} XP`,msg); }
+function bad() { streak=0; totalAns++; sync(); pop('🎭','À revoir','Série perdue'); }
+function pop(ico, txt, sub) {
+  const p=document.getElementById('popup');
+  document.getElementById('p-ico').textContent=ico;
+  document.getElementById('p-txt').textContent=txt;
+  document.getElementById('p-sub').textContent=sub;
+  p.classList.add('show'); setTimeout(()=>p.classList.remove('show'),2600);
+}
+
+/* ═══════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════ */
+function goTab(name, btn) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('s-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='quiz') startQuiz();
+  if(name==='fill') loadFill();
+  if(name==='exam') loadExam();
+  if(name==='vocab') loadVocab();
+}
+
+/* ═══════════════════════════════════════════════════════
+   S1 FLASHCARDS
+═══════════════════════════════════════════════════════ */
+let deck=[], idx=0, flipped=false, fcGood=0, fcBad=0, fcCat='all';
+
+function pickCat(cat, el) {
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  fcCat = cat;
+  buildDeck();
+}
+
+function buildDeck() {
+  const src = fcCat==='all' ? ALL : ALL.filter(w=>w.cat===fcCat);
+  deck = shuffle([...src]);
+  idx=0; fcGood=0; fcBad=0; flipped=false;
+  document.getElementById('fc-card').classList.remove('flipped');
+  document.getElementById('fc-ans-btns').style.display='none';
+  document.getElementById('fc-reveal-btn').style.display='flex';
+  renderFC();
+}
+
+function renderFC() {
+  if(idx >= deck.length) {
+    document.getElementById('fc-en').textContent='🎬 Terminé !';
+    document.getElementById('fc-hint').textContent=`Score : ${fcGood}/${deck.length}`;
+    document.getElementById('fc-fr').textContent='';
+    document.getElementById('fc-ans-btns').style.display='none';
+    document.getElementById('fc-reveal-btn').style.display='none';
+    if(fcGood===deck.length) boom();
+    return;
+  }
+  const w = deck[idx];
+  document.getElementById('fc-en').textContent = w.en;
+  document.getElementById('fc-hint').textContent = '['+w.type+']';
+  document.getElementById('fc-fr').textContent = w.fr;
+  document.getElementById('fc-extra').textContent = w.type;
+  document.getElementById('fc-i').textContent = idx+1;
+  document.getElementById('fc-tot').textContent = deck.length;
+  document.getElementById('fc-good').textContent = fcGood;
+  document.getElementById('fc-bad').textContent = fcBad;
+  document.getElementById('fc-card').classList.remove('flipped');
+  flipped=false;
+  document.getElementById('fc-ans-btns').style.display='none';
+  document.getElementById('fc-reveal-btn').style.display='flex';
+}
+
+function flipFC() {
+  if(idx>=deck.length) return;
+  flipped=!flipped;
+  document.getElementById('fc-card').classList.toggle('flipped',flipped);
+  if(flipped){
+    document.getElementById('fc-ans-btns').style.display='flex';
+    document.getElementById('fc-reveal-btn').style.display='none';
+  }
+}
+function ansFC(ok) {
+  if(ok){fcGood++; good(5,'Flashcard réussie !');}
+  else{fcBad++; bad();}
+  idx++;
+  setTimeout(renderFC,180);
+}
+
+buildDeck();
+
+/* ═══════════════════════════════════════════════════════
+   S2 QUIZ
+═══════════════════════════════════════════════════════ */
+let qDeck=[], qIdx=0, qScore=0, qTimer=null, qDone=false;
+
+function startQuiz() {
+  document.getElementById('quiz-main').style.display='block';
+  document.getElementById('quiz-end').style.display='none';
+  qDeck = shuffle([...ALL]).slice(0,10);
+  qIdx=0; qScore=0; qDone=false;
+  nextQ();
+}
+
+function nextQ() {
+  if(qIdx>=qDeck.length){ endQuiz(); return; }
+  qDone=false;
+  const w=qDeck[qIdx];
+  const dir=Math.random()>0.5;
+  document.getElementById('q-dir').textContent = dir?'EN → FR':'FR → EN';
+  document.getElementById('q-word').textContent = dir?w.en:w.fr;
+  document.getElementById('q-hint').textContent = '('+w.type+')';
+  document.getElementById('qn').textContent = qIdx+1;
+
+  const correct = dir?w.fr:w.en;
+  const wrongs = shuffle(ALL.filter(x=>x!==w)).slice(0,3).map(x=>dir?x.fr:x.en);
+  const opts = shuffle([correct,...wrongs]);
+
+  const letters=['A','B','C','D'];
+  const container=document.getElementById('quiz-opts');
+  container.innerHTML='';
+  opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='q-opt';
+    b.innerHTML=`<span class="q-opt-letter">${letters[i]}</span>${o}`;
+    b.onclick=()=>pick(b,o,correct,w,dir);
+    container.appendChild(b);
+  });
+
+  document.getElementById('q-fb').classList.remove('show','ok','ko');
+  document.getElementById('btn-next').classList.remove('show');
+  startTimer(15);
+}
+
+function startTimer(sec) {
+  clearInterval(qTimer);
+  let t=sec;
+  document.getElementById('t-val').textContent=t;
+  document.getElementById('q-timer').classList.remove('hot');
+  qTimer=setInterval(()=>{
+    t--;
+    document.getElementById('t-val').textContent=t;
+    if(t<=4) document.getElementById('q-timer').classList.add('hot');
+    if(t<=0){ clearInterval(qTimer); timeUp(); }
+  },1000);
+}
+
+function timeUp() {
+  if(qDone) return; qDone=true;
+  document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  const w=qDeck[qIdx]; const dir=document.getElementById('q-dir').textContent==='EN → FR';
+  const correct=dir?w.fr:w.en;
+  document.querySelectorAll('.q-opt').forEach(b=>{if(b.textContent.includes(correct))b.classList.add('correct');});
+  setFB(false,'⏰ Temps écoulé ! — '+correct);
+  bad(); document.getElementById('btn-next').classList.add('show'); qIdx++;
+}
+
+function pick(btn,chosen,correct,w,dir) {
+  if(qDone) return; qDone=true;
+  clearInterval(qTimer);
+  document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.q-opt').forEach(b=>{if(b.textContent.includes(correct))b.classList.add('correct');});
+  const ok=chosen===correct;
+  if(!ok) btn.classList.add('wrong-pick');
+  setFB(ok, ok?'🎬 Excellent !':'❌ C\'était : '+correct);
+  if(ok){qScore++;good(10,'Bonne réponse !');}else bad();
+  document.getElementById('btn-next').classList.add('show'); qIdx++;
+}
+
+function setFB(ok,msg) {
+  const f=document.getElementById('q-fb');
+  f.textContent=msg; f.className='q-feedback show '+(ok?'ok':'ko');
+}
+
+function endQuiz() {
+  clearInterval(qTimer);
+  document.getElementById('quiz-main').style.display='none';
+  document.getElementById('quiz-end').style.display='block';
+  const sc=document.getElementById('end-score');
+  sc.textContent=qScore+'/10';
+  sc.className='end-score '+(qScore>=8?'s-great':qScore>=5?'s-mid':'s-low');
+  const msgs=['Scène coupée au montage 🎬','Acteur secondaire','Rôle principal !','PALME D\'OR ! 🏆'];
+  document.getElementById('end-msg').textContent=msgs[Math.min(Math.floor(qScore/3),3)];
+  if(qScore>=9) boom();
+}
+
+/* ═══════════════════════════════════════════════════════
+   S3 FILL
+═══════════════════════════════════════════════════════ */
+const FILLS = [
+  {
+    text: "The __0__ decided to use a __1__ to capture the actor's emotions. During __2__, he added dramatic __3__. The __4__ was written by a famous screenwriter.",
+    answers: ["director","close-up","editing","lighting","screenplay"],
+    fr_answers: ["réalisateur","gros plan","montage","éclairage","scénario"],
+    pool: "director, close-up, editing, lighting, screenplay"
+  },
+  {
+    text: "The __0__ is set in Paris. There is a surprising __1__ at the end. The __2__ creates tension. The main __3__ is played by a French actress. The __4__ won an award.",
+    answers: ["scene","twist","soundtrack","character","documentary"],
+    fr_answers: ["scène","rebondissement","bande sonore","personnage","documentaire"],
+    pool: "scene, twist, soundtrack, character, documentary"
+  },
+  {
+    text: "In horror films, filmmakers often use a __0__ to make subjects look threatening. The __1__ shows the context. This __2__ film has excellent __3__ effects. A mysterious __4__ narrates the story.",
+    answers: ["low-angle shot","wide shot","horror","special","voice-over"],
+    fr_answers: ["plan en contre-plongée","plan large","horreur","spéciaux","voix off"],
+    pool: "low-angle shot, wide shot, horror, special, voice-over"
+  }
+];
+let fillI=0;
+function loadFill(){
+  const f=FILLS[fillI];
+  document.getElementById('fill-pool').textContent=f.pool;
+  let html=f.text;
+  f.answers.forEach((_,i)=>{
+    html=html.replace(`__${i}__`,`<span class="sp-blank" id="spb${i}"><input type="text" placeholder="..." id="spi${i}" autocomplete="off" spellcheck="false"></span>`);
+  });
+  document.getElementById('sp-box').innerHTML=html;
+}
+function checkFill(){
+  const f=FILLS[fillI]; let ok=0;
+  f.answers.forEach((ans,i)=>{
+    const inp=document.getElementById(`spi${i}`);
+    const sp=document.getElementById(`spb${i}`);
+    const val=inp.value.trim().toLowerCase();
+    sp.classList.remove('ok','ko');
+    if(val===ans.toLowerCase()){sp.classList.add('ok');ok++;}
+    else sp.classList.add('ko');
+  });
+  if(ok===f.answers.length){good(15,'Texte parfait !');setTimeout(boom,300);}
+  else pop('💡',`${ok}/${f.answers.length} corrects`,'Réessayez !');
+}
+function revealFill(){
+  const f=FILLS[fillI];
+  f.answers.forEach((ans,i)=>{
+    document.getElementById(`spi${i}`).value=ans;
+    document.getElementById(`spb${i}`).classList.add('ok');
+    document.getElementById(`spb${i}`).classList.remove('ko');
+  });
+}
+function nextFill(){ fillI=(fillI+1)%FILLS.length; loadFill(); }
+
+/* ═══════════════════════════════════════════════════════
+   S4 EXAM
+═══════════════════════════════════════════════════════ */
+let examWords=[];
+function loadExam(){
+  examWords=shuffle([...ALL]).slice(0,10);
+  const list=document.getElementById('exam-list');
+  list.innerHTML='';
+  examWords.forEach((w,i)=>{
+    list.innerHTML+=`
+      <div class="exam-item">
+        <div class="exam-n">${i+1}</div>
+        <div style="flex:1">
+          <div class="exam-en">${w.en}</div>
+          <input class="exam-inp" id="ei${i}" type="text" placeholder="Traduction française…" autocomplete="off" spellcheck="false">
+        </div>
+      </div>`;
+  });
+  document.getElementById('exam-result').classList.remove('show');
+}
+function submitExam(){
+  let ok=0; const lines=[];
+  examWords.forEach((w,i)=>{
+    const inp=document.getElementById(`ei${i}`);
+    const val=inp.value.trim().toLowerCase();
+    const targets=w.fr.toLowerCase().split('/').map(s=>s.trim());
+    const correct=targets.some(t=>val===t||t.includes(val)&&val.length>2);
+    inp.classList.remove('ok','ko');
+    inp.classList.add(correct?'ok':'ko');
+    if(!correct) inp.placeholder=w.fr;
+    if(correct) ok++;
+    lines.push(`${i+1}. ${w.en} → ${w.fr} ${correct?'✅':'❌'}`);
+  });
+  const pct=ok/10;
+  const sc=document.getElementById('exam-score');
+  sc.textContent=ok+'/10';
+  sc.className='exam-result-score '+(pct>=0.8?'s-gold':pct>=0.5?'s-silver':'s-red');
+  const verdicts=['📽 Continue à t\'entraîner…','👍 Bonne progression !','🎬 Très bien joué !','🏆 Oscar du meilleur élève !'];
+  document.getElementById('exam-verdict').textContent=verdicts[Math.min(Math.floor(pct*4),3)];
+  document.getElementById('breakdown').innerHTML=lines.join('<br>');
+  document.getElementById('exam-result').classList.add('show');
+  if(pct>=0.8){good(50,'Examen réussi !');setTimeout(boom,400);}
+  else if(pct>=0.5) good(20,'Bon effort !');
+  else bad();
+}
+function resetExam(){ loadExam(); }
+
+/* ═══════════════════════════════════════════════════════
+   S5 VOCAB
+═══════════════════════════════════════════════════════ */
+function loadVocab(){
+  const grid=document.getElementById('cat-grid');
+  grid.innerHTML='';
+  Object.keys(VOCAB).forEach((k,i)=>{
+    const v=VOCAB[k];
+    grid.innerHTML+=`
+      <div class="cat-card c${i%5}" onclick="openCat('${k}')">
+        <div class="cat-card-ico">${v.icon}</div>
+        <div class="cat-card-name">${v.name}</div>
+        <div class="cat-card-cnt">${v.words.length} mots</div>
+      </div>`;
+  });
+  document.getElementById('cat-grid').style.display='grid';
+  document.getElementById('vocab-detail').classList.remove('show');
+}
+function openCat(k){
+  const v=VOCAB[k];
+  document.getElementById('cat-grid').style.display='none';
+  document.getElementById('vocab-detail').classList.add('show');
+  document.getElementById('vocab-rows').innerHTML=v.words.map(w=>`
+    <div class="vrow">
+      <div>
+        <div class="v-en">${w.en}</div>
+        <div class="v-fr">${w.fr}</div>
+      </div>
+      <div class="v-type">${w.type}</div>
+    </div>`).join('');
+}
+function closeVocab(){
+  document.getElementById('cat-grid').style.display='grid';
+  document.getElementById('vocab-detail').classList.remove('show');
+}
+
+/* ═══════════════════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════════════════ */
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a; }
+
+function boom(){
+  const c=document.getElementById('confetti');
+  const ctx=c.getContext('2d');
+  c.width=innerWidth; c.height=innerHeight;
+  const pts=Array.from({length:160},()=>({
+    x:Math.random()*c.width, y:-15,
+    r:Math.random()*7+2,
+    color:['#f5c842','#e8283a','#00e5ff','#a78bfa','#fb923c'][Math.random()*5|0],
+    vx:(Math.random()-.5)*5, vy:Math.random()*4+1,
+    rot:Math.random()*360, vr:(Math.random()-.5)*8
+  }));
+  let f=0;
+  (function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(p=>{
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+      ctx.fillStyle=p.color;
+      ctx.fillRect(-p.r,-p.r*.5,p.r*2,p.r);
+      ctx.restore();
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.06; p.rot+=p.vr;
+    });
+    if(++f<190) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,c.width,c.height);
+  })();
+}
+
+sync();
+</script>
+</body>
+</html>
