@@ -3,2243 +3,2050 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1945 — Fin de la Guerre & Nouvel Ordre Mondial</title>
+<title>Nouvel Ordre Mondial — Histoire Terminale</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Mono:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold: #C9A84C;
-    --gold-light: #E8C96A;
-    --cream: #F5EDD6;
-    --dark: #0A0A0B;
-    --dark2: #111114;
-    --dark3: #1A1A1F;
-    --red: #8B1A1A;
-    --red-bright: #C0392B;
-    --blue-cold: #1E3A5F;
-    --blue-bright: #2E86C1;
-    --text: #D4C9A8;
-    --text-light: #E8DFC0;
-    --muted: #6B6458;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--dark);
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-  }
-
-  /* ========= NAV ========= */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-    height: 64px;
-    background: rgba(10,10,11,0.95);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(201,168,76,0.2);
-  }
-
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: 18px;
-    color: var(--gold);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .nav-logo span { color: var(--cream); font-weight: 400; }
-
-  .nav-tabs {
-    display: flex;
-    gap: 0;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(201,168,76,0.2);
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  .nav-tab {
-    padding: 10px 24px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    color: var(--muted);
-    transition: all 0.3s;
-    border: none;
-    background: transparent;
-    border-right: 1px solid rgba(201,168,76,0.15);
-  }
-
-  .nav-tab:last-child { border-right: none; }
-  .nav-tab:hover { color: var(--gold); background: rgba(201,168,76,0.05); }
-  .nav-tab.active { background: var(--gold); color: var(--dark); }
-
-  /* ========= PAGES ========= */
-  .page { display: none; }
-  .page.active { display: block; }
-
-  /* ========= HERO ========= */
-  .hero {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: var(--dark);
-  }
-
-  .hero-bg {
-    position: absolute; inset: 0;
-    background: 
-      radial-gradient(ellipse at 20% 50%, rgba(139,26,26,0.15) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 50%, rgba(30,58,95,0.15) 0%, transparent 60%),
-      linear-gradient(180deg, #0A0A0B 0%, #0D0D10 50%, #0A0A0B 100%);
-  }
-
-  .hero-grain {
-    position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    opacity: 0.4;
-    pointer-events: none;
-  }
-
-  .hero-line-left, .hero-line-right {
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(201,168,76,0.3), transparent);
-  }
-  .hero-line-left { left: 80px; }
-  .hero-line-right { right: 80px; }
-
-  .hero-content {
-    position: relative;
-    text-align: center;
-    max-width: 900px;
-    padding: 0 40px;
-    animation: heroIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes heroIn {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-eyebrow {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-  }
-
-  .hero-eyebrow::before, .hero-eyebrow::after {
-    content: '';
-    height: 1px;
-    width: 60px;
-    background: var(--gold);
-    opacity: 0.5;
-  }
-
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(42px, 7vw, 88px);
-    font-weight: 900;
-    line-height: 0.95;
-    color: var(--cream);
-    margin-bottom: 16px;
-    letter-spacing: -2px;
-  }
-
-  .hero-title .year {
-    display: block;
-    font-size: clamp(100px, 18vw, 220px);
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(201,168,76,0.3);
-    line-height: 0.85;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .hero-subtitle {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(14px, 2vw, 20px);
-    font-weight: 300;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 20px;
-    margin-bottom: 48px;
-  }
-
-  .hero-scroll {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.3s;
-    animation: bounce 2s ease-in-out infinite;
-  }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
-  }
-
-  .hero-scroll:hover { opacity: 1; }
-
-  .hero-stats {
-    position: absolute;
-    bottom: 60px;
-    left: 0; right: 0;
-    display: flex;
-    justify-content: center;
-    gap: 80px;
-  }
-
-  .stat-item { text-align: center; }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--gold);
-    display: block;
-  }
-  .stat-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    display: block;
-    margin-top: 4px;
-  }
-
-  /* ========= TIMELINE SCROLLYTELLING ========= */
-  .timeline-section {
-    padding: 0;
-    position: relative;
-  }
-
-  .chapter-header {
-    padding: 120px 80px 80px;
-    position: relative;
-    text-align: center;
-  }
-
-  .chapter-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 200px;
-    font-weight: 900;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(201,168,76,0.08);
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    line-height: 1;
-    white-space: nowrap;
-  }
-
-  .chapter-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 16px;
-  }
-
-  .chapter-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(32px, 5vw, 56px);
-    font-weight: 700;
-    color: var(--cream);
-    line-height: 1.1;
-    position: relative;
-  }
-
-  /* TIMELINE ENTRIES */
-  .timeline-entry {
-    display: grid;
-    grid-template-columns: 1fr 80px 1fr;
-    min-height: 70vh;
-    position: relative;
-    opacity: 0;
-    transform: translateY(60px);
-    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
-  }
-
-  .timeline-entry.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .timeline-entry.reverse { direction: rtl; }
-  .timeline-entry.reverse > * { direction: ltr; }
-
-  .timeline-spine {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    padding: 20px 0;
-  }
-
-  .timeline-spine::before {
-    content: '';
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(201,168,76,0.4), transparent);
-  }
-
-  .timeline-dot {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: var(--gold);
-    border: 3px solid var(--dark);
-    box-shadow: 0 0 20px rgba(201,168,76,0.6);
-    position: relative;
-    z-index: 1;
-    margin-top: 60px;
-    flex-shrink: 0;
-  }
-
-  .timeline-date-badge {
-    margin-top: 12px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--gold);
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  .timeline-content {
-    padding: 60px 60px 60px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .timeline-entry.reverse .timeline-content {
-    padding: 60px 40px 60px 60px;
-  }
-
-  .timeline-tag {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 12px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .timeline-tag::before {
-    content: '';
-    width: 20px;
-    height: 1px;
-    background: var(--gold);
-  }
-
-  .timeline-h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(24px, 3vw, 38px);
-    font-weight: 700;
-    color: var(--cream);
-    line-height: 1.2;
-    margin-bottom: 20px;
-  }
-
-  .timeline-text {
-    font-size: 15px;
-    line-height: 1.85;
-    color: var(--text);
-    max-width: 480px;
-  }
-
-  .timeline-visual {
-    padding: 60px 40px 60px 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .timeline-entry.reverse .timeline-visual {
-    padding: 60px 60px 60px 40px;
-  }
-
-  /* CARDS */
-  .info-card {
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 2px;
-    padding: 32px;
-    position: relative;
-    max-width: 380px;
-    width: 100%;
-  }
-
-  .info-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--gold), transparent);
-  }
-
-  .info-card-icon {
-    font-size: 48px;
-    display: block;
-    margin-bottom: 16px;
-    filter: grayscale(0.3);
-  }
-
-  .stat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    width: 100%;
-    max-width: 380px;
-  }
-
-  .stat-box {
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,0.1);
-    padding: 20px 16px;
-    text-align: center;
-    border-radius: 2px;
-  }
-
-  .stat-box-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--gold);
-    display: block;
-    line-height: 1;
-  }
-
-  .stat-box-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 6px;
-    display: block;
-  }
-
-  /* VIDEO EMBED */
-  .video-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 420px;
-    border: 1px solid rgba(201,168,76,0.2);
-    border-radius: 2px;
-    overflow: hidden;
-    background: #000;
-  }
-
-  .video-wrapper iframe {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16/9;
-    border: none;
-  }
-
-  .video-label {
-    padding: 10px 16px;
-    background: var(--dark3);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    border-top: 1px solid rgba(201,168,76,0.1);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .video-label span { color: var(--gold); }
-
-  /* DIVIDER */
-  .section-divider {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    padding: 60px 80px;
-    opacity: 0.4;
-  }
-
-  .section-divider::before, .section-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--gold);
-  }
-
-  .divider-icon { color: var(--gold); font-size: 20px; }
-
-  /* KEY FIGURES */
-  .figures-section {
-    padding: 100px 80px;
-    background: var(--dark2);
-  }
-
-  .figures-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1px;
-    border: 1px solid rgba(201,168,76,0.1);
-    border-radius: 2px;
-    overflow: hidden;
-    margin-top: 60px;
-  }
-
-  .figure-card {
-    padding: 32px 24px;
-    background: var(--dark3);
-    text-align: center;
-    transition: background 0.3s;
-    cursor: default;
-  }
-
-  .figure-card:hover { background: rgba(201,168,76,0.05); }
-
-  .figure-emoji { font-size: 40px; display: block; margin-bottom: 12px; }
-
-  .figure-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--cream);
-    margin-bottom: 4px;
-  }
-
-  .figure-role {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 12px;
-  }
-
-  .figure-desc {
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--muted);
-  }
-
-  /* QUOTE BLOCK */
-  .quote-block {
-    padding: 100px 80px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .quote-block::before {
-    content: '"';
-    font-family: 'Playfair Display', serif;
-    font-size: 400px;
-    color: rgba(201,168,76,0.04);
-    position: absolute;
-    top: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-    line-height: 1;
-    pointer-events: none;
-  }
-
-  .quote-text {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(22px, 3vw, 36px);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--cream);
-    max-width: 800px;
-    margin: 0 auto 24px;
-    line-height: 1.5;
-    position: relative;
-  }
-
-  .quote-author {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  /* ========= EXERCISES PAGE ========= */
-  .exercises-page {
-    padding-top: 64px;
-    min-height: 100vh;
-    background: var(--dark);
-  }
-
-  .exercises-header {
-    background: var(--dark2);
-    padding: 80px;
-    border-bottom: 1px solid rgba(201,168,76,0.1);
-    text-align: center;
-  }
-
-  .exercises-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(32px, 5vw, 56px);
-    color: var(--cream);
-    margin-bottom: 12px;
-  }
-
-  .exercises-header p {
-    color: var(--muted);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-  }
-
-  .quiz-container {
-    max-width: 800px;
-    margin: 60px auto;
-    padding: 0 40px;
-  }
-
-  .quiz-modes {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 48px;
-    flex-wrap: wrap;
-  }
-
-  .quiz-mode-btn {
-    padding: 10px 24px;
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,0.2);
-    color: var(--muted);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s;
-    border-radius: 2px;
-  }
-
-  .quiz-mode-btn.active, .quiz-mode-btn:hover {
-    background: var(--gold);
-    color: var(--dark);
-    border-color: var(--gold);
-  }
-
-  .quiz-card {
-    background: var(--dark2);
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 4px;
-    padding: 48px;
-    position: relative;
-    display: none;
-  }
-
-  .quiz-card.active { display: block; }
-
-  .question-num {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
-
-  .question-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    color: var(--cream);
-    line-height: 1.4;
-    margin-bottom: 36px;
-  }
-
-  .answers-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 32px;
-  }
-
-  .answer-btn {
-    padding: 16px 20px;
-    background: var(--dark3);
-    border: 1px solid rgba(255,255,255,0.08);
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.2s;
-    border-radius: 2px;
-    line-height: 1.4;
-  }
-
-  .answer-btn:hover:not(:disabled) {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.05);
-  }
-
-  .answer-btn.correct { background: rgba(46,204,113,0.15); border-color: #2ECC71; color: #2ECC71; }
-  .answer-btn.wrong { background: rgba(192,57,43,0.15); border-color: var(--red-bright); color: var(--red-bright); }
-
-  .quiz-feedback {
-    padding: 20px;
-    border-radius: 2px;
-    font-size: 14px;
-    line-height: 1.7;
-    display: none;
-    margin-bottom: 24px;
-  }
-
-  .quiz-feedback.correct-msg { background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.3); color: #A8E6BC; }
-  .quiz-feedback.wrong-msg { background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.3); color: #F0A89E; }
-
-  .quiz-nav {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .quiz-btn {
-    padding: 12px 28px;
-    background: var(--gold);
-    color: var(--dark);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border: none;
-    transition: all 0.3s;
-    font-weight: 700;
-    border-radius: 2px;
-  }
-
-  .quiz-btn:hover { background: var(--gold-light); }
-  .quiz-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
-  .quiz-btn.secondary {
-    background: transparent;
-    color: var(--gold);
-    border: 1px solid rgba(201,168,76,0.3);
-  }
-
-  .quiz-btn.secondary:hover { background: rgba(201,168,76,0.1); }
-
-  .score-display {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    color: var(--muted);
-    letter-spacing: 2px;
-  }
-
-  .progress-bar-wrapper {
-    width: 100%;
-    height: 3px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 2px;
-    margin-bottom: 40px;
-    overflow: hidden;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--gold), var(--gold-light));
-    border-radius: 2px;
-    transition: width 0.5s ease;
-  }
-
-  .timeline-quiz { display: none; }
-  .timeline-quiz.active { display: block; }
-
-  .tl-item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .tl-date-input {
-    width: 120px;
-    padding: 10px 14px;
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,0.2);
-    color: var(--cream);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px;
-    border-radius: 2px;
-    outline: none;
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .tl-date-input:focus { border-color: var(--gold); }
-
-  .tl-event { font-size: 14px; color: var(--text); line-height: 1.5; }
-
-  .tl-check-btn {
-    padding: 12px 28px;
-    background: var(--gold);
-    color: var(--dark);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    border-radius: 2px;
-    margin-top: 32px;
-    transition: background 0.3s;
-  }
-
-  .tl-check-btn:hover { background: var(--gold-light); }
-
-  .tl-result { margin-top: 8px; font-size: 12px; display: none; }
-  .tl-correct { color: #2ECC71; }
-  .tl-wrong { color: var(--red-bright); }
-
-  /* ========= AI CHAT PAGE ========= */
-  .ai-page {
-    padding-top: 64px;
-    min-height: 100vh;
-    background: var(--dark);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .ai-header {
-    background: var(--dark2);
-    padding: 60px 80px;
-    border-bottom: 1px solid rgba(201,168,76,0.1);
-    text-align: center;
-  }
-
-  .ai-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 40px;
-    color: var(--cream);
-    margin-bottom: 8px;
-  }
-
-  .ai-header p {
-    color: var(--muted);
-    font-size: 14px;
-  }
-
-  .ai-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 16px;
-    background: rgba(46,134,193,0.15);
-    border: 1px solid rgba(46,134,193,0.3);
-    border-radius: 20px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--blue-bright);
-    margin-bottom: 16px;
-  }
-
-  .ai-dot {
-    width: 8px; height: 8px;
-    background: #2ECC71;
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
-  }
-
-  .chat-area {
-    flex: 1;
-    max-width: 860px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 40px 40px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    overflow-y: auto;
-    max-height: calc(100vh - 380px);
-  }
-
-  .chat-message {
-    display: flex;
-    gap: 16px;
-    animation: msgIn 0.4s ease;
-  }
-
-  @keyframes msgIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .chat-message.user { flex-direction: row-reverse; }
-
-  .chat-avatar {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,0.2);
-  }
-
-  .chat-message.user .chat-avatar {
-    background: rgba(201,168,76,0.15);
-    border-color: rgba(201,168,76,0.4);
-  }
-
-  .chat-bubble {
-    max-width: 680px;
-    padding: 18px 24px;
-    border-radius: 4px;
-    font-size: 15px;
-    line-height: 1.75;
-  }
-
-  .chat-message.ai .chat-bubble {
-    background: var(--dark2);
-    border: 1px solid rgba(201,168,76,0.1);
-    color: var(--text);
-  }
-
-  .chat-message.user .chat-bubble {
-    background: rgba(201,168,76,0.12);
-    border: 1px solid rgba(201,168,76,0.25);
-    color: var(--cream);
-  }
-
-  .chat-input-area {
-    max-width: 860px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 24px 40px 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .suggested-questions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .suggest-btn {
-    padding: 8px 16px;
-    background: var(--dark3);
-    border: 1px solid rgba(201,168,76,0.15);
-    color: var(--muted);
-    font-family: 'Barlow', sans-serif;
-    font-size: 12px;
-    cursor: pointer;
-    border-radius: 20px;
-    transition: all 0.2s;
-  }
-
-  .suggest-btn:hover { border-color: var(--gold); color: var(--gold); }
-
-  .chat-input-row {
-    display: flex;
-    gap: 12px;
-  }
-
-  .chat-input {
-    flex: 1;
-    padding: 16px 20px;
-    background: var(--dark2);
-    border: 1px solid rgba(201,168,76,0.2);
-    color: var(--cream);
-    font-family: 'Barlow', sans-serif;
-    font-size: 15px;
-    outline: none;
-    border-radius: 2px;
-    transition: border-color 0.3s;
-    resize: none;
-    min-height: 56px;
-    max-height: 160px;
-  }
-
-  .chat-input:focus { border-color: var(--gold); }
-  .chat-input::placeholder { color: var(--muted); }
-
-  .send-btn {
-    padding: 0 28px;
-    background: var(--gold);
-    color: var(--dark);
-    border: none;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: all 0.3s;
-    white-space: nowrap;
-    min-height: 56px;
-  }
-
-  .send-btn:hover { background: var(--gold-light); }
-  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .typing-indicator {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    padding: 12px 0;
-  }
-
-  .typing-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--gold);
-    animation: typingBounce 1.2s ease-in-out infinite;
-  }
-
-  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes typingBounce {
-    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-    30% { transform: translateY(-8px); opacity: 1; }
-  }
-
-  /* COURSE PAGE */
-  .cours-page { padding-top: 64px; }
-
-  .cours-header {
-    background: var(--dark2);
-    padding: 80px;
-    text-align: center;
-    border-bottom: 1px solid rgba(201,168,76,0.1);
-  }
-
-  .cours-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 4vw, 48px);
-    color: var(--cream);
-    margin-bottom: 8px;
-  }
-
-  /* SCROLLYTELLING INTRO */
-  .intro-video-section {
-    padding: 100px 80px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .intro-video-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 3vw, 40px);
-    color: var(--cream);
-    margin-bottom: 20px;
-    line-height: 1.2;
-  }
-
-  .intro-video-section p {
-    font-size: 15px;
-    line-height: 1.85;
-    color: var(--text);
-    margin-bottom: 16px;
-  }
-
-  /* MAP VISUAL */
-  .map-section {
-    padding: 100px 80px;
-    background: var(--dark2);
-  }
-
-  .map-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 40px;
-    color: var(--cream);
-    text-align: center;
-    margin-bottom: 60px;
-  }
-
-  .map-svg-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    .timeline-entry { grid-template-columns: 1fr; }
-    .timeline-spine { display: none; }
-    .timeline-content { padding: 40px; }
-    .timeline-visual { padding: 0 40px 40px; }
-    .intro-video-section { grid-template-columns: 1fr; }
-    nav { padding: 0 20px; }
-    .hero-line-left, .hero-line-right { display: none; }
-    .hero-stats { gap: 40px; }
-    .chapter-header { padding: 80px 40px 60px; }
-    .figures-section, .quote-block { padding: 60px 40px; }
-    .answers-grid { grid-template-columns: 1fr; }
-    .ai-header { padding: 40px 40px; }
-    .chat-area, .chat-input-area { padding-left: 20px; padding-right: 20px; }
-    .exercises-header, .cours-header { padding: 60px 40px; }
-    .quiz-container { padding: 0 20px; }
-    .map-section { padding: 60px 40px; }
-    .intro-video-section { padding: 60px 40px; }
-    .hero-stats { flex-wrap: wrap; justify-content: center; gap: 24px; }
-  }
-
-  /* SCROLL REVEAL */
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-
-  /* HIGHLIGHT BOX */
-  .highlight-box {
-    background: rgba(201,168,76,0.07);
-    border-left: 3px solid var(--gold);
-    padding: 20px 24px;
-    margin-top: 20px;
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--text);
-    border-radius: 0 2px 2px 0;
-  }
-
-  .highlight-box strong {
-    color: var(--gold);
-    font-weight: 600;
-  }
-
-  /* LOADING */
-  .loading {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--muted);
-    font-size: 13px;
-  }
-
-  /* SECTION INTRO TEXT */
-  .section-intro {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 0 40px;
-  }
-
-  .section-intro p {
-    font-size: 15px;
-    line-height: 1.85;
-    color: var(--text);
-    margin-bottom: 12px;
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--dark2);
-    border-top: 1px solid rgba(201,168,76,0.1);
-    padding: 40px 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: gap;
-  }
-
-  footer .footer-left {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    color: var(--gold);
-  }
-
-  footer .footer-right {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  /* result screen */
-  .result-screen {
-    text-align: center;
-    padding: 60px 40px;
-    display: none;
-  }
-
-  .result-screen.active { display: block; }
-
-  .result-emoji { font-size: 80px; display: block; margin-bottom: 24px; }
-
-  .result-score {
-    font-family: 'Playfair Display', serif;
-    font-size: 72px;
-    font-weight: 900;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-
-  .result-msg {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 32px;
-  }
+/* ===== ROOT & RESET ===== */
+:root {
+  --ink: #0a0a0f;
+  --paper: #f5f0e8;
+  --cream: #ede8dc;
+  --gold: #c9a84c;
+  --gold-light: #e8cc85;
+  --rust: #8b2e2e;
+  --steel: #2d3a4a;
+  --mist: #8a9ab0;
+  --white: #faf8f3;
+  --accent: #c44536;
+  --blue-deep: #1a2a4a;
+  --text: #1c1c2e;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Crimson Pro', serif;
+  background: var(--ink);
+  color: var(--paper);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.12s ease;
+  mix-blend-mode: difference;
+}
+body:hover .cursor { opacity: 1; }
+
+/* ===== NOISE OVERLAY ===== */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9997; opacity: 0.3;
+}
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 3rem;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.nav-tabs {
+  display: flex; gap: 0.5rem;
+}
+
+.nav-tab {
+  padding: 0.5rem 1.4rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mist);
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  transition: all 0.25s;
+  background: none;
+}
+.nav-tab:hover, .nav-tab.active {
+  color: var(--gold);
+  border-color: rgba(201, 168, 76, 0.4);
+  background: rgba(201, 168, 76, 0.05);
+}
+.nav-tab.active {
+  background: rgba(201, 168, 76, 0.1);
+  border-color: var(--gold);
+}
+
+/* ===== PANELS ===== */
+.panel { display: none; min-height: 100vh; }
+.panel.active { display: block; }
+
+/* ===== ─────────────────────────────────── ===== */
+/* ===== COURS PANEL - SCROLLYTELLING        ===== */
+/* ===== ─────────────────────────────────── ===== */
+
+/* HERO */
+.hero {
+  height: 100vh;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(45, 58, 74, 0.6) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(139, 46, 46, 0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 80% 20%, rgba(201, 168, 76, 0.08) 0%, transparent 60%);
+}
+
+.hero-globe {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, 0.08);
+  background: radial-gradient(circle at 35% 35%, rgba(45,58,74,0.4) 0%, rgba(10,10,15,0.8) 70%);
+  animation: globePulse 8s ease-in-out infinite;
+  box-shadow:
+    0 0 80px rgba(201,168,76,0.04),
+    inset 0 0 80px rgba(0,0,0,0.5);
+}
+
+.hero-globe::before {
+  content: '';
+  position: absolute; inset: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.05);
+}
+
+@keyframes globePulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.03); opacity: 1; }
+}
+
+.hero-lines {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(201,168,76,0.03) 80px),
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(201,168,76,0.03) 80px);
+}
+
+.hero-content {
+  position: relative; z-index: 10;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 0.95;
+  color: var(--white);
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.6s forwards;
+}
+
+.hero-title span {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.hero-subtitle {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--mist);
+  max-width: 500px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeUp 1s 0.9s forwards;
+}
+
+.hero-scroll {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 1.5s forwards;
+}
+
+.hero-scroll span {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--mist);
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1px; height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(0.5); opacity: 0.3; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* TIMELINE SECTION */
+.timeline-intro {
+  padding: 8rem 0 4rem;
+  text-align: center;
+  position: relative;
+}
+
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: var(--white);
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.15;
+}
+
+.section-desc {
+  font-size: 1.15rem;
+  color: var(--mist);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* CHRONOLOGICAL TIMELINE */
+.timeline-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+  position: relative;
+}
+
+.timeline-axis {
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--gold) 10%, var(--gold) 90%, transparent);
+  transform: translateX(-50%);
+}
+
+.tl-item {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 0;
+  margin-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tl-item.visible { opacity: 1; transform: translateY(0); }
+
+.tl-content-left, .tl-content-right {
+  padding: 1.8rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.tl-content-left { grid-column: 1; text-align: right; }
+.tl-content-right { grid-column: 3; }
+.tl-content-left.empty, .tl-content-right.empty { background: none; border: none; }
+
+.tl-content-left:not(.empty):hover,
+.tl-content-right:not(.empty):hover {
+  background: rgba(201,168,76,0.05);
+  border-color: rgba(201,168,76,0.2);
+  transform: translateY(-2px);
+}
+
+.tl-dot {
+  grid-column: 2;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: 1.8rem;
+}
+
+.tl-dot-inner {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 3px solid var(--ink);
+  box-shadow: 0 0 0 1px var(--gold), 0 0 20px rgba(201,168,76,0.3);
+  flex-shrink: 0;
+}
+
+.tl-year {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.tl-title-card {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+}
+
+.tl-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(200,195,185,0.85);
+  font-weight: 300;
+}
+
+.tl-tag {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  margin-top: 0.8rem;
+}
+
+.tl-tag.politique { background: rgba(139,46,46,0.3); color: #e88; border: 1px solid rgba(139,46,46,0.4); }
+.tl-tag.economie { background: rgba(201,168,76,0.15); color: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); }
+.tl-tag.humanitaire { background: rgba(45,58,74,0.5); color: var(--mist); border: 1px solid rgba(45,58,74,0.8); }
+.tl-tag.diplomatique { background: rgba(40,80,60,0.3); color: #8ecfa5; border: 1px solid rgba(40,80,60,0.5); }
+
+/* SCROLL SECTION BLOCKS */
+.scroll-section {
+  padding: 5rem 0;
+  position: relative;
+}
+
+.scroll-section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.scroll-section-inner.reverse { direction: rtl; }
+.scroll-section-inner.reverse > * { direction: ltr; }
+
+.scroll-text-block { }
+
+.scroll-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.scroll-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+}
+
+.scroll-body {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: rgba(200,195,185,0.85);
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.definition-box {
+  background: rgba(201,168,76,0.05);
+  border-left: 3px solid var(--gold);
+  padding: 1rem 1.4rem;
+  margin: 1.2rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.definition-box strong {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.definition-box p {
+  font-size: 0.95rem;
+  color: rgba(200,195,185,0.9);
+  line-height: 1.6;
+}
+
+.stat-box {
+  background: rgba(139,46,46,0.08);
+  border: 1px solid rgba(139,46,46,0.25);
+  padding: 1.2rem 1.6rem;
+  margin: 1.2rem 0;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stat-desc {
+  font-size: 0.9rem;
+  color: rgba(200,195,185,0.8);
+  line-height: 1.5;
+}
+
+.scroll-visual {
+  position: relative;
+}
+
+.visual-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.visual-card:hover {
+  border-color: rgba(201,168,76,0.2);
+}
+
+.visual-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  filter: sepia(30%) contrast(1.1);
+  transition: filter 0.4s;
+}
+
+.visual-card:hover img { filter: sepia(10%) contrast(1.05); }
+
+.visual-caption {
+  padding: 0.8rem 1rem;
+  font-size: 0.8rem;
+  color: var(--mist);
+  font-style: italic;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* VIDEO EMBED */
+.video-section {
+  padding: 5rem 0;
+  background: rgba(255,255,255,0.015);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.video-section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.video-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.video-card:hover {
+  border-color: rgba(201,168,76,0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.video-card iframe {
+  width: 100%;
+  height: 180px;
+  display: block;
+  border: none;
+}
+
+.video-card-info {
+  padding: 1rem 1.2rem;
+}
+
+.video-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  color: var(--white);
+  margin-bottom: 0.3rem;
+}
+
+.video-card-desc {
+  font-size: 0.8rem;
+  color: var(--mist);
+  line-height: 1.5;
+}
+
+/* VIDEO HERO */
+.video-hero {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(201,168,76,0.15);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+}
+
+.video-hero video {
+  width: 100%;
+  display: block;
+}
+
+/* ===== BIPOLARITY DIAGRAM ===== */
+.bipolar-section {
+  padding: 6rem 0;
+}
+
+.bipolar-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.bipolar-diagram {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  margin-top: 3rem;
+  position: relative;
+}
+
+.bipolar-side {
+  padding: 2.5rem;
+  border-radius: 6px 0 0 6px;
+  background: rgba(196,69,54,0.07);
+  border: 1px solid rgba(196,69,54,0.2);
+}
+
+.bipolar-side.right {
+  border-radius: 0 6px 6px 0;
+  background: rgba(26,42,74,0.4);
+  border-color: rgba(45,58,74,0.6);
+}
+
+.bipolar-center {
+  display: flex; align-items: center; justify-content: center;
+  width: 80px;
+  background: var(--ink);
+  position: relative;
+  z-index: 2;
+}
+
+.vs-badge {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ink);
+  box-shadow: 0 0 30px rgba(201,168,76,0.3);
+}
+
+.bipolar-flag {
+  font-size: 2.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.bipolar-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.bipolar-side .bipolar-name { color: #e88; }
+.bipolar-side.right .bipolar-name { color: #7aafde; }
+
+.bipolar-list {
+  list-style: none;
+}
+
+.bipolar-list li {
+  font-size: 0.9rem;
+  color: rgba(200,195,185,0.8);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.bipolar-list li::before {
+  content: '▸';
+  color: var(--gold);
+  font-size: 0.7rem;
+}
+
+/* ONU Section */
+.onu-section { padding: 5rem 0; }
+
+.onu-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.onu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.onu-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 1.8rem;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.onu-card:hover {
+  background: rgba(201,168,76,0.05);
+  border-color: rgba(201,168,76,0.2);
+  transform: translateY(-3px);
+}
+
+.onu-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.onu-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+}
+
+.onu-card-text {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(200,195,185,0.7);
+}
+
+/* ===== EXERCICES PANEL ===== */
+.exercices-panel {
+  padding-top: 64px;
+  min-height: 100vh;
+  background: var(--ink);
+}
+
+.ex-header {
+  padding: 4rem 3rem 3rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.ex-body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.ex-type-selector {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.ex-type-btn {
+  padding: 0.6rem 1.4rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--mist);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.ex-type-btn:hover, .ex-type-btn.active {
+  background: rgba(201,168,76,0.1);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.question-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 6px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.3s;
+}
+
+.question-card.answered { border-color: rgba(201,168,76,0.3); }
+
+.q-number {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.q-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.answers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+
+.answer-btn {
+  padding: 0.8rem 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  color: rgba(200,195,185,0.85);
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.answer-btn:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.2); }
+.answer-btn.correct { background: rgba(40,120,60,0.2); border-color: rgba(40,200,80,0.4); color: #7ed8a0; }
+.answer-btn.incorrect { background: rgba(139,46,46,0.2); border-color: rgba(200,60,60,0.4); color: #e88; }
+.answer-btn.revealed { background: rgba(40,120,60,0.1); border-color: rgba(40,200,80,0.2); color: rgba(126,216,160,0.6); }
+
+.q-feedback {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  display: none;
+  line-height: 1.5;
+}
+
+.q-feedback.correct { background: rgba(40,120,60,0.15); border: 1px solid rgba(40,200,80,0.25); color: #7ed8a0; }
+.q-feedback.incorrect { background: rgba(139,46,46,0.15); border: 1px solid rgba(200,60,60,0.25); color: #e88; }
+
+.score-bar {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.score-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--gold);
+}
+
+.score-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--mist);
+  text-transform: uppercase;
+}
+
+.score-progress {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  min-width: 150px;
+}
+
+.score-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+.ex-reset-btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--gold);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.25s;
+  margin-top: 1rem;
+}
+
+.ex-reset-btn:hover { background: var(--gold-light); }
+
+.frise-container {
+  overflow-x: auto;
+  padding: 2rem 0;
+  margin-bottom: 3rem;
+  display: none;
+}
+
+.frise-container.active { display: block; }
+
+.frise {
+  display: flex;
+  align-items: center;
+  min-width: 1200px;
+  position: relative;
+  padding: 3rem 2rem;
+}
+
+.frise-line {
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  transform: translateY(-50%);
+}
+
+.frise-event {
+  position: relative;
+  flex-shrink: 0;
+  margin: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.frise-dot {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 12px rgba(201,168,76,0.3);
+  z-index: 2;
+  transition: all 0.2s;
+}
+
+.frise-event:hover .frise-dot {
+  background: var(--gold);
+  box-shadow: 0 0 20px rgba(201,168,76,0.5);
+}
+
+.frise-year-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-top: 0.8rem;
+}
+
+.frise-event-name {
+  font-size: 0.75rem;
+  color: var(--mist);
+  text-align: center;
+  max-width: 100px;
+  line-height: 1.3;
+  margin-top: 0.3rem;
+}
+
+.frise-event:nth-child(odd) .frise-year-label { margin-bottom: 0.8rem; margin-top: 0; order: -2; }
+.frise-event:nth-child(odd) .frise-event-name { order: -1; }
+
+/* ===== IA PANEL ===== */
+.ia-panel {
+  padding-top: 64px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ink);
+}
+
+.ia-header {
+  padding: 3rem 3rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+}
+
+.ia-subtitle-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.ia-model-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 0.3rem 0.8rem;
+  border-radius: 2px;
+}
+
+.ia-body {
+  flex: 1;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 2rem;
+  gap: 0;
+}
+
+.chat-messages {
+  overflow-y: auto;
+  padding: 1rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-height: 400px;
+  max-height: 60vh;
+}
+
+.chat-msg {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.chat-msg.user { flex-direction: row-reverse; }
+
+.msg-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.chat-msg.assistant .msg-avatar {
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold);
+}
+
+.chat-msg.user .msg-avatar {
+  background: rgba(45,58,74,0.5);
+  border: 1px solid rgba(45,58,74,0.8);
+  color: var(--mist);
+}
+
+.msg-bubble {
+  max-width: 75%;
+  padding: 1rem 1.3rem;
+  border-radius: 6px;
+  font-size: 0.97rem;
+  line-height: 1.7;
+}
+
+.chat-msg.assistant .msg-bubble {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  color: rgba(200,195,185,0.9);
+}
+
+.chat-msg.user .msg-bubble {
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.2);
+  color: var(--white);
+}
+
+.msg-bubble p { margin: 0; }
+.msg-bubble p + p { margin-top: 0.7rem; }
+.msg-bubble strong { color: var(--gold); }
+
+.typing-indicator {
+  display: flex;
+  gap: 5px;
+  padding: 0.8rem;
+}
+
+.typing-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: typingBounce 1.4s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-6px); opacity: 1; }
+}
+
+.chat-input-area {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 1.5rem;
+}
+
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.chip {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.78rem;
+  color: var(--mist);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Crimson Pro', serif;
+}
+
+.chip:hover {
+  background: rgba(201,168,76,0.08);
+  border-color: rgba(201,168,76,0.3);
+  color: var(--gold-light);
+}
+
+.input-row {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 0.9rem 1.3rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  color: var(--white);
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+
+.chat-input:focus { border-color: rgba(201,168,76,0.4); }
+.chat-input::placeholder { color: var(--mist); }
+
+.send-btn {
+  padding: 0.9rem 1.8rem;
+  background: var(--gold);
+  border: none;
+  border-radius: 4px;
+  color: var(--ink);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.send-btn:hover { background: var(--gold-light); }
+.send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ===== SHARED ===== */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent);
+  margin: 5rem auto;
+  max-width: 600px;
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+/* Footer */
+.footer {
+  padding: 3rem;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  color: rgba(140,140,160,0.5);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  nav { padding: 0 1rem; }
+  .nav-brand { display: none; }
+  .scroll-section-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .scroll-section-inner.reverse { direction: ltr; }
+  .bipolar-diagram { grid-template-columns: 1fr; }
+  .bipolar-center { width: 100%; height: 40px; }
+  .answers-grid { grid-template-columns: 1fr; }
+  .onu-grid { grid-template-columns: 1fr; }
+  .timeline-axis { left: 20px; }
+  .tl-item { grid-template-columns: 0 30px 1fr; }
+  .tl-content-left.empty { display: none; }
+  .tl-content-left:not(.empty) { grid-column: 3; text-align: left; }
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ===== NAV ===== -->
 <nav>
-  <div class="nav-logo">1945 <span>— Histoire</span></div>
+  <div class="nav-brand">Hist — Terminale</div>
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showPage('cours')">📜 Cours</button>
-    <button class="nav-tab" onclick="showPage('exercices')">✏️ Exercices</button>
-    <button class="nav-tab" onclick="showPage('ia')">🤖 IA</button>
+    <button class="nav-tab active" onclick="switchTab('cours')">📚 Cours</button>
+    <button class="nav-tab" onclick="switchTab('exercices')">✏️ Exercices</button>
+    <button class="nav-tab" onclick="switchTab('ia')">🤖 Demander à l'IA</button>
   </div>
 </nav>
 
-<!-- ============================================================ -->
-<!-- PAGE : COURS                                                   -->
-<!-- ============================================================ -->
-<div id="page-cours" class="page active">
+<!-- ============================= -->
+<!-- PANEL COURS                   -->
+<!-- ============================= -->
+<div id="panel-cours" class="panel active">
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-grain"></div>
-    <div class="hero-line-left"></div>
-    <div class="hero-line-right"></div>
+    <div class="hero-lines"></div>
+    <div class="hero-globe"></div>
     <div class="hero-content">
-      <div class="hero-eyebrow">Histoire — Terminale</div>
-      <div class="hero-title">
-        <span class="year">1945</span>
-        La Fin de la Guerre<br>& un Nouveau Monde
-      </div>
-      <div class="hero-subtitle">De la destruction à la reconstruction — 1945–1948</div>
-      <div class="hero-scroll" onclick="document.getElementById('section-intro').scrollIntoView({behavior:'smooth'})">
-        ↓ Commencer le voyage
-      </div>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num">60M</span>
-        <span class="stat-label">Victimes</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">51</span>
-        <span class="stat-label">Nations fondatrices ONU</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">3</span>
-        <span class="stat-label">Ans vers la Guerre Froide</span>
+      <div class="hero-eyebrow">Histoire — Terminale · 1945–1947</div>
+      <h1 class="hero-title">Nouvel<br><span>Ordre</span><br>Mondial</h1>
+      <p class="hero-subtitle">Du chaos de la guerre à la bipolarisation du monde — une histoire du XXe siècle qui remodèle encore notre présent.</p>
+      <div class="hero-scroll">
+        <span>Défiler pour explorer</span>
+        <div class="scroll-line"></div>
       </div>
     </div>
   </section>
 
-  <!-- INTRO PROBLÉMATIQUE -->
-  <section id="section-intro" style="padding:100px 80px; background: var(--dark2);">
-    <div class="section-intro reveal">
-      <div class="chapter-label">Problématique</div>
-      <div style="font-family:'Playfair Display',serif; font-size:clamp(22px,3vw,32px); color:var(--cream); line-height:1.4; margin-bottom:24px; font-style:italic;">
-        « Comment, en trois ans, le monde bascule-t-il dans des tensions qui aboutissent à la Guerre Froide ? »
-      </div>
-      <p>1945 est l'année zéro. Des nations entières sont détruites, des millions de vies fauchées. Pourtant, de ces ruines surgit la volonté de construire un monde nouveau. Mais les idéaux de paix vont vite se heurter à la réalité des ambitions.</p>
-    </div>
-  </section>
-
-  <!-- VIDEO INTRO GÉNÉRALE -->
-  <section style="padding:80px; background:var(--dark);">
-    <div class="reveal" style="max-width:700px; margin:0 auto;">
-      <div class="chapter-label" style="text-align:center;">Vidéo — Vue d'ensemble</div>
-      <h2 style="font-family:'Playfair Display',serif; font-size:32px; color:var(--cream); text-align:center; margin-bottom:40px;">Le chapitre en entier</h2>
-      <div class="video-wrapper" style="max-width:100%;">
-        <iframe src="https://www.youtube.com/embed/_jLkG4hotp4" allowfullscreen loading="lazy"></iframe>
-        <div class="video-label">▶ <span>DOCUMENTAIRE</span> — La fin de la Seconde Guerre Mondiale</div>
+  <!-- INTRO VIDEO -->
+  <section class="video-section" style="padding:4rem 0 3rem">
+    <div class="video-section-inner">
+      <div class="section-label">Vidéo de cours complète</div>
+      <h2 class="section-title" style="margin:0.5rem 0 2rem">Regarder le cours en vidéo</h2>
+      <div class="video-hero">
+        <video controls poster="">
+          <source src="https://moncamp.fr/autre/VIDEO.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </section>
 
-  <!-- ======= PARTIE I : UN MONDE À RECONSTRUIRE ======= -->
-  <div class="chapter-header">
-    <div class="chapter-num">I</div>
-    <div class="chapter-label">Partie I</div>
-    <h2 class="chapter-title">Un monde à reconstruire</h2>
+  <!-- CHRONOLOGICAL TIMELINE -->
+  <div class="timeline-intro">
+    <div class="section-label">Frise chronologique</div>
+    <h2 class="section-title">Les grandes dates<br>à retenir</h2>
+    <p class="section-desc">Parcourez les événements clés qui ont forgé l'ordre mondial d'après-guerre, de 1944 à 1948.</p>
   </div>
 
-  <!-- A. 1945, année zéro -->
-  <section class="timeline-entry reveal" id="entry-1945">
-    <div class="timeline-content">
-      <div class="timeline-tag">1945 — Bilan humain</div>
-      <h2 class="timeline-h2">1945, l'Année Zéro</h2>
-      <p class="timeline-text">Par la logique de l'anéantissement, la Seconde Guerre mondiale coûte la vie à <strong style="color:var(--gold)">environ 60 millions de personnes</strong>. Pour la première fois dans l'histoire, le nombre de civils morts dépasse celui des militaires.</p>
-      <div class="highlight-box">
-        <strong>Particularité :</strong> L'URSS perd 25 millions de personnes dont 16 millions de civils — le pays le plus durement touché. La Pologne perd 20 % de sa population et 95 % de ses Juifs.
-      </div>
-    </div>
-    <div class="timeline-spine">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date-badge">Août 1945</div>
-    </div>
-    <div class="timeline-visual">
-      <div class="stat-grid">
-        <div class="stat-box">
-          <span class="stat-box-num">25M</span>
-          <span class="stat-box-label">Morts URSS</span>
-        </div>
-        <div class="stat-box">
-          <span class="stat-box-num">20M</span>
-          <span class="stat-box-label">Morts Chine</span>
-        </div>
-        <div class="stat-box">
-          <span class="stat-box-num">9M</span>
-          <span class="stat-box-label">Morts Allemagne</span>
-        </div>
-        <div class="stat-box">
-          <span class="stat-box-num">570K</span>
-          <span class="stat-box-label">Morts France</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="timeline-wrap">
+    <div class="timeline-axis"></div>
 
-  <!-- Auschwitz VIDEO -->
-  <section class="timeline-entry reverse reveal">
-    <div class="timeline-content">
-      <div class="timeline-tag">27 Jan 1945 — Libération d'Auschwitz</div>
-      <h2 class="timeline-h2">Le choc de la Shoah</h2>
-      <p class="timeline-text">La libération d'Auschwitz le 27 janvier 1945 révèle l'ampleur du génocide. La volonté d'exterminer industriellement tout un peuple à l'échelle de l'Europe provoque la stupeur mondiale. L'humanité découvre le crime contre l'Humanité.</p>
-      <p class="timeline-text" style="margin-top:16px;">L'autre grand traumatisme : la <strong style="color:var(--gold)">bombe atomique</strong>, utilisée à Hiroshima et Nagasaki les 6 et 9 août 1945. Preuve que les hommes peuvent désormais détruire la planète.</p>
-    </div>
-    <div class="timeline-spine">
-      <div class="timeline-dot" style="background:var(--red-bright); box-shadow: 0 0 20px rgba(192,57,43,0.6);"></div>
-      <div class="timeline-date-badge">Jan 1945</div>
-    </div>
-    <div class="timeline-visual">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/GB36rH8jDqM" allowfullscreen loading="lazy"></iframe>
-        <div class="video-label">▶ <span>DOCUMENTAIRE</span> — Auschwitz, le camp d'extermination</div>
+    <div class="tl-item">
+      <div class="tl-content-left">
+        <span class="tl-year">1944</span>
+        <div class="tl-title-card">Conférence de Bretton Woods</div>
+        <p class="tl-text">44 nations alliées posent les bases d'un nouvel ordre économique mondial. Naissance du FMI, de la Banque mondiale et du gold standard rattachant le dollar à l'or.</p>
+        <span class="tl-tag economie">Économie</span>
       </div>
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-content-right empty"></div>
     </div>
-  </section>
 
-  <!-- B. Conférences -->
-  <section class="timeline-entry reveal">
-    <div class="timeline-content">
-      <div class="timeline-tag">Fév–Été 1945 — Diplomatie</div>
-      <h2 class="timeline-h2">Yalta & Potsdam : préparer la paix</h2>
-      <p class="timeline-text">Alors que la guerre n'est pas encore terminée, les Alliés organisent le retour à la paix en Europe lors de deux conférences décisives.</p>
-      <div class="highlight-box">
-        <strong>Yalta (fév. 1945) :</strong> Roosevelt, Churchill et Staline s'accordent sur les élections libres et les nouvelles frontières.<br><br>
-        <strong>Potsdam (été 1945) :</strong> Occupation quadripartite de l'Allemagne, dénazification, et jugement des criminels de guerre.
+    <div class="tl-item">
+      <div class="tl-content-left empty"></div>
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-content-right">
+        <span class="tl-year">Mars 1944</span>
+        <div class="tl-title-card">Programme du CNR</div>
+        <p class="tl-text">Le Conseil National de la Résistance adopte un programme commun : retour à la démocratie, nationalisations, sécurité sociale et droits sociaux élargis.</p>
+        <span class="tl-tag diplomatique">Social</span>
       </div>
     </div>
-    <div class="timeline-spine">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date-badge">1945</div>
-    </div>
-    <div class="timeline-visual">
-      <div class="info-card">
-        <span class="info-card-icon">⚖️</span>
-        <div style="font-family:'Playfair Display',serif; font-size:20px; color:var(--cream); margin-bottom:12px;">Le Procès de Nuremberg</div>
-        <p style="font-size:13px; color:var(--muted); line-height:1.7;">Novembre 1945 — Pour la première fois dans l'histoire, 22 dirigeants nazis sont jugés pour <em style="color:var(--gold)">crimes contre l'Humanité</em>. Ce concept entre définitivement dans le droit international.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- C. Reconstruction -->
-  <section class="timeline-entry reverse reveal">
-    <div class="timeline-content">
-      <div class="timeline-tag">1944–1945 — Reconstruction</div>
-      <h2 class="timeline-h2">L'État-Providence : reconstruire les nations</h2>
-      <p class="timeline-text">Sous l'impulsion de l'économiste britannique <strong style="color:var(--gold)">William Beveridge</strong> (1942), les pays libérés mettent en place des systèmes de protection sociale contre la maladie, le chômage, la vieillesse.</p>
-      <div class="highlight-box">
-        <strong>France :</strong> Le Conseil National de la Résistance (CNR, 1943) impulse la création de la <strong>Sécurité Sociale</strong> en octobre 1945. L'État nationalise l'énergie, les banques, les transports.
+    <div class="tl-item">
+      <div class="tl-content-left">
+        <span class="tl-year">Fév. 1945</span>
+        <div class="tl-title-card">Conférence de Yalta</div>
+        <p class="tl-text">Churchill, Roosevelt et Staline redessinent l'Europe d'après-guerre. Division de l'Allemagne, principe des élections libres, bases de l'opposition future USA/URSS.</p>
+        <span class="tl-tag diplomatique">Diplomatique</span>
+      </div>
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-content-right empty"></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-content-left empty"></div>
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-content-right">
+        <span class="tl-year">8 Mai 1945</span>
+        <div class="tl-title-card">Capitulation de l'Allemagne</div>
+        <p class="tl-text">L'Allemagne nazie capitule devant les Alliés. Fin de la Seconde Guerre mondiale en Europe. Début de l'occupation alliée et des procès des criminels de guerre.</p>
+        <span class="tl-tag politique">Politique</span>
       </div>
     </div>
-    <div class="timeline-spine">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date-badge">Oct 1945</div>
+
+    <div class="tl-item">
+      <div class="tl-content-left">
+        <span class="tl-year">1945</span>
+        <div class="tl-title-card">Création de l'ONU</div>
+        <p class="tl-text">Naissance de l'Organisation des Nations Unies avec 5 membres permanents au Conseil de Sécurité dotés du droit de veto : USA, URSS, Royaume-Uni, France, Chine.</p>
+        <span class="tl-tag diplomatique">Diplomatique</span>
+      </div>
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-content-right empty"></div>
     </div>
-    <div class="timeline-visual">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/YzsEtucwv6o" allowfullscreen loading="lazy"></iframe>
-        <div class="video-label">▶ <span>DOCUMENTAIRE</span> — Le Conseil National de la Résistance</div>
+
+    <div class="tl-item">
+      <div class="tl-content-left empty"></div>
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-content-right">
+        <span class="tl-year">Nov. 1945</span>
+        <div class="tl-title-card">Procès de Nuremberg</div>
+        <p class="tl-text">Les dirigeants nazis sont jugés pour crimes contre l'humanité. Ce concept fait son entrée dans le droit international. Le procès durera jusqu'en octobre 1946.</p>
+        <span class="tl-tag humanitaire">Justice</span>
       </div>
     </div>
-  </section>
 
-  <div class="section-divider"><div class="divider-icon">✦</div></div>
+    <div class="tl-item">
+      <div class="tl-content-left">
+        <span class="tl-year">1947</span>
+        <div class="tl-title-card">Accord du GATT</div>
+        <p class="tl-text">Signature de l'accord général sur les tarifs douaniers et le commerce. Il établit les principes du libre échange et du marché mondial libéralisé.</p>
+        <span class="tl-tag economie">Économie</span>
+      </div>
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-content-right empty"></div>
+    </div>
 
-  <!-- ======= PARTIE II : NOUVEL ORDRE INTERNATIONAL ======= -->
-  <div class="chapter-header">
-    <div class="chapter-num">II</div>
-    <div class="chapter-label">Partie II</div>
-    <h2 class="chapter-title">La naissance d'un nouvel ordre international</h2>
+    <div class="tl-item">
+      <div class="tl-content-left empty"></div>
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-content-right">
+        <span class="tl-year">1948</span>
+        <div class="tl-title-card">Plan Marshall</div>
+        <p class="tl-text">Les États-Unis accordent 16,5 milliards de dollars à 16 pays européens pour reconstruire leurs économies dévastées par la guerre.</p>
+        <span class="tl-tag economie">Économie</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-content-left">
+        <span class="tl-year">1948</span>
+        <div class="tl-title-card">Naissance d'Israël</div>
+        <p class="tl-text">Avec l'accord des Alliés, les colons juifs de Palestine déclarent la naissance de l'État d'Israël — réparation symbolique après la Shoah. Début du conflit israélo-arabe.</p>
+        <span class="tl-tag politique">Géopolitique</span>
+      </div>
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-content-right empty"></div>
+    </div>
   </div>
 
-  <!-- Bretton Woods -->
-  <section class="timeline-entry reveal">
-    <div class="timeline-content">
-      <div class="timeline-tag">1944 — Économie mondiale</div>
-      <h2 class="timeline-h2">Bretton Woods : le dollar, monnaie du monde</h2>
-      <p class="timeline-text">En 1945, les États-Unis détiennent les <strong style="color:var(--gold)">2/3 du stock d'or mondial</strong>. Avec les accords de Bretton Woods (1944), le dollar devient la seule monnaie convertible en or et la référence mondiale, supplantant la Livre Sterling.</p>
-      <div class="highlight-box">
-        <strong>FMI</strong> — Aide les pays en difficultés financières passagères (siège : Washington)<br><br>
-        <strong>BIRD / Banque Mondiale</strong> — Prêts à long terme pour la reconstruction et le développement
+  <!-- SECTION : BILAN HUMAIN -->
+  <div class="divider"></div>
+
+  <section class="scroll-section fade-in-up">
+    <div class="scroll-section-inner">
+      <div class="scroll-text-block">
+        <div class="scroll-eyebrow">Partie I — Le bilan</div>
+        <h2 class="scroll-heading">Un monde<br>traumatisé</h2>
+        <p class="scroll-body">Le 8 mai 1945, l'Allemagne capitule. Derrière elle, six années de destruction ont laissé un bilan humain et matériel sans précédent. Des villes entières — Dresde, Berlin, Hiroshima, Nagasaki — ont été rayées de la carte.</p>
+        <div class="stat-box">
+          <div class="stat-number">60–80M</div>
+          <div class="stat-desc">morts estimés, dont <strong>45 millions de civils</strong> — une première dans l'histoire des conflits modernes.</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">26M</div>
+          <div class="stat-desc">morts en URSS, la nation la plus touchée — soit <strong>plus de 16% de sa population</strong> d'avant-guerre.</div>
+        </div>
+        <p class="scroll-body">Les survivants affrontent des pénuries de charbon, de nourriture, de logements. Des millions d'Européens vivent dans le dénuement le plus total à l'issue du conflit.</p>
       </div>
-    </div>
-    <div class="timeline-spine">
-      <div class="timeline-dot" style="background:var(--blue-bright); box-shadow: 0 0 20px rgba(46,134,193,0.6);"></div>
-      <div class="timeline-date-badge">Juil 1944</div>
-    </div>
-    <div class="timeline-visual">
-      <div class="info-card">
-        <span class="info-card-icon">🌍</span>
-        <div style="font-family:'Playfair Display',serif; font-size:20px; color:var(--cream); margin-bottom:12px;">La nouvelle architecture mondiale</div>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">
-          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text);">
-            <span style="color:var(--gold);font-size:18px;">$</span> Dollar = monnaie de référence mondiale
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text);">
-            <span style="color:var(--gold);font-size:18px;">🏛</span> FMI — stabilité financière
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text);">
-            <span style="color:var(--gold);font-size:18px;">🏗</span> Banque Mondiale — reconstruction
-          </div>
+      <div class="scroll-visual">
+        <div class="visual-card">
+          <img src="https://kronos-images.schoolmouv.fr/fnx-hist-tle-c011-img01.jpg" alt="Dresde après les bombardements" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'280\' fill=\'%230a0a0f\'><rect width=\'400\' height=\'280\'/><text x=\'200\' y=\'140\' text-anchor=\'middle\' fill=\'%23555\' font-size=\'14\'>Image non disponible</text></svg>'">
+          <div class="visual-caption">La ville de Dresde après les bombardements alliés, 1945</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ONU -->
-  <section class="timeline-entry reverse reveal">
-    <div class="timeline-content">
-      <div class="timeline-tag">26 Juin 1945 — San Francisco</div>
-      <h2 class="timeline-h2">L'ONU : gardienne de la paix mondiale</h2>
-      <p class="timeline-text">L'Organisation des Nations Unies est créée lors de la Conférence de San Francisco avec trois missions fondamentales : garantir la paix, promouvoir la démocratie et garantir le droit des peuples à disposer d'eux-mêmes.</p>
-      <div class="highlight-box">
-        <strong>Assemblée Générale :</strong> Tous les membres, vote des recommandations<br><br>
-        <strong>Conseil de Sécurité :</strong> 5 membres permanents (USA, URSS, France, Royaume-Uni, Chine) avec droit de <strong style="color:var(--red-bright)">veto</strong><br><br>
-        <strong>Casques Bleus :</strong> Force d'intervention internationale
+  <!-- SECTION : HOLOCAUSTE -->
+  <section class="scroll-section fade-in-up">
+    <div class="scroll-section-inner reverse">
+      <div class="scroll-text-block">
+        <div class="scroll-eyebrow">La Shoah</div>
+        <h2 class="scroll-heading">Le bilan<br>de l'Holocauste</h2>
+        <p class="scroll-body">Parmi les victimes, les Juifs et les Tsiganes ont subi une politique d'extermination systématique : la Solution finale. À la libération des premiers camps en 1945, les Alliés prennent conscience de l'ampleur de l'horreur.</p>
+        <div class="stat-box">
+          <div class="stat-number">6 M</div>
+          <div class="stat-desc">de Juifs assassinés dans les camps nazis, auxquels s'ajoutent 220 000 Tsiganes.</div>
+        </div>
+        <div class="definition-box">
+          <strong>Génocide</strong>
+          <p>Extermination organisée et systématique d'une population — concept reconnu à l'issue de la Seconde Guerre mondiale dans le droit international.</p>
+        </div>
+        <p class="scroll-body">Dans la plupart des pays d'Europe centrale et orientale, les communautés juives ont été éradiquées. Les survivants, souvent sans famille et sans foyer, choisissent massivement de quitter leurs pays pour reconstruire une vie ailleurs.</p>
       </div>
-    </div>
-    <div class="timeline-spine">
-      <div class="timeline-dot" style="background:var(--blue-bright); box-shadow: 0 0 20px rgba(46,134,193,0.6);"></div>
-      <div class="timeline-date-badge">26 Juin 1945</div>
-    </div>
-    <div class="timeline-visual">
-      <div class="info-card">
-        <span class="info-card-icon">🕊️</span>
-        <div style="font-family:'Playfair Display',serif; font-size:18px; color:var(--cream); margin-bottom:12px;">Premiers membres permanents du Conseil de Sécurité</div>
-        <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px;">
-          <div style="font-size:13px; color:var(--text);">🇺🇸 États-Unis</div>
-          <div style="font-size:13px; color:var(--text);">🇷🇺 URSS</div>
-          <div style="font-size:13px; color:var(--text);">🇬🇧 Royaume-Uni</div>
-          <div style="font-size:13px; color:var(--text);">🇫🇷 France</div>
-          <div style="font-size:13px; color:var(--text);">🇨🇳 Chine</div>
-        </div>
-        <div style="margin-top:12px; font-size:12px; color:var(--muted);">Premier Secrétaire Général : <span style="color:var(--gold)">Trygve Lie</span> (Norvège)</div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider"><div class="divider-icon">✦</div></div>
-
-  <!-- ======= PARTIE III : NOUVELLES TENSIONS ======= -->
-  <div class="chapter-header">
-    <div class="chapter-num">III</div>
-    <div class="chapter-label">Partie III</div>
-    <h2 class="chapter-title">De nouvelles tensions</h2>
-  </div>
-
-  <!-- Deux superpuissances -->
-  <section class="timeline-entry reveal">
-    <div class="timeline-content">
-      <div class="timeline-tag">1945–1947 — Géopolitique</div>
-      <h2 class="timeline-h2">Deux superpuissances face à face</h2>
-      <p class="timeline-text"><strong style="color:var(--gold)">Les États-Unis</strong> sortent de leur isolationnisme. En 1950, ils produisent 1/3 des biens de la planète et sont les seuls à posséder l'arme atomique. Ils se posent en leaders du monde libre.</p>
-      <p class="timeline-text" style="margin-top:16px;"><strong style="color:var(--red-bright)">L'URSS</strong> sort avec un prestige immense après Stalingrad. Staline impose des régimes communistes dans les pays libérés par l'Armée rouge en truquant les élections.</p>
-    </div>
-    <div class="timeline-spine">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date-badge">1946–47</div>
-    </div>
-    <div class="timeline-visual">
-      <div class="stat-grid">
-        <div class="stat-box" style="border-color:rgba(46,134,193,0.3);">
-          <span class="stat-box-num" style="color:var(--blue-bright);">1/3</span>
-          <span class="stat-box-label">Production mondiale USA (1950)</span>
-        </div>
-        <div class="stat-box" style="border-color:rgba(192,57,43,0.3);">
-          <span class="stat-box-num" style="color:var(--red-bright);">☭</span>
-          <span class="stat-box-label">Régimes communistes imposés</span>
-        </div>
-        <div class="stat-box" style="border-color:rgba(46,134,193,0.3);">
-          <span class="stat-box-num" style="color:var(--blue-bright);">☢️</span>
-          <span class="stat-box-label">Monopole nucléaire américain</span>
-        </div>
-        <div class="stat-box" style="border-color:rgba(192,57,43,0.3);">
-          <span class="stat-box-num" style="color:var(--red-bright);">🔒</span>
-          <span class="stat-box-label">Rideau de Fer — 1946</span>
+      <div class="scroll-visual">
+        <div class="visual-card">
+          <img src="https://kronos-images.schoolmouv.fr/fnx-hist-tle-c011-img02.jpg" alt="Liberation de Bergen Belsen" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'280\' fill=\'%230a0a0f\'><rect width=\'400\' height=\'280\'/><text x=\'200\' y=\'140\' text-anchor=\'middle\' fill=\'%23555\' font-size=\'14\'>Image non disponible</text></svg>'">
+          <div class="visual-caption">Les prisonnières de Bergen Belsen libérées par les Alliés, avril 1945</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Plan Marshall + Coup de Prague -->
-  <section class="timeline-entry reverse reveal">
-    <div class="timeline-content">
-      <div class="timeline-tag">Mars 1947 — Doctrine Truman</div>
-      <h2 class="timeline-h2">Le Plan Marshall & le Rideau de Fer</h2>
-      <p class="timeline-text">En 1946, Churchill dénonce le <strong style="color:var(--gold)">rideau de fer</strong> qui coupe l'Europe en deux. En mars 1947, Truman lance un plan d'aide économique aux pays européens pour éviter qu'ils basculent dans le communisme.</p>
-      <p class="timeline-text" style="margin-top:16px;">L'URSS riposte en obligeant les pays d'Europe de l'Est à refuser l'aide américaine. Le <strong style="color:var(--red-bright)">blocus de Berlin</strong> (juin 1948 – mai 1949) est la première grande crise de la Guerre Froide.</p>
-    </div>
-    <div class="timeline-spine">
-      <div class="timeline-dot" style="background:var(--red-bright);"></div>
-      <div class="timeline-date-badge">1947–1948</div>
-    </div>
-    <div class="timeline-visual">
-      <div style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:380px;">
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/edFqfyRKLSs" allowfullscreen loading="lazy"></iframe>
-          <div class="video-label">▶ <span>VIDÉO</span> — Le Plan Marshall</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Coup de Prague -->
-  <section class="timeline-entry reveal">
-    <div class="timeline-content">
-      <div class="timeline-tag">Février 1948 — Tchécoslovaquie</div>
-      <h2 class="timeline-h2">Le Coup de Prague : un séisme en Europe</h2>
-      <p class="timeline-text">En Tchécoslovaquie, les communistes remportent les élections de 1946 sans majorité absolue. En février 1948, le Parti communiste organise des manifestations, contraint le président <strong style="color:var(--gold)">Edvard Benes</strong> à accepter un gouvernement uniquement communiste et à démissionner.</p>
-      <div class="highlight-box">
-        Ce « coup de Prague » provoque un <strong>séisme</strong> dans les démocraties d'Europe occidentale et aux États-Unis. Il confirme la stratégie soviétique d'expansion par la force.
-      </div>
-    </div>
-    <div class="timeline-spine">
-      <div class="timeline-dot" style="background:var(--red-bright);"></div>
-      <div class="timeline-date-badge">Fév 1948</div>
-    </div>
-    <div class="timeline-visual">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/MhZpF3xEn_s" allowfullscreen loading="lazy"></iframe>
-        <div class="video-label">▶ <span>VIDÉO</span> — Le Coup de Prague (1948)</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Palestine / Israël -->
-  <section class="timeline-entry reverse reveal">
-    <div class="timeline-content">
-      <div class="timeline-tag">14 Mai 1948 — Proche-Orient</div>
-      <h2 class="timeline-h2">La naissance d'Israël & la Nakba</h2>
-      <p class="timeline-text">La Palestine, sous mandat britannique, est peuplée majoritairement d'Arabes mais les Britanniques ont favorisé l'immigration juive (déclaration Balfour). Après la Shoah, de nombreux rescapés décident de s'y installer pour créer un État : c'est le <strong style="color:var(--gold)">sionisme</strong>.</p>
-      <p class="timeline-text" style="margin-top:16px;">Le <strong style="color:var(--gold)">14 mai 1948</strong>, David Ben Gourion proclame l'indépendance de l'État d'Israël. Dès le lendemain, les États arabes entrent en guerre. L'exode de près d'un million de Palestiniens — la <strong style="color:var(--red-bright)">Nakba</strong> — pose les bases de l'un des conflits les plus durables de l'histoire.</p>
-    </div>
-    <div class="timeline-spine">
-      <div class="timeline-dot" style="background:var(--red-bright);"></div>
-      <div class="timeline-date-badge">14 Mai 1948</div>
-    </div>
-    <div class="timeline-visual">
-      <div class="info-card">
-        <span class="info-card-icon">🏛️</span>
-        <div style="font-family:'Playfair Display',serif; font-size:18px; color:var(--cream); margin-bottom:12px;">Chronologie Palestine</div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="font-size:13px;color:var(--text);padding-left:12px;border-left:2px solid var(--gold);">1917 — Déclaration Balfour</div>
-          <div style="font-size:13px;color:var(--text);padding-left:12px;border-left:2px solid var(--gold);">1947 — Plan de partage ONU</div>
-          <div style="font-size:13px;color:var(--text);padding-left:12px;border-left:2px solid var(--gold);">14 Mai 1948 — Naissance d'Israël</div>
-          <div style="font-size:13px;color:var(--red-bright);padding-left:12px;border-left:2px solid var(--red-bright);">1948 — La Nakba (l'exode)</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PERSONNES CLÉS -->
-  <section class="figures-section reveal">
-    <div style="text-align:center; margin-bottom:16px;">
-      <div class="chapter-label">Les acteurs de l'histoire</div>
-      <h2 style="font-family:'Playfair Display',serif; font-size:40px; color:var(--cream);">Figures clés de l'époque</h2>
-    </div>
-    <div class="figures-grid">
-      <div class="figure-card">
-        <span class="figure-emoji">🇺🇸</span>
-        <div class="figure-name">Harry S. Truman</div>
-        <div class="figure-role">Président des USA</div>
-        <div class="figure-desc">Ordonne les bombes atomiques, lance la Doctrine Truman (1947) et le Plan Marshall contre l'expansion soviétique.</div>
-      </div>
-      <div class="figure-card">
-        <span class="figure-emoji">🇷🇺</span>
-        <div class="figure-name">Joseph Staline</div>
-        <div class="figure-role">Dirigeant URSS</div>
-        <div class="figure-desc">Impose des régimes communistes en Europe de l'Est après la victoire soviétique. Lance le blocus de Berlin en 1948.</div>
-      </div>
-      <div class="figure-card">
-        <span class="figure-emoji">🇬🇧</span>
-        <div class="figure-name">Winston Churchill</div>
-        <div class="figure-role">Premier ministre GB</div>
-        <div class="figure-desc">Prononce le discours du « Rideau de Fer » en 1946, alertant le monde sur l'expansion soviétique.</div>
-      </div>
-      <div class="figure-card">
-        <span class="figure-emoji">🇮🇱</span>
-        <div class="figure-name">David Ben Gourion</div>
-        <div class="figure-role">Fondateur d'Israël</div>
-        <div class="figure-desc">Proclame l'indépendance de l'État d'Israël le 14 mai 1948, devenant son premier Premier ministre.</div>
-      </div>
-      <div class="figure-card">
-        <span class="figure-emoji">🇳🇴</span>
-        <div class="figure-name">Trygve Lie</div>
-        <div class="figure-role">1er Secrétaire Général ONU</div>
-        <div class="figure-desc">Norvégien, premier secrétaire général des Nations Unies, incarnation du nouvel ordre international.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONCLUSION QUOTE -->
-  <section class="quote-block reveal">
-    <div class="quote-text">
-      « L'année 1945 marque un tournant majeur dans l'histoire de la planète. De ces ruines surgit la volonté de construire un monde nouveau basé sur la coopération et le droit international. »
-    </div>
-    <div class="quote-author">— Conclusion du chapitre</div>
-  </section>
-
-  <footer>
-    <div class="footer-left">1945 — Histoire</div>
-    <div class="footer-right">La Fin de la SGM & le Nouvel Ordre Mondial</div>
-  </footer>
-
-</div><!-- /page-cours -->
-
-<!-- ============================================================ -->
-<!-- PAGE : EXERCICES                                              -->
-<!-- ============================================================ -->
-<div id="page-exercices" class="page">
-  <div class="exercises-page">
-    <div class="exercises-header">
-      <h1>Exercices</h1>
-      <p>Testez vos connaissances sur le chapitre</p>
-    </div>
-
-    <div class="quiz-container">
-      <div class="quiz-modes">
-        <button class="quiz-mode-btn active" onclick="setMode('qcm')">QCM — Questions</button>
-        <button class="quiz-mode-btn" onclick="setMode('dates')">Chronologie — Dates</button>
-        <button class="quiz-mode-btn" onclick="setMode('definitions')">Définitions clés</button>
-      </div>
-
-      <!-- QCM -->
-      <div id="mode-qcm" class="quiz-card active">
-        <div class="progress-bar-wrapper">
-          <div class="progress-bar-fill" id="qcm-progress" style="width:10%"></div>
-        </div>
-
-        <div id="qcm-question-area">
-          <div class="question-num" id="qcm-num">Question 1 / 10</div>
-          <div class="question-text" id="qcm-text"></div>
-          <div class="answers-grid" id="qcm-answers"></div>
-          <div class="quiz-feedback" id="qcm-feedback"></div>
-          <div class="quiz-nav">
-            <div class="score-display" id="qcm-score">Score : 0 / 0</div>
-            <button class="quiz-btn" id="qcm-next" onclick="nextQcmQuestion()" disabled>Question suivante →</button>
+  <!-- VIDÉO : AUSCHWITZ -->
+  <section class="video-section fade-in-up">
+    <div class="video-section-inner">
+      <div class="section-label">Document vidéo</div>
+      <h2 class="section-title" style="margin:0.5rem 0 0.8rem">Auschwitz, le plus grand camp d'extermination</h2>
+      <p class="section-desc">Comprendre la mécanique de la Shoah à travers l'exemple du plus grand camp nazi.</p>
+      <div class="video-grid" style="grid-template-columns:1fr;max-width:640px">
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/GB36rH8jDqM" allowfullscreen title="Auschwitz"></iframe>
+          <div class="video-card-info">
+            <div class="video-card-title">Auschwitz, camp d'extermination nazi</div>
+            <div class="video-card-desc">Documentaire sur le fonctionnement des camps de la mort et le génocide juif.</div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="result-screen" id="qcm-result">
-          <span class="result-emoji" id="result-emoji">🏆</span>
-          <div class="result-score" id="result-score-text"></div>
-          <div class="result-msg" id="result-msg"></div>
-          <button class="quiz-btn" onclick="resetQcm()">Recommencer</button>
+  <!-- SECTION : NUREMBERG -->
+  <section class="scroll-section fade-in-up">
+    <div class="scroll-section-inner">
+      <div class="scroll-text-block">
+        <div class="scroll-eyebrow">Justice internationale</div>
+        <h2 class="scroll-heading">Les procès de<br>Nuremberg</h2>
+        <p class="scroll-body">Pour tourner la page du nazisme, les Alliés organisent à partir du 20 novembre 1945 les procès de Nuremberg. Les grands responsables du régime nazi sont jugés devant un tribunal international.</p>
+        <div class="definition-box">
+          <strong>Crime contre l'humanité</strong>
+          <p>Acte criminel à l'encontre d'un groupe humain, violant gravement les droits de la personne. Ce chef d'accusation, inédit, entre pour la première fois dans le droit international à Nuremberg.</p>
+        </div>
+        <p class="scroll-body">Au Japon, les procès de Tokyo (1946–1948) suivent la même logique. Toutefois, certains scientifiques et cadres passent entre les mailles du filet — Wernher Von Braun, créateur de la fusée V2, rejoint ainsi la NASA.</p>
+      </div>
+      <div class="scroll-visual">
+        <div class="visual-card">
+          <img src="https://kronos-images.schoolmouv.fr/fnx-hist-tle-c011-img03.jpg" alt="Procès de Nuremberg" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'280\' fill=\'%230a0a0f\'><rect width=\'400\' height=\'280\'/><text x=\'200\' y=\'140\' text-anchor=\'middle\' fill=\'%23555\' font-size=\'14\'>Image non disponible</text></svg>'">
+          <div class="visual-caption">Les docteurs nazis jugés lors des procès de Nuremberg, 1947</div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- DATES -->
-      <div id="mode-dates" class="quiz-card">
-        <h3 style="font-family:'Playfair Display',serif; font-size:24px; color:var(--cream); margin-bottom:8px;">Chronologie</h3>
-        <p style="font-size:14px; color:var(--muted); margin-bottom:32px;">Entrez l'année correcte pour chaque événement (ex: 1945)</p>
-        <div id="dates-list"></div>
-        <button class="tl-check-btn" onclick="checkDates()">Vérifier mes réponses</button>
-        <button class="quiz-btn secondary" style="margin-top:12px;display:block;" onclick="resetDates()">Recommencer</button>
+  <!-- SECTION : PLAN MARSHALL -->
+  <div class="divider"></div>
+
+  <section class="scroll-section fade-in-up">
+    <div class="scroll-section-inner reverse">
+      <div class="scroll-text-block">
+        <div class="scroll-eyebrow">Partie II — Reconstruction</div>
+        <h2 class="scroll-heading">Le Plan Marshall<br>& la reconstruction</h2>
+        <p class="scroll-body">Face à la dévastation économique de l'Europe, les États-Unis lancent en 1948 un plan de reconstruction massif : le Plan Marshall. 16,5 milliards de dollars sont prêtés à 16 pays européens.</p>
+        <p class="scroll-body">L'URSS propose également ses propres plans de reconstruction dans l'Europe de l'Est, imposant le matériel soviétique et renforçant son influence sur les démocraties populaires naissantes.</p>
+        <div class="definition-box">
+          <strong>État providence</strong>
+          <p>Modèle dans lequel l'État joue un rôle de régulateur économique et social, garantissant l'égalité par des mesures redistributives : sécurité sociale, nationalisations, droits des travailleurs.</p>
+        </div>
+      </div>
+      <div class="scroll-visual">
+        <div class="visual-card">
+          <img src="https://kronos-images.schoolmouv.fr/fnx-hist-tle-c011-img04.jpeg" alt="Affiche Plan Marshall" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'280\' fill=\'%230a0a0f\'><rect width=\'400\' height=\'280\'/><text x=\'200\' y=\'140\' text-anchor=\'middle\' fill=\'%23555\' font-size=\'14\'>Image non disponible</text></svg>'">
+          <div class="visual-caption">Affiche de propagande vantant le Plan Marshall américain</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDÉOS SECONDAIRES -->
+  <section class="video-section fade-in-up">
+    <div class="video-section-inner">
+      <div class="section-label">Vidéos documentaires</div>
+      <h2 class="section-title" style="margin:0.5rem 0 0.8rem">Approfondir les thèmes clés</h2>
+      <div class="video-grid">
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/edFqfyRKLSs" allowfullscreen title="Plan Marshall"></iframe>
+          <div class="video-card-info">
+            <div class="video-card-title">Le Plan Marshall</div>
+            <div class="video-card-desc">Le plan de reconstruction américain de l'Europe, 1948.</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/YzsEtucwv6o" allowfullscreen title="Conseil National Résistance"></iframe>
+          <div class="video-card-info">
+            <div class="video-card-title">Le Conseil National de la Résistance</div>
+            <div class="video-card-desc">Le programme du CNR et les bases de l'État providence français.</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/FQbe5adnC3M" allowfullscreen title="Services secrets guerre froide"></iframe>
+          <div class="video-card-info">
+            <div class="video-card-title">Les services secrets & la Guerre froide</div>
+            <div class="video-card-desc">L'espionnage dans le contexte de la bipolarisation du monde.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION : YALTA & BIPOLARISATION -->
+  <section class="scroll-section fade-in-up">
+    <div class="scroll-section-inner">
+      <div class="scroll-text-block">
+        <div class="scroll-eyebrow">Partie III — Bipolarisation</div>
+        <h2 class="scroll-heading">Yalta : partage<br>du monde</h2>
+        <p class="scroll-body">Du 4 au 11 février 1945, Churchill, Roosevelt et Staline se retrouvent à Yalta en Crimée. Ils décident du rétablissement des frontières d'avant-guerre et du principe d'élections libres dans les pays libérés.</p>
+        <p class="scroll-body">En réalité, la présence militaire détermine les résultats : les pays libérés par l'Armée rouge basculent vers le communisme, ceux libérés par les Occidentaux vers la démocratie capitaliste.</p>
+      </div>
+      <div class="scroll-visual">
+        <div class="visual-card">
+          <img src="https://kronos-images.schoolmouv.fr/fnx-hist-tle-c012-img02.jpg" alt="Yalta - Churchill Roosevelt Staline" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'280\' fill=\'%230a0a0f\'><rect width=\'400\' height=\'280\'/><text x=\'200\' y=\'140\' text-anchor=\'middle\' fill=\'%23555\' font-size=\'14\'>Image non disponible</text></svg>'">
+          <div class="visual-caption">Churchill, Roosevelt et Staline à la conférence de Yalta, 1945</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIAGRAM BIPOLAIRE -->
+  <section class="bipolar-section fade-in-up">
+    <div class="bipolar-inner">
+      <div class="section-label">Le monde bipolaire</div>
+      <h2 class="section-title" style="text-align:center">USA vs URSS :<br>deux modèles opposés</h2>
+      <div class="bipolar-diagram">
+        <div class="bipolar-side">
+          <div class="bipolar-flag">🇺🇸</div>
+          <div class="bipolar-name">États-Unis</div>
+          <ul class="bipolar-list">
+            <li>Démocratie libérale</li>
+            <li>Économie capitaliste</li>
+            <li>Bombe atomique (1945)</li>
+            <li>Doctrine Truman</li>
+            <li>Plan Marshall</li>
+            <li>OTAN (1949)</li>
+            <li>FMI / Banque mondiale</li>
+          </ul>
+        </div>
+        <div class="bipolar-center">
+          <div class="vs-badge">VS</div>
+        </div>
+        <div class="bipolar-side right">
+          <div class="bipolar-flag">🇷🇺</div>
+          <div class="bipolar-name">URSS</div>
+          <ul class="bipolar-list">
+            <li>Dictature totalitaire</li>
+            <li>Économie planifiée</li>
+            <li>Armée Rouge puissante</li>
+            <li>Kominform (1947)</li>
+            <li>Partis communistes locaux</li>
+            <li>Pacte de Varsovie (1955)</li>
+            <li>Europe de l'Est satellite</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION : ONU -->
+  <section class="onu-section fade-in-up">
+    <div class="onu-inner">
+      <div class="section-label text-center" style="text-align:center">Partie IV — Gouvernance mondiale</div>
+      <h2 class="section-title" style="text-align:center;margin:0.5rem auto 1rem">L'ONU : vers un gouvernement mondial ?</h2>
+      <p class="section-desc" style="text-align:center;margin:0 auto 0">Créée en 1945, l'ONU doit garantir la paix par le dialogue diplomatique et éviter un nouveau conflit mondial.</p>
+      <div class="onu-grid">
+        <div class="onu-card">
+          <div class="onu-icon">🏛️</div>
+          <div class="onu-card-title">Conseil de Sécurité</div>
+          <div class="onu-card-text">5 membres permanents (USA, URSS, UK, France, Chine) disposent du droit de veto pour bloquer toute résolution contraire à leurs intérêts.</div>
+        </div>
+        <div class="onu-card">
+          <div class="onu-icon">⚔️</div>
+          <div class="onu-card-title">Les Casques Bleus</div>
+          <div class="onu-card-text">Force militaire internationale déployée par le Conseil de Sécurité pour maintenir la paix dans les zones de conflit.</div>
+        </div>
+        <div class="onu-card">
+          <div class="onu-icon">🌐</div>
+          <div class="onu-card-title">Assemblée Générale</div>
+          <div class="onu-card-text">Tous les États membres peuvent y siéger et débattre. Instance de dialogue mais sans pouvoir contraignant réel.</div>
+        </div>
+        <div class="onu-card">
+          <div class="onu-icon">💰</div>
+          <div class="onu-card-title">FMI</div>
+          <div class="onu-card-text">Fonds Monétaire International : assiste financièrement les États en difficulté et garantit la stabilité du système monétaire mondial.</div>
+        </div>
+        <div class="onu-card">
+          <div class="onu-icon">🏦</div>
+          <div class="onu-card-title">Banque Mondiale</div>
+          <div class="onu-card-text">Aide les États à se reconstruire et coordonne leurs politiques économiques. Initialement appelée BIRD (Banque Int. pour la Reconstruction).</div>
+        </div>
+        <div class="onu-card">
+          <div class="onu-icon">📋</div>
+          <div class="onu-card-title">GATT (1947)</div>
+          <div class="onu-card-text">Accord général sur les tarifs et le commerce. Pose les bases du libre échange mondial, futur ancêtre de l'Organisation Mondiale du Commerce (OMC).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDÉO : CHUTE DU MUR -->
+  <section class="video-section fade-in-up" style="margin-top:4rem">
+    <div class="video-section-inner">
+      <div class="section-label">Pour aller plus loin</div>
+      <h2 class="section-title" style="margin:0.5rem 0 0.8rem">La fin de la Guerre froide</h2>
+      <div class="video-grid" style="grid-template-columns:1fr 1fr">
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/JSAKJuxBiTM" allowfullscreen title="Chute du Mur de Berlin"></iframe>
+          <div class="video-card-info">
+            <div class="video-card-title">La chute du Mur de Berlin (1989)</div>
+            <div class="video-card-desc">Symbole de la fin du monde bipolaire né en 1945.</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/MhZpF3xEn_s" allowfullscreen title="Coup de Prague"></iframe>
+          <div class="video-card-info">
+            <div class="video-card-title">Le Coup de Prague (1948)</div>
+            <div class="video-card-desc">La prise de pouvoir communiste en Tchécoslovaquie — un exemple concret de la bipolarisation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">HISTOIRE TERMINALE · NOUVEL ORDRE MONDIAL · 1945–1948</div>
+</div>
+
+<!-- ============================= -->
+<!-- PANEL EXERCICES               -->
+<!-- ============================= -->
+<div id="panel-exercices" class="panel">
+  <div class="exercices-panel">
+    <div class="ex-header">
+      <div class="section-label">Entraînement</div>
+      <h2 class="section-title">Exercices interactifs</h2>
+      <p class="section-desc">Testez vos connaissances sur les dates, personnages et événements du chapitre.</p>
+    </div>
+    <div class="ex-body">
+      <div class="score-bar">
+        <div>
+          <div class="score-val" id="scoreVal">0/0</div>
+          <div class="score-label">Score actuel</div>
+        </div>
+        <div class="score-progress"><div class="score-fill" id="scoreFill" style="width:0%"></div></div>
+        <button class="ex-reset-btn" onclick="resetQuiz()">↺ Recommencer</button>
       </div>
 
-      <!-- DÉFINITIONS -->
-      <div id="mode-definitions" class="quiz-card">
-        <h3 style="font-family:'Playfair Display',serif; font-size:24px; color:var(--cream); margin-bottom:8px;">Définitions</h3>
-        <p style="font-size:14px; color:var(--muted); margin-bottom:32px;">Associez chaque terme à sa définition</p>
-        <div id="definitions-list"></div>
-        <button class="tl-check-btn" onclick="checkDefs()">Vérifier</button>
-        <button class="quiz-btn secondary" style="margin-top:12px;display:block;" onclick="resetDefs()">Recommencer</button>
+      <div class="ex-type-selector">
+        <button class="ex-type-btn active" onclick="setMode('all')">Tout mélanger</button>
+        <button class="ex-type-btn" onclick="setMode('dates')">📅 Dates clés</button>
+        <button class="ex-type-btn" onclick="setMode('personnes')">👤 Personnages</button>
+        <button class="ex-type-btn" onclick="setMode('institutions')">🏛 Institutions</button>
+        <button class="ex-type-btn" onclick="setMode('frise')">🗓 Frise interactive</button>
       </div>
+
+      <!-- FRISE MODE -->
+      <div class="frise-container" id="frise-container">
+        <h3 style="font-family:'Playfair Display',serif;color:var(--white);margin-bottom:1rem;font-size:1.2rem">Remettez les événements dans l'ordre — cliquez pour en savoir plus</h3>
+        <div class="frise">
+          <div class="frise-line"></div>
+          <div class="frise-event" onclick="showFriseInfo('1944')">
+            <div class="frise-year-label">Juil. 1944</div>
+            <div class="frise-event-name">Bretton Woods</div>
+            <div class="frise-dot"></div>
+          </div>
+          <div class="frise-event" onclick="showFriseInfo('cnr')">
+            <div class="frise-dot"></div>
+            <div class="frise-year-label">Mars 1944</div>
+            <div class="frise-event-name">Programme CNR</div>
+          </div>
+          <div class="frise-event" onclick="showFriseInfo('yalta')">
+            <div class="frise-year-label">Fév. 1945</div>
+            <div class="frise-event-name">Conférence de Yalta</div>
+            <div class="frise-dot"></div>
+          </div>
+          <div class="frise-event" onclick="showFriseInfo('capitulation')">
+            <div class="frise-dot"></div>
+            <div class="frise-year-label">8 Mai 1945</div>
+            <div class="frise-event-name">Capitulation nazie</div>
+          </div>
+          <div class="frise-event" onclick="showFriseInfo('onu')">
+            <div class="frise-year-label">1945</div>
+            <div class="frise-event-name">Création ONU</div>
+            <div class="frise-dot"></div>
+          </div>
+          <div class="frise-event" onclick="showFriseInfo('nuremberg')">
+            <div class="frise-dot"></div>
+            <div class="frise-year-label">Nov. 1945</div>
+            <div class="frise-event-name">Procès Nuremberg</div>
+          </div>
+          <div class="frise-event" onclick="showFriseInfo('gatt')">
+            <div class="frise-year-label">1947</div>
+            <div class="frise-event-name">GATT</div>
+            <div class="frise-dot"></div>
+          </div>
+          <div class="frise-event" onclick="showFriseInfo('marshall')">
+            <div class="frise-dot"></div>
+            <div class="frise-year-label">1948</div>
+            <div class="frise-event-name">Plan Marshall</div>
+          </div>
+          <div class="frise-event" onclick="showFriseInfo('israel')">
+            <div class="frise-year-label">1948</div>
+            <div class="frise-event-name">État d'Israël</div>
+            <div class="frise-dot"></div>
+          </div>
+        </div>
+        <div id="frise-info" style="margin-top:1.5rem;padding:1.5rem;background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:6px;display:none;color:rgba(200,195,185,0.9);font-size:1rem;line-height:1.7"></div>
+      </div>
+
+      <!-- QUESTIONS -->
+      <div id="questions-container"></div>
     </div>
   </div>
 </div>
 
-<!-- ============================================================ -->
-<!-- PAGE : IA                                                     -->
-<!-- ============================================================ -->
-<div id="page-ia" class="page">
-  <div class="ai-page">
-    <div class="ai-header">
-      <div class="ai-badge"><div class="ai-dot"></div> IA Active — Gemini Flash</div>
-      <h1>Tuteur IA</h1>
-      <p>Posez toutes vos questions sur le chapitre. L'IA connaît parfaitement le cours.</p>
+<!-- ============================= -->
+<!-- PANEL IA                      -->
+<!-- ============================= -->
+<div id="panel-ia" class="panel">
+  <div class="ia-panel">
+    <div class="ia-header">
+      <div class="section-label">Intelligence Artificielle</div>
+      <h2 class="section-title">Pose ta question au professeur IA</h2>
+      <div class="ia-subtitle-block">
+        <div class="ia-model-badge">Gemini 2.5 Flash</div>
+        <span style="color:var(--mist);font-size:0.85rem">· Connaît tout le cours sur le Nouvel Ordre Mondial</span>
+      </div>
     </div>
-
-    <div class="chat-area" id="chat-area">
-      <div class="chat-message ai">
-        <div class="chat-avatar">🏛️</div>
-        <div class="chat-bubble">
-          Bonjour ! Je suis votre tuteur spécialisé sur le chapitre <strong>« La fin de la Seconde Guerre Mondiale et les débuts d'un nouvel ordre mondial (1945-1948) »</strong>.<br><br>
-          Je peux vous expliquer la problématique, les conférences de Yalta et Potsdam, la création de l'ONU, le Plan Marshall, la Guerre Froide naissante, ou tout autre point du cours. Que souhaitez-vous approfondir ?
+    <div class="ia-body">
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-msg assistant">
+          <div class="msg-avatar">IA</div>
+          <div class="msg-bubble">
+            <p>Bonjour ! 👋 Je suis votre professeur IA pour le chapitre <strong>Nouvel Ordre Mondial</strong>.</p>
+            <p>J'ai lu l'intégralité du cours et je peux répondre à toutes vos questions : dates, personnages, événements, définitions, analyses... Que souhaitez-vous réviser ?</p>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="chat-input-area">
-      <div class="suggested-questions" id="suggestions">
-        <button class="suggest-btn" onclick="useSuggestion(this)">Qu'est-ce que le plan Marshall ?</button>
-        <button class="suggest-btn" onclick="useSuggestion(this)">Explique-moi le rideau de fer</button>
-        <button class="suggest-btn" onclick="useSuggestion(this)">Pourquoi l'URSS est-elle si puissante en 1945 ?</button>
-        <button class="suggest-btn" onclick="useSuggestion(this)">Comment l'État d'Israël est-il né ?</button>
-        <button class="suggest-btn" onclick="useSuggestion(this)">C'est quoi la Nakba ?</button>
-        <button class="suggest-btn" onclick="useSuggestion(this)">Résume les accords de Bretton Woods</button>
-      </div>
-      <div class="chat-input-row">
-        <textarea class="chat-input" id="chat-input" placeholder="Posez votre question sur le chapitre..." rows="2" onkeydown="handleEnter(event)"></textarea>
-        <button class="send-btn" id="send-btn" onclick="sendMessage()">Envoyer ↗</button>
+      <div class="chat-input-area">
+        <div class="suggestion-chips">
+          <div class="chip" onclick="askQuestion('Quelles sont les conséquences humaines de la Seconde Guerre mondiale ?')">Bilan humain de la guerre</div>
+          <div class="chip" onclick="askQuestion('Explique-moi la conférence de Yalta et ses enjeux.')">Conférence de Yalta</div>
+          <div class="chip" onclick="askQuestion('Qu\'est-ce que le Plan Marshall et pourquoi est-il important ?')">Plan Marshall</div>
+          <div class="chip" onclick="askQuestion('Comment fonctionne l\'ONU et pourquoi a-t-elle été créée ?')">L'ONU</div>
+          <div class="chip" onclick="askQuestion('Qu\'est-ce que le monde bipolaire et pourquoi est-il né en 1945 ?')">Monde bipolaire</div>
+          <div class="chip" onclick="askQuestion('Quels sont les accords de Bretton Woods ?')">Bretton Woods</div>
+        </div>
+        <div class="input-row">
+          <textarea class="chat-input" id="chatInput" placeholder="Pose ta question sur le cours..." rows="2" onkeydown="handleKey(event)"></textarea>
+          <button class="send-btn" id="sendBtn" onclick="sendMessage()">Envoyer ↵</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-// =============================================
-// NAVIGATION
-// =============================================
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+// ===== CURSOR =====
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+});
+(function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  cursorRing.style.left = ringX + 'px';
+  cursorRing.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+})();
+
+// ===== TABS =====
+function switchTab(tab) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  event.target.classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+  const idx = ['cours','exercices','ia'].indexOf(tab);
+  document.querySelectorAll('.nav-tab')[idx].classList.add('active');
   window.scrollTo(0,0);
 }
 
-// =============================================
-// SCROLL REVEAL
-// =============================================
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-    }
-  });
+// ===== SCROLL ANIMATIONS =====
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.15 });
+document.querySelectorAll('.tl-item, .fade-in-up').forEach(el => observer.observe(el));
 
-document.querySelectorAll('.reveal, .timeline-entry').forEach(el => observer.observe(el));
+// ===== QUIZ DATA =====
+const allQuestions = {
+  dates: [
+    { q: "En quelle année ont eu lieu les accords de Bretton Woods ?", answers: ["1943","1944","1945","1947"], correct: 1, explanation: "Les accords de Bretton Woods ont été signés en juillet 1944 en présence de 44 nations alliées." },
+    { q: "Quand l'Allemagne a-t-elle capitulé ?", answers: ["8 mai 1945","2 sept. 1945","8 mai 1944","6 juin 1944"], correct: 0, explanation: "L'Allemagne nazie a capitulé le 8 mai 1945, marquant la fin de la Seconde Guerre mondiale en Europe." },
+    { q: "Les procès de Nuremberg ont commencé en :", answers: ["Novembre 1945","Janvier 1946","Octobre 1946","Mai 1945"], correct: 0, explanation: "Les procès de Nuremberg ont débuté le 20 novembre 1945 et se sont achevés le 1er octobre 1946." },
+    { q: "L'État d'Israël a été déclaré en :", answers: ["1945","1946","1947","1948"], correct: 3, explanation: "L'État d'Israël a été proclamé en 1948 par David Ben Gourion, avec l'accord des puissances alliées." },
+    { q: "La conférence de Yalta s'est tenue en :", answers: ["Novembre 1944","Décembre 1944","Février 1945","Juin 1945"], correct: 2, explanation: "La conférence de Yalta s'est tenue du 4 au 11 février 1945 entre Churchill, Roosevelt et Staline." },
+    { q: "Le Plan Marshall a été lancé en :", answers: ["1945","1946","1947","1948"], correct: 3, explanation: "Le Plan Marshall a été mis en place en 1948 — il proposait 16,5 milliards de dollars à 16 pays européens." },
+    { q: "Le programme du CNR a été adopté en :", answers: ["Mars 1943","Mars 1944","Mai 1945","Janvier 1944"], correct: 1, explanation: "Le programme du Conseil National de la Résistance a été adopté le 15 mars 1944." },
+  ],
+  personnes: [
+    { q: "Qui étaient les trois 'Grands' présents à Yalta ?", answers: ["De Gaulle, Hitler, Mussolini","Churchill, Roosevelt, Staline","Truman, Churchill, Staline","Roosevelt, Staline, De Gaulle"], correct: 1, explanation: "La conférence de Yalta réunissait Winston Churchill (UK), Franklin Roosevelt (USA) et Joseph Staline (URSS)." },
+    { q: "Qui était le créateur de la fusée V2, devenu cadre de la NASA ?", answers: ["Robert Oppenheimer","Werner Heisenberg","Wernher Von Braun","Kurt Diebner"], correct: 2, explanation: "Wernher Von Braun, ingénieur nazi créateur de la fusée V2, fut récupéré par les Américains et intégra la NASA." },
+    { q: "Quel économiste a contribué à concevoir le nouvel ordre économique mondial ?", answers: ["Milton Friedman","John Maynard Keynes","Karl Marx","Friedrich Hayek"], correct: 1, explanation: "L'économiste britannique John Maynard Keynes a travaillé avec Roosevelt à la conception du système de Bretton Woods." },
+    { q: "Qui a proclamé l'État d'Israël en 1948 ?", answers: ["Yasser Arafat","Golda Meir","David Ben Gourion","Menahem Begin"], correct: 2, explanation: "C'est David Ben Gourion qui a officiellement proclamé la naissance de l'État d'Israël en 1948." },
+    { q: "Qui commandait l'Union soviétique à la fin de la Seconde Guerre mondiale ?", answers: ["Lénine","Trotski","Khrouchtchev","Staline"], correct: 3, explanation: "Joseph Staline dirigeait l'URSS depuis la fin des années 1920. Il dirigea la nation tout au long de la guerre." },
+  ],
+  institutions: [
+    { q: "Que signifie FMI ?", answers: ["Front Mondial des Investisseurs","Fonds Monétaire International","Forum Mondial de l'Industrie","Fédération Mondiale des Importations"], correct: 1, explanation: "Le FMI — Fonds Monétaire International — a été créé lors des accords de Bretton Woods pour aider les États en difficulté." },
+    { q: "Combien de membres permanents possède le Conseil de Sécurité de l'ONU ?", answers: ["3","4","5","10"], correct: 2, explanation: "5 membres permanents : USA, URSS (puis Russie), Royaume-Uni, France et Chine, tous dotés d'un droit de veto." },
+    { q: "Quel accord a posé les bases du libre échange international en 1947 ?", answers: ["Les accords de Yalta","Le GATT","Le Plan Dodge","Le FMI"], correct: 1, explanation: "Le GATT (General Agreement on Tariffs and Trade) signé en 1947 établit les principes du commerce international libéralisé." },
+    { q: "Comment s'appelait la Banque mondiale à sa création ?", answers: ["BIS","OCDE","BIRD","BCE"], correct: 2, explanation: "La Banque mondiale s'appelait à l'origine BIRD : Banque Internationale pour la Reconstruction et le Développement." },
+    { q: "Quel était l'objectif du Plan Marshall ?", answers: ["Rembourser les dettes de guerre","Reconstruire l'économie européenne","Créer l'OTAN","Établir le FMI"], correct: 1, explanation: "Le Plan Marshall (1948) visait à prêter aux pays européens les fonds nécessaires pour reconstruire leurs économies et éviter la montée du communisme." },
+    { q: "Que signifie CNR ?", answers: ["Comité National de la République","Conseil National de la Résistance","Corps National de la République","Centre National de Reconstruction"], correct: 1, explanation: "Le CNR — Conseil National de la Résistance — réunissait les différentes tendances de l'opposition au nazisme en France." },
+    { q: "Le droit de veto à l'ONU permet à un membre permanent de :", answers: ["Voter deux fois","Bloquer toute résolution","Expulser un État membre","Déployer des troupes unilatéralement"], correct: 1, explanation: "Le droit de veto permet à chacun des 5 membres permanents de s'opposer à n'importe quelle résolution du Conseil de Sécurité." },
+  ]
+};
 
-// =============================================
-// QCM DATA
-// =============================================
-const questions = [
-  {
-    q: "Combien de personnes environ ont perdu la vie pendant la Seconde Guerre Mondiale ?",
-    answers: ["30 millions", "60 millions", "90 millions", "20 millions"],
-    correct: 1,
-    explanation: "La SGM a coûté la vie à environ 60 millions de personnes, dont une majorité de civils."
-  },
-  {
-    q: "Quel pays a perdu le plus grand nombre de personnes pendant la Seconde Guerre Mondiale ?",
-    answers: ["Allemagne", "France", "URSS", "Pologne"],
-    correct: 2,
-    explanation: "L'URSS a perdu 25 millions de personnes dont 16 millions de civils — le pays le plus durement touché."
-  },
-  {
-    q: "À quelle date l'État d'Israël a-t-il été proclamé ?",
-    answers: ["14 mai 1947", "26 juin 1945", "14 mai 1948", "27 janvier 1945"],
-    correct: 2,
-    explanation: "David Ben Gourion proclame l'indépendance de l'État d'Israël le 14 mai 1948."
-  },
-  {
-    q: "Qu'est-ce que les accords de Bretton Woods (1944) établissent ?",
-    answers: ["La création de l'ONU", "Le dollar comme monnaie de référence mondiale", "L'occupation de l'Allemagne", "Le procès de Nuremberg"],
-    correct: 1,
-    explanation: "Les accords de Bretton Woods font du dollar la monnaie de référence mondiale, convertible en or."
-  },
-  {
-    q: "Lors de quelle conférence l'ONU est-elle officiellement créée ?",
-    answers: ["Conférence de Yalta", "Conférence de Potsdam", "Conférence de San Francisco", "Conférence de Bretton Woods"],
-    correct: 2,
-    explanation: "L'ONU est créée lors de la Conférence de San Francisco le 26 juin 1945."
-  },
-  {
-    q: "Qu'est-ce que la Nakba ?",
-    answers: ["La proclamation d'Israël", "L'exode d'environ 1 million de Palestiniens en 1948", "Le plan de partage de la Palestine", "La déclaration Balfour"],
-    correct: 1,
-    explanation: "La Nakba (catastrophe en arabe) désigne l'exode forcé d'environ 1 million de Palestiniens arabes lors de la guerre de 1948."
-  },
-  {
-    q: "Quel était le rôle de William Beveridge dans la reconstruction d'après-guerre ?",
-    answers: ["Il dirigea le procès de Nuremberg", "Il fut le premier secrétaire général de l'ONU", "Il théorisa l'État-providence et la protection sociale", "Il négocia les accords de Yalta"],
-    correct: 2,
-    explanation: "L'économiste britannique William Beveridge impulsa dès 1942 la mise en place des systèmes de protection sociale."
-  },
-  {
-    q: "Que signifie la dénazification décidée à Potsdam ?",
-    answers: ["La reconstruction économique de l'Allemagne", "L'éradication du nazisme de la vie publique et des institutions allemandes", "L'occupation militaire de l'Allemagne", "Le jugement des nazis à Nuremberg"],
-    correct: 1,
-    explanation: "La dénazification vise à éradiquer le nazisme de la vie publique et des institutions allemandes."
-  },
-  {
-    q: "Qu'est-ce que le « Coup de Prague » (février 1948) ?",
-    answers: ["L'entrée de la Tchécoslovaquie dans l'OTAN", "Le communistes forcent Benes à former un gouvernement 100% communiste", "La libération de Prague par les Soviétiques", "Un accord de paix entre l'Est et l'Ouest"],
-    correct: 1,
-    explanation: "Le coup de Prague désigne la prise de pouvoir totale des communistes en Tchécoslovaquie, forçant Benes à démissionner."
-  },
-  {
-    q: "Quel est le premier secrétaire général des Nations Unies ?",
-    answers: ["Dwight Eisenhower", "Trygve Lie", "Dag Hammarskjöld", "Charles de Gaulle"],
-    correct: 1,
-    explanation: "Trygve Lie, un Norvégien, fut le premier secrétaire général de l'ONU."
-  }
-];
+let currentMode = 'all';
+let score = 0, answered = 0;
 
-let currentQ = 0;
-let score = 0;
-let answered = false;
-
-function loadQcmQuestion() {
-  const q = questions[currentQ];
-  document.getElementById('qcm-num').textContent = `Question ${currentQ + 1} / ${questions.length}`;
-  document.getElementById('qcm-text').textContent = q.q;
-  document.getElementById('qcm-progress').style.width = ((currentQ + 1) / questions.length * 100) + '%';
-  document.getElementById('qcm-feedback').style.display = 'none';
-  document.getElementById('qcm-next').disabled = true;
-  answered = false;
-
-  const grid = document.getElementById('qcm-answers');
-  grid.innerHTML = '';
-  q.answers.forEach((a, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'answer-btn';
-    btn.textContent = a;
-    btn.onclick = () => selectAnswer(i);
-    grid.appendChild(btn);
-  });
+function getAllQuestions() {
+  return [...allQuestions.dates, ...allQuestions.personnes, ...allQuestions.institutions]
+    .sort(() => Math.random() - 0.5);
 }
 
-function selectAnswer(idx) {
-  if (answered) return;
-  answered = true;
-  const q = questions[currentQ];
-  const btns = document.querySelectorAll('.answer-btn');
-  btns.forEach(b => b.disabled = true);
-
-  const feedback = document.getElementById('qcm-feedback');
-  if (idx === q.correct) {
-    score++;
-    btns[idx].classList.add('correct');
-    feedback.className = 'quiz-feedback correct-msg';
-    feedback.innerHTML = '✅ <strong>Bonne réponse !</strong> ' + q.explanation;
-  } else {
-    btns[idx].classList.add('wrong');
-    btns[q.correct].classList.add('correct');
-    feedback.className = 'quiz-feedback wrong-msg';
-    feedback.innerHTML = '❌ <strong>Faux.</strong> ' + q.explanation;
-  }
-  feedback.style.display = 'block';
-  document.getElementById('qcm-score').textContent = `Score : ${score} / ${currentQ + 1}`;
-  document.getElementById('qcm-next').disabled = false;
-}
-
-function nextQcmQuestion() {
-  currentQ++;
-  if (currentQ >= questions.length) {
-    showResult();
-  } else {
-    loadQcmQuestion();
-  }
-}
-
-function showResult() {
-  document.getElementById('qcm-question-area').style.display = 'none';
-  const rs = document.getElementById('qcm-result');
-  rs.classList.add('active');
-  const pct = Math.round(score / questions.length * 100);
-  document.getElementById('result-score-text').textContent = `${score} / ${questions.length}`;
-  let emoji = '😔', msg = 'À réviser...';
-  if (pct >= 80) { emoji = '🏆'; msg = 'Excellent ! Vous maîtrisez le chapitre !'; }
-  else if (pct >= 60) { emoji = '👍'; msg = 'Bien joué ! Quelques révisions encore...'; }
-  else if (pct >= 40) { emoji = '📚'; msg = 'Pas mal, mais il faut réviser davantage.'; }
-  document.getElementById('result-emoji').textContent = emoji;
-  document.getElementById('result-msg').textContent = msg;
-}
-
-function resetQcm() {
-  currentQ = 0; score = 0; answered = false;
-  document.getElementById('qcm-question-area').style.display = 'block';
-  document.getElementById('qcm-result').classList.remove('active');
-  loadQcmQuestion();
-}
-
-// INIT QCM
-loadQcmQuestion();
-
-// =============================================
-// DATES QUIZ
-// =============================================
-const dateEvents = [
-  { date: "1944", event: "Signature des accords de Bretton Woods" },
-  { date: "1944", event: "Programme du Conseil National de la Résistance (CNR)" },
-  { date: "1945", event: "Libération d'Auschwitz (27 janvier)" },
-  { date: "1945", event: "Conférence de Yalta (février)" },
-  { date: "1945", event: "Conférence de San Francisco — Création de l'ONU (26 juin)" },
-  { date: "1945", event: "Création de la Sécurité Sociale en France (octobre)" },
-  { date: "1945", event: "Ouverture du procès de Nuremberg (novembre)" },
-  { date: "1946", event: "Discours de Churchill sur le « Rideau de Fer »" },
-  { date: "1947", event: "Lancement du Plan Marshall par Truman" },
-  { date: "1948", event: "Coup de Prague (février)" },
-  { date: "1948", event: "Proclamation de l'État d'Israël — la Nakba (14 mai)" },
-  { date: "1948", event: "Début du blocus de Berlin (juin)" },
-];
-
-function buildDates() {
-  const list = document.getElementById('dates-list');
-  list.innerHTML = '';
-  dateEvents.forEach((ev, i) => {
-    const div = document.createElement('div');
-    div.className = 'tl-item';
-    div.innerHTML = `
-      <input type="text" class="tl-date-input" id="date-input-${i}" placeholder="Année..." maxlength="4">
-      <div class="tl-event">${ev.event}</div>
-      <div class="tl-result" id="date-result-${i}"></div>
-    `;
-    list.appendChild(div);
-  });
-}
-
-function checkDates() {
-  let correct = 0;
-  dateEvents.forEach((ev, i) => {
-    const input = document.getElementById(`date-input-${i}`);
-    const result = document.getElementById(`date-result-${i}`);
-    result.style.display = 'block';
-    if (input.value.trim() === ev.date) {
-      result.textContent = '✓ Correct !';
-      result.className = 'tl-result tl-correct';
-      input.style.borderColor = '#2ECC71';
-      correct++;
-    } else {
-      result.textContent = `✗ C'était ${ev.date}`;
-      result.className = 'tl-result tl-wrong';
-      input.style.borderColor = 'var(--red-bright)';
-    }
-  });
-  alert(`Score : ${correct} / ${dateEvents.length}`);
-}
-
-function resetDates() {
-  buildDates();
-}
-
-buildDates();
-
-// =============================================
-// DEFINITIONS QUIZ
-// =============================================
-const definitions = [
-  { term: "Nakba", def: "Catastrophe en arabe — désigne l'exode de ~1 million de Palestiniens lors de la guerre de 1948", correct: 0 },
-  { term: "Sionisme", def: "Mouvement politique visant à créer un État juif en Palestine", correct: 1 },
-  { term: "Dénazification", def: "Volonté d'éradiquer le nazisme de la vie publique et des institutions allemandes après 1945", correct: 2 },
-  { term: "Rideau de Fer", def: "Frontière idéologique et physique séparant l'Europe de l'Ouest et l'Est communiste selon Churchill", correct: 3 },
-  { term: "Plan Marshall", def: "Programme d'aide économique américain aux pays d'Europe pour éviter la progression du communisme", correct: 4 },
-  { term: "État-Providence", def: "Système par lequel l'État protège les citoyens contre les aléas : maladie, chômage, vieillesse", correct: 5 },
-];
-
-const defAnswers = [
-  "Catastrophe en arabe — exode de ~1 million de Palestiniens en 1948",
-  "Mouvement visant à créer un État juif en Palestine",
-  "Éradiquer le nazisme de la vie publique allemande après 1945",
-  "Frontière idéologique séparant Europe Ouest et Est communiste",
-  "Aide économique américaine à l'Europe contre le communisme",
-  "L'État protège les citoyens contre maladie, chômage, vieillesse",
-];
-
-function buildDefs() {
-  const list = document.getElementById('definitions-list');
-  list.innerHTML = '';
-  definitions.forEach((d, i) => {
-    const shuffled = [...defAnswers].sort(() => Math.random() - 0.5);
-    const div = document.createElement('div');
-    div.className = 'tl-item';
-    div.style.flexDirection = 'column';
-    div.style.alignItems = 'flex-start';
-    div.innerHTML = `
-      <div style="font-family:'Playfair Display',serif; color:var(--gold); font-size:18px; margin-bottom:8px;">${d.term}</div>
-      <select id="def-select-${i}" style="width:100%;padding:10px;background:var(--dark3);border:1px solid rgba(201,168,76,0.2);color:var(--cream);font-family:Barlow,sans-serif;font-size:13px;border-radius:2px;outline:none;cursor:pointer;">
-        <option value="">-- Choisir la définition --</option>
-        ${shuffled.map((a,j) => `<option value="${a}">${a}</option>`).join('')}
-      </select>
-      <div id="def-result-${i}" class="tl-result"></div>
-    `;
-    list.appendChild(div);
-  });
-}
-
-function checkDefs() {
-  let correct = 0;
-  definitions.forEach((d, i) => {
-    const select = document.getElementById(`def-select-${i}`);
-    const result = document.getElementById(`def-result-${i}`);
-    result.style.display = 'block';
-    if (select.value === defAnswers[d.correct]) {
-      result.textContent = '✓ Correct !';
-      result.className = 'tl-result tl-correct';
-      correct++;
-    } else {
-      result.textContent = `✗ Réponse : ${defAnswers[d.correct]}`;
-      result.className = 'tl-result tl-wrong';
-    }
-  });
-  setTimeout(() => alert(`Score : ${correct} / ${definitions.length}`), 100);
-}
-
-function resetDefs() { buildDefs(); }
-
-buildDefs();
-
-// =============================================
-// QUIZ MODES
-// =============================================
 function setMode(mode) {
-  document.querySelectorAll('.quiz-card').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('.quiz-mode-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('mode-' + mode).classList.add('active');
+  currentMode = mode;
+  document.querySelectorAll('.ex-type-btn').forEach(b => b.classList.remove('active'));
   event.target.classList.add('active');
+
+  const frise = document.getElementById('frise-container');
+  const qc = document.getElementById('questions-container');
+
+  if (mode === 'frise') {
+    frise.classList.add('active');
+    qc.style.display = 'none';
+  } else {
+    frise.classList.remove('active');
+    qc.style.display = 'block';
+    resetQuiz();
+  }
 }
 
-// =============================================
-// AI CHAT — GEMINI
-// =============================================
-const SYSTEM_CONTEXT = `Tu es un tuteur expert en histoire pour lycéens français. Tu connais parfaitement le cours suivant :
+function getQuestions() {
+  if (currentMode === 'all') return getAllQuestions();
+  if (currentMode === 'dates') return [...allQuestions.dates].sort(() => Math.random() - 0.5);
+  if (currentMode === 'personnes') return [...allQuestions.personnes].sort(() => Math.random() - 0.5);
+  if (currentMode === 'institutions') return [...allQuestions.institutions].sort(() => Math.random() - 0.5);
+  return [];
+}
 
-CHAPITRE : LA FIN DE LA SECONDE GUERRE MONDIALE ET LES DEBUTS D'UN NOUVEL ORDRE MONDIAL (1945-1948)
+function resetQuiz() {
+  score = 0; answered = 0;
+  updateScore();
+  renderQuestions();
+}
 
-PROBLÉMATIQUE : Comment, en trois ans, le monde bascule-t-il dans des tensions qui aboutissent à la Guerre Froide ?
+function updateScore() {
+  document.getElementById('scoreVal').textContent = score + '/' + answered;
+  const pct = answered > 0 ? Math.round(score/answered*100) : 0;
+  document.getElementById('scoreFill').style.width = pct + '%';
+}
 
-I. UN MONDE À RECONSTRUIRE
-A. 1945, ANNÉE ZÉRO
-- Bilan humain : 60 millions de morts, majorité civils. URSS : 25M dont 16M civils. Pologne perd 20% population et 95% Juifs. Allemagne : 9M. France : 570 000.
-- Destructions matérielles : Allemagne, Japon, Pologne dévastés. 45 villes allemandes détruites à +50%. 28M Soviétiques sans abri.
-- Traumatismes : Libération d'Auschwitz le 27 jan 1945. Bombe atomique : Hiroshima et Nagasaki 6 et 9 août 1945.
+function renderQuestions() {
+  const qs = getQuestions();
+  const container = document.getElementById('questions-container');
+  container.innerHTML = qs.map((q, i) => `
+    <div class="question-card" id="qcard-${i}">
+      <div class="q-number">Question ${i+1} / ${qs.length}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="answers-grid">
+        ${q.answers.map((a,ai) => `<button class="answer-btn" onclick="answer(${i},${ai},${q.correct},'${escQ(q.explanation)}')" id="ans-${i}-${ai}">${a}</button>`).join('')}
+      </div>
+      <div class="q-feedback" id="fb-${i}"></div>
+    </div>
+  `).join('');
+}
 
-B. LE RÈGLEMENT DU CONFLIT
-- Yalta (fév 1945) : Roosevelt, Churchill, Staline → élections libres, nouvelles frontières
-- Potsdam (été 1945) : occupation quadripartite Allemagne et Berlin, dénazification
-- Procès de Nuremberg (nov 1945) : 22 chefs nazis jugés pour crimes de guerre, crimes contre la paix, crimes contre l'Humanité → droit international
+function escQ(s) { return s.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
 
-C. RECONSTRUIRE LES PAYS
-- État-Providence : Beveridge (1942), protection maladie/chômage/vieillesse
-- France : CNR (1943) → Sécurité Sociale oct 1945, nationalisations
+function answer(qi, ai, correct, explanation) {
+  const card = document.getElementById('qcard-' + qi);
+  if (card.classList.contains('answered')) return;
+  card.classList.add('answered');
+  answered++;
+  const isCorrect = ai === correct;
+  if (isCorrect) score++;
+  updateScore();
 
-II. NOUVEL ORDRE INTERNATIONAL
-A. NOUVELLE ORGANISATION ÉCONOMIQUE
-- Bretton Woods (1944) : dollar = monnaie référence mondiale, convertible en or
-- FMI : aide financière → siège Washington
-- BIRD/Banque Mondiale : prêts reconstruction long terme
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById('ans-' + qi + '-' + i);
+    if (!btn) continue;
+    if (i === correct) btn.classList.add('correct');
+    else if (i === ai && !isCorrect) btn.classList.add('incorrect');
+    else btn.classList.add('revealed');
+    btn.disabled = true;
+  }
 
-B. DROIT INTERNATIONAL
-- Charte de l'Atlantique (1941) : Churchill + Roosevelt
-- ONU créée à San Francisco (26 juin 1945) : garantir paix, promouvoir démocratie, droit des peuples
-- Assemblée Générale : tous membres, recommandations
-- Conseil de Sécurité : 5 permanents avec droit de veto (USA, URSS, France, UK, Chine)
-- Premier SG : Trygve Lie (Norvège)
+  const fb = document.getElementById('fb-' + qi);
+  fb.style.display = 'block';
+  fb.className = 'q-feedback ' + (isCorrect ? 'correct' : 'incorrect');
+  fb.textContent = (isCorrect ? '✓ Correct ! ' : '✗ Faux. ') + explanation;
+}
 
-III. NOUVELLES TENSIONS
-A. DEUX SUPERPUISSANCES
-- USA : sortent de l'isolationnisme, 1/3 production mondiale 1950, seuls avec nucléaire, FMI/BIRD/ONU à Washington
-- URSS : prestige Stalingrad, armée rouge libère Europe Est, Staline impose régimes communistes, élections truquées
+// FRISE INFO
+const friseInfos = {
+  '1944': { title: 'Accords de Bretton Woods (Juillet 1944)', text: '44 nations alliées signent les accords de Bretton Woods. Ils créent le FMI, la Banque mondiale et établissent le gold standard (parité dollar/or). Les États-Unis deviennent le centre de l\'économie mondiale.' },
+  'cnr': { title: 'Programme du CNR (15 Mars 1944)', text: 'Le Conseil National de la Résistance adopte un programme commun incluant le retour à la démocratie, les nationalisations, la sécurité sociale et de larges droits pour les travailleurs — base de l\'État providence français.' },
+  'yalta': { title: 'Conférence de Yalta (4-11 Février 1945)', text: 'Churchill, Roosevelt et Staline se réunissent en Crimée pour dessiner l\'Europe d\'après-guerre. Ils décident le rétablissement des frontières et des élections libres. En pratique, la présence militaire dictera les résultats.' },
+  'capitulation': { title: 'Capitulation de l\'Allemagne (8 Mai 1945)', text: 'L\'Allemagne nazie capitule devant les Alliés après 6 ans de guerre. C\'est la fin du IIIe Reich. Les Alliés occupent et divisent le pays en 4 zones. La reconstruction peut commencer.' },
+  'onu': { title: 'Création de l\'ONU (1945)', text: 'L\'Organisation des Nations Unies est fondée pour maintenir la paix mondiale. 5 membres permanents au Conseil de Sécurité : USA, URSS, Royaume-Uni, France, Chine — dotés d\'un droit de veto.' },
+  'nuremberg': { title: 'Procès de Nuremberg (20 Nov. 1945 – 1er Oct. 1946)', text: 'Les dirigeants nazis comparaissent devant un tribunal international. Naissance du concept de "crime contre l\'humanité". Les principaux condamnés sont exécutés. Certains scientifiques sont récupérés par les Alliés.' },
+  'gatt': { title: 'Accord du GATT (1947)', text: 'Le General Agreement on Tariffs and Trade établit les principes du libre échange mondial. Elaboré par les Américains, il pose les bases d\'un marché mondial libéralisé, rejeté par l\'URSS.' },
+  'marshall': { title: 'Plan Marshall (1948)', text: 'Les USA accordent 16,5 milliards de dollars à 16 pays européens pour reconstruire leurs économies. Ce plan renforce l\'influence américaine en Europe occidentale et s\'oppose aux plans de reconstruction soviétiques à l\'Est.' },
+  'israel': { title: 'Naissance de l\'État d\'Israël (1948)', text: 'David Ben Gourion proclame l\'État d\'Israël en Palestine, avec l\'accord des Alliés. Réparation symbolique après la Shoah. La population arabe s\'oppose à cette création — début d\'un conflit qui dure encore.' }
+};
 
-B. NAISSANCE GUERRE FROIDE
-- 1946 : Churchill dénonce rideau de fer
-- Mars 1947 : Plan Marshall (Truman) → URSS oblige pays Est à refuser
-- Blocus Berlin Ouest juin 1948 – mai 1949 : première grande crise Guerre Froide
-- Coup de Prague fév 1948 : communistes forcent Benes à gouvernement 100% communiste
+function showFriseInfo(key) {
+  const info = friseInfos[key];
+  if (!info) return;
+  const div = document.getElementById('frise-info');
+  div.style.display = 'block';
+  div.innerHTML = `<strong style="display:block;font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:0.5rem">${info.title}</strong>${info.text}`;
+}
 
-C. PROCHE ORIENT
-- Palestine sous mandat britannique → tensions
-- Déclaration Balfour : promesse État juif
-- Sionisme : rescapés Shoah veulent créer État
-- Exodus : navire de 4500 Juifs renvoyés en Allemagne
-- Plan de partage ONU → Arabes refusent
-- 14 mai 1948 : Ben Gourion proclame Israël
-- 15 mai 1948 : guerre arabo-israélienne → Nakba → exode ~1M Palestiniens
+// Init quiz on load
+renderQuestions();
 
-TERMES CLÉS : Nakba, Sionisme, Dénazification, Rideau de Fer, Plan Marshall, État-Providence, Blocus de Berlin, Coup de Prague, Bretton Woods, ONU, FMI, Casques Bleus.
+// ===== IA CHAT =====
+const COURSE_CONTEXT = `Tu es un professeur d'histoire expert, bienveillant et pédagogue. Tu connais parfaitement le cours suivant sur le "Nouvel Ordre Mondial" destiné aux élèves de Terminale en France. Réponds toujours en français, de manière claire, structurée et adaptée à un lycéen. Utilise des exemples du cours. Voici le contenu du cours :
 
-Tu réponds en français, avec pédagogie, de façon claire et structurée. Si on te demande quelque chose hors sujet, ramène poliment la conversation sur ce chapitre d'histoire.`;
+PARTIE 1 : BILAN DE LA SECONDE GUERRE MONDIALE
+- 60 à 80 millions de morts, dont 45 millions de civils
+- L'URSS : 26 millions de morts, 16% de sa population
+- Villes dévastées : Dresde, Berlin, Hiroshima, Nagasaki
+- Shoah : 6 millions de Juifs et 220 000 Tsiganes assassinés (Solution finale, génocide)
+- Libération des camps en 1945 : Bergen Belsen, Auschwitz
+- Procès de Nuremberg (nov.1945 - oct.1946) : crime contre l'humanité
+- Procès de Tokyo (1946-1948) : jugement des militaristes japonais
 
-const chatHistory = [];
+RECONSTRUCTION :
+- Plan Marshall (1948) : 16,5 milliards de dollars à 16 pays européens
+- Plan Dodge au Japon (piloté par les USA)
+- Programme du CNR (mars 1944) : démocratie, nationalisation de Renault, sécurité sociale, droits sociaux
+- État providence, baby-boom après 1945
+- Nettoyages ethniques en Europe orientale
+- Création de l'État d'Israël en 1948 (proclamé par Ben Gourion)
+
+PARTIE 2 : NOUVEL ORDRE MONDIAL BIPOLAIRE
+- Conférence de Yalta (4-11 fév. 1945) : Churchill, Roosevelt, Staline
+- Division de l'Europe : Est communiste (Armée rouge), Ouest capitaliste (Anglo-américains)
+- Insurrection de Varsovie (août-oct. 1944) : Staline laisse les nationalistes polonais se faire massacrer
+- Accords de Bretton Woods (1944) : FMI, Banque mondiale (BIRD), gold standard (dollar/or), GATT (1947)
+- Création de l'ONU (1945) : Conseil de Sécurité avec 5 membres permanents (USA, URSS, UK, France, Chine) + droit de veto
+- Monde bipolaire : USA (démocratie capitaliste, bombe atomique, OTAN) vs URSS (dictature communiste, Armée rouge, Kominform)
+- Superpuissances : USA et URSS dominent, France et UK sur le déclin
+
+Réponds de façon précise et complète aux questions des élèves.`;
 
 async function sendMessage() {
-  const input = document.getElementById('chat-input');
+  const input = document.getElementById('chatInput');
   const msg = input.value.trim();
   if (!msg) return;
-
-  addMessage('user', msg);
   input.value = '';
-  document.getElementById('send-btn').disabled = true;
+  appendMessage('user', msg);
 
-  // Hide suggestions after first message
-  document.getElementById('suggestions').style.display = 'none';
+  const sendBtn = document.getElementById('sendBtn');
+  sendBtn.disabled = true;
 
-  // Typing indicator
-  const typingId = addTyping();
-
-  chatHistory.push({ role: "user", parts: [{ text: msg }] });
+  const typingDiv = document.createElement('div');
+  typingDiv.className = 'chat-msg assistant';
+  typingDiv.id = 'typing-indicator';
+  typingDiv.innerHTML = '<div class="msg-avatar">IA</div><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';
+  document.getElementById('chatMessages').appendChild(typingDiv);
+  scrollChat();
 
   try {
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyBkgE2hLDRrzzgorOkc6JOaylcPkHnvb1M`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        system_instruction: { parts: [{ text: SYSTEM_CONTEXT }] },
-        contents: chatHistory
+        contents: [
+          { role: 'user', parts: [{ text: COURSE_CONTEXT + '\n\nQuestion de l\'élève : ' + msg }] }
+        ],
+        generationConfig: { temperature: 0.7, maxOutputTokens: 1000 }
       })
     });
 
     const data = await response.json();
-    removeTyping(typingId);
-
-    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu répondre. Réessayez.";
-    chatHistory.push({ role: "model", parts: [{ text: reply }] });
-    addMessage('ai', reply);
-  } catch (err) {
-    removeTyping(typingId);
-    addMessage('ai', "⚠️ Erreur de connexion à l'IA. Vérifiez votre connexion et réessayez.");
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu répondre.";
+    
+    document.getElementById('typing-indicator').remove();
+    appendMessage('assistant', text);
+  } catch (e) {
+    document.getElementById('typing-indicator').remove();
+    appendMessage('assistant', "Une erreur s'est produite. Vérifiez votre connexion et réessayez.");
   }
 
-  document.getElementById('send-btn').disabled = false;
+  sendBtn.disabled = false;
 }
 
-function addMessage(type, text) {
-  const area = document.getElementById('chat-area');
+function appendMessage(role, text) {
   const div = document.createElement('div');
-  div.className = `chat-message ${type}`;
-  const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-  div.innerHTML = `
-    <div class="chat-avatar">${type === 'ai' ? '🏛️' : '👤'}</div>
-    <div class="chat-bubble">${formattedText}</div>
-  `;
-  area.appendChild(div);
-  area.scrollTop = area.scrollHeight;
+  div.className = 'chat-msg ' + role;
+  const formattedText = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>');
+  div.innerHTML = `<div class="msg-avatar">${role === 'user' ? 'Toi' : 'IA'}</div><div class="msg-bubble"><p>${formattedText}</p></div>`;
+  document.getElementById('chatMessages').appendChild(div);
+  scrollChat();
 }
 
-let typingCounter = 0;
-function addTyping() {
-  const id = 'typing-' + (++typingCounter);
-  const area = document.getElementById('chat-area');
-  const div = document.createElement('div');
-  div.className = 'chat-message ai';
-  div.id = id;
-  div.innerHTML = `
-    <div class="chat-avatar">🏛️</div>
-    <div class="chat-bubble">
-      <div class="typing-indicator">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-      </div>
-    </div>
-  `;
-  area.appendChild(div);
-  area.scrollTop = area.scrollHeight;
-  return id;
+function scrollChat() {
+  const c = document.getElementById('chatMessages');
+  c.scrollTop = c.scrollHeight;
 }
 
-function removeTyping(id) {
-  const el = document.getElementById(id);
-  if (el) el.remove();
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
 }
 
-function useSuggestion(btn) {
-  document.getElementById('chat-input').value = btn.textContent;
+function askQuestion(q) {
+  document.getElementById('chatInput').value = q;
   sendMessage();
-}
-
-function handleEnter(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
 }
 </script>
 </body>
