@@ -2006,7 +2006,7 @@ async function sendMessage() {
         contents: [
           { role: 'user', parts: [{ text: COURSE_CONTEXT + '\n\nQuestion de l\'élève : ' + msg }] }
         ],
-        generationConfig: { temperature: 0.7, maxOutputTokens: 1000 }
+        generationConfig: { temperature: 0.7 }
       })
     });
 
