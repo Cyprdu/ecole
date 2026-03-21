@@ -1,10 +1,221 @@
-<script>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub de Révisions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(15, 23, 42, 1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(30, 58, 138, 0.4) 0, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Navigation / Fil d'ariane */
+        .nav-bar {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: none; /* Caché à la racine */
+        }
+
+        .btn-back:hover {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .breadcrumb {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .breadcrumb span {
+            color: var(--text-main);
+        }
+
+        /* Grille de contenu */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        /* Cartes (Dossiers et Fichiers) */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            left: 150%;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--accent-glow);
+        }
+
+        .card svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover svg {
+            transform: scale(1.1);
+        }
+
+        .card-folder svg { fill: #60a5fa; }
+        .card-file svg { fill: #c084fc; }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        /* Loader */
+        .loader {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--card-border);
+            border-top: 4px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 3rem auto;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Messages */
+        .message {
+            text-align: center;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mes Révisions</h1>
+        <p class="subtitle">Plateforme d'apprentissage dynamique</p>
+    </header>
+
+    <div class="nav-bar">
+        <button class="btn-back" id="btn-back" onclick="loadRoot()">&#8592; Retour</button>
+        <div class="breadcrumb" id="breadcrumb">Racine <span>/</span></div>
+    </div>
+
+    <div class="loader" id="loader"></div>
+    
+    <div class="grid" id="content-grid">
+    </div>
+
+    <script>
         // ==========================================
         // CONFIGURATION - À MODIFIER AVEC TES INFOS
         // ==========================================
         const GITHUB_USERNAME = 'Cyprdu'; 
         const GITHUB_REPO = 'ecole';
-        // ⚠️ ATTENTION : Ne mets ce token que si le fichier reste sur ton PC !
+        
+        // ⚠️ REMPLACE "VOTRE_TOKEN_ICI" PAR TON VRAI TOKEN (ex: "ghp_xxxxxxxxxxxx")
         const GITHUB_TOKEN = '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'; 
         // ==========================================
 
@@ -24,7 +235,7 @@
             loader.style.display = 'block';
             
             try {
-                // AJOUT DES HEADERS D'AUTHENTIFICATION ICI
+                // Requête avec le token d'authentification
                 const response = await fetch(API_BASE_URL + path, {
                     headers: {
                         'Authorization': `token ${GITHUB_TOKEN}`,
@@ -34,9 +245,9 @@
                 
                 if (!response.ok) {
                     if (response.status === 401 || response.status === 404) {
-                        throw new Error("Erreur d'authentification. Vérifie ton Token et tes accès.");
+                        throw new Error("Erreur d'accès : Vérifie que ton Token est correct et qu'il a bien les droits 'repo'.");
                     }
-                    throw new Error("Erreur lors de la récupération des données.");
+                    throw new Error("Erreur lors de la récupération des données GitHub.");
                 }
                 
                 const data = await response.json();
@@ -119,3 +330,5 @@
         // Charger la racine au démarrage
         loadRoot();
     </script>
+</body>
+</html>
