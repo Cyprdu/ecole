@@ -1,885 +1,166 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MEMORIA — Espagnol ↔ Français</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --surface2: #1a1a26;
-    --border: rgba(255,255,255,0.07);
-    --pink: #ff2d78;
-    --violet: #8b5cf6;
-    --teal: #00d4aa;
-    --amber: #f59e0b;
-    --blue: #3b82f6;
-    --green: #22c55e;
-    --text: #f0f0f5;
-    --muted: #6b7280;
-    --card-r: 20px;
-  }
-
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MEMORIA — Français ↔ Espagnol</title><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet"><style>  :root {    --bg: #0a0a0f;    --surface: #12121a;    --surface2: #1a1a26;    --border: rgba(255,255,255,0.07);    --pink: #ff2d78;    --violet: #8b5cf6;    --teal: #00d4aa;    --amber: #f59e0b;    --blue: #3b82f6;    --green: #22c55e;    --text: #f0f0f5;    --muted: #6b7280;    --card-r: 20px;  }
   * { margin:0; padding:0; box-sizing:border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── NOISE OVERLAY ── */
-  body::before {
-    content:'';
-    position:fixed; inset:0; z-index:0; pointer-events:none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    opacity: 0.6;
-  }
-
-  /* ── HERO HEADER ── */
-  header {
-    position: relative; z-index:10;
-    padding: 60px 40px 40px;
-    text-align: center;
-    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139,92,246,0.25), transparent);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .logo-line {
-    display: flex; align-items: center; justify-content: center; gap: 18px;
-    margin-bottom: 8px;
-  }
-
-  .logo-dot {
-    width: 12px; height: 12px; border-radius: 50%;
-    background: var(--pink);
-    box-shadow: 0 0 20px var(--pink);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%,100% { transform: scale(1); opacity:1; }
-    50% { transform: scale(1.4); opacity:0.7; }
-  }
-
-  h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(64px, 10vw, 120px);
-    letter-spacing: 8px;
-    line-height: 0.95;
-    background: linear-gradient(135deg, #fff 0%, rgba(139,92,246,0.9) 50%, var(--pink) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .subtitle {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 18px;
-    color: var(--muted);
-    margin-top: 10px;
-    letter-spacing: 1px;
-  }
-
+  body {    background: var(--bg);    color: var(--text);    font-family: 'DM Sans', sans-serif;    min-height: 100vh;    overflow-x: hidden;  }
+  body::before {    content:'';    position:fixed; inset:0; z-index:0; pointer-events:none;    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");    opacity: 0.6;  }
+  header {    position: relative; z-index:10;    padding: 60px 40px 40px;    text-align: center;    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139,92,246,0.25), transparent);    border-bottom: 1px solid var(--border);  }
+  .logo-line {    display: flex; align-items: center; justify-content: center; gap: 18px;    margin-bottom: 8px;  }
+  .logo-dot {    width: 12px; height: 12px; border-radius: 50%;    background: var(--pink);    box-shadow: 0 0 20px var(--pink);    animation: pulse 2s infinite;  }
+  @keyframes pulse {    0%,100% { transform: scale(1); opacity:1; }    50% { transform: scale(1.4); opacity:0.7; }  }
+  h1 {    font-family: 'Bebas Neue', sans-serif;    font-size: clamp(64px, 10vw, 120px);    letter-spacing: 8px;    line-height: 0.95;    background: linear-gradient(135deg, #fff 0%, rgba(139,92,246,0.9) 50%, var(--pink) 100%);    -webkit-background-clip: text;    -webkit-text-fill-color: transparent;    background-clip: text;  }
+  .subtitle {    font-family: 'Playfair Display', serif;    font-style: italic;    font-size: 18px;    color: var(--muted);    margin-top: 10px;    letter-spacing: 1px;  }
   .subtitle span { color: var(--teal); font-style: normal; }
-
-  /* ── PROGRESS BAR ── */
-  .xp-bar-wrap {
-    max-width: 500px; margin: 30px auto 0;
-    background: var(--surface2); border-radius: 100px; height: 8px;
-    overflow: hidden; position: relative;
-  }
-  .xp-bar {
-    height:100%; border-radius:100px;
-    background: linear-gradient(90deg, var(--violet), var(--pink));
-    transition: width 0.6s cubic-bezier(.22,1,.36,1);
-    box-shadow: 0 0 12px rgba(255,45,120,0.5);
-  }
-  .xp-label {
-    text-align:center; font-size:12px; color:var(--muted); margin-top:8px;
-    letter-spacing:1px; text-transform:uppercase;
-  }
-
-  /* ── STATS ROW ── */
-  .stats-row {
-    display: flex; justify-content: center; gap: 30px;
-    padding: 20px 40px; position: relative; z-index:10;
-    flex-wrap: wrap;
-  }
-
-  .stat-chip {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 100px; padding: 8px 20px;
-    display: flex; align-items: center; gap: 8px;
-    font-size: 13px; font-weight: 500;
-    transition: all 0.2s;
-  }
-  .stat-chip:hover { border-color: var(--violet); background: var(--surface2); }
-  .stat-chip .ico { font-size: 16px; }
-  .stat-chip .val { color: var(--text); font-weight: 700; }
-  .stat-chip .lbl { color: var(--muted); font-size: 11px; }
-
-  /* ── NAV TABS ── */
-  .nav-tabs {
-    display: flex; justify-content: center; gap: 8px;
-    padding: 0 40px 40px; position: relative; z-index:10;
-    flex-wrap: wrap;
-  }
-
-  .tab-btn {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 12px 24px;
-    color: var(--muted); font-family: 'DM Sans', sans-serif;
-    font-size: 14px; font-weight: 500; cursor: pointer;
-    transition: all 0.25s; display:flex; align-items:center; gap:8px;
-    letter-spacing: 0.5px;
-  }
-  .tab-btn:hover { background: var(--surface2); color: var(--text); border-color: rgba(255,255,255,0.15); }
-  .tab-btn.active {
-    background: linear-gradient(135deg, var(--violet), var(--pink));
-    border-color: transparent; color: #fff;
-    box-shadow: 0 4px 20px rgba(139,92,246,0.4);
-  }
-  .tab-btn .badge {
-    background: rgba(255,255,255,0.2); border-radius:6px;
-    padding:2px 7px; font-size:11px; font-weight:700;
-  }
-
-  /* ── MAIN CONTENT ── */
-  main {
-    max-width: 900px; margin: 0 auto;
-    padding: 0 24px 80px; position: relative; z-index:10;
-  }
-
-  .section { display:none; }
-  .section.active { display:block; animation: fadeUp 0.4s ease; }
-
-  @keyframes fadeUp {
-    from { opacity:0; transform: translateY(20px); }
-    to { opacity:1; transform: translateY(0); }
-  }
-
-  /* ── SECTION TITLE ── */
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px; letter-spacing:3px;
-    margin-bottom: 6px;
-    display: flex; align-items: center; gap: 14px;
-  }
-  .section-title .accent { color: var(--pink); }
-  .section-desc { color: var(--muted); font-size: 15px; margin-bottom: 32px; line-height: 1.6; }
+  .xp-bar-wrap {    max-width: 500px; margin: 30px auto 0;    background: var(--surface2); border-radius: 100px; height: 8px;    overflow: hidden; position: relative;  }  .xp-bar {    height:100%; border-radius:100px;    background: linear-gradient(90deg, var(--violet), var(--pink));    transition: width 0.6s cubic-bezier(.22,1,.36,1);    box-shadow: 0 0 12px rgba(255,45,120,0.5);  }  .xp-label {    text-align:center; font-size:12px; color:var(--muted); margin-top:8px;    letter-spacing:1px; text-transform:uppercase;  }
+  .stats-row {    display: flex; justify-content: center; gap: 30px;    padding: 20px 40px; position: relative; z-index:10;    flex-wrap: wrap;  }
+  .stat-chip {    background: var(--surface); border: 1px solid var(--border);    border-radius: 100px; padding: 8px 20px;    display: flex; align-items: center; gap: 8px;    font-size: 13px; font-weight: 500;    transition: all 0.2s;  }  .stat-chip:hover { border-color: var(--violet); background: var(--surface2); }  .stat-chip .ico { font-size: 16px; }  .stat-chip .val { color: var(--text); font-weight: 700; }  .stat-chip .lbl { color: var(--muted); font-size: 11px; }
+  .nav-tabs {    display: flex; justify-content: center; gap: 8px;    padding: 0 40px 40px; position: relative; z-index:10;    flex-wrap: wrap;  }
+  .tab-btn {    background: var(--surface); border: 1px solid var(--border);    border-radius: 12px; padding: 12px 24px;    color: var(--muted); font-family: 'DM Sans', sans-serif;    font-size: 14px; font-weight: 500; cursor: pointer;    transition: all 0.25s; display:flex; align-items:center; gap:8px;    letter-spacing: 0.5px;  }  .tab-btn:hover { background: var(--surface2); color: var(--text); border-color: rgba(255,255,255,0.15); }  .tab-btn.active {    background: linear-gradient(135deg, var(--violet), var(--pink));    border-color: transparent; color: #fff;    box-shadow: 0 4px 20px rgba(139,92,246,0.4);  }
+  main {    max-width: 900px; margin: 0 auto;    padding: 0 24px 80px; position: relative; z-index:10;  }
+  .section { display:none; }  .section.active { display:block; animation: fadeUp 0.4s ease; }
+  @keyframes fadeUp {    from { opacity:0; transform: translateY(20px); }    to { opacity:1; transform: translateY(0); }  }
+  .section-title {    font-family: 'Bebas Neue', sans-serif;    font-size: 42px; letter-spacing:3px;    margin-bottom: 6px;    display: flex; align-items: center; gap: 14px;  }  .section-title .accent { color: var(--pink); }  .section-desc { color: var(--muted); font-size: 15px; margin-bottom: 32px; line-height: 1.6; }
 
   /* ── CARDS ── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--card-r);
-    padding: 28px;
-    margin-bottom: 16px;
-    transition: all 0.3s;
-  }
-  .card:hover { border-color: rgba(139,92,246,0.3); background: var(--surface2); }
+  .theme-selector {    display: flex; gap: 10px; flex-wrap:wrap; margin-bottom:28px;  }  .theme-pill {    padding:8px 18px; border-radius:100px; border:1px solid var(--border);    background:var(--surface); cursor:pointer; font-size:13px; font-weight:500;    color: var(--muted); transition:all 0.2s;  }  .theme-pill.active { background:var(--violet); border-color:var(--violet); color:#fff; }
 
-  /* ══════════════════════════════════
-     SECTION 1 — FLASHCARDS
-  ══════════════════════════════════ */
-  .theme-selector {
-    display: flex; gap: 10px; flex-wrap:wrap; margin-bottom:28px;
-  }
-  .theme-pill {
-    padding:8px 18px; border-radius:100px; border:1px solid var(--border);
-    background:var(--surface); cursor:pointer; font-size:13px; font-weight:500;
-    color: var(--muted); transition:all 0.2s;
-  }
-  .theme-pill.active { background:var(--violet); border-color:var(--violet); color:#fff; }
+  .flashcard-arena {    perspective: 1200px; margin-bottom: 24px;  }
+  .flashcard {    width: 100%; height: 280px;    position: relative; cursor: pointer;    transform-style: preserve-3d;    transition: transform 0.6s cubic-bezier(.22,1,.36,1);  }  .flashcard.flipped { transform: rotateY(180deg); }
 
-  .flashcard-arena {
-    perspective: 1200px; margin-bottom: 24px;
-  }
+  .fc-face {    position: absolute; inset:0;    backface-visibility: hidden;    border-radius: 24px; overflow: hidden;    display: flex; flex-direction:column;    align-items:center; justify-content:center;    gap:12px;  }
 
-  .flashcard {
-    width: 100%; height: 280px;
-    position: relative; cursor: pointer;
-    transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(.22,1,.36,1);
-  }
-  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-front {    background: linear-gradient(135deg, #1a0a2e 0%, #16213e 60%, #0f3460 100%);    border: 1px solid rgba(139,92,246,0.3);  }  .fc-back {    transform: rotateY(180deg);    background: linear-gradient(135deg, #0a1628 0%, #1a2a1a 60%, #0a2a1a 100%);    border: 1px solid rgba(0,212,170,0.3);  }
 
-  .fc-face {
-    position: absolute; inset:0;
-    backface-visibility: hidden;
-    border-radius: 24px; overflow: hidden;
-    display: flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    gap:12px;
-  }
+  .fc-tag {    font-size:11px; text-transform:uppercase; letter-spacing:2px;    padding: 4px 14px; border-radius:100px; font-weight:600;  }  .fc-front .fc-tag { background:rgba(255,45,120,0.2); color:var(--pink); }  .fc-back .fc-tag { background:rgba(0,212,170,0.2); color:var(--teal); }
 
-  .fc-front {
-    background: linear-gradient(135deg, #1a0a2e 0%, #16213e 60%, #0f3460 100%);
-    border: 1px solid rgba(139,92,246,0.3);
-  }
-  .fc-back {
-    transform: rotateY(180deg);
-    background: linear-gradient(135deg, #0a1628 0%, #1a2a1a 60%, #0a2a1a 100%);
-    border: 1px solid rgba(0,212,170,0.3);
-  }
-
-  .fc-tag {
-    font-size:11px; text-transform:uppercase; letter-spacing:2px;
-    padding: 4px 14px; border-radius:100px; font-weight:600;
-  }
-  .fc-front .fc-tag { background:rgba(139,92,246,0.2); color:var(--violet); }
-  .fc-back .fc-tag { background:rgba(0,212,170,0.2); color:var(--teal); }
-
-  .fc-word {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(42px, 8vw, 72px);
-    letter-spacing: 3px; text-align:center; padding:0 20px;
-    line-height: 1;
-  }
-  .fc-front .fc-word { color:#fff; }
-  .fc-back .fc-word { color: var(--teal); }
+  .fc-word {    font-family: 'Bebas Neue', sans-serif;    font-size: clamp(42px, 8vw, 72px);    letter-spacing: 3px; text-align:center; padding:0 20px;    line-height: 1;  }  .fc-front .fc-word { color:#fff; }  .fc-back .fc-word { color: var(--teal); }
 
   .fc-sub { font-size:14px; color:var(--muted); font-style:italic; }
 
-  .fc-hint {
-    font-size:12px; color:rgba(255,255,255,0.2);
-    position:absolute; bottom:20px; right:20px;
-    letter-spacing:1px; text-transform:uppercase;
-  }
+  .fc-hint {    font-size:12px; color:rgba(255,255,255,0.2);    position:absolute; bottom:20px; right:20px;    letter-spacing:1px; text-transform:uppercase;  }
 
-  .fc-controls {
-    display:flex; gap:12px; justify-content:center;
-  }
-  .fc-btn {
-    flex:1; max-width:200px; padding:14px 20px; border-radius:14px;
-    border:none; cursor:pointer; font-family:'DM Sans',sans-serif;
-    font-size:14px; font-weight:600; letter-spacing:0.5px;
-    transition: all 0.2s; display:flex; align-items:center; justify-content:center; gap:8px;
-  }
-  .fc-btn.wrong { background:rgba(255,45,120,0.1); color:var(--pink); border:1px solid rgba(255,45,120,0.3); }
-  .fc-btn.right { background:rgba(34,197,94,0.1); color:var(--green); border:1px solid rgba(34,197,94,0.3); }
-  .fc-btn.next { background:var(--violet); color:#fff; box-shadow:0 4px 16px rgba(139,92,246,0.4); }
-  .fc-btn:hover { transform:translateY(-2px); filter:brightness(1.15); }
+  .fc-controls {    display:flex; gap:12px; justify-content:center;  }  .fc-btn {    flex:1; max-width:200px; padding:14px 20px; border-radius:14px;    border:none; cursor:pointer; font-family:'DM Sans',sans-serif;    font-size:14px; font-weight:600; letter-spacing:0.5px;    transition: all 0.2s; display:flex; align-items:center; justify-content:center; gap:8px;  }  .fc-btn.wrong { background:rgba(255,45,120,0.1); color:var(--pink); border:1px solid rgba(255,45,120,0.3); }  .fc-btn.right { background:rgba(34,197,94,0.1); color:var(--green); border:1px solid rgba(34,197,94,0.3); }  .fc-btn.next { background:var(--violet); color:#fff; box-shadow:0 4px 16px rgba(139,92,246,0.4); }  .fc-btn:hover { transform:translateY(-2px); filter:brightness(1.15); }
 
-  .fc-progress {
-    text-align:center; font-size:13px; color:var(--muted); margin-top:12px;
-  }
-  .fc-progress strong { color: var(--text); }
+  .fc-progress { text-align:center; font-size:13px; color:var(--muted); margin-top:12px; }
 
-  /* ══════════════════════════════════
-     SECTION 2 — QUIZ MCQ
-  ══════════════════════════════════ */
-  .quiz-header {
-    display:flex; justify-content:space-between; align-items:center;
-    margin-bottom:20px; flex-wrap:wrap; gap:12px;
-  }
-  .quiz-timer {
-    font-family:'Bebas Neue',sans-serif; font-size:32px;
-    color: var(--amber); letter-spacing:2px;
-    display:flex; align-items:center; gap:8px;
-  }
-  .quiz-timer.urgent { color:var(--pink); animation: blink 0.5s infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  /* ── QUIZ MCQ ── */
+  .quiz-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px; }  .quiz-timer { font-family:'Bebas Neue',sans-serif; font-size:32px; color: var(--amber); letter-spacing:2px; display:flex; align-items:center; gap:8px; }  .quiz-timer.urgent { color:var(--pink); animation: blink 0.5s infinite; }  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .quiz-question { background: linear-gradient(135deg, #1a0a2e, #16213e); border: 1px solid rgba(139,92,246,0.25); border-radius: 20px; padding: 36px 40px; text-align:center; margin-bottom:20px; position:relative; overflow:hidden; }  .quiz-direction { font-size:11px; text-transform:uppercase; letter-spacing:2px; color:var(--violet); margin-bottom:12px; font-weight:600; }  .quiz-word { font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,8vw,72px); letter-spacing:4px; color:#fff; position:relative; z-index:1; }
+  .quiz-options { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }  .quiz-opt { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:18px 20px; cursor:pointer; text-align:left; font-family:'DM Sans',sans-serif; font-size:15px; color:var(--text); font-weight:500; transition:all 0.2s; display:flex; align-items:center; gap:12px; }  .quiz-opt.correct { background:rgba(34,197,94,0.12); border-color:var(--green); }  .quiz-opt.wrong-pick { background:rgba(255,45,120,0.12); border-color:var(--pink); }
+  .quiz-feedback { text-align:center; padding:16px; border-radius:14px; font-size:15px; font-weight:500; margin-bottom:16px; display:none; }  .quiz-feedback.show { display:block; }  .quiz-feedback.ok { background:rgba(34,197,94,0.1); color:var(--green); }  .quiz-feedback.ko { background:rgba(255,45,120,0.1); color:var(--pink); }
 
-  .quiz-q-number { font-size:12px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
+  .btn-next { display:block; width:100%; padding:16px; border-radius:16px; background: linear-gradient(135deg, var(--violet), var(--pink)); color:#fff; font-family:'DM Sans',sans-serif; font-size:16px; font-weight:700; border:none; cursor:pointer; display:none; }  .btn-next.show { display:block; animation:fadeUp 0.3s ease; }
 
-  .quiz-question {
-    background: linear-gradient(135deg, #1a0a2e, #16213e);
-    border: 1px solid rgba(139,92,246,0.25);
-    border-radius: 20px; padding: 36px 40px;
-    text-align:center; margin-bottom:20px;
-    position:relative; overflow:hidden;
-  }
-  .quiz-question::before {
-    content:''; position:absolute; inset:0;
-    background: radial-gradient(circle at 50% 0%, rgba(139,92,246,0.1), transparent 70%);
-  }
-  .quiz-direction {
-    font-size:11px; text-transform:uppercase; letter-spacing:2px;
-    color:var(--violet); margin-bottom:12px; font-weight:600;
-  }
-  .quiz-word {
-    font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,8vw,72px);
-    letter-spacing:4px; color:#fff; position:relative; z-index:1;
-  }
-  .quiz-category { font-size:13px; color:var(--muted); margin-top:8px; font-style:italic; }
-
-  .quiz-options {
-    display:grid; grid-template-columns:1fr 1fr; gap:12px;
-    margin-bottom:20px;
-  }
-  .quiz-opt {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:16px; padding:18px 20px;
-    cursor:pointer; text-align:left; font-family:'DM Sans',sans-serif;
-    font-size:15px; color:var(--text); font-weight:500;
-    transition:all 0.2s; display:flex; align-items:center; gap:12px;
-    position:relative; overflow:hidden;
-  }
-  .quiz-opt:hover:not(:disabled) { background:var(--surface2); border-color:rgba(139,92,246,0.4); transform:translateY(-2px); }
-  .quiz-opt .opt-letter {
-    width:28px; height:28px; border-radius:8px; flex-shrink:0;
-    background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;
-    font-size:11px; font-weight:700; color:var(--muted);
-  }
-  .quiz-opt.correct { background:rgba(34,197,94,0.12); border-color:var(--green); }
-  .quiz-opt.correct .opt-letter { background:var(--green); color:#fff; }
-  .quiz-opt.wrong-pick { background:rgba(255,45,120,0.12); border-color:var(--pink); }
-  .quiz-opt.wrong-pick .opt-letter { background:var(--pink); color:#fff; }
-
-  .quiz-feedback {
-    text-align:center; padding:16px; border-radius:14px;
-    font-size:15px; font-weight:500; margin-bottom:16px;
-    display:none;
-  }
-  .quiz-feedback.show { display:block; }
-  .quiz-feedback.ok { background:rgba(34,197,94,0.1); color:var(--green); border:1px solid rgba(34,197,94,0.2); }
-  .quiz-feedback.ko { background:rgba(255,45,120,0.1); color:var(--pink); border:1px solid rgba(255,45,120,0.2); }
-
-  .btn-next {
-    display:block; width:100%; padding:16px; border-radius:16px;
-    background: linear-gradient(135deg, var(--violet), var(--pink));
-    color:#fff; font-family:'DM Sans',sans-serif; font-size:16px; font-weight:700;
-    border:none; cursor:pointer; letter-spacing:1px;
-    box-shadow:0 6px 24px rgba(139,92,246,0.4);
-    transition:all 0.2s; display:none;
-  }
-  .btn-next.show { display:block; animation:fadeUp 0.3s ease; }
-  .btn-next:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(139,92,246,0.55); }
-
-  /* ══════════════════════════════════
-     SECTION 3 — TEXTE À TROUS
-  ══════════════════════════════════ */
-  .fill-text {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px; padding:32px;
-    font-size:17px; line-height:2.2; color:var(--text);
-    margin-bottom:20px;
-  }
-  .fill-blank {
-    display:inline-block; min-width:120px;
-    border-bottom:2px solid var(--violet);
-    background:rgba(139,92,246,0.05);
-    border-radius:6px 6px 0 0;
-    padding:2px 10px; margin:0 4px;
-    position:relative;
-  }
-  .fill-blank input {
-    background:transparent; border:none; outline:none;
-    color: var(--teal); font-family:'DM Sans',sans-serif;
-    font-size:16px; font-weight:600; min-width:100px; width:100%;
-    text-align:center;
-  }
-  .fill-blank.correct { border-color:var(--green); background:rgba(34,197,94,0.08); }
-  .fill-blank.wrong { border-color:var(--pink); background:rgba(255,45,120,0.08); }
-  .fill-blank.wrong input { color:var(--pink); }
-  .fill-blank.correct input { color:var(--green); }
-
-  .fill-hint {
-    background:var(--surface2); border:1px solid var(--border);
-    border-radius:14px; padding:16px 20px; margin-bottom:20px;
-    font-size:14px; color:var(--muted);
-  }
-  .fill-hint strong { color: var(--amber); }
-
-  .fill-controls { display:flex; gap:12px; }
-  .fill-btn {
-    padding:13px 28px; border-radius:12px; border:none;
-    font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
-    cursor:pointer; transition:all 0.2s; letter-spacing:0.5px;
-  }
+  /* ── TEXTE À TROUS ── */
+  .fill-text { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding:32px; font-size:17px; line-height:2.2; color:var(--text); margin-bottom:20px; }  .fill-blank { display:inline-block; min-width:120px; border-bottom:2px solid var(--violet); background:rgba(139,92,246,0.05); border-radius:6px 6px 0 0; padding:2px 10px; margin:0 4px; }  .fill-blank input { background:transparent; border:none; outline:none; color: var(--teal); font-family:'DM Sans',sans-serif; font-size:16px; font-weight:600; width:100%; text-align:center; }
+  .fill-controls { display:flex; gap:12px; }  .fill-btn { padding:13px 28px; border-radius:12px; border:none; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; cursor:pointer; }
   .fill-btn.check { background:linear-gradient(135deg,var(--violet),var(--pink)); color:#fff; flex:1; }
-  .fill-btn.reveal { background:var(--surface2); border:1px solid var(--border); color:var(--muted); }
-  .fill-btn:hover { transform:translateY(-2px); filter:brightness(1.1); }
 
-  /* ══════════════════════════════════
-     SECTION 4 — FAUX EXAM
-  ══════════════════════════════════ */
-  .exam-banner {
-    background: linear-gradient(135deg, #1a0a0a, #2a0a0a);
-    border: 1px solid rgba(255,45,120,0.3);
-    border-radius:20px; padding:24px 32px; margin-bottom:28px;
-    display:flex; align-items:center; gap:20px;
-  }
-  .exam-icon { font-size:40px; }
-  .exam-banner h3 { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:2px; color:var(--pink); }
-  .exam-banner p { font-size:14px; color:var(--muted); margin-top:4px; }
+  /* ── EXAM ── */
+  .exam-banner { background: linear-gradient(135deg, #1a0a0a, #2a0a0a); border: 1px solid rgba(255,45,120,0.3); border-radius:20px; padding:24px 32px; margin-bottom:28px; display:flex; align-items:center; gap:20px; }  .exam-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }  .exam-item { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:20px; display:flex; align-items:center; gap:16px; }  .exam-input { background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:8px; padding:8px 12px; color:var(--text); width:100%; outline:none; }
+  .exam-submit { width:100%; padding:18px; border-radius:16px; border:none; background:linear-gradient(135deg, #7c0000, #c00050); color:#fff; font-family:'Bebas Neue',sans-serif; font-size:22px; cursor:pointer; }
+  .exam-result { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:32px; text-align:center; display:none; margin-top:20px; }  .exam-score { font-family:'Bebas Neue',sans-serif; font-size:80px; }
 
-  .exam-grid {
-    display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;
-  }
-  .exam-item {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:16px; padding:20px;
-    display:flex; align-items:center; gap:16px;
-  }
-  .exam-num {
-    width:36px; height:36px; border-radius:10px; flex-shrink:0;
-    background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3);
-    display:flex; align-items:center; justify-content:center;
-    font-weight:700; font-size:14px; color:var(--violet);
-  }
-  .exam-q { font-size:15px; color:var(--muted); margin-bottom:6px; }
-  .exam-input {
-    background:rgba(255,255,255,0.04); border:1px solid var(--border);
-    border-radius:8px; padding:8px 12px; color:var(--text);
-    font-family:'DM Sans',sans-serif; font-size:14px; width:100%;
-    outline:none; transition:border 0.2s;
-  }
-  .exam-input:focus { border-color:var(--violet); background:rgba(139,92,246,0.05); }
-  .exam-input.ok { border-color:var(--green); background:rgba(34,197,94,0.05); color:var(--green); }
-  .exam-input.ko { border-color:var(--pink); background:rgba(255,45,120,0.05); color:var(--pink); }
+  /* ── VOCAB ── */
+  .vocab-themes { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:16px; margin-bottom:28px; }  .vocab-theme { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:24px; cursor:pointer; position:relative; }  .vocab-theme::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0; }  .vocab-theme.t1::before { background:var(--pink); }  .vocab-theme.t2::before { background:var(--violet); }  .vocab-theme.t3::before { background:var(--teal); }  .vocab-theme.t4::before { background:var(--amber); }  .vocab-theme.t5::before { background:var(--blue); }
+  .vocab-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }  .vocab-row { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; }
+  .vocab-es { font-size:15px; font-weight:500; color:var(--teal); }  .vocab-fr { font-size:14px; color:var(--text); font-weight: 600; }
 
-  .exam-submit {
-    width:100%; padding:18px; border-radius:16px; border:none;
-    background:linear-gradient(135deg, #7c0000, #c00050);
-    color:#fff; font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:3px;
-    cursor:pointer; transition:all 0.2s;
-    box-shadow: 0 6px 24px rgba(255,45,120,0.3);
-  }
-  .exam-submit:hover { transform:translateY(-3px); box-shadow:0 10px 36px rgba(255,45,120,0.45); }
+  @media(max-width:600px) {    .quiz-options, .exam-grid, .vocab-grid { grid-template-columns:1fr; }    .fc-controls, .fill-controls { flex-direction:column; }  }
 
-  .exam-result {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:20px; padding:32px; text-align:center;
-    display:none; margin-top:20px;
-  }
-  .exam-result.show { display:block; animation:fadeUp 0.4s ease; }
-  .exam-score {
-    font-family:'Bebas Neue',sans-serif; font-size:80px; letter-spacing:4px;
-    line-height:1;
-  }
-  .exam-score.great { color:var(--green); text-shadow:0 0 40px rgba(34,197,94,0.5); }
-  .exam-score.mid { color:var(--amber); text-shadow:0 0 40px rgba(245,158,11,0.4); }
-  .exam-score.low { color:var(--pink); text-shadow:0 0 40px rgba(255,45,120,0.4); }
-  .exam-verdict { font-size:18px; color:var(--muted); margin-top:8px; }
-
-  /* ══════════════════════════════════
-     SECTION 5 — VOCABULAIRE THÉMATIQUE
-  ══════════════════════════════════ */
-  .vocab-themes { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:16px; margin-bottom:28px; }
-  .vocab-theme {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:20px; padding:24px; cursor:pointer;
-    transition:all 0.25s; position:relative; overflow:hidden;
-  }
-  .vocab-theme::before {
-    content:''; position:absolute; top:0; left:0; right:0; height:3px;
-    border-radius:3px 3px 0 0;
-  }
-  .vocab-theme.t1::before { background:var(--pink); }
-  .vocab-theme.t2::before { background:var(--violet); }
-  .vocab-theme.t3::before { background:var(--teal); }
-  .vocab-theme.t4::before { background:var(--amber); }
-  .vocab-theme.t5::before { background:var(--blue); }
-  .vocab-theme:hover { transform:translateY(-4px); border-color:rgba(255,255,255,0.15); }
-  .vocab-theme-icon { font-size:32px; margin-bottom:10px; }
-  .vocab-theme-title { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; margin-bottom:4px; }
-  .vocab-theme-count { font-size:12px; color:var(--muted); }
-
-  .vocab-table { display:none; }
-  .vocab-table.show { display:block; animation:fadeUp 0.35s ease; }
-  .back-btn {
-    display:inline-flex; align-items:center; gap:8px;
-    padding:10px 20px; border-radius:10px; background:var(--surface);
-    border:1px solid var(--border); color:var(--muted); cursor:pointer;
-    font-size:13px; font-weight:500; margin-bottom:20px; transition:all 0.2s;
-  }
-  .back-btn:hover { color:var(--text); border-color:rgba(255,255,255,0.2); }
-
-  .vocab-grid {
-    display:grid; grid-template-columns:1fr 1fr; gap:8px;
-  }
-  .vocab-row {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:14px; padding:14px 18px;
-    display:flex; justify-content:space-between; align-items:center;
-    transition:all 0.2s;
-  }
-  .vocab-row:hover { background:var(--surface2); border-color:rgba(139,92,246,0.2); }
-  .vocab-es { font-size:15px; font-weight:500; }
-  .vocab-fr { font-size:14px; color:var(--teal); font-style:italic; }
-  .vocab-type {
-    font-size:10px; text-transform:uppercase; letter-spacing:1px;
-    padding:2px 8px; border-radius:4px; background:rgba(139,92,246,0.1);
-    color:var(--violet); font-weight:600;
-  }
-
-  /* ══════════════════════════════════
-     RESPONSIVE
-  ══════════════════════════════════ */
-  @media(max-width:600px) {
-    header { padding:40px 20px 30px; }
-    .quiz-options { grid-template-columns:1fr; }
-    .exam-grid { grid-template-columns:1fr; }
-    .vocab-grid { grid-template-columns:1fr; }
-    .fc-controls { flex-direction:column; }
-    .fill-controls { flex-direction:column; }
-  }
-
-  /* ══════════════════════════════════
-     SCORE POPUP
-  ══════════════════════════════════ */
-  .popup {
-    position:fixed; top:30px; right:30px; z-index:100;
-    background:var(--surface2); border:1px solid var(--border);
-    border-radius:16px; padding:16px 24px;
-    display:flex; align-items:center; gap:12px;
-    transform:translateX(120%); transition:transform 0.4s cubic-bezier(.22,1,.36,1);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  }
-  .popup.show { transform:translateX(0); }
-  .popup .p-icon { font-size:28px; }
-  .popup .p-text { font-size:14px; font-weight:600; }
-  .popup .p-sub { font-size:12px; color:var(--muted); }
-  .popup.xp { border-color:rgba(139,92,246,0.4); }
-
-  /* ══════════════════════════════════
-     CONFETTI CANVAS
-  ══════════════════════════════════ */
-  #confetti { position:fixed; inset:0; pointer-events:none; z-index:200; }
-</style>
-</head>
-<body>
+  .popup { position:fixed; top:30px; right:30px; z-index:100; background:var(--surface2); border:1px solid var(--border); border-radius:16px; padding:16px 24px; display:flex; align-items:center; gap:12px; transform:translateX(120%); transition:transform 0.4s; }  .popup.show { transform:translateX(0); }
+  #confetti { position:fixed; inset:0; pointer-events:none; z-index:200; }</style></head><body>
 
 <canvas id="confetti"></canvas>
+<div class="popup xp" id="popup">  <div class="p-icon" id="popup-icon">⚡</div>  <div>    <div class="p-text" id="popup-text">+10 XP</div>    <div class="p-sub" id="popup-sub">Bonne réponse !</div>  </div></div>
 
-<div class="popup xp" id="popup">
-  <div class="p-icon" id="popup-icon">⚡</div>
-  <div>
-    <div class="p-text" id="popup-text">+10 XP</div>
-    <div class="p-sub" id="popup-sub">Bonne réponse !</div>
-  </div>
-</div>
+<header>  <div class="logo-line">    <div class="logo-dot"></div>    <h1>MEMORIA</h1>    <div class="logo-dot" style="background:var(--teal);"></div>  </div>  <p class="subtitle">Amnesia & amnistía — <span>Français ➔ Espagnol</span></p>  <div class="xp-bar-wrap"><div class="xp-bar" id="xp-bar" style="width:5%"></div></div>  <div class="xp-label">Niveau 1 — <span id="xp-val">0</span> / 500 XP</div></header>
 
-<!-- ══════════ HEADER ══════════ -->
-<header>
-  <div class="logo-line">
-    <div class="logo-dot"></div>
-    <h1>MEMORIA</h1>
-    <div class="logo-dot" style="background:var(--teal); box-shadow:0 0 20px var(--teal);"></div>
-  </div>
-  <p class="subtitle">Amnesia & amnistía — <span>Espagnol ↔ Français</span></p>
-  <div class="xp-bar-wrap">
-    <div class="xp-bar" id="xp-bar" style="width:8%"></div>
-  </div>
-  <div class="xp-label">Niveau 1 — <span id="xp-val">40</span> / 500 XP</div>
-</header>
+<div class="stats-row">  <div class="stat-chip"><span class="ico">🔥</span><span class="val" id="streak-val">0</span><span class="lbl">Série</span></div>  <div class="stat-chip"><span class="ico">✅</span><span class="val" id="correct-val">0</span><span class="lbl">Corrects</span></div>  <div class="stat-chip"><span class="ico">⭐</span><span class="val" id="xp-total">0</span><span class="lbl">XP Total</span></div></div>
 
-<!-- ══════════ STATS ══════════ -->
-<div class="stats-row">
-  <div class="stat-chip"><span class="ico">🔥</span><span class="val" id="streak-val">0</span><span class="lbl">Série</span></div>
-  <div class="stat-chip"><span class="ico">✅</span><span class="val" id="correct-val">0</span><span class="lbl">Corrects</span></div>
-  <div class="stat-chip"><span class="ico">⭐</span><span class="val" id="xp-total">40</span><span class="lbl">XP Total</span></div>
-  <div class="stat-chip"><span class="ico">🎯</span><span class="val" id="acc-val">—</span><span class="lbl">Précision</span></div>
-</div>
+<nav class="nav-tabs">  <button class="tab-btn active" onclick="switchTab('flashcards',this)">🃏 Flashcards</button>  <button class="tab-btn" onclick="switchTab('quiz',this)">⚡ Quiz</button>  <button class="tab-btn" onclick="switchTab('fill',this)">✍️ Trous</button>  <button class="tab-btn" onclick="switchTab('exam',this)">📝 Exam</button>  <button class="tab-btn" onclick="switchTab('vocab',this)">📚 Vocab</button></nav>
 
-<!-- ══════════ TABS ══════════ -->
-<nav class="nav-tabs">
-  <button class="tab-btn active" onclick="switchTab('flashcards',this)">🃏 Flashcards <span class="badge">HOT</span></button>
-  <button class="tab-btn" onclick="switchTab('quiz',this)">⚡ Quiz</button>
-  <button class="tab-btn" onclick="switchTab('fill',this)">✍️ Texte à trous</button>
-  <button class="tab-btn" onclick="switchTab('exam',this)">📝 Faux Exam</button>
-  <button class="tab-btn" onclick="switchTab('vocab',this)">📚 Vocabulaire</button>
-</nav>
-
-<!-- ══════════ MAIN ══════════ -->
 <main>
+  <section class="section active" id="s-flashcards">    <div class="section-title">🃏 Flash<span class="accent">cards</span></div>    <p class="section-desc">Traduisez du français vers l'espagnol.</p>    <div class="theme-selector" id="fc-themes">      <div class="theme-pill active" onclick="selectFCTheme('all',this)">Tout</div>      <div class="theme-pill" onclick="selectFCTheme('memoire',this)">🕯 Mémoire</div>      <div class="theme-pill" onclick="selectFCTheme('justice',this)">⚖️ Justice</div>      <div class="theme-pill" onclick="selectFCTheme('victimes',this)">💔 Victimes</div>      <div class="theme-pill" onclick="selectFCTheme('dictature',this)">🔒 Dictature</div>    </div>
+    <div class="flashcard-arena">      <div class="flashcard" id="flashcard" onclick="flipCard()">        <div class="fc-face fc-front">          <div class="fc-tag">FRANÇAIS</div>          <div class="fc-word" id="fc-word">—</div>          <div class="fc-sub" id="fc-sub"></div>          <div class="fc-hint">Cliquez pour l'espagnol →</div>        </div>        <div class="fc-face fc-back">          <div class="fc-tag">ESPAGNOL</div>          <div class="fc-word" id="fc-translation">—</div>          <div class="fc-sub" id="fc-extra"></div>        </div>      </div>    </div>
+    <div class="fc-controls" id="fc-controls" style="display:none">      <button class="fc-btn wrong" onclick="fcAnswer(false)">😅 Raté</button>      <button class="fc-btn right" onclick="fcAnswer(true)">✅ Trouvé !</button>    </div>    <div class="fc-controls" id="fc-flip-ctrl">      <button class="fc-btn next" onclick="flipCard()">👁 Voir la réponse</button>    </div>
+    <div class="fc-progress">Carte <strong id="fc-cur">1</strong> / <strong id="fc-total">—</strong></div>  </section>
 
-  <!-- ╔══════════════════════════════╗
-       ║  S1 — FLASHCARDS            ║
-       ╚══════════════════════════════╝ -->
-  <section class="section active" id="s-flashcards">
-    <div class="section-title">🃏 Flash<span class="accent">cards</span></div>
-    <p class="section-desc">Cliquez sur la carte pour révéler la traduction. Notez-vous honnêtement !</p>
-
-    <div class="theme-selector" id="fc-themes">
-      <div class="theme-pill active" onclick="selectFCTheme('all',this)">Tout</div>
-      <div class="theme-pill" onclick="selectFCTheme('memoire',this)">🕯 Mémoire</div>
-      <div class="theme-pill" onclick="selectFCTheme('justice',this)">⚖️ Justice</div>
-      <div class="theme-pill" onclick="selectFCTheme('victimes',this)">💔 Victimes</div>
-      <div class="theme-pill" onclick="selectFCTheme('dictature',this)">🔒 Dictature</div>
-      <div class="theme-pill" onclick="selectFCTheme('verite',this)">🔍 Vérité</div>
-      <div class="theme-pill" onclick="selectFCTheme('verbes',this)">🏃 Verbes</div>
-    </div>
-
-    <div class="flashcard-arena">
-      <div class="flashcard" id="flashcard" onclick="flipCard()">
-        <div class="fc-face fc-front">
-          <div class="fc-tag">ESPAGNOL</div>
-          <div class="fc-word" id="fc-word">—</div>
-          <div class="fc-sub" id="fc-sub"></div>
-          <div class="fc-hint">Cliquez pour retourner →</div>
-        </div>
-        <div class="fc-face fc-back">
-          <div class="fc-tag">FRANÇAIS</div>
-          <div class="fc-word" id="fc-translation">—</div>
-          <div class="fc-sub" id="fc-extra"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="fc-controls" id="fc-controls" style="display:none">
-      <button class="fc-btn wrong" onclick="fcAnswer(false)">😅 À revoir</button>
-      <button class="fc-btn right" onclick="fcAnswer(true)">✅ Je savais !</button>
-    </div>
-    <div class="fc-controls" id="fc-flip-ctrl">
-      <button class="fc-btn next" onclick="flipCard()">👁 Voir la traduction</button>
-    </div>
-
-    <div class="fc-progress">
-      Carte <strong id="fc-cur">1</strong> / <strong id="fc-total">—</strong>
-      &nbsp;·&nbsp; <span style="color:var(--green)">✅ <span id="fc-ok">0</span></span>
-      &nbsp;·&nbsp; <span style="color:var(--pink)">❌ <span id="fc-ko">0</span></span>
-    </div>
-  </section>
-
-  <!-- ╔══════════════════════════════╗
-       ║  S2 — QUIZ MCQ              ║
-       ╚══════════════════════════════╝ -->
-  <section class="section" id="s-quiz">
-    <div class="section-title">⚡ <span class="accent">Quiz</span> Chrono</div>
-    <p class="section-desc">Trouvez la bonne traduction avant que le temps ne s'écoule !</p>
-
-    <div class="quiz-header">
-      <div class="quiz-q-number">Question <span id="q-num">1</span> / 10</div>
-      <div class="quiz-timer" id="quiz-timer">⏱ <span id="timer-val">15</span>s</div>
-    </div>
-
-    <div class="quiz-question">
-      <div class="quiz-direction" id="quiz-direction">ES → FR</div>
-      <div class="quiz-word" id="quiz-word">—</div>
-      <div class="quiz-category" id="quiz-cat"></div>
-    </div>
-
+  <section class="section" id="s-quiz">    <div class="section-title">⚡ <span class="accent">Quiz</span> FR ➔ ES</div>    <div class="quiz-header">      <div class="quiz-q-number">Question <span id="q-num">1</span> / 10</div>      <div class="quiz-timer" id="quiz-timer">⏱ <span id="timer-val">15</span>s</div>    </div>
+    <div class="quiz-question">      <div class="quiz-direction">Traduisez en Espagnol</div>      <div class="quiz-word" id="quiz-word">—</div>    </div>
     <div class="quiz-options" id="quiz-opts"></div>
+    <div class="quiz-feedback" id="quiz-feedback"></div>    <button class="btn-next" id="btn-next" onclick="nextQuiz()">Suivant →</button>
+    <div id="quiz-end" style="display:none; text-align:center; padding:40px 0;">      <div style="font-family:'Bebas Neue',sans-serif; font-size:60px; color:var(--violet);" id="quiz-final-score">0/10</div>      <button class="btn-next show" onclick="startQuiz()" style="max-width:300px; margin:20px auto;">🔄 Recommencer</button>    </div>  </section>
 
-    <div class="quiz-feedback" id="quiz-feedback"></div>
-    <button class="btn-next" id="btn-next" onclick="nextQuiz()">Question suivante →</button>
+  <section class="section" id="s-fill">    <div class="section-title">✍️ Texte à <span class="accent">Trous</span></div>    <div class="fill-text" id="fill-text"></div>    <div class="fill-controls">      <button class="fill-btn check" onclick="checkFill()">Vérifier</button>      <button class="fill-btn next" onclick="nextFill()">Suivant</button>    </div>  </section>
 
-    <div id="quiz-end" style="display:none; text-align:center; padding:40px 0;">
-      <div style="font-family:'Bebas Neue',sans-serif; font-size:60px; color:var(--violet);" id="quiz-final-score">0/10</div>
-      <div style="color:var(--muted); font-size:16px; margin-bottom:20px;" id="quiz-final-msg"></div>
-      <button class="btn-next show" onclick="startQuiz()" style="max-width:300px; margin:0 auto;">🔄 Recommencer</button>
-    </div>
-  </section>
+  <section class="section" id="s-exam">    <div class="section-title">📝 Faux <span class="accent">Exam</span></div>    <div class="exam-banner"><h3>FR ➔ ES : Pas d'erreur possible !</h3></div>    <div class="exam-grid" id="exam-grid"></div>    <button class="exam-submit" onclick="submitExam()">RENDRE LA COPIE</button>    <div class="exam-result" id="exam-result">      <div class="exam-score" id="exam-score-display">—</div>      <button class="btn-next show" onclick="loadExam()" style="margin-top:20px;">🔄 Nouveau</button>    </div>  </section>
 
-  <!-- ╔══════════════════════════════╗
-       ║  S3 — TEXTE À TROUS         ║
-       ╚══════════════════════════════╝ -->
-  <section class="section" id="s-fill">
-    <div class="section-title">✍️ Texte à <span class="accent">Trous</span></div>
-    <p class="section-desc">Complétez le texte avec les verbes et mots qui conviennent.</p>
-
-    <div class="fill-hint">
-      <strong>Contexte :</strong> Extrait d'un débat sur la mémoire historique en Espagne.
-      Complétez avec les mots de la liste : <strong id="fill-words-list"></strong>
-    </div>
-
-    <div class="fill-text" id="fill-text"></div>
-
-    <div class="fill-controls">
-      <button class="fill-btn check" onclick="checkFill()">Vérifier ✓</button>
-      <button class="fill-btn reveal" onclick="revealFill()">Révéler</button>
-      <button class="fill-btn reveal" onclick="nextFill()">Suivant →</button>
-    </div>
-  </section>
-
-  <!-- ╔══════════════════════════════╗
-       ║  S4 — FAUX EXAM             ║
-       ╚══════════════════════════════╝ -->
-  <section class="section" id="s-exam">
-    <div class="section-title">📝 Faux <span class="accent">Exam</span></div>
-    <p class="section-desc">Conditions d'examen ! Traduisez sans aide. Bonne chance.</p>
-
-    <div class="exam-banner">
-      <div class="exam-icon">🎓</div>
-      <div>
-        <h3>EXAMEN BLANC — THÈME MÉMOIRE</h3>
-        <p>10 questions • Traduisez de l'espagnol vers le français</p>
-      </div>
-    </div>
-
-    <div class="exam-grid" id="exam-grid"></div>
-
-    <button class="exam-submit" onclick="submitExam()">RENDRE LA COPIE</button>
-
-    <div class="exam-result" id="exam-result">
-      <div class="exam-score" id="exam-score-display">—</div>
-      <div class="exam-verdict" id="exam-verdict"></div>
-      <div id="exam-breakdown" style="margin-top:20px; font-size:14px; color:var(--muted);"></div>
-      <button class="btn-next show" onclick="resetExam()" style="margin-top:20px;">🔄 Nouvel examen</button>
-    </div>
-  </section>
-
-  <!-- ╔══════════════════════════════╗
-       ║  S5 — VOCABULAIRE           ║
-       ╚══════════════════════════════╝ -->
-  <section class="section" id="s-vocab">
-    <div class="section-title">📚 <span class="accent">Vocabulaire</span></div>
-    <p class="section-desc">Explorez tout le vocabulaire thématique du chapitre.</p>
-
-    <div class="vocab-themes" id="vocab-themes-grid"></div>
-    <div class="vocab-table" id="vocab-table">
-      <button class="back-btn" onclick="closeVocabTheme()">← Retour aux thèmes</button>
-      <div class="vocab-grid" id="vocab-detail-grid"></div>
-    </div>
-  </section>
-
+  <section class="section" id="s-vocab">    <div class="section-title">📚 <span class="accent">Vocabulaire</span></div>    <div class="vocab-themes" id="vocab-themes-grid"></div>    <div id="vocab-table" style="display:none">      <button onclick="loadVocab()" style="margin-bottom:15px; background:none; border:1px solid var(--border); color:white; padding:5px 15px; border-radius:10px; cursor:pointer;">← Retour</button>      <div class="vocab-grid" id="vocab-detail-grid"></div>    </div>  </section>
 </main>
 
 <script>
-/* ═══════════════════════════════════════════════════════
-   DATA — extracted from the mind map image
-═══════════════════════════════════════════════════════ */
 const DATA = {
-  memoire: {
-    title: "Rendir homenaje al pasado",
-    icon: "🕯️",
-    color: "t1",
-    items: [
-      { es: "el deber de memoria", fr: "le devoir de mémoire", type: "nom" },
-      { es: "el homenaje", fr: "l'hommage", type: "nom" },
-      { es: "el lugar de memoria", fr: "le lieu de mémoire", type: "nom" },
-      { es: "el olvido", fr: "l'oubli", type: "nom" },
-      { es: "el recuerdo", fr: "le souvenir", type: "nom" },
-      { es: "acordarse de", fr: "se souvenir de", type: "verbe" },
-      { es: "recordar", fr: "se rappeler / rappeler", type: "verbe" },
-      { es: "homenajear", fr: "rendre hommage", type: "verbe" },
-      { es: "olvidar", fr: "oublier", type: "verbe" },
-    ]
-  },
-  justice: {
-    title: "Hacer justicia",
-    icon: "⚖️",
-    color: "t2",
-    items: [
-      { es: "la condena", fr: "la condamnation", type: "nom" },
-      { es: "la injusticia", fr: "l'injustice", type: "nom" },
-      { es: "el juicio", fr: "le procès / le jugement", type: "nom" },
-      { es: "la justicia", fr: "la justice", type: "nom" },
-      { es: "el/la testigo", fr: "le / la témoin", type: "nom" },
-      { es: "el testimonio", fr: "le témoignage", type: "nom" },
-      { es: "acusar", fr: "accuser", type: "verbe" },
-      { es: "conceder", fr: "accorder / concéder", type: "verbe" },
-      { es: "juzgar", fr: "juger", type: "verbe" },
-      { es: "otorgar", fr: "octroyer / accorder", type: "verbe" },
-      { es: "perseguir", fr: "poursuivre", type: "verbe" },
-      { es: "procesar", fr: "poursuivre en justice", type: "verbe" },
-      { es: "sospechar", fr: "soupçonner", type: "verbe" },
-      { es: "testimoniar", fr: "témoigner", type: "verbe" },
-    ]
-  },
-  victimes: {
-    title: "El dolor de las víctimas",
-    icon: "💔",
-    color: "t3",
-    items: [
-      { es: "el daño", fr: "le dommage / le tort", type: "nom" },
-      { es: "el dolor", fr: "la douleur", type: "nom" },
-      { es: "la herida", fr: "la blessure", type: "nom" },
-      { es: "el respaldo", fr: "le soutien", type: "nom" },
-      { es: "la secuela", fr: "la séquelle", type: "nom" },
-      { es: "la víctima", fr: "la victime", type: "nom" },
-      { es: "curar", fr: "guérir / soigner", type: "verbe" },
-      { es: "padecer", fr: "souffrir / endurer", type: "verbe" },
-      { es: "reparar", fr: "réparer", type: "verbe" },
-      { es: "sanar", fr: "guérir / se rétablir", type: "verbe" },
-      { es: "sufrir", fr: "souffrir", type: "verbe" },
-    ]
-  },
-  dictature: {
-    title: "Los actos de la dictadura",
-    icon: "🔒",
-    color: "t4",
-    items: [
-      { es: "un(a) desaparecido-a", fr: "un(e) disparu(e)", type: "nom" },
-      { es: "el enaltecimiento", fr: "l'apologie / la glorification", type: "nom" },
-      { es: "la exaltación", fr: "l'exaltation", type: "nom" },
-      { es: "el/la preso-a / prisionero-a", fr: "le / la prisonnier(ère)", type: "nom" },
-      { es: "el represor", fr: "l'oppresseur / le répresseur", type: "nom" },
-      { es: "el terror", fr: "la terreur", type: "nom" },
-      { es: "la tortura", fr: "la torture", type: "nom" },
-      { es: "el verdugo", fr: "le bourreau", type: "nom" },
-      { es: "apropiarse de", fr: "s'approprier", type: "verbe" },
-      { es: "aterrorizar", fr: "terroriser", type: "verbe" },
-      { es: "secuestrar", fr: "séquestrer / kidnapper", type: "verbe" },
-    ]
-  },
-  verite: {
-    title: "La búsqueda de la verdad",
-    icon: "🔍",
-    color: "t5",
-    items: [
-      { es: "el ADN", fr: "l'ADN", type: "nom" },
-      { es: "el árbol genealógico", fr: "l'arbre généalogique", type: "nom" },
-      { es: "la genética", fr: "la génétique", type: "nom" },
-      { es: "la huella", fr: "la trace / l'empreinte", type: "nom" },
-      { es: "el logro", fr: "la réussite / l'accomplissement", type: "nom" },
-      { es: "el parentesco", fr: "la parenté / le lien de parenté", type: "nom" },
-      { es: "la verdad", fr: "la vérité", type: "nom" },
-      { es: "el vínculo = el lazo", fr: "le lien", type: "nom" },
-      { es: "buscar", fr: "chercher", type: "verbe" },
-      { es: "comprobar = confirmar", fr: "vérifier = confirmer", type: "verbe" },
-      { es: "estar a favor ≠ en contra", fr: "être pour ≠ contre", type: "expr" },
-      { es: "identificar", fr: "identifier", type: "verbe" },
-      { es: "probar = demostrar", fr: "prouver = démontrer", type: "verbe" },
-      { es: "recopilar", fr: "rassembler / compiler", type: "verbe" },
-    ]
-  }
+  memoire: { title: "Rendir homenaje", icon: "🕯️", color: "t1", items: [
+    { es: "el deber de memoria", fr: "le devoir de mémoire", type: "nom" },
+    { es: "el homenaje", fr: "l'hommage", type: "nom" },
+    { es: "el lugar de memoria", fr: "le lieu de mémoire", type: "nom" },
+    { es: "el olvido", fr: "l'oubli", type: "nom" },
+    { es: "el recuerdo", fr: "le souvenir", type: "nom" },
+    { es: "acordarse de", fr: "se souvenir de", type: "verbe" },
+    { es: "recordar", fr: "se rappeler / rappeler", type: "verbe" }
+  ]},
+  justice: { title: "Hacer justicia", icon: "⚖️", color: "t2", items: [
+    { es: "la condena", fr: "la condamnation", type: "nom" },
+    { es: "la injusticia", fr: "l'injustice", type: "nom" },
+    { es: "el juicio", fr: "le procès / le jugement", type: "nom" },
+    { es: "la justicia", fr: "la justice", type: "nom" },
+    { es: "acusar", fr: "accuser", type: "verbe" },
+    { es: "juzgar", fr: "juger", type: "verbe" },
+    { es: "perseguir", fr: "poursuivre", type: "verbe" }
+  ]},
+  victimes: { title: "El dolor", icon: "💔", color: "t3", items: [
+    { es: "el daño", fr: "le dommage / le tort", type: "nom" },
+    { es: "el dolor", fr: "la douleur", type: "nom" },
+    { es: "la herida", fr: "la blessure", type: "nom" },
+    { es: "el respaldo", fr: "le soutien", type: "nom" },
+    { es: "la secuela", fr: "la séquelle", type: "nom" },
+    { es: "padecer", fr: "souffrir / endurer", type: "verbe" },
+    { es: "reparar", fr: "réparer", type: "verbe" }
+  ]},
+  dictature: { title: "Dictadura", icon: "🔒", color: "t4", items: [
+    { es: "un desaparecido", fr: "un disparu", type: "nom" },
+    { es: "el prisionero", fr: "le prisonnier", type: "nom" },
+    { es: "el represor", fr: "l'oppresseur", type: "nom" },
+    { es: "el terror", fr: "la terreur", type: "nom" },
+    { es: "la tortura", fr: "la torture", type: "nom" },
+    { es: "el verdugo", fr: "le bourreau", type: "nom" },
+    { es: "secuestrar", fr: "séquestrer", type: "verbe" }
+  ]}
 };
 
-// Flat list of all items
-const ALL = [];
-Object.keys(DATA).forEach(k => DATA[k].items.forEach(item => ALL.push({...item, theme: k})));
+const ALL = []; Object.keys(DATA).forEach(k => DATA[k].items.forEach(item => ALL.push({...item, theme: k})));
 
-/* ═══════════════════════════════════════════════════════
-   GLOBAL STATE
-═══════════════════════════════════════════════════════ */
-let xp = 40, streak = 0, correct = 0, total_ans = 0;
+let xp = 0, streak = 0, correct = 0;
 
 function updateStats() {
   document.getElementById('xp-val').textContent = xp;
   document.getElementById('xp-total').textContent = xp;
   document.getElementById('streak-val').textContent = streak;
   document.getElementById('correct-val').textContent = correct;
-  const acc = total_ans ? Math.round(correct/total_ans*100)+'%' : '—';
-  document.getElementById('acc-val').textContent = acc;
-  const pct = Math.min(xp/500*100, 100);
-  document.getElementById('xp-bar').style.width = pct+'%';
+  document.getElementById('xp-bar').style.width = Math.min(xp/5, 100)+'%';
 }
 
-function gainXP(amount, msg) {
-  xp += amount; streak++;
-  correct++; total_ans++;
-  updateStats();
-  showPopup('⚡', `+${amount} XP`, msg);
-}
-function loseStreak() {
-  streak = 0; total_ans++;
-  updateStats();
-  showPopup('💀', 'À revoir !', 'Série perdue...');
-}
+function gainXP(amount, msg) { xp += amount; correct++; streak++; updateStats(); showPopup('⚡', `+${amount} XP`, msg); }
+function loseStreak() { streak = 0; updateStats(); showPopup('💀', 'Oups !', 'Continue !'); }
 
 function showPopup(icon, text, sub) {
   const p = document.getElementById('popup');
   document.getElementById('popup-icon').textContent = icon;
   document.getElementById('popup-text').textContent = text;
   document.getElementById('popup-sub').textContent = sub;
-  p.classList.add('show');
-  setTimeout(()=>p.classList.remove('show'), 2800);
+  p.classList.add('show'); setTimeout(()=>p.classList.remove('show'), 2000);
 }
 
-/* ═══════════════════════════════════════════════════════
-   NAVIGATION
-═══════════════════════════════════════════════════════ */
+// NAVIGATION
 function switchTab(name, btn) {
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -891,50 +172,28 @@ function switchTab(name, btn) {
   if(name==='vocab') loadVocab();
 }
 
-/* ═══════════════════════════════════════════════════════
-   S1 — FLASHCARDS
-═══════════════════════════════════════════════════════ */
-let fcDeck = [], fcIdx = 0, fcFlipped = false, fcOk = 0, fcKo = 0;
+// FLASHCARDS (MODIFIÉES FR -> ES)
+let fcDeck = [], fcIdx = 0, fcFlipped = false;
 let fcTheme = 'all';
 
 function selectFCTheme(t, el) {
   document.querySelectorAll('.theme-pill').forEach(p=>p.classList.remove('active'));
-  el.classList.add('active');
-  fcTheme = t;
-  buildDeck();
+  el.classList.add('active'); fcTheme = t; buildDeck();
 }
 
 function buildDeck() {
   let src = fcTheme === 'all' ? ALL : ALL.filter(x=>x.theme===fcTheme);
-  // add verbes only from all
-  if(fcTheme === 'verbes') src = ALL.filter(x=>x.type==='verbe');
-  fcDeck = shuffle([...src]);
-  fcIdx = 0; fcOk = 0; fcKo = 0; fcFlipped = false;
-  document.getElementById('flashcard').classList.remove('flipped');
-  document.getElementById('fc-controls').style.display = 'none';
-  document.getElementById('fc-flip-ctrl').style.display = 'flex';
-  renderFC();
+  fcDeck = shuffle([...src]); fcIdx = 0; renderFC();
 }
 
 function renderFC() {
-  if(fcIdx >= fcDeck.length) {
-    document.getElementById('fc-word').textContent = '🎉 Terminé !';
-    document.getElementById('fc-sub').textContent = `Score : ${fcOk}/${fcDeck.length}`;
-    document.getElementById('fc-translation').textContent = '';
-    document.getElementById('fc-controls').style.display = 'none';
-    document.getElementById('fc-flip-ctrl').style.display = 'none';
-    if(fcOk === fcDeck.length) launchConfetti();
-    return;
-  }
+  if(fcIdx >= fcDeck.length) { buildDeck(); return; }
   const c = fcDeck[fcIdx];
-  document.getElementById('fc-word').textContent = c.es;
-  document.getElementById('fc-sub').textContent = '[' + c.type + '] — thème: ' + c.theme;
-  document.getElementById('fc-translation').textContent = c.fr;
-  document.getElementById('fc-extra').textContent = c.type;
+  document.getElementById('fc-word').textContent = c.fr; // FRANÇAIS DEVANT
+  document.getElementById('fc-translation').textContent = c.es; // ESPAGNOL DERRIÈRE
+  document.getElementById('fc-sub').textContent = `Type : ${c.type}`;
   document.getElementById('fc-cur').textContent = fcIdx+1;
   document.getElementById('fc-total').textContent = fcDeck.length;
-  document.getElementById('fc-ok').textContent = fcOk;
-  document.getElementById('fc-ko').textContent = fcKo;
   document.getElementById('flashcard').classList.remove('flipped');
   fcFlipped = false;
   document.getElementById('fc-controls').style.display = 'none';
@@ -952,329 +211,140 @@ function flipCard() {
 }
 
 function fcAnswer(ok) {
-  if(ok) { fcOk++; gainXP(5, 'Flashcard réussie !'); }
-  else { fcKo++; loseStreak(); }
-  fcIdx++;
-  setTimeout(renderFC, 200);
+  if(ok) gainXP(5, 'Bien vu !'); else loseStreak();
+  fcIdx++; setTimeout(renderFC, 200);
 }
 
-// Init
-buildDeck();
-
-/* ═══════════════════════════════════════════════════════
-   S2 — QUIZ
-═══════════════════════════════════════════════════════ */
-let qDeck=[], qIdx=0, qScore=0, qTimer=null, qAnswered=false;
+// QUIZ (MODIFIÉ FR -> ES)
+let qDeck=[], qIdx=0, qScore=0, qTimer=null;
 
 function startQuiz() {
   document.getElementById('quiz-end').style.display='none';
-  document.getElementById('quiz-opts').style.display='grid';
-  document.getElementById('quiz-timer').style.display='flex';
-  document.querySelector('.quiz-question').style.display='flex';
-  document.querySelector('.quiz-header').style.display='flex';
-  qDeck = shuffle([...ALL]).slice(0,10);
-  qIdx = 0; qScore = 0;
+  qDeck = shuffle([...ALL]).slice(0,10); qIdx = 0; qScore = 0;
   nextQuiz();
 }
 
 function nextQuiz() {
   if(qIdx >= qDeck.length) { endQuiz(); return; }
-  qAnswered = false;
   const q = qDeck[qIdx];
-  const dir = Math.random() > 0.5; // true=ES→FR, false=FR→ES
-  document.getElementById('quiz-direction').textContent = dir ? 'ES → FR' : 'FR → ES';
-  document.getElementById('quiz-word').textContent = dir ? q.es : q.fr;
-  document.getElementById('quiz-cat').textContent = '(' + q.type + ')';
+  document.getElementById('quiz-word').textContent = q.fr; // Question en français
   document.getElementById('q-num').textContent = qIdx+1;
 
-  // Build options: 1 correct + 3 wrong
-  const correct_ans = dir ? q.fr : q.es;
-  let wrongs = shuffle(ALL.filter(x=>x!==q)).slice(0,3).map(x=>dir?x.fr:x.es);
+  const correct_ans = q.es; // Réponse en espagnol
+  let wrongs = shuffle(ALL.filter(x=>x.es!==q.es)).slice(0,3).map(x=>x.es);
   const opts = shuffle([correct_ans, ...wrongs]);
 
-  const letters = ['A','B','C','D'];
   const container = document.getElementById('quiz-opts');
   container.innerHTML = '';
-  opts.forEach((opt,i) => {
+  opts.forEach(opt => {
     const btn = document.createElement('button');
     btn.className = 'quiz-opt';
-    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span>${opt}`;
-    btn.onclick = () => selectOpt(btn, opt, correct_ans, q);
+    btn.textContent = opt;
+    btn.onclick = () => {
+      clearInterval(qTimer);
+      if(opt === correct_ans) { btn.classList.add('correct'); qScore++; gainXP(10, 'Parfait !'); }
+      else { btn.classList.add('wrong-pick'); loseStreak(); }
+      document.getElementById('btn-next').classList.add('show');
+    };
     container.appendChild(btn);
   });
-
-  document.getElementById('quiz-feedback').classList.remove('show','ok','ko');
   document.getElementById('btn-next').classList.remove('show');
   startTimer(15);
 }
 
 function startTimer(sec) {
-  clearInterval(qTimer);
-  let t = sec;
+  clearInterval(qTimer); let t = sec;
   document.getElementById('timer-val').textContent = t;
-  document.getElementById('quiz-timer').classList.remove('urgent');
-  qTimer = setInterval(()=>{
-    t--;
-    document.getElementById('timer-val').textContent = t;
-    if(t <= 5) document.getElementById('quiz-timer').classList.add('urgent');
-    if(t <= 0) { clearInterval(qTimer); timeOut(); }
-  }, 1000);
-}
-
-function timeOut() {
-  if(qAnswered) return;
-  qAnswered = true;
-  showFeedback(false, '⏰ Temps écoulé !');
-  // Highlight correct
-  document.querySelectorAll('.quiz-opt').forEach(btn=>{
-    btn.disabled = true;
-    const q = qDeck[qIdx];
-    const dir = document.getElementById('quiz-direction').textContent === 'ES → FR';
-    if(btn.textContent.includes(dir ? q.fr : q.es)) btn.classList.add('correct');
-  });
-  loseStreak();
-  document.getElementById('btn-next').classList.add('show');
-  qIdx++;
-}
-
-function selectOpt(btn, chosen, correct_ans, q) {
-  if(qAnswered) return;
-  qAnswered = true;
-  clearInterval(qTimer);
-  document.querySelectorAll('.quiz-opt').forEach(b=>b.disabled=true);
-  const ok = chosen === correct_ans;
-  // highlight
-  document.querySelectorAll('.quiz-opt').forEach(b=>{
-    if(b.textContent.includes(correct_ans)) b.classList.add('correct');
-  });
-  if(!ok) btn.classList.add('wrong-pick');
-  showFeedback(ok, ok ? '🎉 Parfait !' : `❌ C'était : ${correct_ans}`);
-  if(ok) { qScore++; gainXP(10, 'Bonne réponse !'); }
-  else loseStreak();
-  document.getElementById('btn-next').classList.add('show');
-  qIdx++;
-}
-
-function showFeedback(ok, msg) {
-  const fb = document.getElementById('quiz-feedback');
-  fb.textContent = msg;
-  fb.className = 'quiz-feedback show ' + (ok ? 'ok' : 'ko');
+  qTimer = setInterval(()=>{ t--; document.getElementById('timer-val').textContent = t; if(t<=0) { clearInterval(qTimer); nextQuiz(); } }, 1000);
 }
 
 function endQuiz() {
-  clearInterval(qTimer);
-  document.getElementById('quiz-opts').style.display='none';
-  document.getElementById('quiz-timer').style.display='none';
-  document.querySelector('.quiz-question').style.display='none';
-  document.querySelector('.quiz-header').style.display='none';
-  document.getElementById('quiz-feedback').classList.remove('show');
-  document.getElementById('btn-next').classList.remove('show');
+  document.getElementById('quiz-opts').innerHTML = '';
   document.getElementById('quiz-end').style.display='block';
-  document.getElementById('quiz-final-score').textContent = qScore+'/10';
-  const msgs = ['😅 Continue à t\'entraîner !','👍 Bien joué, continue !','🔥 Excellent travail !','⭐ PARFAIT !'];
-  document.getElementById('quiz-final-msg').textContent = msgs[Math.min(Math.floor(qScore/3),3)];
-  if(qScore >= 9) launchConfetti();
+  document.getElementById('quiz-final-score').textContent = qScore + "/10";
 }
 
-/* ═══════════════════════════════════════════════════════
-   S3 — TEXTE À TROUS
-═══════════════════════════════════════════════════════ */
-const FILL_TEXTS = [
-  {
-    text: "En Espagne, les familles des __0__ cherchent encore à __1__ l'identité de leurs proches. Les associations de victimes voudraient __2__ la vérité sur les crimes commis pendant la __3__. Pour beaucoup, il est impossible d'__4__ sans connaître la vérité.",
-    blanks: ["disparus","identifier","recopilar","dictature","olvidar"],
-    answers: ["disparus","identifier","compiler","dictature","oublier"],
-    hint: "disparus, identifier, compiler, dictature, oublier"
-  },
-  {
-    text: "La __0__ des victimes exige que l'on __1__ les responsables. Les survivants doivent __2__ devant les tribunaux pour que __3__ soit rendue. Le __4__ de la société est essentiel pour les aider à guérir.",
-    blanks: ["condena","juzgar","testimoniar","justicia","respaldo"],
-    answers: ["condamnation","juger","témoigner","justice","soutien"],
-    hint: "condamnation, juger, témoigner, justice, soutien"
-  },
-  {
-    text: "Les tests ADN permettent d'__0__ les liens de parenté entre les victimes et leurs familles. Il faut __1__ les archives pour __2__ les preuves nécessaires. Le __3__ de mémoire est fondamental pour ne pas __4__ les atrocités commises.",
-    blanks: ["identifier","buscar","recopilar","deber","olvidar"],
-    answers: ["identifier","chercher","compiler","devoir","oublier"],
-    hint: "identifier, chercher, compiler, devoir, oublier"
-  }
-];
-let fillIdx = 0;
-function loadFill() {
-  const txt = FILL_TEXTS[fillIdx];
-  document.getElementById('fill-words-list').textContent = txt.hint;
-  let html = txt.text;
-  txt.blanks.forEach((b,i) => {
-    html = html.replace(`__${i}__`, `<span class="fill-blank" id="fb${i}"><input type="text" placeholder="..." id="fbi${i}" autocomplete="off" spellcheck="false"></span>`);
+// EXAM (MODIFIÉ FR -> ES)
+function loadExam() {
+  const deck = shuffle([...ALL]).slice(0,10);
+  const grid = document.getElementById('exam-grid');
+  grid.innerHTML = '';
+  deck.forEach((w, i) => {
+    grid.innerHTML += `
+      <div class="exam-item">
+        <div style="flex:1">
+          <div class="exam-q">${w.fr}</div>
+          <input class="exam-input" data-ans="${w.es}" type="text" placeholder="Traduisez en espagnol...">
+        </div>
+      </div>`;
   });
+  document.getElementById('exam-result').style.display='none';
+}
+
+function submitExam() {
+  let ok = 0;
+  document.querySelectorAll('.exam-input').forEach(inp => {
+    if(inp.value.trim().toLowerCase() === inp.dataset.ans.toLowerCase()) {
+      inp.style.borderColor = "var(--green)"; ok++;
+    } else {
+      inp.style.borderColor = "var(--pink)";
+      inp.value += " (" + inp.dataset.ans + ")";
+    }
+  });
+  document.getElementById('exam-score-display').textContent = ok + "/10";
+  document.getElementById('exam-result').style.display='block';
+  if(ok >= 8) launchConfetti();
+}
+
+// TEXTE A TROUS
+const FILL_TEXTS = [
+  { text: "En Espagne, le __0__ de mémoire est fort. Il faut __1__ le passé et ne pas __2__ les victimes de la __3__.", 
+    ans: ["deber", "recordar", "olvidar", "dictadura"] }
+];
+let fIdx = 0;
+function loadFill() {
+  let t = FILL_TEXTS[fIdx];
+  let html = t.text;
+  t.ans.forEach((a, i) => html = html.replace(`__${i}__`, `<span class="fill-blank"><input id="fill-${i}"></span>`));
   document.getElementById('fill-text').innerHTML = html;
 }
 function checkFill() {
-  const txt = FILL_TEXTS[fillIdx];
-  let ok = 0;
-  txt.answers.forEach((ans,i) => {
-    const inp = document.getElementById(`fbi${i}`);
-    const span = document.getElementById(`fb${i}`);
-    const val = inp.value.trim().toLowerCase();
-    const correct = ans.toLowerCase();
-    span.classList.remove('correct','wrong');
-    if(val === correct || val === txt.blanks[i].toLowerCase()) {
-      span.classList.add('correct'); ok++;
-    } else {
-      span.classList.add('wrong');
-    }
+  let t = FILL_TEXTS[fIdx];
+  t.ans.forEach((a, i) => {
+    const el = document.getElementById(`fill-${i}`);
+    el.style.color = (el.value.toLowerCase() === a) ? "var(--green)" : "var(--pink)";
   });
-  if(ok === txt.answers.length) {
-    gainXP(15, 'Texte à trous réussi !');
-    setTimeout(launchConfetti, 300);
-  } else {
-    showPopup('💡', `${ok}/${txt.answers.length} corrects`, 'Réessayez !');
-  }
-}
-function revealFill() {
-  const txt = FILL_TEXTS[fillIdx];
-  txt.answers.forEach((ans,i) => {
-    const inp = document.getElementById(`fbi${i}`);
-    const span = document.getElementById(`fb${i}`);
-    inp.value = ans;
-    span.classList.remove('wrong');
-    span.classList.add('correct');
-  });
-}
-function nextFill() {
-  fillIdx = (fillIdx+1) % FILL_TEXTS.length;
-  loadFill();
 }
 
-/* ═══════════════════════════════════════════════════════
-   S4 — FAUX EXAM
-═══════════════════════════════════════════════════════ */
-let examWords = [];
-function loadExam() {
-  examWords = shuffle([...ALL]).slice(0,10);
-  const grid = document.getElementById('exam-grid');
-  grid.innerHTML = '';
-  examWords.forEach((w,i) => {
-    grid.innerHTML += `
-      <div class="exam-item">
-        <div class="exam-num">${i+1}</div>
-        <div style="flex:1">
-          <div class="exam-q">${w.es}</div>
-          <input class="exam-input" id="exam-inp-${i}" type="text" placeholder="Traduction française…" autocomplete="off" spellcheck="false">
-        </div>
-      </div>
-    `;
-  });
-  document.getElementById('exam-result').classList.remove('show');
-}
-function submitExam() {
-  let ok = 0;
-  const breakdown = [];
-  examWords.forEach((w,i) => {
-    const inp = document.getElementById(`exam-inp-${i}`);
-    const val = inp.value.trim().toLowerCase();
-    const answers = w.fr.toLowerCase().split(' / ').map(s=>s.trim());
-    const correct = answers.some(a => val === a || val.includes(a.split(' ')[0]));
-    inp.classList.remove('ok','ko');
-    inp.classList.add(correct ? 'ok' : 'ko');
-    if(!correct) inp.placeholder = w.fr;
-    if(correct) ok++;
-    breakdown.push(`${i+1}. ${w.es} → ${w.fr} ${correct?'✅':'❌'}`);
-  });
-  const pct = Math.round(ok/10*100);
-  const sc = document.getElementById('exam-score-display');
-  sc.textContent = `${ok}/10`;
-  sc.className = 'exam-score ' + (pct>=80?'great':pct>=50?'mid':'low');
-  const verdicts = {great:"🏆 Excellent ! Vous maîtrisez le vocabulaire.",mid:"👍 Bien ! Quelques points à revoir.", low:"📚 Continuez à vous entraîner."};
-  document.getElementById('exam-verdict').textContent = verdicts[pct>=80?'great':pct>=50?'mid':'low'];
-  document.getElementById('exam-breakdown').innerHTML = breakdown.join('<br>');
-  document.getElementById('exam-result').classList.add('show');
-  if(pct>=80) { gainXP(50,'Examen réussi !'); setTimeout(launchConfetti,400); }
-  else if(pct>=50) gainXP(20,'Bon effort !');
-  else loseStreak();
-}
-function resetExam() { loadExam(); document.getElementById('exam-result').classList.remove('show'); }
-
-/* ═══════════════════════════════════════════════════════
-   S5 — VOCABULAIRE
-═══════════════════════════════════════════════════════ */
+// VOCAB
 function loadVocab() {
   const grid = document.getElementById('vocab-themes-grid');
   grid.innerHTML = '';
   Object.keys(DATA).forEach(k => {
-    const d = DATA[k];
-    grid.innerHTML += `
-      <div class="vocab-theme ${d.color}" onclick="openVocabTheme('${k}')">
-        <div class="vocab-theme-icon">${d.icon}</div>
-        <div class="vocab-theme-title">${d.title}</div>
-        <div class="vocab-theme-count">${d.items.length} mots</div>
-      </div>
-    `;
+    grid.innerHTML += `<div class="vocab-theme ${DATA[k].color}" onclick="openVocab('${k}')"><h3>${DATA[k].title}</h3></div>`;
   });
-  document.getElementById('vocab-themes-grid').style.display='grid';
-  document.getElementById('vocab-table').classList.remove('show');
+  grid.style.display = 'grid'; document.getElementById('vocab-table').style.display = 'none';
 }
-function openVocabTheme(k) {
-  const d = DATA[k];
-  document.getElementById('vocab-themes-grid').style.display='none';
-  document.getElementById('vocab-table').classList.add('show');
+function openVocab(k) {
+  document.getElementById('vocab-themes-grid').style.display = 'none';
+  const table = document.getElementById('vocab-table'); table.style.display = 'block';
   const detail = document.getElementById('vocab-detail-grid');
-  detail.innerHTML = d.items.map(item => `
-    <div class="vocab-row">
-      <div>
-        <div class="vocab-es">${item.es}</div>
-        <div class="vocab-fr">${item.fr}</div>
-      </div>
-      <div class="vocab-type">${item.type}</div>
-    </div>
-  `).join('');
-}
-function closeVocabTheme() {
-  document.getElementById('vocab-themes-grid').style.display='grid';
-  document.getElementById('vocab-table').classList.remove('show');
+  detail.innerHTML = DATA[k].items.map(i => `<div class="vocab-row"><span><b>${i.fr}</b></span> <span class="vocab-es">${i.es}</span></div>`).join('');
 }
 
-/* ═══════════════════════════════════════════════════════
-   UTILS
-═══════════════════════════════════════════════════════ */
-function shuffle(arr) {
-  for(let i=arr.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[arr[i],arr[j]]=[arr[j],arr[i]];}
-  return arr;
-}
+function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
 
-/* ═══════════════════════════════════════════════════════
-   CONFETTI
-═══════════════════════════════════════════════════════ */
 function launchConfetti() {
-  const canvas = document.getElementById('confetti');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  const particles = Array.from({length:150}, ()=>({
-    x: Math.random()*canvas.width, y: -20,
-    r: Math.random()*6+2,
-    color: ['#ff2d78','#8b5cf6','#00d4aa','#f59e0b','#3b82f6'][Math.random()*5|0],
-    vx: (Math.random()-0.5)*4, vy: Math.random()*3+2,
-    rot: Math.random()*360, vr: (Math.random()-0.5)*6
-  }));
-  let frame=0;
-  function draw(){
+  const canvas = document.getElementById('confetti'); const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  let p = Array.from({length:100}, () => ({ x:Math.random()*canvas.width, y:0, c:['#ff2d78','#8b5cf6','#00d4aa'][Math.random()*3|0], v:Math.random()*3+2 }));
+  function draw() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach(p=>{
-      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
-      ctx.fillStyle=p.color; ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);
-      ctx.restore();
-      p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.vy+=0.05;
-    });
-    frame++;
-    if(frame<180) requestAnimationFrame(draw);
-    else ctx.clearRect(0,0,canvas.width,canvas.height);
+    p.forEach(i => { ctx.fillStyle=i.c; ctx.fillRect(i.x, i.y, 5, 5); i.y+=i.v; });
+    requestAnimationFrame(draw);
   }
-  draw();
+  draw(); setTimeout(() => ctx.clearRect(0,0,canvas.width,canvas.height), 3000);
 }
 
-// Init
-updateStats();
-</script>
-</body>
-</html>
+buildDeck();
+</script></body></html>
