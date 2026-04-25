@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOCAB·COSMOS — Apprendre l'Anglais</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #04050f;
+  --surface: #0a0c1e;
+  --surface2: #101230;
+  --border: rgba(120,140,255,0.1);
+  --blue: #7b8cff;
+  --blue2: #4a5aff;
+  --purple: #c084fc;
+  --pink: #f472b6;
+  --cyan: #22d3ee;
+  --gold: #fbbf24;
+  --green: #34d399;
+  --red: #f87171;
+  --cream: #e8e4f0;
+  --silver: #9090b0;
+  --muted: #4a4a70;
+  --text: #e8e4f0;
+  --r: 16px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Stars background */
+.stars {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(123,140,255,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(192,132,252,0.05) 0%, transparent 50%);
+}
+.stars::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 35%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 70%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 90%, rgba(200,200,255,0.8) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 60% 5%, rgba(200,255,220,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 65%, rgba(255,200,200,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 85%, rgba(200,220,255,0.6) 0%, transparent 100%);
+}
+
+/* Cursor */
+.cursor { width:10px; height:10px; background:var(--cyan); border-radius:50%; position:fixed; z-index:9999; pointer-events:none; transform:translate(-50%,-50%); box-shadow:0 0 10px var(--cyan); transition:transform 0.08s; }
+.cursor-ring { width:34px; height:34px; border:1px solid rgba(34,211,238,0.35); border-radius:50%; position:fixed; z-index:9998; pointer-events:none; transform:translate(-50%,-50%); transition:all 0.13s ease; }
+
+/* ── HEADER ── */
+header {
+  position: relative; z-index:10;
+  padding: 56px 60px 36px;
+  text-align: center;
+  border-bottom: 1px solid rgba(123,140,255,0.12);
+  background: linear-gradient(180deg, rgba(74,90,255,0.04) 0%, transparent 100%);
+}
+
+.orbit-rings {
+  display:flex; justify-content:center; align-items:center; gap:24px;
+  margin-bottom:22px;
+}
+.orbit-dot {
+  width:8px; height:8px; border-radius:50%;
+  background: var(--blue);
+  box-shadow: 0 0 12px var(--blue);
+  animation: pulse-dot 2s infinite;
+}
+.orbit-dot:nth-child(2) { background:var(--purple); box-shadow:0 0 12px var(--purple); animation-delay:.5s; width:12px;height:12px; }
+.orbit-dot:nth-child(3) { background:var(--cyan); box-shadow:0 0 12px var(--cyan); animation-delay:1s; }
+.orbit-dot:nth-child(4) { background:var(--pink); box-shadow:0 0 12px var(--pink); animation-delay:1.5s; }
+.orbit-dot:nth-child(5) { background:var(--gold); box-shadow:0 0 12px var(--gold); animation-delay:.8s; }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.6)} }
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(48px,9vw,100px);
+  letter-spacing: 10px;
+  color: var(--cream);
+  line-height: 1;
+  text-shadow: 0 0 80px rgba(123,140,255,0.4);
+}
+h1 .accent { color: var(--blue); }
+h1 .accent2 { color: var(--cyan); }
+
+.tagline {
+  font-family: 'Space Mono', monospace;
+  font-size:12px; letter-spacing:4px; color:var(--silver);
+  text-transform: uppercase; margin-top: 12px;
+}
+.tagline em { color:var(--purple); font-style:normal; }
+
+.xp-bar-wrap { max-width:460px; margin:28px auto 0; }
+.xp-labels { display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+.xp-labels span { color:var(--cyan); }
+.xp-track { height:4px; background:rgba(255,255,255,0.04); border-radius:100px; overflow:hidden; }
+.xp-fill { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--blue2),var(--cyan)); box-shadow:0 0 20px rgba(34,211,238,0.5); transition:width 0.7s cubic-bezier(.22,1,.36,1); }
+
+/* ── STATS ── */
+.stats-row { display:flex; justify-content:center; gap:14px; padding:18px 40px; z-index:10; position:relative; flex-wrap:wrap; }
+.stat-chip { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px 16px; display:flex; align-items:center; gap:8px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:1px; }
+.stat-chip .val { color:var(--cyan); font-weight:700; font-size:13px; }
+.stat-chip .lbl { color:var(--muted); }
+
+/* ── NAV ── */
+.nav-tabs { display:flex; justify-content:center; gap:6px; padding:0 30px 36px; position:relative; z-index:10; flex-wrap:wrap; }
+.tab-btn { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:11px 20px; color:var(--muted); font-family:'Space Mono',monospace; font-size:11px; font-weight:400; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.25s; display:flex; align-items:center; gap:8px; }
+.tab-btn:hover { color:var(--cream); border-color:rgba(123,140,255,0.3); background:var(--surface2); }
+.tab-btn.active { background:var(--blue2); border-color:var(--blue2); color:#fff; font-weight:700; box-shadow:0 4px 24px rgba(74,90,255,0.4); }
+
+/* ── MAIN ── */
+main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z-index:10; }
+.section { display:none; }
+.section.active { display:block; animation:fadeIn 0.4s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+.section-title { font-family:'Playfair Display',serif; font-size:36px; font-weight:700; color:var(--cream); margin-bottom:4px; display:flex; align-items:center; gap:12px; }
+.section-title .acc { color:var(--blue); }
+.section-desc { font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); margin-bottom:28px; line-height:1.7; }
+
+/* ═══════════════════════════════
+   S1 FLASHCARDS
+═══════════════════════════════ */
+.cat-row { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:22px; }
+.cat-pill { padding:6px 14px; border-radius:6px; border:1px solid rgba(123,140,255,0.15); background:var(--surface); cursor:pointer; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); transition:all 0.2s; }
+.cat-pill.active { background:var(--blue2); border-color:var(--blue2); color:#fff; }
+.cat-pill:hover:not(.active) { border-color:rgba(123,140,255,0.3); color:var(--cream); }
+
+.fc-arena { perspective:1400px; margin-bottom:18px; }
+.fc-card { width:100%; height:260px; position:relative; cursor:pointer; transform-style:preserve-3d; transition:transform 0.65s cubic-bezier(.22,1,.36,1); }
+.fc-card.flipped { transform:rotateY(180deg); }
+.fc-face { position:absolute; inset:0; backface-visibility:hidden; border-radius:20px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; }
+
+.fc-front {
+  background: linear-gradient(135deg, #0d1030 0%, #08091a 100%);
+  border: 1px solid rgba(123,140,255,0.2);
+  box-shadow: 0 0 60px rgba(74,90,255,0.06), inset 0 1px 0 rgba(123,140,255,0.1);
+}
+.fc-front::before { content:''; position:absolute; inset:0; border-radius:20px; background:repeating-linear-gradient(0deg,transparent 0px,transparent 3px,rgba(0,0,0,0.12) 3px,rgba(0,0,0,0.12) 4px); pointer-events:none; }
+
+.fc-back { transform:rotateY(180deg); background:linear-gradient(135deg, #0a1a12 0%, #060e18 100%); border:1px solid rgba(52,211,153,0.25); box-shadow:0 0 60px rgba(34,211,238,0.06); }
+
+.fc-lang { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:3px; text-transform:uppercase; padding:4px 12px; border-radius:4px; }
+.fc-front .fc-lang { background:rgba(123,140,255,0.1); color:var(--blue); }
+.fc-back .fc-lang { background:rgba(52,211,153,0.1); color:var(--green); }
+
+.fc-word { font-family:'Playfair Display',serif; font-size:clamp(28px,5vw,52px); font-weight:700; text-align:center; padding:0 28px; line-height:1.15; }
+.fc-front .fc-word { color:var(--cream); }
+.fc-back .fc-word { color:var(--green); }
+
+.fc-sub { font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); }
+.fc-category { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--purple); opacity:0.7; }
+.fc-tap { position:absolute; bottom:14px; right:18px; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:rgba(255,255,255,0.12); text-transform:uppercase; }
+
+.fc-btns { display:flex; gap:12px; justify-content:center; }
+.fc-btn { flex:1; max-width:200px; padding:13px; border-radius:10px; border:none; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+.fc-btn.no { background:rgba(248,113,113,0.1); color:var(--red); border:1px solid rgba(248,113,113,0.25); }
+.fc-btn.yes { background:rgba(52,211,153,0.1); color:var(--green); border:1px solid rgba(52,211,153,0.25); }
+.fc-btn.flip { background:var(--blue2); color:#fff; font-weight:700; flex:1; max-width:100%; box-shadow:0 4px 20px rgba(74,90,255,0.35); }
+.fc-btn:hover { transform:translateY(-2px); filter:brightness(1.15); }
+
+.fc-score-row { text-align:center; margin-top:12px; font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:2px; }
+.fc-score-row strong { color:var(--cream); }
+
+/* Mode flashcard: fr vers en */
+.fc-mode-toggle { display:flex; gap:8px; margin-bottom:16px; justify-content:flex-end; }
+.mode-pill { padding:5px 12px; border-radius:5px; border:1px solid var(--border); background:var(--surface); font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); cursor:pointer; transition:all 0.2s; }
+.mode-pill.active { background:var(--purple); border-color:var(--purple); color:#fff; }
+
+/* ═══════════════════════════════
+   S2 QUIZ
+═══════════════════════════════ */
+.quiz-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px; }
+.q-counter { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; }
+.q-timer { font-family:'Playfair Display',serif; font-size:34px; font-weight:700; color:var(--cyan); }
+.q-timer.hot { color:var(--red); animation:shake 0.4s infinite; }
+@keyframes shake { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
+.q-progress { height:3px; background:rgba(255,255,255,0.05); border-radius:100px; margin-bottom:20px; }
+.q-prog-fill { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--blue2),var(--purple)); transition:width 0.4s; }
+
+.quiz-q-box { background:var(--surface); border:1px solid rgba(123,140,255,0.15); border-radius:20px; padding:36px; text-align:center; margin-bottom:16px; position:relative; overflow:hidden; }
+.quiz-q-box::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--blue),transparent); }
+.q-dir { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:3px; color:var(--purple); text-transform:uppercase; margin-bottom:10px; }
+.q-word { font-family:'Playfair Display',serif; font-size:clamp(32px,6vw,60px); font-weight:700; color:var(--cream); line-height:1; }
+.q-hint { font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); margin-top:8px; }
+.q-cat { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--blue); margin-top:5px; text-transform:uppercase; }
+
+.quiz-opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+.q-opt { background:var(--surface); border:1px solid rgba(123,140,255,0.1); border-radius:12px; padding:15px 16px; cursor:pointer; font-family:'DM Mono',monospace; font-size:14px; color:var(--cream); display:flex; align-items:center; gap:12px; transition:all 0.2s; text-align:left; }
+.q-opt:hover:not(:disabled) { background:var(--surface2); border-color:rgba(123,140,255,0.3); transform:translateY(-2px); }
+.q-opt-letter { width:26px; height:26px; border-radius:6px; flex-shrink:0; background:rgba(255,255,255,0.04); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; color:var(--muted); }
+.q-opt.correct { background:rgba(52,211,153,0.08); border-color:var(--green); }
+.q-opt.correct .q-opt-letter { background:var(--green); color:#04050f; }
+.q-opt.wrong-pick { background:rgba(248,113,113,0.08); border-color:var(--red); }
+.q-opt.wrong-pick .q-opt-letter { background:var(--red); color:#fff; }
+
+.q-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-bottom:12px; display:none; }
+.q-feedback.show { display:block; }
+.q-feedback.ok { background:rgba(52,211,153,0.07); color:var(--green); border:1px solid rgba(52,211,153,0.2); }
+.q-feedback.ko { background:rgba(248,113,113,0.07); color:var(--red); border:1px solid rgba(248,113,113,0.2); }
+
+.btn-main { display:none; width:100%; padding:16px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; box-shadow:0 6px 24px rgba(74,90,255,0.3); transition:all 0.2s; }
+.btn-main.show { display:block; animation:fadeIn 0.3s ease; }
+.btn-main:hover { transform:translateY(-2px); box-shadow:0 10px 36px rgba(74,90,255,0.45); }
+
+.quiz-end { display:none; text-align:center; padding:50px 0; }
+.end-score { font-family:'Playfair Display',serif; font-size:90px; font-weight:900; letter-spacing:8px; line-height:1; }
+.end-score.s-great { color:var(--gold); text-shadow:0 0 60px rgba(251,191,36,0.5); }
+.end-score.s-mid { color:var(--silver); text-shadow:0 0 40px rgba(144,144,176,0.4); }
+.end-score.s-low { color:var(--red); text-shadow:0 0 40px rgba(248,113,113,0.4); }
+.end-msg { font-family:'DM Mono',monospace; font-size:15px; color:var(--muted); margin:12px 0 28px; font-style:italic; }
+
+/* ═══════════════════════════════
+   S3 FILL (Trous)
+═══════════════════════════════ */
+.fill-scene-box {
+  background: #f8f4ec;
+  border-radius:16px; padding:32px 38px;
+  font-family:'DM Mono',monospace; font-size:14px;
+  line-height:2.4; color:#1a1030; margin-bottom:16px;
+  position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.6);
+}
+.fill-scene-box::before { content:'EXERCICE · TEXTE À TROUS'; position:absolute; top:12px; right:18px; font-size:8px; letter-spacing:3px; color:rgba(0,0,0,0.2); }
+.sp-blank { display:inline-block; min-width:140px; position:relative; border-bottom:2px solid #6050c0; background:rgba(96,80,192,0.05); border-radius:4px 4px 0 0; padding:1px 8px; margin:0 3px; }
+.sp-blank input { background:transparent; border:none; outline:none; font-family:'DM Mono',monospace; font-size:14px; font-weight:700; color:#6050c0; min-width:120px; width:100%; text-align:center; }
+.sp-blank.ok { border-color:#2a8a2a; background:rgba(42,138,42,0.06); }
+.sp-blank.ok input { color:#2a8a2a; }
+.sp-blank.ko { border-color:#cc2222; background:rgba(204,34,34,0.06); }
+.sp-blank.ko input { color:#cc2222; }
+
+.fill-hint-box { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 18px; margin-bottom:14px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:1px; color:var(--muted); }
+.fill-hint-box strong { color:var(--blue); }
+.fill-btns { display:flex; gap:10px; flex-wrap:wrap; }
+.fill-btn { padding:12px 24px; border-radius:10px; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; transition:all 0.2s; }
+.fill-btn.check { background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; flex:1; min-width:140px; }
+.fill-btn.reveal { background:var(--surface2); border:1px solid var(--border); color:var(--silver); }
+.fill-btn.next { background:var(--surface2); border:1px solid var(--border); color:var(--silver); }
+.fill-btn:hover { transform:translateY(-2px); filter:brightness(1.1); }
+
+/* ═══════════════════════════════
+   S4 PAIRES (Matching)
+═══════════════════════════════ */
+.match-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+.match-col-title { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); text-align:center; margin-bottom:8px; }
+.match-cols { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+.match-col { display:flex; flex-direction:column; gap:8px; }
+.match-item { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 16px; font-family:'DM Mono',monospace; font-size:13px; color:var(--cream); cursor:pointer; transition:all 0.2s; text-align:center; line-height:1.3; }
+.match-item:hover:not(.matched):not(.selected) { border-color:rgba(123,140,255,0.3); background:var(--surface2); }
+.match-item.selected { border-color:var(--blue); background:rgba(74,90,255,0.12); color:var(--blue); }
+.match-item.matched { border-color:var(--green); background:rgba(52,211,153,0.08); color:var(--green); cursor:default; }
+.match-item.wrong { border-color:var(--red); background:rgba(248,113,113,0.08); animation:wiggle 0.4s; }
+@keyframes wiggle { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+.match-score { font-family:'Space Mono',monospace; font-size:12px; color:var(--muted); text-align:center; margin-bottom:16px; }
+.match-score strong { color:var(--cyan); }
+
+/* ═══════════════════════════════
+   S5 EXAM (Écrit)
+═══════════════════════════════ */
+.mission-banner { background:var(--surface); border:1px solid rgba(192,132,252,0.2); border-radius:16px; padding:20px 26px; margin-bottom:24px; display:flex; align-items:center; gap:18px; }
+.mission-icon { font-size:36px; }
+.mission-title { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:var(--purple); }
+.mission-sub { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--muted); margin-top:3px; }
+
+.exam-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+.exam-item { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; display:flex; align-items:flex-start; gap:12px; }
+.exam-n { width:30px; height:30px; border-radius:7px; flex-shrink:0; background:rgba(123,140,255,0.1); border:1px solid rgba(123,140,255,0.2); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--blue); }
+.exam-fr { font-family:'DM Mono',monospace; font-size:14px; color:var(--cream); margin-bottom:6px; font-style:italic; color:var(--purple); }
+.exam-inp { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:7px; padding:7px 10px; color:var(--cream); font-family:'Space Mono',monospace; font-size:11px; width:100%; outline:none; transition:border 0.2s; }
+.exam-inp:focus { border-color:rgba(123,140,255,0.4); background:rgba(123,140,255,0.04); }
+.exam-inp.ok { border-color:var(--green); background:rgba(52,211,153,0.04); color:var(--green); }
+.exam-inp.ko { border-color:var(--red); background:rgba(248,113,113,0.04); color:var(--red); }
+
+.exam-cta { width:100%; padding:17px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--purple),var(--pink)); color:#fff; font-family:'Space Mono',monospace; font-size:14px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; box-shadow:0 6px 28px rgba(192,132,252,0.3); }
+.exam-cta:hover { transform:translateY(-3px); box-shadow:0 10px 40px rgba(192,132,252,0.45); }
+
+.exam-result { display:none; text-align:center; padding:36px 20px; background:var(--surface); border:1px solid var(--border); border-radius:20px; margin-top:18px; }
+.exam-result.show { display:block; animation:fadeIn 0.4s ease; }
+.exam-result-score { font-family:'Playfair Display',serif; font-size:80px; font-weight:900; letter-spacing:6px; line-height:1; }
+.s-gold { color:var(--gold); text-shadow:0 0 40px rgba(251,191,36,0.5); }
+.s-silver { color:var(--silver); }
+.s-red { color:var(--red); }
+.exam-verdict { font-family:'DM Mono',monospace; font-size:14px; color:var(--muted); margin:10px 0 20px; font-style:italic; }
+.breakdown { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); line-height:2; text-align:left; max-width:520px; margin:0 auto 20px; }
+
+/* ═══════════════════════════════
+   S6 LEXIQUE
+═══════════════════════════════ */
+.lex-search { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 18px; width:100%; color:var(--cream); font-family:'Space Mono',monospace; font-size:12px; outline:none; margin-bottom:20px; transition:border 0.2s; }
+.lex-search:focus { border-color:rgba(123,140,255,0.35); }
+.lex-search::placeholder { color:var(--muted); }
+
+.cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; margin-bottom:26px; }
+.cat-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; cursor:pointer; transition:all 0.25s; text-align:center; position:relative; overflow:hidden; }
+.cat-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; transform:scaleX(0); transition:transform 0.3s; }
+.cat-card:hover { transform:translateY(-4px); border-color:rgba(123,140,255,0.25); background:var(--surface2); }
+.cat-card:hover::after { transform:scaleX(1); }
+.cat-card.c0::after { background:var(--blue); }
+.cat-card.c1::after { background:var(--cyan); }
+.cat-card.c2::after { background:var(--purple); }
+.cat-card.c3::after { background:var(--gold); }
+.cat-card.c4::after { background:var(--pink); }
+.cat-card.c5::after { background:var(--green); }
+.cat-card-ico { font-size:28px; margin-bottom:8px; }
+.cat-card-name { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--cream); }
+.cat-card-cnt { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); margin-top:4px; }
+
+.vocab-detail { display:none; }
+.vocab-detail.show { display:block; animation:fadeIn 0.35s ease; }
+.back-link { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; background:var(--surface); border:1px solid var(--border); color:var(--muted); cursor:pointer; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; transition:all 0.2s; }
+.back-link:hover { color:var(--cream); border-color:rgba(123,140,255,0.25); }
+
+.search-results { }
+.vocab-rows { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+.vrow { background:var(--surface); border:1px solid var(--border); border-radius:11px; padding:12px 15px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; transition:all 0.2s; }
+.vrow:hover { background:var(--surface2); border-color:rgba(123,140,255,0.18); }
+.v-fr { font-family:'DM Mono',monospace; font-size:13px; color:var(--purple); font-style:italic; margin-bottom:3px; }
+.v-en { font-family:'DM Mono',monospace; font-size:13px; color:var(--cyan); }
+.v-cat { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:1px; text-transform:uppercase; padding:2px 7px; border-radius:4px; background:rgba(123,140,255,0.08); color:var(--blue); flex-shrink:0; margin-top:2px; }
+
+/* ── POPUP ── */
+.popup { position:fixed; top:22px; right:22px; z-index:1000; background:var(--surface2); border:1px solid rgba(123,140,255,0.2); border-radius:14px; padding:14px 20px; display:flex; align-items:center; gap:12px; transform:translateX(140%); transition:transform 0.4s cubic-bezier(.22,1,.36,1); box-shadow:0 20px 60px rgba(0,0,0,0.6); }
+.popup.show { transform:translateX(0); }
+.p-ico { font-size:24px; }
+.p-txt { font-family:'Space Mono',monospace; font-size:14px; letter-spacing:2px; color:var(--cyan); }
+.p-sub { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); }
+#confetti { position:fixed; inset:0; pointer-events:none; z-index:500; }
+
+/* ── TYPO EXERCISE ── */
+.typo-box { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px; text-align:center; margin-bottom:20px; }
+.typo-q { font-family:'Playfair Display',serif; font-size:clamp(32px,5vw,54px); font-weight:700; color:var(--purple); margin-bottom:8px; }
+.typo-hint { font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); margin-bottom:20px; }
+.typo-inp { background:rgba(255,255,255,0.04); border:1px solid rgba(123,140,255,0.2); border-radius:10px; padding:14px 20px; color:var(--cream); font-family:'Space Mono',monospace; font-size:16px; width:100%; max-width:400px; outline:none; text-align:center; transition:border 0.2s; }
+.typo-inp:focus { border-color:rgba(123,140,255,0.5); }
+.typo-inp.ok { border-color:var(--green); color:var(--green); }
+.typo-inp.ko { border-color:var(--red); color:var(--red); }
+.typo-btns { display:flex; gap:10px; justify-content:center; margin-top:14px; }
+.typo-btn { padding:11px 24px; border-radius:9px; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; transition:all 0.2s; }
+.typo-btn.submit { background:linear-gradient(90deg,var(--blue2),var(--cyan)); color:#04050f; flex:1; max-width:220px; }
+.typo-btn.skip { background:var(--surface2); border:1px solid var(--border); color:var(--muted); }
+.typo-btn:hover { transform:translateY(-2px); filter:brightness(1.1); }
+.typo-ans { font-family:'DM Mono',monospace; font-size:14px; color:var(--green); margin-top:12px; min-height:20px; }
+.typo-score-row { font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); text-align:center; margin-top:10px; }
+.typo-score-row strong { color:var(--cream); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px) {
+  header { padding:30px 16px 20px; }
+  .quiz-opts, .exam-list, .vocab-rows, .match-cols { grid-template-columns:1fr; }
+  .fc-btns { flex-direction:column; }
+  .fill-btns { flex-wrap:wrap; }
+  .cat-grid { grid-template-columns:1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+<canvas id="confetti"></canvas>
+
+<div class="popup" id="popup">
+  <div class="p-ico" id="p-ico">🚀</div>
+  <div>
+    <div class="p-txt" id="p-txt">+10 XP</div>
+    <div class="p-sub" id="p-sub">Bonne réponse !</div>
+  </div>
+</div>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="orbit-rings">
+    <div class="orbit-dot"></div>
+    <div class="orbit-dot"></div>
+    <div class="orbit-dot"></div>
+    <div class="orbit-dot"></div>
+    <div class="orbit-dot"></div>
+  </div>
+  <h1><span class="accent">VOCAB</span>·<span class="accent2">COSMOS</span></h1>
+  <div class="tagline">Français <em>→</em> Anglais · Vocabulaire Thématique</div>
+  <div class="xp-bar-wrap">
+    <div class="xp-labels"><span>XP Progression</span><span id="xp-lbl">0 / 600 XP</span></div>
+    <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+  </div>
+</header>
+
+<div class="stats-row">
+  <div class="stat-chip"><span class="val" id="st-xp">0</span><span class="lbl">&nbsp;XP</span></div>
+  <div class="stat-chip">🔥<span class="val" id="st-streak">0</span><span class="lbl">&nbsp;Série</span></div>
+  <div class="stat-chip">✅<span class="val" id="st-ok">0</span><span class="lbl">&nbsp;Corrects</span></div>
+  <div class="stat-chip">🎯<span class="val" id="st-acc">—</span><span class="lbl">&nbsp;Précision</span></div>
+</div>
+
+<nav class="nav-tabs">
+  <button class="tab-btn active" onclick="goTab('flashcards',this)">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="goTab('quiz',this)">⚡ Quiz QCM</button>
+  <button class="tab-btn" onclick="goTab('typo',this)">⌨️ Frappe</button>
+  <button class="tab-btn" onclick="goTab('fill',this)">✍️ Trous</button>
+  <button class="tab-btn" onclick="goTab('match',this)">🔗 Paires</button>
+  <button class="tab-btn" onclick="goTab('exam',this)">🎓 Exam</button>
+  <button class="tab-btn" onclick="goTab('vocab',this)">📚 Lexique</button>
+</nav>
+
+<main>
+
+<!-- ══ S1 FLASHCARDS ══ -->
+<section class="section active" id="s-flashcards">
+  <div class="section-title">🃏 Flash<span class="acc">cards</span></div>
+  <p class="section-desc">Le mot français apparaît. Devinez la traduction anglaise, puis retournez la carte.</p>
+
+  <div class="cat-row" id="fc-cats">
+    <div class="cat-pill active" onclick="pickCat('all',this)">Tout</div>
+    <div class="cat-pill" onclick="pickCat('espace',this)">🚀 Espace</div>
+    <div class="cat-pill" onclick="pickCat('societe',this)">🌍 Société</div>
+    <div class="cat-pill" onclick="pickCat('religion',this)">🕌 Religion & Culture</div>
+    <div class="cat-pill" onclick="pickCat('medias',this)">📺 Médias & Société</div>
+    <div class="cat-pill" onclick="pickCat('divers',this)">🔤 Divers</div>
+  </div>
+
+  <div class="fc-mode-toggle">
+    <div class="mode-pill active" id="mode-fren" onclick="setMode('fr-en')">FR → EN</div>
+    <div class="mode-pill" id="mode-enfr" onclick="setMode('en-fr')">EN → FR</div>
+  </div>
+
+  <div class="fc-arena">
+    <div class="fc-card" id="fc-card" onclick="flipFC()">
+      <div class="fc-face fc-front">
+        <div class="fc-lang" id="fc-lang-front">Français</div>
+        <div class="fc-word" id="fc-q">—</div>
+        <div class="fc-sub" id="fc-hint"></div>
+        <div class="fc-category" id="fc-cat-badge"></div>
+        <div class="fc-tap">Cliquez pour retourner →</div>
+      </div>
+      <div class="fc-face fc-back">
+        <div class="fc-lang" id="fc-lang-back">English</div>
+        <div class="fc-word" id="fc-a">—</div>
+        <div class="fc-sub" id="fc-extra"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fc-btns" id="fc-ans-btns" style="display:none">
+    <button class="fc-btn no" onclick="ansFC(false)">😬 À revoir</button>
+    <button class="fc-btn yes" onclick="ansFC(true)">✅ Je savais !</button>
+  </div>
+  <div class="fc-btns" id="fc-reveal-btn">
+    <button class="fc-btn flip" onclick="flipFC()">👁 Voir la traduction</button>
+  </div>
+
+  <div class="fc-score-row">
+    Carte <strong id="fc-i">1</strong> / <strong id="fc-tot">—</strong>
+    &nbsp;·&nbsp; ✅ <span id="fc-good">0</span>
+    &nbsp; ❌ <span id="fc-bad">0</span>
+  </div>
+</section>
+
+<!-- ══ S2 QUIZ ══ -->
+<section class="section" id="s-quiz">
+  <div class="section-title">⚡ Quiz <span class="acc">QCM</span></div>
+  <p class="section-desc">Choisissez la bonne traduction avant la fin du compte à rebours !</p>
+
+  <div id="quiz-main">
+    <div class="quiz-top">
+      <div class="q-counter">Question <span id="qn">1</span>/12</div>
+      <div class="q-timer" id="q-timer">⏱ <span id="t-val">15</span>s</div>
+    </div>
+    <div class="q-progress"><div class="q-prog-fill" id="q-prog-fill" style="width:0%"></div></div>
+    <div class="quiz-q-box">
+      <div class="q-dir" id="q-dir">FR → EN</div>
+      <div class="q-word" id="q-word">—</div>
+      <div class="q-hint" id="q-hint"></div>
+      <div class="q-cat" id="q-cat"></div>
+    </div>
+    <div class="quiz-opts" id="quiz-opts"></div>
+    <div class="q-feedback" id="q-fb"></div>
+    <button class="btn-main" id="btn-next" onclick="nextQ()">Question suivante →</button>
+  </div>
+
+  <div class="quiz-end" id="quiz-end">
+    <div class="end-score" id="end-score">—</div>
+    <div class="end-msg" id="end-msg"></div>
+    <button class="btn-main show" onclick="startQuiz()" style="max-width:320px;margin:0 auto;">🔄 Rejouer</button>
+  </div>
+</section>
+
+<!-- ══ S3 FRAPPE ══ -->
+<section class="section" id="s-typo">
+  <div class="section-title">⌨️ Mode <span class="acc">Frappe</span></div>
+  <p class="section-desc">Le mot français est affiché. Tapez sa traduction anglaise exacte.</p>
+
+  <div class="cat-row" id="typo-cats">
+    <div class="cat-pill active" onclick="pickTypoCat('all',this)">Tout</div>
+    <div class="cat-pill" onclick="pickTypoCat('espace',this)">🚀 Espace</div>
+    <div class="cat-pill" onclick="pickTypoCat('societe',this)">🌍 Société</div>
+    <div class="cat-pill" onclick="pickTypoCat('religion',this)">🕌 Religion</div>
+    <div class="cat-pill" onclick="pickTypoCat('medias',this)">📺 Médias</div>
+    <div class="cat-pill" onclick="pickTypoCat('divers',this)">🔤 Divers</div>
+  </div>
+
+  <div class="typo-box">
+    <div class="typo-q" id="typo-q">—</div>
+    <div class="typo-hint" id="typo-hint"></div>
+    <input class="typo-inp" id="typo-inp" type="text" placeholder="Tapez la traduction anglaise…" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkTypo()">
+    <div class="typo-ans" id="typo-ans"></div>
+    <div class="typo-btns">
+      <button class="typo-btn submit" onclick="checkTypo()">Valider ↵</button>
+      <button class="typo-btn skip" onclick="skipTypo()">Passer →</button>
+    </div>
+  </div>
+  <div class="typo-score-row">
+    Mot <strong id="typo-i">1</strong> / <strong id="typo-tot">—</strong>
+    &nbsp;·&nbsp; ✅ <span id="typo-good">0</span>
+    &nbsp; ❌ <span id="typo-bad">0</span>
+  </div>
+</section>
+
+<!-- ══ S4 FILL ══ -->
+<section class="section" id="s-fill">
+  <div class="section-title">✍️ Texte à <span class="acc">Trous</span></div>
+  <p class="section-desc">Complétez le texte avec les mots anglais manquants.</p>
+
+  <div class="fill-hint-box">
+    Mots à placer : <strong id="fill-pool"></strong>
+  </div>
+  <div class="fill-scene-box" id="sp-box"></div>
+  <div class="fill-btns">
+    <button class="fill-btn check" onclick="checkFill()">VÉRIFIER</button>
+    <button class="fill-btn reveal" onclick="revealFill()">RÉVÉLER</button>
+    <button class="fill-btn next" onclick="nextFill()">SUIVANT →</button>
+  </div>
+</section>
+
+<!-- ══ S5 PAIRES ══ -->
+<section class="section" id="s-match">
+  <div class="section-title">🔗 Jeu des <span class="acc">Paires</span></div>
+  <p class="section-desc">Associez chaque mot français à sa traduction anglaise.</p>
+
+  <div class="match-score">
+    Paires trouvées : <strong id="match-ok">0</strong> / <strong id="match-tot">8</strong>
+    &nbsp;·&nbsp; Tentatives : <strong id="match-tries">0</strong>
+  </div>
+
+  <div class="match-cols">
+    <div>
+      <div class="match-col-title">🇫🇷 Français</div>
+      <div class="match-col" id="match-fr"></div>
+    </div>
+    <div>
+      <div class="match-col-title">🇬🇧 English</div>
+      <div class="match-col" id="match-en"></div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;">
+    <button class="btn-main show" onclick="loadMatch()" style="flex:1;">🔄 Nouveau Jeu</button>
+  </div>
+</section>
+
+<!-- ══ S6 EXAM ══ -->
+<section class="section" id="s-exam">
+  <div class="section-title">🎓 <span class="acc">Exam</span> Blanc</div>
+  <p class="section-desc">Traduisez les mots français en anglais, sans aide.</p>
+
+  <div class="mission-banner">
+    <div class="mission-icon">🛸</div>
+    <div>
+      <div class="mission-title">MISSION TRADUCTION</div>
+      <div class="mission-sub">12 mots · Français → Anglais</div>
+    </div>
+  </div>
+
+  <div class="exam-list" id="exam-list"></div>
+  <button class="exam-cta" onclick="submitExam()">🚀 RENDRE LA COPIE</button>
+
+  <div class="exam-result" id="exam-result">
+    <div class="exam-result-score" id="exam-score">—</div>
+    <div class="exam-verdict" id="exam-verdict"></div>
+    <div class="breakdown" id="breakdown"></div>
+    <button class="btn-main show" onclick="resetExam()" style="max-width:300px;margin:0 auto;">🔄 Nouvel examen</button>
+  </div>
+</section>
+
+<!-- ══ S7 LEXIQUE ══ -->
+<section class="section" id="s-vocab">
+  <div class="section-title">📚 <span class="acc">Lexique</span></div>
+  <p class="section-desc">Tout le vocabulaire organisé par thème. Cliquez une catégorie ou cherchez un mot.</p>
+
+  <input class="lex-search" id="lex-search" type="text" placeholder="🔍  Chercher un mot (fr ou en)…" oninput="searchVocab(this.value)" autocomplete="off">
+
+  <div class="search-results" id="search-results" style="display:none">
+    <div class="vocab-rows" id="search-rows"></div>
+  </div>
+
+  <div id="lex-cat-view">
+    <div class="cat-grid" id="cat-grid"></div>
+    <div class="vocab-detail" id="vocab-detail">
+      <button class="back-link" onclick="closeVocab()">← Retour</button>
+      <div class="vocab-rows" id="vocab-rows"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ══════════════════════════════════════
+   CURSOR
+══════════════════════════════════════ */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px';
+  ring.style.left = e.clientX+'px'; ring.style.top = e.clientY+'px';
+});
+
+/* ══════════════════════════════════════
+   VOCABULARY DATA
+══════════════════════════════════════ */
+const VOCAB = {
+  espace: {
+    name: "L'Espace", icon: "🚀", color: "c0",
+    words: [
+      { fr: "un astronaute / un cosmonaute / un spationaute", en: "an astronaut / a cosmonaut / a spationaut" },
+      { fr: "une fusée", en: "a rocket" },
+      { fr: "un vaisseau spatial", en: "a spaceship / a spacecraft" },
+      { fr: "une navette inter-galactique", en: "a starship" },
+      { fr: "une navette spatiale", en: "a space shuttle" },
+      { fr: "un lancement", en: "a launch" },
+      { fr: "une orbite", en: "an orbit" },
+      { fr: "l'apesanteur", en: "zero-gravity / weightlessness" },
+      { fr: "une année lumière", en: "a light-year" },
+      { fr: "une combinaison spatiale", en: "a spacesuit" },
+      { fr: "un casque", en: "a helmet" },
+      { fr: "un propulseur", en: "a thruster" },
+      { fr: "un équipage", en: "a crew" },
+      { fr: "un ingénieur", en: "an engineer" },
+      { fr: "un compte à rebours", en: "a countdown" },
+      { fr: "un décollage", en: "a take-off / a lift off" },
+      { fr: "un atterrissage", en: "a landing" },
+      { fr: "un échantillon", en: "a sample" },
+      { fr: "un champ gravitationnel", en: "a gravitational field" },
+      { fr: "le vide", en: "vacuum" },
+      { fr: "la voie lactée", en: "the Milky Way" },
+      { fr: "un véhicule d'exploration", en: "a rover" },
+      { fr: "une rampe de lancement", en: "a launch pad" },
+      { fr: "la vie extraterrestre", en: "alien life" },
+      { fr: "un OVNI", en: "a UFO (Unidentified Flying Object)" },
+    ]
+  },
+  societe: {
+    name: "Société & Économie", icon: "🌍", color: "c1",
+    words: [
+      { fr: "la croissance", en: "growth" },
+      { fr: "un creuset (de diversité)", en: "a melting pot" },
+      { fr: "la mondialisation", en: "globalization / globalisation" },
+      { fr: "le PIB", en: "GDP (Gross Domestic Product)" },
+      { fr: "l'informatique", en: "IT" },
+      { fr: "la censure", en: "censorship" },
+      { fr: "le népotisme", en: "nepotism" },
+      { fr: "grimper l'échelle sociale", en: "(to) climb the social ladder" },
+      { fr: "les violences domestiques", en: "domestic abuse" },
+      { fr: "se vanter", en: "(to show) off" },
+      { fr: "un bidonville", en: "a slum" },
+      { fr: "un intellectuel", en: "a scholar" },
+      { fr: "une percée / une avancée", en: "a breakthrough" },
+      { fr: "les matières premières", en: "raw materials" },
+      { fr: "élargir", en: "(to) widen" },
+      { fr: "une poignée de", en: "a handful of" },
+      { fr: "menacer", en: "(to) threaten" },
+      { fr: "une menace", en: "a threat" },
+      { fr: "un coup de pub", en: "a publicity stunt" },
+      { fr: "au-delà", en: "beyond" },
+      { fr: "récolter", en: "(to) harvest" },
+      { fr: "le minerai", en: "ores" },
+      { fr: "un défenseur (d'une cause)", en: "an advocate" },
+      { fr: "soulager", en: "(to) relieve" },
+      { fr: "dépouiller / priver", en: "(to) strip" },
+      { fr: "aride / stérile", en: "barren" },
+    ]
+  },
+  religion: {
+    name: "Religion & Culture", icon: "🕌", color: "c2",
+    words: [
+      { fr: "le hindi (langue)", en: "Hindi" },
+      { fr: "hindou (religion)", en: "Hindu" },
+      { fr: "indien (nationalité)", en: "Indian" },
+      { fr: "vénérer / adorer", en: "(to) worship" },
+      { fr: "sacré", en: "sacred / holy" },
+      { fr: "un prêtre", en: "a priest" },
+      { fr: "une sage-femme", en: "a midwife" },
+      { fr: "un avocat (le métier)", en: "a lawyer" },
+      { fr: "un avocat (à manger)", en: "an avocado" },
+      { fr: "conseiller", en: "(to) advise" },
+      { fr: "des conseils (nom, indénombrable)", en: "advice (uncountable)" },
+      { fr: "mettre l'accent sur", en: "(to) put the emphasis on / (to) emphasize" },
+    ]
+  },
+  medias: {
+    name: "Mode & Médias", icon: "📺", color: "c3",
+    words: [
+      { fr: "un motif", en: "a pattern" },
+      { fr: "un imprimé", en: "a print" },
+      { fr: "le béton", en: "concrete" },
+      { fr: "la notoriété / influence", en: "clout" },
+      { fr: "un défilé de mode", en: "a runway show" },
+      { fr: "un mélange (harmonieux)", en: "a blend" },
+      { fr: "la luxure", en: "lust" },
+      { fr: "(dé)verser", en: "(to) pour" },
+    ]
+  },
+  divers: {
+    name: "Divers", icon: "🔤", color: "c4",
+    words: [
+      { fr: "une bobine (de film)", en: "a reel" },
+      { fr: "un film", en: "a film / a movie" },
+      { fr: "un réalisateur", en: "a director" },
+    ]
+  }
+};
+
+const ALL = [];
+Object.keys(VOCAB).forEach(k => VOCAB[k].words.forEach(w => ALL.push({...w, cat: k})));
+
+// Simplified versions for matching (take first option only)
+function simplify(str) { return str.replace(/\(.*?\)/g,'').replace(/\s*\/.*$/,'').replace(/^(a|an|the)\s+/i,'').trim().toLowerCase(); }
+function getFirstEn(str) { return str.split('/')[0].replace(/\(.*?\)/g,'').replace(/^(a|an|the)\s+/i,'').trim(); }
+function getFirstFr(str) { return str.split('/')[0].replace(/\(.*?\)/g,'').trim(); }
+
+/* ══════════════════════════════════════
+   STATE
+══════════════════════════════════════ */
+let xp=0, streak=0, okCount=0, totalAns=0;
+
+function sync() {
+  document.getElementById('st-xp').textContent = xp;
+  document.getElementById('st-streak').textContent = streak;
+  document.getElementById('st-ok').textContent = okCount;
+  document.getElementById('st-acc').textContent = totalAns ? Math.round(okCount/totalAns*100)+'%' : '—';
+  document.getElementById('xp-lbl').textContent = xp+' / 600 XP';
+  document.getElementById('xp-fill').style.width = Math.min(xp/600*100,100)+'%';
+}
+function good(pts, msg) { xp+=pts; streak++; okCount++; totalAns++; sync(); pop('⭐',`+${pts} XP`,msg); }
+function bad() { streak=0; totalAns++; sync(); pop('💫','À revoir','Série perdue'); }
+function pop(ico,txt,sub) {
+  const p=document.getElementById('popup');
+  document.getElementById('p-ico').textContent=ico;
+  document.getElementById('p-txt').textContent=txt;
+  document.getElementById('p-sub').textContent=sub;
+  p.classList.add('show'); setTimeout(()=>p.classList.remove('show'),2600);
+}
+
+/* ══════════════════════════════════════
+   NAV
+══════════════════════════════════════ */
+function goTab(name, btn) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('s-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='quiz') startQuiz();
+  if(name==='fill') loadFill();
+  if(name==='exam') loadExam();
+  if(name==='vocab') loadVocab();
+  if(name==='match') loadMatch();
+  if(name==='typo') buildTypoDeck();
+}
+
+/* ══════════════════════════════════════
+   S1 FLASHCARDS
+══════════════════════════════════════ */
+let deck=[], fcIdx=0, flipped=false, fcGood=0, fcBad=0, fcCat='all', fcMode='fr-en';
+
+function setMode(mode) {
+  fcMode = mode;
+  document.getElementById('mode-fren').classList.toggle('active', mode==='fr-en');
+  document.getElementById('mode-enfr').classList.toggle('active', mode==='en-fr');
+  buildDeck();
+}
+
+function pickCat(cat, el) {
+  document.querySelectorAll('#fc-cats .cat-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active'); fcCat=cat; buildDeck();
+}
+
+function buildDeck() {
+  const src = fcCat==='all' ? ALL : ALL.filter(w=>w.cat===fcCat);
+  deck = shuffle([...src]);
+  fcIdx=0; fcGood=0; fcBad=0; flipped=false;
+  document.getElementById('fc-card').classList.remove('flipped');
+  document.getElementById('fc-ans-btns').style.display='none';
+  document.getElementById('fc-reveal-btn').style.display='flex';
+  renderFC();
+}
+
+function renderFC() {
+  if(fcIdx>=deck.length) {
+    document.getElementById('fc-q').textContent='🚀 Terminé !';
+    document.getElementById('fc-hint').textContent=`Score : ${fcGood}/${deck.length}`;
+    document.getElementById('fc-a').textContent='';
+    document.getElementById('fc-ans-btns').style.display='none';
+    document.getElementById('fc-reveal-btn').style.display='none';
+    if(fcGood===deck.length) boom();
+    return;
+  }
+  const w=deck[fcIdx];
+  const catNames = { espace:'🚀 Espace', societe:'🌍 Société', religion:'🕌 Religion', medias:'📺 Mode', divers:'🔤 Divers' };
+  if(fcMode==='fr-en') {
+    document.getElementById('fc-q').textContent = w.fr;
+    document.getElementById('fc-a').textContent = w.en;
+    document.getElementById('fc-lang-front').textContent = 'Français';
+    document.getElementById('fc-lang-back').textContent = 'English';
+  } else {
+    document.getElementById('fc-q').textContent = w.en;
+    document.getElementById('fc-a').textContent = w.fr;
+    document.getElementById('fc-lang-front').textContent = 'English';
+    document.getElementById('fc-lang-back').textContent = 'Français';
+  }
+  document.getElementById('fc-hint').textContent = catNames[w.cat] || '';
+  document.getElementById('fc-cat-badge').textContent = catNames[w.cat] || '';
+  document.getElementById('fc-i').textContent = fcIdx+1;
+  document.getElementById('fc-tot').textContent = deck.length;
+  document.getElementById('fc-good').textContent = fcGood;
+  document.getElementById('fc-bad').textContent = fcBad;
+  document.getElementById('fc-card').classList.remove('flipped');
+  flipped=false;
+  document.getElementById('fc-ans-btns').style.display='none';
+  document.getElementById('fc-reveal-btn').style.display='flex';
+}
+
+function flipFC() {
+  if(fcIdx>=deck.length) return;
+  flipped=!flipped;
+  document.getElementById('fc-card').classList.toggle('flipped',flipped);
+  if(flipped) {
+    document.getElementById('fc-ans-btns').style.display='flex';
+    document.getElementById('fc-reveal-btn').style.display='none';
+  }
+}
+function ansFC(ok) {
+  if(ok){fcGood++;good(5,'Flashcard réussie !');}
+  else{fcBad++;bad();}
+  fcIdx++;
+  setTimeout(renderFC,180);
+}
+
+buildDeck();
+
+/* ══════════════════════════════════════
+   S2 QUIZ QCM
+══════════════════════════════════════ */
+let qDeck=[], qIdx=0, qScore=0, qTimer=null, qDone=false;
+
+function startQuiz() {
+  document.getElementById('quiz-main').style.display='block';
+  document.getElementById('quiz-end').style.display='none';
+  qDeck = shuffle([...ALL]).slice(0,12);
+  qIdx=0; qScore=0; qDone=false;
+  renderQ();
+}
+
+function renderQ() {
+  if(qIdx>=qDeck.length){ endQuiz(); return; }
+  qDone=false;
+  const w=qDeck[qIdx];
+  const frToEn=Math.random()>0.5;
+  const catLabels={ espace:'🚀 Espace', societe:'🌍 Société', religion:'🕌 Religion', medias:'📺 Mode', divers:'🔤 Divers'};
+  document.getElementById('q-dir').textContent = frToEn ? 'FR → EN' : 'EN → FR';
+  document.getElementById('q-word').textContent = frToEn ? w.fr : w.en;
+  document.getElementById('q-hint').textContent = '';
+  document.getElementById('q-cat').textContent = catLabels[w.cat]||'';
+  document.getElementById('qn').textContent = qIdx+1;
+  document.getElementById('q-prog-fill').style.width = (qIdx/12*100)+'%';
+
+  const correct = frToEn ? w.en : w.fr;
+  const wrongs = shuffle(ALL.filter(x=>x!==w)).slice(0,3).map(x=>frToEn?x.en:x.fr);
+  const opts = shuffle([correct,...wrongs]);
+  const letters=['A','B','C','D'];
+  const container=document.getElementById('quiz-opts');
+  container.innerHTML='';
+  opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='q-opt';
+    b.innerHTML=`<span class="q-opt-letter">${letters[i]}</span><span>${o}</span>`;
+    b.onclick=()=>pickQ(b,o,correct);
+    container.appendChild(b);
+  });
+
+  document.getElementById('q-fb').classList.remove('show','ok','ko');
+  document.getElementById('btn-next').classList.remove('show');
+  startTimer(15);
+}
+
+function nextQ() { qIdx++; renderQ(); }
+
+function startTimer(sec) {
+  clearInterval(qTimer); let t=sec;
+  document.getElementById('t-val').textContent=t;
+  document.getElementById('q-timer').classList.remove('hot');
+  qTimer=setInterval(()=>{
+    t--;
+    document.getElementById('t-val').textContent=t;
+    if(t<=4) document.getElementById('q-timer').classList.add('hot');
+    if(t<=0){clearInterval(qTimer); timeUpQ();}
+  },1000);
+}
+
+function timeUpQ() {
+  if(qDone)return; qDone=true;
+  document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  const w=qDeck[qIdx]; const frToEn=document.getElementById('q-dir').textContent==='FR → EN';
+  const correct=frToEn?w.en:w.fr;
+  document.querySelectorAll('.q-opt').forEach(b=>{if(b.querySelector('span:last-child')?.textContent===correct)b.classList.add('correct');});
+  setFB(false,'⏰ Temps écoulé ! → '+correct);
+  bad(); document.getElementById('btn-next').classList.add('show'); qIdx++;
+}
+
+function pickQ(btn,chosen,correct) {
+  if(qDone)return; qDone=true;
+  clearInterval(qTimer);
+  document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.q-opt').forEach(b=>{
+    if(b.querySelector('span:last-child')?.textContent===correct) b.classList.add('correct');
+  });
+  const ok=chosen===correct;
+  if(!ok) btn.classList.add('wrong-pick');
+  setFB(ok, ok?'✅ Correct !':'❌ La réponse était : '+correct);
+  if(ok){qScore++;good(10,'Bonne réponse !');}else bad();
+  document.getElementById('btn-next').classList.add('show'); qIdx++;
+}
+
+function setFB(ok,msg) {
+  const f=document.getElementById('q-fb');
+  f.textContent=msg; f.className='q-feedback show '+(ok?'ok':'ko');
+}
+
+function endQuiz() {
+  clearInterval(qTimer);
+  document.getElementById('quiz-main').style.display='none';
+  document.getElementById('quiz-end').style.display='block';
+  const sc=document.getElementById('end-score');
+  sc.textContent=qScore+'/12';
+  sc.className='end-score '+(qScore>=10?'s-great':qScore>=6?'s-mid':'s-low');
+  const msgs=['🌑 Continue à réviser…','🌙 En bonne voie !','⭐ Très bien !','🚀 MISSION ACCOMPLIE !'];
+  document.getElementById('end-msg').textContent=msgs[Math.min(Math.floor(qScore/3),3)];
+  if(qScore>=11) boom();
+}
+
+/* ══════════════════════════════════════
+   S3 FRAPPE (Type the answer)
+══════════════════════════════════════ */
+let typoDeck=[], typoIdx=0, typoGood=0, typoBad=0, typoCat='all', typoAnswered=false;
+
+function pickTypoCat(cat,el) {
+  document.querySelectorAll('#typo-cats .cat-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active'); typoCat=cat; buildTypoDeck();
+}
+
+function buildTypoDeck() {
+  const src = typoCat==='all' ? ALL : ALL.filter(w=>w.cat===typoCat);
+  typoDeck=shuffle([...src]); typoIdx=0; typoGood=0; typoBad=0;
+  renderTypo();
+}
+
+function renderTypo() {
+  if(typoIdx>=typoDeck.length) {
+    document.getElementById('typo-q').textContent='🎉 Terminé !';
+    document.getElementById('typo-hint').textContent=`Score final : ${typoGood}/${typoDeck.length}`;
+    document.getElementById('typo-inp').value='';
+    document.getElementById('typo-inp').disabled=true;
+    if(typoGood===typoDeck.length) boom();
+    return;
+  }
+  typoAnswered=false;
+  const w=typoDeck[typoIdx];
+  document.getElementById('typo-q').textContent=w.fr;
+  document.getElementById('typo-hint').textContent='→ Traduis en anglais';
+  document.getElementById('typo-ans').textContent='';
+  const inp=document.getElementById('typo-inp');
+  inp.value=''; inp.className='typo-inp'; inp.disabled=false;
+  inp.focus();
+  document.getElementById('typo-i').textContent=typoIdx+1;
+  document.getElementById('typo-tot').textContent=typoDeck.length;
+  document.getElementById('typo-good').textContent=typoGood;
+  document.getElementById('typo-bad').textContent=typoBad;
+}
+
+function checkTypo() {
+  if(typoAnswered) { typoIdx++; renderTypo(); return; }
+  const w=typoDeck[typoIdx];
+  const val=document.getElementById('typo-inp').value.trim().toLowerCase();
+  if(!val) return;
+  // Accept any part of the answer
+  const targets=w.en.toLowerCase().split('/').map(s=>s.replace(/\(.*?\)/g,'').replace(/^(a|an|the)\s+/i,'').trim());
+  const ok=targets.some(t=>val===t || t.includes(val) && val.length>2);
+  const inp=document.getElementById('typo-inp');
+  inp.className='typo-inp '+(ok?'ok':'ko');
+  document.getElementById('typo-ans').textContent=ok?'✅ '+w.en:'❌ '+w.en;
+  document.getElementById('typo-ans').style.color=ok?'var(--green)':'var(--red)';
+  if(ok){typoGood++;good(8,'Bien tapé !');}else{typoBad++;bad();}
+  typoAnswered=true;
+  document.getElementById('typo-good').textContent=typoGood;
+  document.getElementById('typo-bad').textContent=typoBad;
+  inp.disabled=true;
+}
+
+function skipTypo() {
+  if(!typoAnswered) { typoBad++; bad(); document.getElementById('typo-ans').textContent='→ '+typoDeck[typoIdx].en; document.getElementById('typo-ans').style.color='var(--muted)'; }
+  typoIdx++; setTimeout(renderTypo,600);
+}
+
+buildTypoDeck();
+
+/* ══════════════════════════════════════
+   S4 FILL (Texte à trous)
+══════════════════════════════════════ */
+const FILLS = [
+  {
+    text: "Scientists launched a __0__ to explore Mars. The __1__ wore her __2__ during the spacewalk. The rocket left the __3__ at dawn. The crew experienced __4__ for the first time.",
+    answers: ["rover","astronaut","spacesuit","launch pad","zero-gravity"],
+    fr_answers: ["véhicule d'exploration","astronaute","combinaison spatiale","rampe de lancement","apesanteur"],
+    pool: "rover, astronaut, spacesuit, launch pad, zero-gravity"
+  },
+  {
+    text: "The country's __0__ has been rising steadily. However, censorship and __1__ are serious issues. Many people live in __2__ on the outskirts. The government needs a real __3__ to solve poverty. A __4__ of citizens still support the policy.",
+    answers: ["growth","nepotism","slums","breakthrough","handful"],
+    fr_answers: ["croissance","népotisme","bidonvilles","percée","poignée"],
+    pool: "growth, nepotism, slums, breakthrough, handful"
+  },
+  {
+    text: "The fashion show featured a bold __0__ on every dress. The designer used a mix of __1__ and silk. Her social media __2__ helped promote the __3__. The collection was a beautiful __4__ of cultures.",
+    answers: ["pattern","concrete","clout","runway show","blend"],
+    fr_answers: ["motif","béton","notoriété","défilé de mode","mélange"],
+    pool: "pattern, concrete, clout, runway show, blend"
+  },
+  {
+    text: "In India, it is important to distinguish __0__, the language, from __1__, the religion. Many people __2__ sacred deities in temples. The __3__ gave a sermon on holy texts. The country's __4__ has grown rapidly.",
+    answers: ["Hindi","Hinduism","worship","priest","GDP"],
+    fr_answers: ["hindi","hindouisme","vénèrent","prêtre","PIB"],
+    pool: "Hindi, Hinduism, worship, priest, GDP"
+  }
+];
+let fillI=0;
+function loadFill(){
+  const f=FILLS[fillI];
+  document.getElementById('fill-pool').textContent=f.pool;
+  let html=f.text;
+  f.answers.forEach((_,i)=>{
+    html=html.replace(`__${i}__`,`<span class="sp-blank" id="spb${i}"><input type="text" placeholder="…" id="spi${i}" autocomplete="off" spellcheck="false"></span>`);
+  });
+  document.getElementById('sp-box').innerHTML=html;
+}
+function checkFill(){
+  const f=FILLS[fillI]; let ok=0;
+  f.answers.forEach((ans,i)=>{
+    const inp=document.getElementById(`spi${i}`);
+    const sp=document.getElementById(`spb${i}`);
+    const val=inp.value.trim().toLowerCase();
+    sp.classList.remove('ok','ko');
+    if(val===ans.toLowerCase()){sp.classList.add('ok');ok++;}
+    else sp.classList.add('ko');
+  });
+  if(ok===f.answers.length){good(20,'Texte parfait !');setTimeout(boom,300);}
+  else pop('💡',`${ok}/${f.answers.length} corrects`,'Réessayez !');
+}
+function revealFill(){
+  const f=FILLS[fillI];
+  f.answers.forEach((ans,i)=>{
+    document.getElementById(`spi${i}`).value=ans;
+    document.getElementById(`spb${i}`).classList.add('ok');
+    document.getElementById(`spb${i}`).classList.remove('ko');
+  });
+}
+function nextFill(){ fillI=(fillI+1)%FILLS.length; loadFill(); }
+
+/* ══════════════════════════════════════
+   S5 MATCHING PAIRS
+══════════════════════════════════════ */
+let matchSelected=null, matchPairs=[], matchOk=0, matchTries=0;
+
+function loadMatch(){
+  const pool=shuffle([...ALL]).slice(0,8);
+  matchPairs=pool.map(w=>({fr:getFirstFr(w.fr), en:getFirstEn(w.en), id:Math.random().toString(36).slice(2)}));
+  matchSelected=null; matchOk=0; matchTries=0;
+
+  const frItems=shuffle([...matchPairs]);
+  const enItems=shuffle([...matchPairs]);
+
+  const frCol=document.getElementById('match-fr');
+  const enCol=document.getElementById('match-en');
+  frCol.innerHTML=''; enCol.innerHTML='';
+
+  frItems.forEach(p=>{
+    const d=document.createElement('div');
+    d.className='match-item'; d.textContent=p.fr;
+    d.dataset.id=p.id; d.dataset.side='fr';
+    d.onclick=()=>selectMatch(d,p);
+    frCol.appendChild(d);
+  });
+  enItems.forEach(p=>{
+    const d=document.createElement('div');
+    d.className='match-item'; d.textContent=p.en;
+    d.dataset.id=p.id; d.dataset.side='en';
+    d.onclick=()=>selectMatch(d,p);
+    enCol.appendChild(d);
+  });
+
+  document.getElementById('match-ok').textContent=0;
+  document.getElementById('match-tot').textContent=8;
+  document.getElementById('match-tries').textContent=0;
+}
+
+function selectMatch(el,pair) {
+  if(el.classList.contains('matched')) return;
+  if(matchSelected && matchSelected.el===el) {
+    el.classList.remove('selected'); matchSelected=null; return;
+  }
+  if(!matchSelected) {
+    if(el.classList.contains('selected')){ el.classList.remove('selected'); return; }
+    el.classList.add('selected');
+    matchSelected={el,pair,side:el.dataset.side};
+    return;
+  }
+  // Two selected
+  const prev=matchSelected;
+  if(prev.side===el.dataset.side){
+    // Same side — switch selection
+    prev.el.classList.remove('selected');
+    el.classList.add('selected');
+    matchSelected={el,pair,side:el.dataset.side};
+    return;
+  }
+  matchTries++;
+  document.getElementById('match-tries').textContent=matchTries;
+  if(prev.pair.id===pair.id){
+    // Correct!
+    [prev.el,el].forEach(e=>{e.classList.remove('selected');e.classList.add('matched');e.onclick=null;});
+    matchOk++;
+    document.getElementById('match-ok').textContent=matchOk;
+    matchSelected=null;
+    good(10,'Bonne paire !');
+    if(matchOk===8){setTimeout(boom,300);pop('🎉','Parfait !','Toutes les paires trouvées !');}
+  } else {
+    // Wrong
+    [prev.el,el].forEach(e=>e.classList.add('wrong'));
+    setTimeout(()=>{[prev.el,el].forEach(e=>{e.classList.remove('wrong','selected');});},500);
+    matchSelected=null;
+    bad();
+  }
+}
+
+/* ══════════════════════════════════════
+   S6 EXAM
+══════════════════════════════════════ */
+let examWords=[];
+function loadExam(){
+  examWords=shuffle([...ALL]).slice(0,12);
+  const list=document.getElementById('exam-list');
+  list.innerHTML='';
+  examWords.forEach((w,i)=>{
+    list.innerHTML+=`
+      <div class="exam-item">
+        <div class="exam-n">${i+1}</div>
+        <div style="flex:1">
+          <div class="exam-fr">${w.fr}</div>
+          <input class="exam-inp" id="ei${i}" type="text" placeholder="English translation…" autocomplete="off" spellcheck="false">
+        </div>
+      </div>`;
+  });
+  document.getElementById('exam-result').classList.remove('show');
+}
+function submitExam(){
+  let ok=0; const lines=[];
+  examWords.forEach((w,i)=>{
+    const inp=document.getElementById(`ei${i}`);
+    const val=inp.value.trim().toLowerCase();
+    const targets=w.en.toLowerCase().split('/').map(s=>s.replace(/\(.*?\)/g,'').replace(/^(a|an|the)\s+/i,'').trim());
+    const correct=targets.some(t=>val===t||(t.includes(val)&&val.length>3));
+    inp.classList.remove('ok','ko');
+    inp.classList.add(correct?'ok':'ko');
+    if(!correct) inp.placeholder=w.en;
+    if(correct) ok++;
+    lines.push(`${i+1}. ${w.fr} → ${w.en} ${correct?'✅':'❌'}`);
+  });
+  const pct=ok/12;
+  const sc=document.getElementById('exam-score');
+  sc.textContent=ok+'/12';
+  sc.className='exam-result-score '+(pct>=0.8?'s-gold':pct>=0.5?'s-silver':'s-red');
+  const verdicts=['🌑 Continue à t\'entraîner…','🌙 Bonne progression !','⭐ Très bien joué !','🚀 MISSION RÉUSSIE ! Félicitations !'];
+  document.getElementById('exam-verdict').textContent=verdicts[Math.min(Math.floor(pct*4),3)];
+  document.getElementById('breakdown').innerHTML=lines.join('<br>');
+  document.getElementById('exam-result').classList.add('show');
+  if(pct>=0.8){good(50,'Examen réussi !');setTimeout(boom,400);}
+  else if(pct>=0.5) good(20,'Bon effort !');
+  else bad();
+}
+function resetExam(){ loadExam(); }
+
+/* ══════════════════════════════════════
+   S7 LEXIQUE
+══════════════════════════════════════ */
+function loadVocab(){
+  const grid=document.getElementById('cat-grid');
+  grid.innerHTML='';
+  Object.keys(VOCAB).forEach((k,i)=>{
+    const v=VOCAB[k];
+    grid.innerHTML+=`
+      <div class="cat-card c${i%6}" onclick="openCat('${k}')">
+        <div class="cat-card-ico">${v.icon}</div>
+        <div class="cat-card-name">${v.name}</div>
+        <div class="cat-card-cnt">${v.words.length} mots</div>
+      </div>`;
+  });
+  document.getElementById('cat-grid').style.display='grid';
+  document.getElementById('vocab-detail').classList.remove('show');
+  document.getElementById('lex-search').value='';
+  document.getElementById('search-results').style.display='none';
+}
+
+function openCat(k){
+  const v=VOCAB[k];
+  document.getElementById('cat-grid').style.display='none';
+  document.getElementById('vocab-detail').classList.add('show');
+  document.getElementById('vocab-rows').innerHTML=v.words.map(w=>`
+    <div class="vrow">
+      <div>
+        <div class="v-fr">${w.fr}</div>
+        <div class="v-en">${w.en}</div>
+      </div>
+      <div class="v-cat">${k}</div>
+    </div>`).join('');
+}
+function closeVocab(){
+  document.getElementById('cat-grid').style.display='grid';
+  document.getElementById('vocab-detail').classList.remove('show');
+}
+
+function searchVocab(q) {
+  const sr=document.getElementById('search-results');
+  const lexView=document.getElementById('lex-cat-view');
+  if(!q.trim()){sr.style.display='none'; lexView.style.display='block'; return;}
+  const lq=q.toLowerCase();
+  const results=ALL.filter(w=>w.fr.toLowerCase().includes(lq)||w.en.toLowerCase().includes(lq));
+  sr.style.display='block'; lexView.style.display='none';
+  if(!results.length){document.getElementById('search-rows').innerHTML='<div style="color:var(--muted);font-family:DM Mono,monospace;font-size:13px;padding:12px;">Aucun résultat.</div>';return;}
+  document.getElementById('search-rows').innerHTML=results.map(w=>`
+    <div class="vrow">
+      <div>
+        <div class="v-fr">${w.fr}</div>
+        <div class="v-en">${w.en}</div>
+      </div>
+      <div class="v-cat">${w.cat}</div>
+    </div>`).join('');
+}
+
+/* ══════════════════════════════════════
+   UTILS
+══════════════════════════════════════ */
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a; }
+
+function boom(){
+  const c=document.getElementById('confetti');
+  const ctx=c.getContext('2d');
+  c.width=innerWidth; c.height=innerHeight;
+  const colors=['#7b8cff','#22d3ee','#c084fc','#f472b6','#fbbf24','#34d399'];
+  const pts=Array.from({length:180},()=>({
+    x:Math.random()*c.width, y:-15,
+    r:Math.random()*7+2,
+    color:colors[Math.random()*colors.length|0],
+    vx:(Math.random()-.5)*6, vy:Math.random()*4+2,
+    rot:Math.random()*360, vr:(Math.random()-.5)*10
+  }));
+  let f=0;
+  (function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(p=>{
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+      ctx.fillStyle=p.color;
+      ctx.fillRect(-p.r,-p.r*.5,p.r*2,p.r);
+      ctx.restore();
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.07; p.rot+=p.vr;
+    });
+    if(++f<200) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,c.width,c.height);
+  })();
+}
+
+sync();
+loadMatch();
+</script>
+</body>
+</html>
