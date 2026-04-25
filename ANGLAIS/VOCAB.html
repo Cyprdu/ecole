@@ -213,14 +213,19 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .q-opt.wrong-pick { background:rgba(248,113,113,0.08); border-color:var(--red); }
 .q-opt.wrong-pick .q-opt-letter { background:var(--red); color:#fff; }
 
-.q-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-bottom:12px; display:none; }
-.q-feedback.show { display:block; }
+/* FIX: Utilisation de visibility et min-height pour empêcher le layout de sauter */
+.q-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-bottom:12px; visibility:hidden; opacity:0; min-height:42px; transition: opacity 0.3s ease; }
+.q-feedback.show { visibility:visible; opacity:1; }
 .q-feedback.ok { background:rgba(52,211,153,0.07); color:var(--green); border:1px solid rgba(52,211,153,0.2); }
 .q-feedback.ko { background:rgba(248,113,113,0.07); color:var(--red); border:1px solid rgba(248,113,113,0.2); }
 
-.btn-main { display:none; width:100%; padding:16px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; box-shadow:0 6px 24px rgba(74,90,255,0.3); transition:all 0.2s; }
+.btn-main { width:100%; padding:16px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; box-shadow:0 6px 24px rgba(74,90,255,0.3); transition:all 0.2s; display:none; }
 .btn-main.show { display:block; animation:fadeIn 0.3s ease; }
 .btn-main:hover { transform:translateY(-2px); box-shadow:0 10px 36px rgba(74,90,255,0.45); }
+
+/* FIX: Bouton suivant du Quiz avec visibility pour réserver l'espace */
+#btn-next { display:block; visibility:hidden; opacity:0; transition: opacity 0.3s ease, transform 0.2s, box-shadow 0.2s; }
+#btn-next.show { visibility:visible; opacity:1; }
 
 .quiz-end { display:none; text-align:center; padding:50px 0; }
 .end-score { font-family:'Playfair Display',serif; font-size:90px; font-weight:900; letter-spacing:8px; line-height:1; }
@@ -391,13 +396,18 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .learn-type-btn.submit { background:linear-gradient(90deg,var(--blue2),var(--cyan)); color:#04050f; flex:1; }
 .learn-type-btn.skip { background:var(--surface2); border:1px solid var(--border); color:var(--muted); }
 .learn-type-btn:hover { transform:translateY(-2px); filter:brightness(1.1); }
-.learn-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-top:12px; display:none; }
-.learn-feedback.show { display:block; animation:fadeIn 0.25s ease; }
+
+/* FIX: Feedback de l'apprentissage fixe l'espace pour éviter les sauts */
+.learn-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-top:12px; visibility:hidden; opacity:0; min-height:42px; transition:opacity 0.3s ease; }
+.learn-feedback.show { visibility:visible; opacity:1; }
 .learn-feedback.ok { background:rgba(52,211,153,0.07); color:var(--green); border:1px solid rgba(52,211,153,0.2); }
 .learn-feedback.ko { background:rgba(248,113,113,0.07); color:var(--red); border:1px solid rgba(248,113,113,0.2); }
-.learn-next-btn { width:100%; padding:15px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; box-shadow:0 6px 24px rgba(74,90,255,0.3); transition:all 0.2s; margin-top:12px; display:none; }
-.learn-next-btn.show { display:block; animation:fadeIn 0.3s ease; }
+
+/* FIX: Bouton suivant d'apprentissage avec visibility pour éviter le redimensionnement */
+.learn-next-btn { width:100%; padding:15px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; box-shadow:0 6px 24px rgba(74,90,255,0.3); transition:all 0.2s; margin-top:12px; visibility:hidden; opacity:0; display:block; }
+.learn-next-btn.show { visibility:visible; opacity:1; }
 .learn-next-btn:hover { transform:translateY(-2px); }
+
 .learn-chunk-done { display:none; text-align:center; padding:28px 20px; background:var(--surface); border:1px solid var(--border); border-radius:20px; }
 .learn-chunk-done.show { display:block; animation:fadeIn 0.4s ease; }
 .learn-chunk-score { font-family:'Playfair Display',serif; font-size:56px; font-weight:900; color:var(--gold); text-shadow:0 0 40px rgba(251,191,36,0.4); }
@@ -450,7 +460,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
   </div>
 </div>
 
-<!-- ═══ HEADER ═══ -->
 <header>
   <div class="orbit-rings">
     <div class="orbit-dot"></div>
@@ -487,7 +496,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 
 <main>
 
-<!-- ══ S0 LEARN MODE ══ -->
 <section class="section" id="s-learn">
   <div class="section-title">🧠 Mode <span class="acc">Apprentissage</span></div>
   <p class="section-desc">Algorithme intelligent : répétition espacée + escalier de difficulté. Les mots difficiles reviennent plus souvent, les mots maîtrisés disparaissent.</p>
@@ -501,7 +509,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
     <div class="cat-pill" onclick="pickLearnCat('divers',this)">🔤 Divers</div>
   </div>
 
-  <!-- Buckets dashboard -->
   <div class="learn-dashboard">
     <div class="learn-bucket b-new">
       <div class="learn-bucket-count" id="lb-new">—</div>
@@ -517,14 +524,12 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
     </div>
   </div>
 
-  <!-- Progress bar -->
   <div class="learn-progress-bar">
     <div class="lp-mastered" id="lp-mastered" style="width:0%"></div>
     <div class="lp-learning" id="lp-learning" style="width:0%"></div>
     <div class="lp-new" id="lp-new" style="width:100%"></div>
   </div>
 
-  <!-- Main question zone -->
   <div id="learn-main">
     <div style="text-align:center;">
       <div class="learn-level-badge lvl1" id="learn-badge">Niveau 1 · Reconnaissance QCM</div>
@@ -535,10 +540,8 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
       <div class="learn-q-hint" id="learn-q-hint"></div>
       <div class="learn-q-cat" id="learn-q-cat"></div>
 
-      <!-- MCQ (levels 1 & 2) -->
       <div class="learn-opts" id="learn-opts"></div>
 
-      <!-- Type input (levels 3 & 4) -->
       <div class="learn-type-wrap" id="learn-type-wrap" style="display:none">
         <input class="learn-type-inp" id="learn-type-inp" type="text" placeholder="Tapez la traduction anglaise…" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')submitLearnType()">
         <div class="learn-type-btns">
@@ -552,22 +555,19 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
     <button class="learn-next-btn" id="learn-next-btn" onclick="learnNext()">Continuer →</button>
   </div>
 
-  <!-- Between-chunk screen -->
   <div class="learn-chunk-done" id="learn-chunk-done">
     <div class="learn-chunk-score" id="learn-chunk-score">—</div>
     <div class="learn-chunk-msg" id="learn-chunk-msg"></div>
-    <button class="btn-main show" onclick="learnContinueChunk()" style="max-width:320px;margin:0 auto;">Continuer la session →</button>
+    <button class="btn-main show" onclick="learnContinueChunk()" style="max-width:320px;margin:0 auto; display:block;">Continuer la session →</button>
   </div>
 
-  <!-- All mastered screen -->
   <div class="learn-complete" id="learn-complete">
     <div class="learn-complete-title">🚀 MAÎTRISÉ !</div>
     <div class="learn-complete-sub" id="learn-complete-sub">Tous les mots sont dans la catégorie "Maîtrisés".</div>
-    <button class="btn-main show" onclick="startLearn()" style="max-width:320px;margin:20px auto 0;">🔄 Recommencer</button>
+    <button class="btn-main show" onclick="startLearn()" style="max-width:320px;margin:20px auto 0; display:block;">🔄 Recommencer</button>
   </div>
 </section>
 
-<!-- ══ S1 FLASHCARDS ══ -->
 <section class="section active" id="s-flashcards">
   <div class="section-title">🃏 Flash<span class="acc">cards</span></div>
   <p class="section-desc">Le mot français apparaît. Devinez la traduction anglaise, puis retournez la carte.</p>
@@ -618,7 +618,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
   </div>
 </section>
 
-<!-- ══ S2 QUIZ ══ -->
 <section class="section" id="s-quiz">
   <div class="section-title">⚡ Quiz <span class="acc">QCM</span></div>
   <p class="section-desc">Choisissez la bonne traduction avant la fin du compte à rebours !</p>
@@ -643,11 +642,10 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
   <div class="quiz-end" id="quiz-end">
     <div class="end-score" id="end-score">—</div>
     <div class="end-msg" id="end-msg"></div>
-    <button class="btn-main show" onclick="startQuiz()" style="max-width:320px;margin:0 auto;">🔄 Rejouer</button>
+    <button class="btn-main show" onclick="startQuiz()" style="max-width:320px;margin:0 auto; display:block;">🔄 Rejouer</button>
   </div>
 </section>
 
-<!-- ══ S3 FRAPPE ══ -->
 <section class="section" id="s-typo">
   <div class="section-title">⌨️ Mode <span class="acc">Frappe</span></div>
   <p class="section-desc">Le mot français est affiché. Tapez sa traduction anglaise exacte.</p>
@@ -678,7 +676,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
   </div>
 </section>
 
-<!-- ══ S4 FILL ══ -->
 <section class="section" id="s-fill">
   <div class="section-title">✍️ Texte à <span class="acc">Trous</span></div>
   <p class="section-desc">Complétez le texte avec les mots anglais manquants.</p>
@@ -694,7 +691,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
   </div>
 </section>
 
-<!-- ══ S5 PAIRES ══ -->
 <section class="section" id="s-match">
   <div class="section-title">🔗 Jeu des <span class="acc">Paires</span></div>
   <p class="section-desc">Associez chaque mot français à sa traduction anglaise.</p>
@@ -716,11 +712,10 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
   </div>
 
   <div style="display:flex;gap:10px;">
-    <button class="btn-main show" onclick="loadMatch()" style="flex:1;">🔄 Nouveau Jeu</button>
+    <button class="btn-main show" onclick="loadMatch()" style="flex:1; display:block;">🔄 Nouveau Jeu</button>
   </div>
 </section>
 
-<!-- ══ S6 EXAM ══ -->
 <section class="section" id="s-exam">
   <div class="section-title">🎓 <span class="acc">Exam</span> Blanc</div>
   <p class="section-desc">Traduisez les mots français en anglais, sans aide.</p>
@@ -740,11 +735,10 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
     <div class="exam-result-score" id="exam-score">—</div>
     <div class="exam-verdict" id="exam-verdict"></div>
     <div class="breakdown" id="breakdown"></div>
-    <button class="btn-main show" onclick="resetExam()" style="max-width:300px;margin:0 auto;">🔄 Nouvel examen</button>
+    <button class="btn-main show" onclick="resetExam()" style="max-width:300px;margin:0 auto; display:block;">🔄 Nouvel examen</button>
   </div>
 </section>
 
-<!-- ══ S7 LEXIQUE ══ -->
 <section class="section" id="s-vocab">
   <div class="section-title">📚 <span class="acc">Lexique</span></div>
   <p class="section-desc">Tout le vocabulaire organisé par thème. Cliquez une catégorie ou cherchez un mot.</p>
@@ -885,10 +879,19 @@ const VOCAB = {
 const ALL = [];
 Object.keys(VOCAB).forEach(k => VOCAB[k].words.forEach(w => ALL.push({...w, cat: k})));
 
-// Simplified versions for matching (take first option only)
-function simplify(str) { return str.replace(/\(.*?\)/g,'').replace(/\s*\/.*$/,'').replace(/^(a|an|the)\s+/i,'').trim().toLowerCase(); }
-function getFirstEn(str) { return str.split('/')[0].replace(/\(.*?\)/g,'').replace(/^(a|an|the)\s+/i,'').trim(); }
-function getFirstFr(str) { return str.split('/')[0].replace(/\(.*?\)/g,'').trim(); }
+/* FIX: Fonction ultra-robuste de nettoyage des chaînes */
+function normalizeStr(str) {
+  if (!str) return "";
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Enlève les accents
+            .toLowerCase()
+            .replace(/[()]/g, "") // Enlève les parenthèses mais garde le texte
+            .replace(/\b(a|an|the|to)\b/g, "") // Enlève les articles et le "to"
+            .replace(/[^a-z0-9]/g, "") // Supprime la ponctuation et les espaces
+            .trim();
+}
+
+function getFirstEn(str) { return str.split('/')[0].replace(/[()]/g, '').trim(); }
+function getFirstFr(str) { return str.split('/')[0].replace(/[()]/g, '').trim(); }
 
 /* ══════════════════════════════════════
    STATE
@@ -931,22 +934,12 @@ function goTab(name, btn) {
 }
 
 /* ══════════════════════════════════════
-   LEARN MODE — Algorithme Quizlet
-   ─────────────────────────────────────
-   3 buckets : new / learning / mastered
-   4 difficulty levels per word:
-     1 = MCQ easy (4 options)
-     2 = MCQ hard (4 similar options)
-     3 = Type it (forgiving match)
-     4 = Type it strict → MASTERED
-   Chunking: work 5-7 words at a time
-   Spaced repetition: wrong → back in 2-3
+   LEARN MODE
 ══════════════════════════════════════ */
 let learnCat = 'all';
-// Each word entry: { word, level(1-4), bucket('new'|'learning'|'mastered'), wrongCount, correctStreak, nextSeen }
 let learnState = [];
-let learnQueue = [];   // current working queue
-let learnChunkSet = []; // current chunk of 5-7 words
+let learnQueue = [];
+let learnChunkSet = [];
 let learnChunkIdx = 0;
 let learnAnswered = false;
 let learnChunkCorrect = 0;
@@ -961,15 +954,9 @@ function pickLearnCat(cat, el) {
 
 function startLearn() {
   const src = learnCat==='all' ? ALL : ALL.filter(w=>w.cat===learnCat);
-  // Init state for all words
   learnState = src.map(w => ({
-    word: w,
-    level: 1,        // 1-4
-    bucket: 'new',   // new | learning | mastered
-    correctStreak: 0,
-    wrongCount: 0
+    word: w, level: 1, bucket: 'new', correctStreak: 0, wrongCount: 0
   }));
-  // Queue starts with new words
   learnQueue = shuffle([...learnState]);
   learnChunkIdx = 0;
   hideLearnScreens();
@@ -997,29 +984,23 @@ function updateBuckets() {
 
 function buildNextChunk() {
   updateBuckets();
-  // All mastered?
   if(learnState.every(s=>s.bucket==='mastered')) {
     showComplete(); return;
   }
-  // Priority: learning words first, then new
   const learning = learnState.filter(s=>s.bucket==='learning');
   const newWords = learnState.filter(s=>s.bucket==='new');
-  // Build chunk: up to CHUNK_SIZE, learning first
   let pool = [];
   if(learning.length > 0) {
     pool = shuffle([...learning]).slice(0, Math.min(CHUNK_SIZE, learning.length));
-    // Add 1-2 new words to mix in
     if(pool.length < CHUNK_SIZE && newWords.length > 0) {
       pool = [...pool, ...shuffle([...newWords]).slice(0, Math.min(2, CHUNK_SIZE - pool.length))];
     }
   } else {
     pool = shuffle([...newWords]).slice(0, CHUNK_SIZE);
   }
-  // Expand chunk: repeat learning words proportional to wrong count
   learnChunkSet = [];
   pool.forEach(s => {
     learnChunkSet.push(s);
-    // If learning & was wrong multiple times, add extra appearances
     if(s.bucket==='learning' && s.wrongCount > 1) learnChunkSet.push(s);
   });
   learnChunkSet = shuffle(learnChunkSet);
@@ -1038,30 +1019,25 @@ function renderLearnQ() {
   const w = state.word;
   const level = state.level;
 
-  // Update badge
   const badges = ['', 'Niveau 1 · Flashcard QCM', 'Niveau 2 · QCM Renforcé', 'Niveau 3 · Frappe libre', 'Niveau 4 · Frappe stricte → Maîtrise'];
   const badgeClasses = ['', 'lvl1', 'lvl2', 'lvl3', 'lvl4'];
   const badge = document.getElementById('learn-badge');
   badge.textContent = badges[level];
   badge.className = 'learn-level-badge ' + badgeClasses[level];
 
-  // Display French word (always FR → EN)
   document.getElementById('learn-q-word').textContent = w.fr;
   document.getElementById('learn-q-hint').textContent = level <= 2 ? 'Choisissez la traduction anglaise' : 'Tapez la traduction anglaise';
   document.getElementById('learn-q-cat').textContent = catLabelsLearn[w.cat] || '';
 
-  // Clear feedback & next btn
   const fb = document.getElementById('learn-feedback');
   fb.classList.remove('show','ok','ko');
   document.getElementById('learn-next-btn').classList.remove('show');
 
   if(level <= 2) {
-    // MCQ mode
     document.getElementById('learn-opts').style.display='grid';
     document.getElementById('learn-type-wrap').style.display='none';
     renderLearnMCQ(state, level);
   } else {
-    // Type mode
     document.getElementById('learn-opts').style.display='none';
     document.getElementById('learn-type-wrap').style.display='flex';
     const inp = document.getElementById('learn-type-inp');
@@ -1075,10 +1051,8 @@ function renderLearnMCQ(state, level) {
   const correct = w.en;
   let distractors;
   if(level === 1) {
-    // Easy: random distractors from all
     distractors = shuffle(ALL.filter(x=>x!==w)).slice(0,3).map(x=>x.en);
   } else {
-    // Hard: prefer same-category distractors
     const sameCat = ALL.filter(x=>x!==w && x.cat===w.cat);
     const other = ALL.filter(x=>x!==w && x.cat!==w.cat);
     const pool = shuffle([...sameCat, ...other]);
@@ -1113,20 +1087,23 @@ function submitLearnType() {
   if(learnAnswered) { learnNext(); return; }
   const state = learnChunkSet[learnChunkIdx];
   const inp = document.getElementById('learn-type-inp');
-  const val = inp.value.trim().toLowerCase();
-  if(!val) return;
+  const val = inp.value;
+  if(!val.trim()) return;
   learnAnswered = true;
   inp.disabled = true;
+  
   const correct = state.word.en;
-  const targets = correct.toLowerCase().split('/').map(s=>s.replace(/\(.*?\)/g,'').replace(/^(a|an|the|to)\s+/i,'').trim());
+  /* FIX: Utilisation de notre fonction de normalisation stricte et intelligente */
+  const normVal = normalizeStr(val);
+  const targets = correct.split('/').map(normalizeStr);
+  
   let ok;
   if(state.level === 4) {
-    // Strict: must match exactly one target
-    ok = targets.some(t=>val===t);
+    ok = targets.some(t => normVal === t);
   } else {
-    // Lenient: close match
-    ok = targets.some(t=>val===t || (t.includes(val) && val.length >= Math.max(3, t.length-3)));
+    ok = targets.some(t => normVal === t || (t.includes(normVal) && normVal.length >= Math.max(3, t.length - 2)));
   }
+  
   inp.className = 'learn-type-inp ' + (ok?'ok':'ko');
   handleLearnResult(state, ok, correct);
 }
@@ -1143,9 +1120,7 @@ function handleLearnResult(state, ok, correct) {
   if(ok) {
     state.correctStreak++;
     learnChunkCorrect++;
-    // Promote level
     if(state.level < 4) state.level++;
-    // Mastered when level 4 correct
     if(state.level > 4) {
       state.level = 4;
       state.bucket = 'mastered';
@@ -1159,11 +1134,9 @@ function handleLearnResult(state, ok, correct) {
   } else {
     state.wrongCount++;
     state.correctStreak = 0;
-    // Demote level
     if(state.level > 1) state.level--;
     if(state.bucket === 'mastered') state.bucket = 'learning';
     else state.bucket = 'learning';
-    // Re-inject into queue soon (2-3 positions ahead)
     const insertAt = Math.min(learnChunkIdx + 2, learnChunkSet.length);
     learnChunkSet.splice(insertAt, 0, state);
     learnChunkTotal++;
@@ -1432,11 +1405,14 @@ function renderTypo() {
 function checkTypo() {
   if(typoAnswered) { typoIdx++; renderTypo(); return; }
   const w=typoDeck[typoIdx];
-  const val=document.getElementById('typo-inp').value.trim().toLowerCase();
-  if(!val) return;
-  // Accept any part of the answer
-  const targets=w.en.toLowerCase().split('/').map(s=>s.replace(/\(.*?\)/g,'').replace(/^(a|an|the)\s+/i,'').trim());
-  const ok=targets.some(t=>val===t || t.includes(val) && val.length>2);
+  const val=document.getElementById('typo-inp').value;
+  if(!val.trim()) return;
+  
+  /* FIX: Utilisation de normalizeStr */
+  const normVal = normalizeStr(val);
+  const targets = w.en.split('/').map(normalizeStr);
+  const ok = targets.some(t => normVal === t || (t.length >= 3 && t.includes(normVal)));
+  
   const inp=document.getElementById('typo-inp');
   inp.className='typo-inp '+(ok?'ok':'ko');
   document.getElementById('typo-ans').textContent=ok?'✅ '+w.en:'❌ '+w.en;
@@ -1499,9 +1475,13 @@ function checkFill(){
   f.answers.forEach((ans,i)=>{
     const inp=document.getElementById(`spi${i}`);
     const sp=document.getElementById(`spb${i}`);
-    const val=inp.value.trim().toLowerCase();
+    
+    /* FIX: Tolérance aussi sur le texte à trous */
+    const val = normalizeStr(inp.value);
+    const ansNorm = normalizeStr(ans);
+    
     sp.classList.remove('ok','ko');
-    if(val===ans.toLowerCase()){sp.classList.add('ok');ok++;}
+    if(val===ansNorm){sp.classList.add('ok');ok++;}
     else sp.classList.add('ko');
   });
   if(ok===f.answers.length){good(20,'Texte parfait !');setTimeout(boom,300);}
@@ -1565,10 +1545,8 @@ function selectMatch(el,pair) {
     matchSelected={el,pair,side:el.dataset.side};
     return;
   }
-  // Two selected
   const prev=matchSelected;
   if(prev.side===el.dataset.side){
-    // Same side — switch selection
     prev.el.classList.remove('selected');
     el.classList.add('selected');
     matchSelected={el,pair,side:el.dataset.side};
@@ -1577,7 +1555,6 @@ function selectMatch(el,pair) {
   matchTries++;
   document.getElementById('match-tries').textContent=matchTries;
   if(prev.pair.id===pair.id){
-    // Correct!
     [prev.el,el].forEach(e=>{e.classList.remove('selected');e.classList.add('matched');e.onclick=null;});
     matchOk++;
     document.getElementById('match-ok').textContent=matchOk;
@@ -1585,7 +1562,6 @@ function selectMatch(el,pair) {
     good(10,'Bonne paire !');
     if(matchOk===8){setTimeout(boom,300);pop('🎉','Parfait !','Toutes les paires trouvées !');}
   } else {
-    // Wrong
     [prev.el,el].forEach(e=>e.classList.add('wrong'));
     setTimeout(()=>{[prev.el,el].forEach(e=>{e.classList.remove('wrong','selected');});},500);
     matchSelected=null;
@@ -1613,13 +1589,18 @@ function loadExam(){
   });
   document.getElementById('exam-result').classList.remove('show');
 }
+
 function submitExam(){
   let ok=0; const lines=[];
   examWords.forEach((w,i)=>{
     const inp=document.getElementById(`ei${i}`);
-    const val=inp.value.trim().toLowerCase();
-    const targets=w.en.toLowerCase().split('/').map(s=>s.replace(/\(.*?\)/g,'').replace(/^(a|an|the)\s+/i,'').trim());
-    const correct=targets.some(t=>val===t||(t.includes(val)&&val.length>3));
+    const val=inp.value;
+    
+    /* FIX: Utilisation de normalizeStr */
+    const normVal = normalizeStr(val);
+    const targets = w.en.split('/').map(normalizeStr);
+    const correct = targets.some(t => normVal === t || (t.length >= 3 && t.includes(normVal)));
+    
     inp.classList.remove('ok','ko');
     inp.classList.add(correct?'ok':'ko');
     if(!correct) inp.placeholder=w.en;
@@ -1683,8 +1664,8 @@ function searchVocab(q) {
   const sr=document.getElementById('search-results');
   const lexView=document.getElementById('lex-cat-view');
   if(!q.trim()){sr.style.display='none'; lexView.style.display='block'; return;}
-  const lq=q.toLowerCase();
-  const results=ALL.filter(w=>w.fr.toLowerCase().includes(lq)||w.en.toLowerCase().includes(lq));
+  const lq=normalizeStr(q); // Recherche via fonction normalisée
+  const results=ALL.filter(w=>normalizeStr(w.fr).includes(lq)||normalizeStr(w.en).includes(lq));
   sr.style.display='block'; lexView.style.display='none';
   if(!results.length){document.getElementById('search-rows').innerHTML='<div style="color:var(--muted);font-family:DM Mono,monospace;font-size:13px;padding:12px;">Aucun résultat.</div>';return;}
   document.getElementById('search-rows').innerHTML=results.map(w=>`
