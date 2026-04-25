@@ -345,6 +345,69 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .p-sub { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); }
 #confetti { position:fixed; inset:0; pointer-events:none; z-index:500; }
 
+/* ═══════════════════════════════
+   LEARN MODE (Algorithme Quizlet)
+═══════════════════════════════ */
+.learn-dashboard { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:20px; }
+.learn-bucket { border-radius:14px; padding:16px 18px; text-align:center; border:1px solid transparent; transition:all 0.3s; }
+.learn-bucket.b-new { background:rgba(74,90,255,0.08); border-color:rgba(74,90,255,0.2); }
+.learn-bucket.b-learning { background:rgba(251,191,36,0.07); border-color:rgba(251,191,36,0.2); }
+.learn-bucket.b-mastered { background:rgba(52,211,153,0.08); border-color:rgba(52,211,153,0.2); }
+.learn-bucket-count { font-family:'Playfair Display',serif; font-size:40px; font-weight:900; line-height:1; }
+.b-new .learn-bucket-count { color:var(--blue); }
+.b-learning .learn-bucket-count { color:var(--gold); }
+.b-mastered .learn-bucket-count { color:var(--green); }
+.learn-bucket-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-top:4px; }
+.learn-progress-bar { height:5px; border-radius:100px; background:rgba(255,255,255,0.04); margin-bottom:22px; display:flex; overflow:hidden; }
+.lp-new { background:var(--blue2); transition:width 0.5s; }
+.lp-learning { background:var(--gold); transition:width 0.5s; }
+.lp-mastered { background:var(--green); transition:width 0.5s; }
+.learn-level-badge { display:inline-block; margin-bottom:14px; background:var(--surface2); border:1px solid var(--border); border-radius:20px; padding:4px 14px; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; }
+.learn-level-badge.lvl1 { color:var(--blue); border-color:rgba(74,90,255,0.3); }
+.learn-level-badge.lvl2 { color:var(--gold); border-color:rgba(251,191,36,0.3); }
+.learn-level-badge.lvl3 { color:var(--purple); border-color:rgba(192,132,252,0.3); }
+.learn-level-badge.lvl4 { color:var(--green); border-color:rgba(52,211,153,0.3); }
+.learn-q-box { background:var(--surface); border:1px solid rgba(123,140,255,0.15); border-radius:20px; padding:36px; text-align:center; position:relative; overflow:hidden; margin-bottom:16px; }
+.learn-q-box::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--blue),transparent); }
+.learn-q-word { font-family:'Playfair Display',serif; font-size:clamp(28px,5vw,54px); font-weight:700; color:var(--purple); line-height:1.15; margin-bottom:8px; }
+.learn-q-hint { font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); }
+.learn-q-cat { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--blue); text-transform:uppercase; margin-top:4px; }
+.learn-opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px; }
+.learn-opt { background:var(--surface); border:1px solid rgba(123,140,255,0.12); border-radius:12px; padding:14px 16px; cursor:pointer; font-family:'DM Mono',monospace; font-size:13px; color:var(--cream); display:flex; align-items:center; gap:10px; transition:all 0.2s; text-align:left; }
+.learn-opt:hover:not(:disabled) { background:var(--surface2); border-color:rgba(123,140,255,0.3); transform:translateY(-2px); }
+.learn-opt-letter { width:26px; height:26px; border-radius:6px; flex-shrink:0; background:rgba(255,255,255,0.04); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); }
+.learn-opt.correct { background:rgba(52,211,153,0.08); border-color:var(--green); }
+.learn-opt.correct .learn-opt-letter { background:var(--green); color:#04050f; }
+.learn-opt.wrong-pick { background:rgba(248,113,113,0.08); border-color:var(--red); animation:lerr 0.4s; }
+.learn-opt.wrong-pick .learn-opt-letter { background:var(--red); color:#fff; }
+@keyframes lerr { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+.learn-type-wrap { margin-top:18px; display:flex; flex-direction:column; align-items:center; gap:10px; }
+.learn-type-inp { background:rgba(255,255,255,0.04); border:1px solid rgba(123,140,255,0.25); border-radius:12px; padding:14px 20px; color:var(--cream); font-family:'Space Mono',monospace; font-size:16px; width:100%; max-width:460px; outline:none; text-align:center; transition:border 0.2s; }
+.learn-type-inp:focus { border-color:rgba(123,140,255,0.5); }
+.learn-type-inp.ok { border-color:var(--green); color:var(--green); background:rgba(52,211,153,0.04); }
+.learn-type-inp.ko { border-color:var(--red); color:var(--red); background:rgba(248,113,113,0.04); }
+.learn-type-btns { display:flex; gap:10px; width:100%; max-width:460px; }
+.learn-type-btn { padding:12px 20px; border-radius:9px; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; transition:all 0.2s; }
+.learn-type-btn.submit { background:linear-gradient(90deg,var(--blue2),var(--cyan)); color:#04050f; flex:1; }
+.learn-type-btn.skip { background:var(--surface2); border:1px solid var(--border); color:var(--muted); }
+.learn-type-btn:hover { transform:translateY(-2px); filter:brightness(1.1); }
+.learn-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-top:12px; display:none; }
+.learn-feedback.show { display:block; animation:fadeIn 0.25s ease; }
+.learn-feedback.ok { background:rgba(52,211,153,0.07); color:var(--green); border:1px solid rgba(52,211,153,0.2); }
+.learn-feedback.ko { background:rgba(248,113,113,0.07); color:var(--red); border:1px solid rgba(248,113,113,0.2); }
+.learn-next-btn { width:100%; padding:15px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; box-shadow:0 6px 24px rgba(74,90,255,0.3); transition:all 0.2s; margin-top:12px; display:none; }
+.learn-next-btn.show { display:block; animation:fadeIn 0.3s ease; }
+.learn-next-btn:hover { transform:translateY(-2px); }
+.learn-chunk-done { display:none; text-align:center; padding:28px 20px; background:var(--surface); border:1px solid var(--border); border-radius:20px; }
+.learn-chunk-done.show { display:block; animation:fadeIn 0.4s ease; }
+.learn-chunk-score { font-family:'Playfair Display',serif; font-size:56px; font-weight:900; color:var(--gold); text-shadow:0 0 40px rgba(251,191,36,0.4); }
+.learn-chunk-msg { font-family:'DM Mono',monospace; font-size:14px; color:var(--muted); margin:8px 0 20px; font-style:italic; }
+.learn-complete { display:none; text-align:center; padding:40px 20px; }
+.learn-complete.show { display:block; animation:fadeIn 0.4s ease; }
+.learn-complete-title { font-family:'Playfair Display',serif; font-size:50px; font-weight:900; color:var(--green); text-shadow:0 0 60px rgba(52,211,153,0.5); margin-bottom:10px; }
+.learn-complete-sub { font-family:'DM Mono',monospace; font-size:15px; color:var(--muted); font-style:italic; }
+.learn-cat-row { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:20px; }
+
 /* ── TYPO EXERCISE ── */
 .typo-box { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px; text-align:center; margin-bottom:20px; }
 .typo-q { font-family:'Playfair Display',serif; font-size:clamp(32px,5vw,54px); font-weight:700; color:var(--purple); margin-bottom:8px; }
@@ -412,6 +475,7 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 </div>
 
 <nav class="nav-tabs">
+  <button class="tab-btn" onclick="goTab('learn',this)">🧠 Apprentissage</button>
   <button class="tab-btn active" onclick="goTab('flashcards',this)">🃏 Flashcards</button>
   <button class="tab-btn" onclick="goTab('quiz',this)">⚡ Quiz QCM</button>
   <button class="tab-btn" onclick="goTab('typo',this)">⌨️ Frappe</button>
@@ -422,6 +486,86 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 </nav>
 
 <main>
+
+<!-- ══ S0 LEARN MODE ══ -->
+<section class="section" id="s-learn">
+  <div class="section-title">🧠 Mode <span class="acc">Apprentissage</span></div>
+  <p class="section-desc">Algorithme intelligent : répétition espacée + escalier de difficulté. Les mots difficiles reviennent plus souvent, les mots maîtrisés disparaissent.</p>
+
+  <div class="learn-cat-row" id="learn-cats">
+    <div class="cat-pill active" onclick="pickLearnCat('all',this)">Tout (80+ mots)</div>
+    <div class="cat-pill" onclick="pickLearnCat('espace',this)">🚀 Espace</div>
+    <div class="cat-pill" onclick="pickLearnCat('societe',this)">🌍 Société</div>
+    <div class="cat-pill" onclick="pickLearnCat('religion',this)">🕌 Religion</div>
+    <div class="cat-pill" onclick="pickLearnCat('medias',this)">📺 Mode</div>
+    <div class="cat-pill" onclick="pickLearnCat('divers',this)">🔤 Divers</div>
+  </div>
+
+  <!-- Buckets dashboard -->
+  <div class="learn-dashboard">
+    <div class="learn-bucket b-new">
+      <div class="learn-bucket-count" id="lb-new">—</div>
+      <div class="learn-bucket-label">Restants</div>
+    </div>
+    <div class="learn-bucket b-learning">
+      <div class="learn-bucket-count" id="lb-learning">—</div>
+      <div class="learn-bucket-label">En cours</div>
+    </div>
+    <div class="learn-bucket b-mastered">
+      <div class="learn-bucket-count" id="lb-mastered">—</div>
+      <div class="learn-bucket-label">Maîtrisés ✓</div>
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="learn-progress-bar">
+    <div class="lp-mastered" id="lp-mastered" style="width:0%"></div>
+    <div class="lp-learning" id="lp-learning" style="width:0%"></div>
+    <div class="lp-new" id="lp-new" style="width:100%"></div>
+  </div>
+
+  <!-- Main question zone -->
+  <div id="learn-main">
+    <div style="text-align:center;">
+      <div class="learn-level-badge lvl1" id="learn-badge">Niveau 1 · Reconnaissance QCM</div>
+    </div>
+
+    <div class="learn-q-box">
+      <div class="learn-q-word" id="learn-q-word">—</div>
+      <div class="learn-q-hint" id="learn-q-hint"></div>
+      <div class="learn-q-cat" id="learn-q-cat"></div>
+
+      <!-- MCQ (levels 1 & 2) -->
+      <div class="learn-opts" id="learn-opts"></div>
+
+      <!-- Type input (levels 3 & 4) -->
+      <div class="learn-type-wrap" id="learn-type-wrap" style="display:none">
+        <input class="learn-type-inp" id="learn-type-inp" type="text" placeholder="Tapez la traduction anglaise…" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')submitLearnType()">
+        <div class="learn-type-btns">
+          <button class="learn-type-btn submit" onclick="submitLearnType()">Valider ↵</button>
+          <button class="learn-type-btn skip" onclick="learnDontKnow()">Je ne sais pas</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="learn-feedback" id="learn-feedback"></div>
+    <button class="learn-next-btn" id="learn-next-btn" onclick="learnNext()">Continuer →</button>
+  </div>
+
+  <!-- Between-chunk screen -->
+  <div class="learn-chunk-done" id="learn-chunk-done">
+    <div class="learn-chunk-score" id="learn-chunk-score">—</div>
+    <div class="learn-chunk-msg" id="learn-chunk-msg"></div>
+    <button class="btn-main show" onclick="learnContinueChunk()" style="max-width:320px;margin:0 auto;">Continuer la session →</button>
+  </div>
+
+  <!-- All mastered screen -->
+  <div class="learn-complete" id="learn-complete">
+    <div class="learn-complete-title">🚀 MAÎTRISÉ !</div>
+    <div class="learn-complete-sub" id="learn-complete-sub">Tous les mots sont dans la catégorie "Maîtrisés".</div>
+    <button class="btn-main show" onclick="startLearn()" style="max-width:320px;margin:20px auto 0;">🔄 Recommencer</button>
+  </div>
+</section>
 
 <!-- ══ S1 FLASHCARDS ══ -->
 <section class="section active" id="s-flashcards">
@@ -778,11 +922,292 @@ function goTab(name, btn) {
   document.getElementById('s-'+name).classList.add('active');
   btn.classList.add('active');
   if(name==='quiz') startQuiz();
+  if(name==='learn') startLearn();
   if(name==='fill') loadFill();
   if(name==='exam') loadExam();
   if(name==='vocab') loadVocab();
   if(name==='match') loadMatch();
   if(name==='typo') buildTypoDeck();
+}
+
+/* ══════════════════════════════════════
+   LEARN MODE — Algorithme Quizlet
+   ─────────────────────────────────────
+   3 buckets : new / learning / mastered
+   4 difficulty levels per word:
+     1 = MCQ easy (4 options)
+     2 = MCQ hard (4 similar options)
+     3 = Type it (forgiving match)
+     4 = Type it strict → MASTERED
+   Chunking: work 5-7 words at a time
+   Spaced repetition: wrong → back in 2-3
+══════════════════════════════════════ */
+let learnCat = 'all';
+// Each word entry: { word, level(1-4), bucket('new'|'learning'|'mastered'), wrongCount, correctStreak, nextSeen }
+let learnState = [];
+let learnQueue = [];   // current working queue
+let learnChunkSet = []; // current chunk of 5-7 words
+let learnChunkIdx = 0;
+let learnAnswered = false;
+let learnChunkCorrect = 0;
+let learnChunkTotal = 0;
+const CHUNK_SIZE = 6;
+const catLabelsLearn = { espace:'🚀 Espace', societe:'🌍 Société', religion:'🕌 Religion', medias:'📺 Mode', divers:'🔤 Divers', all:'Tout' };
+
+function pickLearnCat(cat, el) {
+  document.querySelectorAll('#learn-cats .cat-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active'); learnCat = cat; startLearn();
+}
+
+function startLearn() {
+  const src = learnCat==='all' ? ALL : ALL.filter(w=>w.cat===learnCat);
+  // Init state for all words
+  learnState = src.map(w => ({
+    word: w,
+    level: 1,        // 1-4
+    bucket: 'new',   // new | learning | mastered
+    correctStreak: 0,
+    wrongCount: 0
+  }));
+  // Queue starts with new words
+  learnQueue = shuffle([...learnState]);
+  learnChunkIdx = 0;
+  hideLearnScreens();
+  buildNextChunk();
+}
+
+function hideLearnScreens() {
+  document.getElementById('learn-main').style.display='block';
+  document.getElementById('learn-chunk-done').classList.remove('show');
+  document.getElementById('learn-complete').classList.remove('show');
+}
+
+function updateBuckets() {
+  const n = learnState.filter(s=>s.bucket==='new').length;
+  const l = learnState.filter(s=>s.bucket==='learning').length;
+  const m = learnState.filter(s=>s.bucket==='mastered').length;
+  const tot = learnState.length;
+  document.getElementById('lb-new').textContent = n;
+  document.getElementById('lb-learning').textContent = l;
+  document.getElementById('lb-mastered').textContent = m;
+  document.getElementById('lp-mastered').style.width = (m/tot*100)+'%';
+  document.getElementById('lp-learning').style.width = (l/tot*100)+'%';
+  document.getElementById('lp-new').style.width = (n/tot*100)+'%';
+}
+
+function buildNextChunk() {
+  updateBuckets();
+  // All mastered?
+  if(learnState.every(s=>s.bucket==='mastered')) {
+    showComplete(); return;
+  }
+  // Priority: learning words first, then new
+  const learning = learnState.filter(s=>s.bucket==='learning');
+  const newWords = learnState.filter(s=>s.bucket==='new');
+  // Build chunk: up to CHUNK_SIZE, learning first
+  let pool = [];
+  if(learning.length > 0) {
+    pool = shuffle([...learning]).slice(0, Math.min(CHUNK_SIZE, learning.length));
+    // Add 1-2 new words to mix in
+    if(pool.length < CHUNK_SIZE && newWords.length > 0) {
+      pool = [...pool, ...shuffle([...newWords]).slice(0, Math.min(2, CHUNK_SIZE - pool.length))];
+    }
+  } else {
+    pool = shuffle([...newWords]).slice(0, CHUNK_SIZE);
+  }
+  // Expand chunk: repeat learning words proportional to wrong count
+  learnChunkSet = [];
+  pool.forEach(s => {
+    learnChunkSet.push(s);
+    // If learning & was wrong multiple times, add extra appearances
+    if(s.bucket==='learning' && s.wrongCount > 1) learnChunkSet.push(s);
+  });
+  learnChunkSet = shuffle(learnChunkSet);
+  learnChunkIdx = 0;
+  learnChunkCorrect = 0;
+  learnChunkTotal = learnChunkSet.length;
+  renderLearnQ();
+}
+
+function renderLearnQ() {
+  if(learnChunkIdx >= learnChunkSet.length) {
+    showChunkDone(); return;
+  }
+  learnAnswered = false;
+  const state = learnChunkSet[learnChunkIdx];
+  const w = state.word;
+  const level = state.level;
+
+  // Update badge
+  const badges = ['', 'Niveau 1 · Flashcard QCM', 'Niveau 2 · QCM Renforcé', 'Niveau 3 · Frappe libre', 'Niveau 4 · Frappe stricte → Maîtrise'];
+  const badgeClasses = ['', 'lvl1', 'lvl2', 'lvl3', 'lvl4'];
+  const badge = document.getElementById('learn-badge');
+  badge.textContent = badges[level];
+  badge.className = 'learn-level-badge ' + badgeClasses[level];
+
+  // Display French word (always FR → EN)
+  document.getElementById('learn-q-word').textContent = w.fr;
+  document.getElementById('learn-q-hint').textContent = level <= 2 ? 'Choisissez la traduction anglaise' : 'Tapez la traduction anglaise';
+  document.getElementById('learn-q-cat').textContent = catLabelsLearn[w.cat] || '';
+
+  // Clear feedback & next btn
+  const fb = document.getElementById('learn-feedback');
+  fb.classList.remove('show','ok','ko');
+  document.getElementById('learn-next-btn').classList.remove('show');
+
+  if(level <= 2) {
+    // MCQ mode
+    document.getElementById('learn-opts').style.display='grid';
+    document.getElementById('learn-type-wrap').style.display='none';
+    renderLearnMCQ(state, level);
+  } else {
+    // Type mode
+    document.getElementById('learn-opts').style.display='none';
+    document.getElementById('learn-type-wrap').style.display='flex';
+    const inp = document.getElementById('learn-type-inp');
+    inp.value=''; inp.className='learn-type-inp'; inp.disabled=false;
+    setTimeout(()=>inp.focus(), 80);
+  }
+}
+
+function renderLearnMCQ(state, level) {
+  const w = state.word;
+  const correct = w.en;
+  let distractors;
+  if(level === 1) {
+    // Easy: random distractors from all
+    distractors = shuffle(ALL.filter(x=>x!==w)).slice(0,3).map(x=>x.en);
+  } else {
+    // Hard: prefer same-category distractors
+    const sameCat = ALL.filter(x=>x!==w && x.cat===w.cat);
+    const other = ALL.filter(x=>x!==w && x.cat!==w.cat);
+    const pool = shuffle([...sameCat, ...other]);
+    distractors = pool.slice(0,3).map(x=>x.en);
+  }
+  const opts = shuffle([correct, ...distractors]);
+  const letters = ['A','B','C','D'];
+  const container = document.getElementById('learn-opts');
+  container.innerHTML = '';
+  opts.forEach((o,i)=>{
+    const b = document.createElement('button');
+    b.className = 'learn-opt';
+    b.innerHTML = `<span class="learn-opt-letter">${letters[i]}</span><span>${o}</span>`;
+    b.onclick = () => pickLearnMCQ(b, o, correct, state);
+    container.appendChild(b);
+  });
+}
+
+function pickLearnMCQ(btn, chosen, correct, state) {
+  if(learnAnswered) return;
+  learnAnswered = true;
+  document.querySelectorAll('.learn-opt').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.learn-opt').forEach(b=>{
+    if(b.querySelector('span:last-child')?.textContent===correct) b.classList.add('correct');
+  });
+  const ok = chosen === correct;
+  if(!ok) btn.classList.add('wrong-pick');
+  handleLearnResult(state, ok, correct);
+}
+
+function submitLearnType() {
+  if(learnAnswered) { learnNext(); return; }
+  const state = learnChunkSet[learnChunkIdx];
+  const inp = document.getElementById('learn-type-inp');
+  const val = inp.value.trim().toLowerCase();
+  if(!val) return;
+  learnAnswered = true;
+  inp.disabled = true;
+  const correct = state.word.en;
+  const targets = correct.toLowerCase().split('/').map(s=>s.replace(/\(.*?\)/g,'').replace(/^(a|an|the|to)\s+/i,'').trim());
+  let ok;
+  if(state.level === 4) {
+    // Strict: must match exactly one target
+    ok = targets.some(t=>val===t);
+  } else {
+    // Lenient: close match
+    ok = targets.some(t=>val===t || (t.includes(val) && val.length >= Math.max(3, t.length-3)));
+  }
+  inp.className = 'learn-type-inp ' + (ok?'ok':'ko');
+  handleLearnResult(state, ok, correct);
+}
+
+function learnDontKnow() {
+  if(learnAnswered) return;
+  learnAnswered = true;
+  const state = learnChunkSet[learnChunkIdx];
+  document.getElementById('learn-type-inp').disabled = true;
+  handleLearnResult(state, false, state.word.en);
+}
+
+function handleLearnResult(state, ok, correct) {
+  if(ok) {
+    state.correctStreak++;
+    learnChunkCorrect++;
+    // Promote level
+    if(state.level < 4) state.level++;
+    // Mastered when level 4 correct
+    if(state.level > 4) {
+      state.level = 4;
+      state.bucket = 'mastered';
+    } else if(state.correctStreak >= 2 && state.level === 4) {
+      state.bucket = 'mastered';
+    } else if(state.bucket === 'new') {
+      state.bucket = 'learning';
+    }
+    setLearnFB(true, '✅ Correct ! ' + correct);
+    good(state.level * 3, `Niveau ${state.level} réussi !`);
+  } else {
+    state.wrongCount++;
+    state.correctStreak = 0;
+    // Demote level
+    if(state.level > 1) state.level--;
+    if(state.bucket === 'mastered') state.bucket = 'learning';
+    else state.bucket = 'learning';
+    // Re-inject into queue soon (2-3 positions ahead)
+    const insertAt = Math.min(learnChunkIdx + 2, learnChunkSet.length);
+    learnChunkSet.splice(insertAt, 0, state);
+    learnChunkTotal++;
+    setLearnFB(false, '❌ La réponse était : ' + correct);
+    bad();
+  }
+  updateBuckets();
+  document.getElementById('learn-next-btn').classList.add('show');
+}
+
+function setLearnFB(ok, msg) {
+  const fb = document.getElementById('learn-feedback');
+  fb.textContent = msg;
+  fb.className = 'learn-feedback show ' + (ok?'ok':'ko');
+}
+
+function learnNext() {
+  learnChunkIdx++;
+  renderLearnQ();
+}
+
+function showChunkDone() {
+  document.getElementById('learn-main').style.display='none';
+  document.getElementById('learn-chunk-done').classList.add('show');
+  document.getElementById('learn-complete').classList.remove('show');
+  const pct = learnChunkCorrect / learnChunkTotal;
+  document.getElementById('learn-chunk-score').textContent = learnChunkCorrect+'/'+learnChunkTotal;
+  const msgs = ['Continue, tu y arriveras !', 'Pas mal, continue !', 'Bien joué sur cette série !', 'Excellent sur cette série !'];
+  document.getElementById('learn-chunk-msg').textContent = msgs[Math.min(Math.floor(pct*4),3)];
+  updateBuckets();
+}
+
+function learnContinueChunk() {
+  document.getElementById('learn-chunk-done').classList.remove('show');
+  hideLearnScreens();
+  buildNextChunk();
+}
+
+function showComplete() {
+  document.getElementById('learn-main').style.display='none';
+  document.getElementById('learn-chunk-done').classList.remove('show');
+  document.getElementById('learn-complete').classList.add('show');
+  document.getElementById('learn-complete-sub').textContent = `Tous les ${learnState.length} mots sont maîtrisés ! Score total XP : ${xp}`;
+  boom(); good(100, 'Tout maîtrisé !');
 }
 
 /* ══════════════════════════════════════
