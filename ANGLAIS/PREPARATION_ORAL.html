@@ -1,70 +1,9 @@
-1. Les fondations scientifiques : Pourquoi ça marche ?
-Le mode Apprentissage ne se contente pas de te montrer des cartes au hasard. Il s'appuie sur deux piliers majeurs de la psychologie cognitive :
-
-Le Rappel Actif (Active Recall) : Contrairement à la relecture passive de tes notes, Quizlet te pose une question et t'oblige à aller chercher la réponse dans ta mémoire avant de te la montrer. Cet effort cérébral crée et renforce des connexions neuronales bien plus puissantes que la simple lecture.
-
-La Répétition Espacée (Spaced Repetition) : C'est le cœur du système. Le cerveau humain oublie les informations selon une courbe prévisible (la Courbe de l'oubli d'Ebbinghaus). Pour contrer cela, il faut réviser l'information juste au moment où on est sur le point de l'oublier. L'algorithme de Quizlet calcule ce moment précis pour chaque mot.
-
-2. L'algorithme de tri : Le système des "Catégories"
-Quand tu lances le mode Apprentissage, l'algorithme divise ta liste de mots en trois grandes catégories (ou "seaux") qui évoluent en temps réel :
-
-Restants / Nouveaux : Les termes que tu n'as pas encore vus.
-
-En cours d'apprentissage (Familiers) : Les termes que tu as vus et pour lesquels tu as donné une bonne réponse (souvent avec de l'aide), ou ceux que tu as ratés.
-
-Maîtrisés : Les termes auxquels tu as répondu correctement plusieurs fois d'affilée, sans aucune aide, et souvent en les tapant au clavier.
-
-Le placement des mots : Si tu réponds faux à un terme, l'algorithme le remet immédiatement dans la file d'attente à court terme. Tu le reverras dans les 2 à 3 prochaines questions. Si tu réponds juste, l'algorithme augmente le délai avant de te le remontrer. Un terme n'est classé "Maîtrisé" que lorsqu'il a survécu à des intervalles de temps de plus en plus longs.
-
-3. L'évolution de la difficulté (L'échafaudage cognitif)
-C'est là que le mode Apprentissage est particulièrement intelligent. Il ne te demande pas de taper une définition complexe de mémoire dès le premier essai. Il fait évoluer la difficulté de la question pour t'accompagner (ce qu'on appelle "l'échafaudage" en pédagogie) :
-
-Niveau 1 (Reconnaissance) : Au début, on te présente une carte (Flashcard) ou une question à Choix Multiples (QCM). Ton cerveau n'a besoin que de reconnaître la bonne réponse parmi d'autres. C'est facile et ça met en confiance.
-
-Niveau 2 (Rappel partiel) : Les QCM deviennent un peu plus difficiles, les options se ressemblent davantage.
-
-Niveau 3 (Production écrite) : Pour qu'un mot passe définitivement dans la catégorie "Maîtrisé", l'algorithme va te forcer à taper la réponse entière au clavier, sans aucune proposition. C'est le test ultime. Si tu te trompes d'une lettre, le mot redescend de niveau.
-
-4. Le fonctionnement par "Séries" (Chunking)
-Au lieu de t'envoyer une liste de 100 mots d'un coup, ce qui provoquerait une surcharge cognitive, Quizlet divise ta liste en petits groupes (généralement par séries de 5 à 7 termes).
-Il va te faire travailler ce petit groupe jusqu'à ce que tu sois à l'aise, puis il intègre 2 ou 3 nouveaux mots, tout en continuant de tester occasionnellement les anciens pour vérifier que tu ne les as pas oubliés. Cette méthode permet de maintenir ta concentration et de te donner un sentiment de progression constante.
-
-5. L'intégration de l'Intelligence Artificielle (Correction intelligente)
-Plus récemment, Quizlet a intégré de l'apprentissage automatique (Machine Learning) pour son option de Correction intelligente.
-Historiquement, si tu oubliais une virgule ou utilisais un synonyme, le système te comptait faux, ce qui était très frustrant. Aujourd'hui, l'algorithme est capable d'analyser le sens de ce que tu as tapé. S'il détecte que tu as compris le concept global, il te l'accorde, imitant ainsi la façon dont un vrai professeur corrigerait une copie.
-
-En résumé : Pourquoi c'est un outil redoutable ?
-Le mode Apprentissage réussit parce qu'il optimise ton temps de cerveau.
-Si tu étudiais seul sur une feuille de papier, tu passerais probablement autant de temps à réviser les mots que tu connais déjà qu'à réviser ceux sur lesquels tu butes. Quizlet élimine cette perte de temps. Il cache les mots que tu maîtrises pour concentrer 100 % de ton effort mental et de ton temps sur tes faiblesses exactes, jusqu'à ce que la liste entière devienne une seconde nature.
-
-
-
-
-
-
-
-
-
-
-
-Je voudrais que tu cree un site un peu comme ci apres, qui me permet d'apprendre des mots de base pour un oral que j'ai demain, je devrais decrit, le site doit réussir a m'apprendre, les mots de base, de liaison pour un oral genre qui, quoi ou comment, premier plan, je peut voir, dans un second temps, de plus, cepandant, on peut interprter cela comme… 
-
-Bref tout plien plein plein plein de mot comme ca a caler qui enrichissent notre oral, ca doit être facile a apprendre grace a la technique d'apprentissage précédement mentionné, et être riche, je veut un mode apprendtissage, des mot a remettre dan sune phrase, des exercices, bref plein de truc :
-
-
-
-
-
-
-
-code a t'inspirer :
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VOCAB·COSMOS — Apprendre l'Anglais</title>
+<title>VOCAB·ORAL — Préparation Oral Anglais</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -274,7 +213,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .q-opt.wrong-pick { background:rgba(248,113,113,0.08); border-color:var(--red); }
 .q-opt.wrong-pick .q-opt-letter { background:var(--red); color:#fff; }
 
-/* FIX: Utilisation de visibility et min-height pour empêcher le layout de sauter */
 .q-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-bottom:12px; visibility:hidden; opacity:0; min-height:42px; transition: opacity 0.3s ease; }
 .q-feedback.show { visibility:visible; opacity:1; }
 .q-feedback.ok { background:rgba(52,211,153,0.07); color:var(--green); border:1px solid rgba(52,211,153,0.2); }
@@ -284,7 +222,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .btn-main.show { display:block; animation:fadeIn 0.3s ease; }
 .btn-main:hover { transform:translateY(-2px); box-shadow:0 10px 36px rgba(74,90,255,0.45); }
 
-/* FIX: Bouton suivant du Quiz avec visibility pour réserver l'espace */
 #btn-next { display:block; visibility:hidden; opacity:0; transition: opacity 0.3s ease, transform 0.2s, box-shadow 0.2s; }
 #btn-next.show { visibility:visible; opacity:1; }
 
@@ -412,7 +349,7 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 #confetti { position:fixed; inset:0; pointer-events:none; z-index:500; }
 
 /* ═══════════════════════════════
-   LEARN MODE (Algorithme Quizlet)
+   LEARN MODE (Algorithme)
 ═══════════════════════════════ */
 .learn-dashboard { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:20px; }
 .learn-bucket { border-radius:14px; padding:16px 18px; text-align:center; border:1px solid transparent; transition:all 0.3s; }
@@ -458,13 +395,11 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .learn-type-btn.skip { background:var(--surface2); border:1px solid var(--border); color:var(--muted); }
 .learn-type-btn:hover { transform:translateY(-2px); filter:brightness(1.1); }
 
-/* FIX: Feedback de l'apprentissage fixe l'espace pour éviter les sauts */
 .learn-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-top:12px; visibility:hidden; opacity:0; min-height:42px; transition:opacity 0.3s ease; }
 .learn-feedback.show { visibility:visible; opacity:1; }
 .learn-feedback.ok { background:rgba(52,211,153,0.07); color:var(--green); border:1px solid rgba(52,211,153,0.2); }
 .learn-feedback.ko { background:rgba(248,113,113,0.07); color:var(--red); border:1px solid rgba(248,113,113,0.2); }
 
-/* FIX: Bouton suivant d'apprentissage avec visibility pour éviter le redimensionnement */
 .learn-next-btn { width:100%; padding:15px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; box-shadow:0 6px 24px rgba(74,90,255,0.3); transition:all 0.2s; margin-top:12px; visibility:hidden; opacity:0; display:block; }
 .learn-next-btn.show { visibility:visible; opacity:1; }
 .learn-next-btn:hover { transform:translateY(-2px); }
@@ -529,8 +464,8 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
     <div class="orbit-dot"></div>
     <div class="orbit-dot"></div>
   </div>
-  <h1><span class="accent">VOCAB</span>·<span class="accent2">COSMOS</span></h1>
-  <div class="tagline">Français <em>→</em> Anglais · Vocabulaire Thématique</div>
+  <h1><span class="accent">VOCAB</span>·<span class="accent2">ORAL</span></h1>
+  <div class="tagline">Français <em>→</em> Anglais · Préparation Oral</div>
   <div class="xp-bar-wrap">
     <div class="xp-labels"><span>XP Progression</span><span id="xp-lbl">0 / 600 XP</span></div>
     <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
@@ -562,12 +497,11 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
   <p class="section-desc">Algorithme intelligent : répétition espacée + escalier de difficulté. Les mots difficiles reviennent plus souvent, les mots maîtrisés disparaissent.</p>
 
   <div class="learn-cat-row" id="learn-cats">
-    <div class="cat-pill active" onclick="pickLearnCat('all',this)">Tout (80+ mots)</div>
-    <div class="cat-pill" onclick="pickLearnCat('espace',this)">🚀 Espace</div>
-    <div class="cat-pill" onclick="pickLearnCat('societe',this)">🌍 Société</div>
-    <div class="cat-pill" onclick="pickLearnCat('religion',this)">🕌 Religion</div>
-    <div class="cat-pill" onclick="pickLearnCat('medias',this)">📺 Mode</div>
-    <div class="cat-pill" onclick="pickLearnCat('divers',this)">🔤 Divers</div>
+    <div class="cat-pill active" onclick="pickLearnCat('all',this)">Tout</div>
+    <div class="cat-pill" onclick="pickLearnCat('questions',this)">❓ Questions</div>
+    <div class="cat-pill" onclick="pickLearnCat('description',this)">🖼️ Description</div>
+    <div class="cat-pill" onclick="pickLearnCat('liaisons',this)">🔗 Liaisons</div>
+    <div class="cat-pill" onclick="pickLearnCat('interpretation',this)">💡 Interprétation</div>
   </div>
 
   <div class="learn-dashboard">
@@ -635,11 +569,10 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 
   <div class="cat-row" id="fc-cats">
     <div class="cat-pill active" onclick="pickCat('all',this)">Tout</div>
-    <div class="cat-pill" onclick="pickCat('espace',this)">🚀 Espace</div>
-    <div class="cat-pill" onclick="pickCat('societe',this)">🌍 Société</div>
-    <div class="cat-pill" onclick="pickCat('religion',this)">🕌 Religion & Culture</div>
-    <div class="cat-pill" onclick="pickCat('medias',this)">📺 Médias & Société</div>
-    <div class="cat-pill" onclick="pickCat('divers',this)">🔤 Divers</div>
+    <div class="cat-pill" onclick="pickCat('questions',this)">❓ Questions</div>
+    <div class="cat-pill" onclick="pickCat('description',this)">🖼️ Description</div>
+    <div class="cat-pill" onclick="pickCat('liaisons',this)">🔗 Liaisons</div>
+    <div class="cat-pill" onclick="pickCat('interpretation',this)">💡 Interprétation</div>
   </div>
 
   <div class="fc-mode-toggle">
@@ -713,11 +646,10 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 
   <div class="cat-row" id="typo-cats">
     <div class="cat-pill active" onclick="pickTypoCat('all',this)">Tout</div>
-    <div class="cat-pill" onclick="pickTypoCat('espace',this)">🚀 Espace</div>
-    <div class="cat-pill" onclick="pickTypoCat('societe',this)">🌍 Société</div>
-    <div class="cat-pill" onclick="pickTypoCat('religion',this)">🕌 Religion</div>
-    <div class="cat-pill" onclick="pickTypoCat('medias',this)">📺 Médias</div>
-    <div class="cat-pill" onclick="pickTypoCat('divers',this)">🔤 Divers</div>
+    <div class="cat-pill" onclick="pickTypoCat('questions',this)">❓ Questions</div>
+    <div class="cat-pill" onclick="pickTypoCat('description',this)">🖼️ Description</div>
+    <div class="cat-pill" onclick="pickTypoCat('liaisons',this)">🔗 Liaisons</div>
+    <div class="cat-pill" onclick="pickTypoCat('interpretation',this)">💡 Interprétation</div>
   </div>
 
   <div class="typo-box">
@@ -739,7 +671,7 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 
 <section class="section" id="s-fill">
   <div class="section-title">✍️ Texte à <span class="acc">Trous</span></div>
-  <p class="section-desc">Complétez le texte avec les mots anglais manquants.</p>
+  <p class="section-desc">Complétez les phrases types de votre oral avec les mots manquants.</p>
 
   <div class="fill-hint-box">
     Mots à placer : <strong id="fill-pool"></strong>
@@ -779,13 +711,13 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 
 <section class="section" id="s-exam">
   <div class="section-title">🎓 <span class="acc">Exam</span> Blanc</div>
-  <p class="section-desc">Traduisez les mots français en anglais, sans aide.</p>
+  <p class="section-desc">Traduisez les mots français en anglais, sans aide pour vérifier que vous êtes prêt.</p>
 
   <div class="mission-banner">
-    <div class="mission-icon">🛸</div>
+    <div class="mission-icon">🎤</div>
     <div>
-      <div class="mission-title">MISSION TRADUCTION</div>
-      <div class="mission-sub">12 mots · Français → Anglais</div>
+      <div class="mission-title">MISSION ORAL</div>
+      <div class="mission-sub">12 mots de structure · Français → Anglais</div>
     </div>
   </div>
 
@@ -802,7 +734,7 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 
 <section class="section" id="s-vocab">
   <div class="section-title">📚 <span class="acc">Lexique</span></div>
-  <p class="section-desc">Tout le vocabulaire organisé par thème. Cliquez une catégorie ou cherchez un mot.</p>
+  <p class="section-desc">Tout le vocabulaire organisé par thème pour construire votre présentation.</p>
 
   <input class="lex-search" id="lex-search" type="text" placeholder="🔍  Chercher un mot (fr ou en)…" oninput="searchVocab(this.value)" autocomplete="off">
 
@@ -833,106 +765,71 @@ document.addEventListener('mousemove', e => {
 });
 
 /* ══════════════════════════════════════
-   VOCABULARY DATA
+   VOCABULARY DATA (ADAPTED FOR ORAL EXAM)
 ══════════════════════════════════════ */
 const VOCAB = {
-  espace: {
-    name: "L'Espace", icon: "🚀", color: "c0",
+  questions: {
+    name: "Questions de base", icon: "❓", color: "c0",
     words: [
-      { fr: "un astronaute / un cosmonaute / un spationaute", en: "an astronaut / a cosmonaut / a spationaut" },
-      { fr: "une fusée", en: "a rocket" },
-      { fr: "un vaisseau spatial", en: "a spaceship / a spacecraft" },
-      { fr: "une navette inter-galactique", en: "a starship" },
-      { fr: "une navette spatiale", en: "a space shuttle" },
-      { fr: "un lancement", en: "a launch" },
-      { fr: "une orbite", en: "an orbit" },
-      { fr: "l'apesanteur", en: "zero-gravity / weightlessness" },
-      { fr: "une année lumière", en: "a light-year" },
-      { fr: "une combinaison spatiale", en: "a spacesuit" },
-      { fr: "un casque", en: "a helmet" },
-      { fr: "un propulseur", en: "a thruster" },
-      { fr: "un équipage", en: "a crew" },
-      { fr: "un ingénieur", en: "an engineer" },
-      { fr: "un compte à rebours", en: "a countdown" },
-      { fr: "un décollage", en: "a take-off / a lift off" },
-      { fr: "un atterrissage", en: "a landing" },
-      { fr: "un échantillon", en: "a sample" },
-      { fr: "un champ gravitationnel", en: "a gravitational field" },
-      { fr: "le vide", en: "vacuum" },
-      { fr: "la voie lactée", en: "the Milky Way" },
-      { fr: "un véhicule d'exploration", en: "a rover" },
-      { fr: "une rampe de lancement", en: "a launch pad" },
-      { fr: "la vie extraterrestre", en: "alien life" },
-      { fr: "un OVNI", en: "a UFO (Unidentified Flying Object)" },
+      { fr: "qui", en: "who" },
+      { fr: "quoi / que", en: "what" },
+      { fr: "où", en: "where" },
+      { fr: "quand", en: "when" },
+      { fr: "pourquoi", en: "why" },
+      { fr: "comment", en: "how" },
+      { fr: "combien (dénombrable)", en: "how many" },
+      { fr: "combien (indénombrable)", en: "how much" },
+      { fr: "à qui (possession)", en: "whose" },
+      { fr: "lequel / laquelle", en: "which" }
     ]
   },
-  societe: {
-    name: "Société & Économie", icon: "🌍", color: "c1",
+  description: {
+    name: "Description d'image", icon: "🖼️", color: "c1",
     words: [
-      { fr: "la croissance", en: "growth" },
-      { fr: "un creuset (de diversité)", en: "a melting pot" },
-      { fr: "la mondialisation", en: "globalization / globalisation" },
-      { fr: "le PIB", en: "GDP (Gross Domestic Product)" },
-      { fr: "l'informatique", en: "IT" },
-      { fr: "la censure", en: "censorship" },
-      { fr: "le népotisme", en: "nepotism" },
-      { fr: "grimper l'échelle sociale", en: "(to) climb the social ladder" },
-      { fr: "les violences domestiques", en: "domestic abuse" },
-      { fr: "se vanter", en: "(to show) off" },
-      { fr: "un bidonville", en: "a slum" },
-      { fr: "un intellectuel", en: "a scholar" },
-      { fr: "une percée / une avancée", en: "a breakthrough" },
-      { fr: "les matières premières", en: "raw materials" },
-      { fr: "élargir", en: "(to) widen" },
-      { fr: "une poignée de", en: "a handful of" },
-      { fr: "menacer", en: "(to) threaten" },
-      { fr: "une menace", en: "a threat" },
-      { fr: "un coup de pub", en: "a publicity stunt" },
-      { fr: "au-delà", en: "beyond" },
-      { fr: "récolter", en: "(to) harvest" },
-      { fr: "le minerai", en: "ores" },
-      { fr: "un défenseur (d'une cause)", en: "an advocate" },
-      { fr: "soulager", en: "(to) relieve" },
-      { fr: "dépouiller / priver", en: "(to) strip" },
-      { fr: "aride / stérile", en: "barren" },
+      { fr: "au premier plan", en: "in the foreground" },
+      { fr: "à l'arrière-plan", en: "in the background" },
+      { fr: "au centre / au milieu", en: "in the middle / in the center" },
+      { fr: "en haut", en: "at the top" },
+      { fr: "en bas", en: "at the bottom" },
+      { fr: "sur la gauche", en: "on the left" },
+      { fr: "sur la droite", en: "on the right" },
+      { fr: "je peux voir", en: "I can see" },
+      { fr: "il y a (singulier)", en: "there is" },
+      { fr: "il y a (pluriel)", en: "there are" },
+      { fr: "le document est constitué de", en: "the document consists of" },
+      { fr: "ce document est une photo", en: "this document is a picture" }
     ]
   },
-  religion: {
-    name: "Religion & Culture", icon: "🕌", color: "c2",
+  liaisons: {
+    name: "Mots de liaison", icon: "🔗", color: "c2",
     words: [
-      { fr: "le hindi (langue)", en: "Hindi" },
-      { fr: "hindou (religion)", en: "Hindu" },
-      { fr: "indien (nationalité)", en: "Indian" },
-      { fr: "vénérer / adorer", en: "(to) worship" },
-      { fr: "sacré", en: "sacred / holy" },
-      { fr: "un prêtre", en: "a priest" },
-      { fr: "une sage-femme", en: "a midwife" },
-      { fr: "un avocat (le métier)", en: "a lawyer" },
-      { fr: "un avocat (à manger)", en: "an avocado" },
-      { fr: "conseiller", en: "(to) advise" },
-      { fr: "des conseils (nom, indénombrable)", en: "advice (uncountable)" },
-      { fr: "mettre l'accent sur", en: "(to) put the emphasis on / (to) emphasize" },
+      { fr: "tout d'abord / pour commencer", en: "first of all / firstly / to begin with" },
+      { fr: "dans un second temps / ensuite", en: "secondly / then" },
+      { fr: "de plus / en outre", en: "furthermore / moreover / in addition" },
+      { fr: "cependant", en: "however" },
+      { fr: "néanmoins", en: "nevertheless" },
+      { fr: "d'une part... d'autre part", en: "on the one hand... on the other hand" },
+      { fr: "en fait / en réalité", en: "actually / in fact" },
+      { fr: "par conséquent / donc", en: "therefore / consequently / so" },
+      { fr: "contrairement à", en: "unlike / contrary to" },
+      { fr: "bien que", en: "although / even though" },
+      { fr: "pour conclure / en conclusion", en: "to conclude / in conclusion" }
     ]
   },
-  medias: {
-    name: "Mode & Médias", icon: "📺", color: "c3",
+  interpretation: {
+    name: "Interprétation & Avis", icon: "💡", color: "c3",
     words: [
-      { fr: "un motif", en: "a pattern" },
-      { fr: "un imprimé", en: "a print" },
-      { fr: "le béton", en: "concrete" },
-      { fr: "la notoriété / influence", en: "clout" },
-      { fr: "un défilé de mode", en: "a runway show" },
-      { fr: "un mélange (harmonieux)", en: "a blend" },
-      { fr: "la luxure", en: "lust" },
-      { fr: "(dé)verser", en: "(to) pour" },
-    ]
-  },
-  divers: {
-    name: "Divers", icon: "🔤", color: "c4",
-    words: [
-      { fr: "une bobine (de film)", en: "a reel" },
-      { fr: "un film", en: "a film / a movie" },
-      { fr: "un réalisateur", en: "a director" },
+      { fr: "on peut interpréter cela comme", en: "we can interpret this as" },
+      { fr: "à mon avis", en: "in my opinion / to my mind" },
+      { fr: "je pense que", en: "I think that" },
+      { fr: "je crois que", en: "I believe that" },
+      { fr: "il semble que", en: "it seems that" },
+      { fr: "cela montre que", en: "this shows that" },
+      { fr: "cela souligne", en: "this highlights / this emphasizes" },
+      { fr: "cela suggère que", en: "this suggests that" },
+      { fr: "le but est de", en: "the aim is to / the goal is to" },
+      { fr: "je suis d'accord avec", en: "I agree with" },
+      { fr: "je ne suis pas d'accord avec", en: "I disagree with" }
     ]
   }
 };
@@ -940,14 +837,14 @@ const VOCAB = {
 const ALL = [];
 Object.keys(VOCAB).forEach(k => VOCAB[k].words.forEach(w => ALL.push({...w, cat: k})));
 
-/* FIX: Fonction ultra-robuste de nettoyage des chaînes */
+/* Fonction de nettoyage des chaînes */
 function normalizeStr(str) {
   if (!str) return "";
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Enlève les accents
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") 
             .toLowerCase()
-            .replace(/[()]/g, "") // Enlève les parenthèses mais garde le texte
-            .replace(/\b(a|an|the|to)\b/g, "") // Enlève les articles et le "to"
-            .replace(/[^a-z0-9]/g, "") // Supprime la ponctuation et les espaces
+            .replace(/[()]/g, "") 
+            .replace(/\b(a|an|the|to)\b/g, "") 
+            .replace(/[^a-z0-9]/g, "") 
             .trim();
 }
 
@@ -1006,7 +903,7 @@ let learnAnswered = false;
 let learnChunkCorrect = 0;
 let learnChunkTotal = 0;
 const CHUNK_SIZE = 6;
-const catLabelsLearn = { espace:'🚀 Espace', societe:'🌍 Société', religion:'🕌 Religion', medias:'📺 Mode', divers:'🔤 Divers', all:'Tout' };
+const catLabelsLearn = { questions:'❓ Questions', description:'🖼️ Description', liaisons:'🔗 Liaisons', interpretation:'💡 Interprétation', all:'Tout' };
 
 function pickLearnCat(cat, el) {
   document.querySelectorAll('#learn-cats .cat-pill').forEach(p=>p.classList.remove('active'));
@@ -1154,7 +1051,6 @@ function submitLearnType() {
   inp.disabled = true;
   
   const correct = state.word.en;
-  /* FIX: Utilisation de notre fonction de normalisation stricte et intelligente */
   const normVal = normalizeStr(val);
   const targets = correct.split('/').map(normalizeStr);
   
@@ -1282,7 +1178,7 @@ function renderFC() {
     return;
   }
   const w=deck[fcIdx];
-  const catNames = { espace:'🚀 Espace', societe:'🌍 Société', religion:'🕌 Religion', medias:'📺 Mode', divers:'🔤 Divers' };
+  const catNames = { questions:'❓ Questions', description:'🖼️ Description', liaisons:'🔗 Liaisons', interpretation:'💡 Interprétation' };
   if(fcMode==='fr-en') {
     document.getElementById('fc-q').textContent = w.fr;
     document.getElementById('fc-a').textContent = w.en;
@@ -1342,7 +1238,7 @@ function renderQ() {
   qDone=false;
   const w=qDeck[qIdx];
   const frToEn=Math.random()>0.5;
-  const catLabels={ espace:'🚀 Espace', societe:'🌍 Société', religion:'🕌 Religion', medias:'📺 Mode', divers:'🔤 Divers'};
+  const catLabels={ questions:'❓ Questions', description:'🖼️ Description', liaisons:'🔗 Liaisons', interpretation:'💡 Interprétation'};
   document.getElementById('q-dir').textContent = frToEn ? 'FR → EN' : 'EN → FR';
   document.getElementById('q-word').textContent = frToEn ? w.fr : w.en;
   document.getElementById('q-hint').textContent = '';
@@ -1419,7 +1315,7 @@ function endQuiz() {
   const sc=document.getElementById('end-score');
   sc.textContent=qScore+'/12';
   sc.className='end-score '+(qScore>=10?'s-great':qScore>=6?'s-mid':'s-low');
-  const msgs=['🌑 Continue à réviser…','🌙 En bonne voie !','⭐ Très bien !','🚀 MISSION ACCOMPLIE !'];
+  const msgs=['🌑 Continue à réviser…','🌙 En bonne voie !','⭐ Très bien !','🚀 PRÊT POUR L\'ORAL !'];
   document.getElementById('end-msg').textContent=msgs[Math.min(Math.floor(qScore/3),3)];
   if(qScore>=11) boom();
 }
@@ -1469,7 +1365,6 @@ function checkTypo() {
   const val=document.getElementById('typo-inp').value;
   if(!val.trim()) return;
   
-  /* FIX: Utilisation de normalizeStr */
   const normVal = normalizeStr(val);
   const targets = w.en.split('/').map(normalizeStr);
   const ok = targets.some(t => normVal === t || (t.length >= 3 && t.includes(normVal)));
@@ -1497,28 +1392,28 @@ buildTypoDeck();
 ══════════════════════════════════════ */
 const FILLS = [
   {
-    text: "Scientists launched a __0__ to explore Mars. The __1__ wore her __2__ during the spacewalk. The rocket left the __3__ at dawn. The crew experienced __4__ for the first time.",
-    answers: ["rover","astronaut","spacesuit","launch pad","zero-gravity"],
-    fr_answers: ["véhicule d'exploration","astronaute","combinaison spatiale","rampe de lancement","apesanteur"],
-    pool: "rover, astronaut, spacesuit, launch pad, zero-gravity"
+    text: "__0__, __1__ a large group of people walking together. __2__, there is a tall modern building. __3__, the sky is dark and cloudy.",
+    answers: ["In the foreground", "I can see", "In the background", "Furthermore"],
+    fr_answers: ["Au premier plan", "je peux voir", "À l'arrière-plan", "De plus"],
+    pool: "In the foreground, I can see, In the background, Furthermore"
   },
   {
-    text: "The country's __0__ has been rising steadily. However, censorship and __1__ are serious issues. Many people live in __2__ on the outskirts. The government needs a real __3__ to solve poverty. A __4__ of citizens still support the policy.",
-    answers: ["growth","nepotism","slums","breakthrough","handful"],
-    fr_answers: ["croissance","népotisme","bidonvilles","percée","poignée"],
-    pool: "growth, nepotism, slums, breakthrough, handful"
+    text: "__0__, this document is very interesting. __1__, it doesn't give us all the answers. __2__, we must analyze the statistics carefully.",
+    answers: ["First of all", "However", "Therefore"],
+    fr_answers: ["Tout d'abord", "Cependant", "Par conséquent"],
+    pool: "First of all, However, Therefore"
   },
   {
-    text: "The fashion show featured a bold __0__ on every dress. The designer used a mix of __1__ and silk. Her social media __2__ helped promote the __3__. The collection was a beautiful __4__ of cultures.",
-    answers: ["pattern","concrete","clout","runway show","blend"],
-    fr_answers: ["motif","béton","notoriété","défilé de mode","mélange"],
-    pool: "pattern, concrete, clout, runway show, blend"
+    text: "The author uses dark colors. __0__ a feeling of sadness. __1__, it seems to me that the artist is criticizing modern life. __2__, this artwork is a masterpiece.",
+    answers: ["We can interpret this as", "In my opinion", "To conclude"],
+    fr_answers: ["On peut interpréter cela comme", "À mon avis", "Pour conclure"],
+    pool: "We can interpret this as, In my opinion, To conclude"
   },
   {
-    text: "In India, it is important to distinguish __0__, the language, from __1__, the religion. Many people __2__ sacred deities in temples. The __3__ gave a sermon on holy texts. The country's __4__ has grown rapidly.",
-    answers: ["Hindi","Hinduism","worship","priest","GDP"],
-    fr_answers: ["hindi","hindouisme","vénèrent","prêtre","PIB"],
-    pool: "Hindi, Hinduism, worship, priest, GDP"
+    text: "You can see the title __0__ of the page and the source __1__. __2__ some information missing in this text.",
+    answers: ["at the top", "at the bottom", "There is"],
+    fr_answers: ["en haut", "en bas", "Il y a"],
+    pool: "at the top, at the bottom, There is"
   }
 ];
 let fillI=0;
@@ -1537,7 +1432,6 @@ function checkFill(){
     const inp=document.getElementById(`spi${i}`);
     const sp=document.getElementById(`spb${i}`);
     
-    /* FIX: Tolérance aussi sur le texte à trous */
     const val = normalizeStr(inp.value);
     const ansNorm = normalizeStr(ans);
     
@@ -1657,7 +1551,6 @@ function submitExam(){
     const inp=document.getElementById(`ei${i}`);
     const val=inp.value;
     
-    /* FIX: Utilisation de normalizeStr */
     const normVal = normalizeStr(val);
     const targets = w.en.split('/').map(normalizeStr);
     const correct = targets.some(t => normVal === t || (t.length >= 3 && t.includes(normVal)));
@@ -1725,7 +1618,7 @@ function searchVocab(q) {
   const sr=document.getElementById('search-results');
   const lexView=document.getElementById('lex-cat-view');
   if(!q.trim()){sr.style.display='none'; lexView.style.display='block'; return;}
-  const lq=normalizeStr(q); // Recherche via fonction normalisée
+  const lq=normalizeStr(q); 
   const results=ALL.filter(w=>normalizeStr(w.fr).includes(lq)||normalizeStr(w.en).includes(lq));
   sr.style.display='block'; lexView.style.display='none';
   if(!results.length){document.getElementById('search-rows').innerHTML='<div style="color:var(--muted);font-family:DM Mono,monospace;font-size:13px;padding:12px;">Aucun résultat.</div>';return;}
