@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP-EXPERT — Preparación Oral 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Playfair+Display:wght@700;900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d0f14;
+            --surface: #161b22;
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #ff4757; /* Rouge espagnol */
+            --gold: #ffa502;
+            --blue: #2e86de;
+            --text: #f1f2f6;
+            --muted: #a4b0be;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; overflow-x: hidden; }
+
+        /* HEADER */
+        header { padding: 40px; text-align: center; border-bottom: 2px solid var(--accent); background: linear-gradient(180deg, rgba(255,71,87,0.1) 0%, transparent 100%); }
+        h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; letter-spacing: 2px; }
+        h1 span { color: var(--accent); }
+        .subtitle { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; font-size: 0.8rem; margin-top: 10px; }
+
+        /* NAV */
+        nav { display: flex; justify-content: center; gap: 15px; padding: 20px; sticky: top; background: var(--bg); z-index: 100; }
+        .nav-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 10px 20px; cursor: pointer; border-radius: 5px; transition: 0.3s; text-transform: uppercase; font-size: 0.7rem; }
+        .nav-btn:hover, .nav-btn.active { background: var(--accent); border-color: var(--accent); color: white; box-shadow: 0 0 15px rgba(255,71,87,0.4); }
+
+        main { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* SECTIONS */
+        section { display: none; animation: fadeIn 0.5s ease; }
+        section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* CARDS */
+        .card { background: var(--surface); border-radius: 12px; padding: 25px; margin-bottom: 20px; border-left: 5px solid var(--accent); }
+        .quote { font-style: italic; font-size: 1.2rem; color: #fff; margin-bottom: 15px; position: relative; padding-left: 20px; }
+        .quote::before { content: "«"; position: absolute; left: 0; color: var(--gold); font-size: 2rem; top: -10px; }
+        .author { text-align: right; color: var(--gold); font-weight: bold; font-size: 0.9rem; }
+        
+        .analysis { margin-top: 20px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; }
+        .analysis h4 { color: var(--blue); margin-bottom: 10px; text-transform: uppercase; font-size: 0.8rem; }
+        
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 20px; }
+        .vocab-item { background: #000; padding: 10px; border-radius: 4px; border: 1px solid var(--border); }
+        .vocab-item b { color: var(--accent); }
+
+        /* QUIZ */
+        .quiz-container { text-align: center; padding: 40px; }
+        .quiz-question { font-size: 1.5rem; margin-bottom: 30px; }
+        .options { display: grid; gap: 10px; max-width: 500px; margin: 0 auto; }
+        .option { background: var(--surface); border: 1px solid var(--border); padding: 15px; cursor: pointer; border-radius: 8px; }
+        .option:hover { background: var(--blue); }
+
+        .image-placeholder { width: 100%; height: 250px; background: #333; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin: 15px 0; color: #666; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>OBJETIVO <span>SELECTIVIDAD</span></h1>
+    <div class="subtitle">Examen Oral 2026 — Diversidad & Ficción</div>
+</header>
+
+<nav>
+    <button class="nav-btn active" onclick="showTab('axe1')">Axe 1: Diversidad</button>
+    <button class="nav-btn" onclick="showTab('axe2')">Axe 2: Ficción</button>
+    <button class="nav-btn" onclick="showTab('struct')">Estructura & Frases</button>
+    <button class="nav-btn" onclick="showTab('quiz')">Entrenamiento Quiz</button>
+</nav>
+
+<main>
+    <section id="axe1" class="active">
+        <h2 style="color: var(--gold); margin-bottom: 20px;">Eje: Diversidad e Inclusión</h2>
+        
+        <div class="card">
+            <div class="quote">El respeto a la diversidad es un pilar fundamental en la erradicación del racismo, la xenofobia y la intolerancia.</div>
+            <div class="author">Rigoberta Menchú (Premio Nobel de la Paz)</div>
+            <div class="analysis">
+                <h4>Puntos Clave para el Oral:</h4>
+                <p>• Habla de la **educación** como herramienta de cambio.<br>
+                   • Usa la palabra **"Imprescindible"** (indispensable) para calificar el respeto.<br>
+                   • Relaciona con la campaña "Mézclate" para mostrar una sociedad plural.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="quote">25 de Julio: Día Internacional de la Mujer Afrolatina, Afrocaribeña.</div>
+            <div class="image-placeholder">Visualiza: Mujer con rostro dividido (Jennifer Urrutia)</div>
+            <div class="analysis">
+                <h4>Vocabulario Visual:</h4>
+                <div class="vocab-grid">
+                    <div class="vocab-item"><b>Trata de esclavos:</b> traite des esclaves</div>
+                    <div class="vocab-item"><b>Reivindicación:</b> revendication</div>
+                    <div class="vocab-item"><b>Lucha:</b> lutte</div>
+                    <div class="vocab-item"><b>Orgullo:</b> fierté</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="quote">Isabella Springmuhl: Diseñadora de moda con Síndrome de Down.</div>
+            <p>Ejemplo perfecto de **superación** y de que el talento no tiene barreras.</p>
+        </div>
+    </section>
+
+    <section id="axe2">
+        <h2 style="color: var(--blue); margin-bottom: 20px;">Eje: Ficciones y Realidades</h2>
+        
+        <div class="card">
+            <div class="quote">Uno es indudablemente más rico después de la lectura.</div>
+            <div class="author">Adolfo Bioy Casares</div>
+            <div class="analysis">
+                <h4>Argumentos:</h4>
+                <p>• Los libros permiten vivir **experiencias ajenas**.<br>
+                   • La lectura es un viaje sin moverse de casa (**"viaje inmóvil"**).<br>
+                   • Abre la mente y desarrolla la **empatía**.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="quote">Terminar una serie es como romper con alguien (sufres de todo).</div>
+            <div class="image-placeholder">Visualiza: Comic de "Pierna Cruzada" (Ira, Tristeza, Aceptación)</div>
+            <div class="analysis">
+                <h4>Vocabulario de las Series:</h4>
+                <div class="vocab-grid">
+                    <div class="vocab-item"><b>Seriefilia:</b> addiction aux séries</div>
+                    <div class="vocab-item"><b>Convivencia:</b> cohabitation</div>
+                    <div class="vocab-item"><b>Temporada:</b> saison</div>
+                    <div class="vocab-item"><b>Ruptura:</b> rupture</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="quote">Es imposible separar realidad y ficción, todo es real y todo es imaginario.</div>
+            <div class="author">Juan Jacinto Muñoz Rengel</div>
+        </div>
+    </section>
+
+    <section id="struct">
+        <h2 style="margin-bottom: 20px;">Frases de Oro para el Oral</h2>
+        
+        <div class="card" style="border-left-color: var(--blue);">
+            <h4>Para Introducir:</h4>
+            <p>• <b>"Voy a presentar el eje..."</b> (Je vais présenter l'axe...)<br>
+               • <b>"Este documento ilustra perfectamente la idea de..."</b> (Ce document illustre parfaitement l'idée de...)<br>
+               • <b>"En primer lugar, podemos observar que..."</b> (En premier lieu, on peut observer que...)</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--gold);">
+            <h4>Para dar tu opinión:</h4>
+            <p>• <b>"Desde mi punto de vista..."</b> (De mon point de vue...)<br>
+               • <b>"Lo que me llama la atención es..."</b> (Ce qui m'attire l'attention c'est...)<br>
+               • <b>"Coincido con la cita de Rigoberta Menchú porque..."</b> (Je suis d'accord avec la citation de... car...)</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--accent);">
+            <h4>Para concluir:</h4>
+            <p>• <b>"Para concluir, diría que..."</b> (Pour conclure, je dirais que...)<br>
+               • <b>"En resumidas cuentas..."</b> (En fin de compte...)</p>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <div class="quiz-container">
+            <div id="quiz-box">
+                <p class="quiz-question" id="q-text">Carga un eje para empezar...</p>
+                <div class="options" id="q-options">
+                    </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    function showTab(tabId) {
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+        
+        if(tabId === 'quiz') startQuiz();
+    }
+
+    const quizData = [
+        { q: "¿Quién dijo que el respeto es un pilar fundamental?", a: "Rigoberta Menchú", o: ["Letizia Ortiz", "Rigoberta Menchú", "Adolfo Bioy Casares"] },
+        { q: "¿Qué significa 'Lograr' en francés?", a: "Réussir", o: ["Lire", "Réussir", "Gagner"] },
+        { q: "¿Qué autor habla de la riqueza después de la lectura?", a: "Bioy Casares", o: ["Bioy Casares", "Enrique Lynch", "Nico Cartoon"] },
+        { q: "¿Qué se celebra el 25 de julio?", a: "Día de la mujer afrolatina", o: ["Día del libro", "Día de la mujer afrolatina", "Día contra el racismo"] }
+    ];
+
+    function startQuiz() {
+        const item = quizData[Math.floor(Math.random() * quizData.length)];
+        document.getElementById('q-text').innerText = item.q;
+        const optContainer = document.getElementById('q-options');
+        optContainer.innerHTML = '';
+        item.o.forEach(opt => {
+            const btn = document.createElement('div');
+            btn.className = 'option';
+            btn.innerText = opt;
+            btn.onclick = () => {
+                if(opt === item.a) {
+                    btn.style.background = '#2ecc71';
+                    setTimeout(startQuiz, 1000);
+                } else {
+                    btn.style.background = '#e74c3c';
+                }
+            };
+            optContainer.appendChild(btn);
+        });
+    }
+</script>
+
+</body>
+</html>
