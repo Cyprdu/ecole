@@ -11,9 +11,9 @@
   --surface: #2d1433;
   --surface2: #3e1c47;
   --border: rgba(255, 140, 120, 0.15);
-  --blue: #ff7b54; /* Orange/Coral accent */
+  --blue: #ff7b54; 
   --blue2: #ff5232;
-  --purple: #ffb84d; /* Yellow accent */
+  --purple: #ffb84d; 
   --pink: #ff6b81;
   --cyan: #4bcffa;
   --gold: #ffdd59;
@@ -131,7 +131,73 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .section-desc { font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); margin-bottom:28px; line-height:1.7; }
 
 /* ═══════════════════════════════
-   S1 FLASHCARDS
+   MODE APPRENTISSAGE (QUIZLET ALGO)
+═══════════════════════════════ */
+.learn-dashboard { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:20px; }
+.learn-bucket { border-radius:14px; padding:16px 18px; text-align:center; border:1px solid transparent; transition:all 0.3s; }
+.learn-bucket.b-new { background:rgba(255,123,84,0.1); border-color:rgba(255,123,84,0.3); }
+.learn-bucket.b-learning { background:rgba(255,221,89,0.1); border-color:rgba(255,221,89,0.3); }
+.learn-bucket.b-mastered { background:rgba(11,232,129,0.1); border-color:rgba(11,232,129,0.3); }
+.learn-bucket-count { font-family:'Playfair Display',serif; font-size:40px; font-weight:900; line-height:1; }
+.b-new .learn-bucket-count { color:var(--blue); }
+.b-learning .learn-bucket-count { color:var(--gold); }
+.b-mastered .learn-bucket-count { color:var(--green); }
+.learn-bucket-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-top:4px; }
+.learn-progress-bar { height:5px; border-radius:100px; background:rgba(255,255,255,0.06); margin-bottom:22px; display:flex; overflow:hidden; }
+.lp-new { background:var(--blue2); transition:width 0.5s; }
+.lp-learning { background:var(--gold); transition:width 0.5s; }
+.lp-mastered { background:var(--green); transition:width 0.5s; }
+.learn-level-badge { display:inline-block; margin-bottom:14px; background:var(--surface2); border:1px solid var(--border); border-radius:20px; padding:4px 14px; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; }
+.learn-level-badge.lvl1 { color:var(--blue); border-color:rgba(255,123,84,0.4); }
+.learn-level-badge.lvl2 { color:var(--gold); border-color:rgba(255,221,89,0.4); }
+.learn-level-badge.lvl3 { color:var(--purple); border-color:rgba(255,184,77,0.4); }
+.learn-level-badge.lvl4 { color:var(--green); border-color:rgba(11,232,129,0.4); }
+.learn-q-box { background:var(--surface); border:1px solid rgba(255,123,84,0.2); border-radius:20px; padding:36px; text-align:center; position:relative; overflow:hidden; margin-bottom:16px; }
+.learn-q-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--blue),transparent); }
+.learn-q-word { font-family:'Playfair Display',serif; font-size:clamp(26px,5vw,50px); font-weight:700; color:var(--cream); line-height:1.2; margin-bottom:8px; }
+.learn-q-hint { font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); }
+.learn-q-cat { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--blue); text-transform:uppercase; margin-top:4px; }
+.learn-opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px; }
+.learn-opt { background:var(--surface); border:1px solid rgba(255,123,84,0.15); border-radius:12px; padding:14px 16px; cursor:pointer; font-family:'DM Mono',monospace; font-size:13px; color:var(--cream); display:flex; align-items:center; gap:10px; transition:all 0.2s; text-align:left; }
+.learn-opt:hover:not(:disabled) { background:var(--surface2); border-color:rgba(255,123,84,0.4); transform:translateY(-2px); }
+.learn-opt-letter { width:26px; height:26px; border-radius:6px; flex-shrink:0; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); }
+.learn-opt.correct { background:rgba(11,232,129,0.15); border-color:var(--green); }
+.learn-opt.correct .learn-opt-letter { background:var(--green); color:#000; }
+.learn-opt.wrong-pick { background:rgba(255,63,52,0.15); border-color:var(--red); animation:lerr 0.4s; }
+.learn-opt.wrong-pick .learn-opt-letter { background:var(--red); color:#fff; }
+@keyframes lerr { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+.learn-type-wrap { margin-top:18px; display:flex; flex-direction:column; align-items:center; gap:10px; }
+.learn-type-inp { background:rgba(255,255,255,0.04); border:1px solid rgba(255,123,84,0.3); border-radius:12px; padding:14px 20px; color:var(--cream); font-family:'Space Mono',monospace; font-size:16px; width:100%; max-width:460px; outline:none; text-align:center; transition:border 0.2s; }
+.learn-type-inp:focus { border-color:rgba(255,123,84,0.6); }
+.learn-type-inp.ok { border-color:var(--green); color:var(--green); background:rgba(11,232,129,0.05); }
+.learn-type-inp.ko { border-color:var(--red); color:var(--red); background:rgba(255,63,52,0.05); }
+.learn-type-btns { display:flex; gap:10px; width:100%; max-width:460px; }
+.learn-type-btn { padding:12px 20px; border-radius:9px; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; transition:all 0.2s; }
+.learn-type-btn.submit { background:linear-gradient(90deg,var(--blue2),var(--gold)); color:#1a0b1c; flex:1; }
+.learn-type-btn.skip { background:var(--surface2); border:1px solid var(--border); color:var(--muted); }
+.learn-type-btn:hover { transform:translateY(-2px); filter:brightness(1.1); }
+
+.learn-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-top:12px; visibility:hidden; opacity:0; min-height:42px; transition:opacity 0.3s ease; }
+.learn-feedback.show { visibility:visible; opacity:1; }
+.learn-feedback.ok { background:rgba(11,232,129,0.1); color:var(--green); border:1px solid rgba(11,232,129,0.3); }
+.learn-feedback.ko { background:rgba(255,63,52,0.1); color:var(--red); border:1px solid rgba(255,63,52,0.3); }
+
+.learn-next-btn { width:100%; padding:15px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; box-shadow:0 6px 24px rgba(255,82,50,0.4); transition:all 0.2s; margin-top:12px; visibility:hidden; opacity:0; display:block; }
+.learn-next-btn.show { visibility:visible; opacity:1; }
+.learn-next-btn:hover { transform:translateY(-2px); }
+
+.learn-chunk-done { display:none; text-align:center; padding:28px 20px; background:var(--surface); border:1px solid var(--border); border-radius:20px; }
+.learn-chunk-done.show { display:block; animation:fadeIn 0.4s ease; }
+.learn-chunk-score { font-family:'Playfair Display',serif; font-size:56px; font-weight:900; color:var(--gold); text-shadow:0 0 40px rgba(255,221,89,0.4); }
+.learn-chunk-msg { font-family:'DM Mono',monospace; font-size:14px; color:var(--muted); margin:8px 0 20px; font-style:italic; }
+.learn-complete { display:none; text-align:center; padding:40px 20px; }
+.learn-complete.show { display:block; animation:fadeIn 0.4s ease; }
+.learn-complete-title { font-family:'Playfair Display',serif; font-size:50px; font-weight:900; color:var(--green); text-shadow:0 0 60px rgba(11,232,129,0.5); margin-bottom:10px; }
+.learn-complete-sub { font-family:'DM Mono',monospace; font-size:15px; color:var(--muted); font-style:italic; }
+.learn-cat-row { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:20px; justify-content: center;}
+
+/* ═══════════════════════════════
+   S1 FLASHCARDS (rest)
 ═══════════════════════════════ */
 .cat-row { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:22px; justify-content: center; }
 .cat-pill { padding:6px 14px; border-radius:6px; border:1px solid rgba(255,123,84,0.2); background:var(--surface); cursor:pointer; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); transition:all 0.2s; }
@@ -143,13 +209,8 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .fc-card.flipped { transform:rotateY(180deg); }
 .fc-face { position:absolute; inset:0; backface-visibility:hidden; border-radius:20px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding: 20px; }
 
-.fc-front {
-  background: linear-gradient(135deg, #331520 0%, #1e0b12 100%);
-  border: 1px solid rgba(255,123,84,0.3);
-  box-shadow: 0 0 60px rgba(255,82,50,0.1), inset 0 1px 0 rgba(255,123,84,0.2);
-}
+.fc-front { background: linear-gradient(135deg, #331520 0%, #1e0b12 100%); border: 1px solid rgba(255,123,84,0.3); box-shadow: 0 0 60px rgba(255,82,50,0.1), inset 0 1px 0 rgba(255,123,84,0.2); }
 .fc-front::before { content:''; position:absolute; inset:0; border-radius:20px; background:repeating-linear-gradient(0deg,transparent 0px,transparent 3px,rgba(0,0,0,0.12) 3px,rgba(0,0,0,0.12) 4px); pointer-events:none; }
-
 .fc-back { transform:rotateY(180deg); background:linear-gradient(135deg, #1a2a12 0%, #06180e 100%); border:1px solid rgba(52,211,153,0.3); box-shadow:0 0 60px rgba(52,211,153,0.1); }
 
 .fc-lang { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:3px; text-transform:uppercase; padding:4px 12px; border-radius:4px; }
@@ -159,7 +220,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .fc-word { font-family:'Playfair Display',serif; font-size:clamp(22px,4vw,42px); font-weight:700; text-align:center; padding:0 10px; line-height:1.2; }
 .fc-front .fc-word { color:var(--cream); }
 .fc-back .fc-word { color:var(--green); }
-
 .fc-sub { font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); }
 .fc-category { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--purple); opacity:0.8; }
 .fc-tap { position:absolute; bottom:14px; right:18px; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:rgba(255,255,255,0.2); text-transform:uppercase; }
@@ -170,7 +230,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .fc-btn.yes { background:rgba(11,232,129,0.15); color:var(--green); border:1px solid rgba(11,232,129,0.3); }
 .fc-btn.flip { background:var(--blue2); color:#fff; font-weight:700; flex:1; max-width:100%; box-shadow:0 4px 20px rgba(255,82,50,0.4); }
 .fc-btn:hover { transform:translateY(-2px); filter:brightness(1.15); }
-
 .fc-score-row { text-align:center; margin-top:12px; font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:2px; }
 .fc-score-row strong { color:var(--cream); }
 
@@ -188,14 +247,12 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 @keyframes shake { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
 .q-progress { height:3px; background:rgba(255,255,255,0.05); border-radius:100px; margin-bottom:20px; }
 .q-prog-fill { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--blue2),var(--purple)); transition:width 0.4s; }
-
 .quiz-q-box { background:var(--surface); border:1px solid rgba(255,123,84,0.2); border-radius:20px; padding:36px; text-align:center; margin-bottom:16px; position:relative; overflow:hidden; }
 .quiz-q-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--blue),transparent); }
 .q-dir { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:3px; color:var(--purple); text-transform:uppercase; margin-bottom:10px; }
 .q-word { font-family:'Playfair Display',serif; font-size:clamp(26px,5vw,50px); font-weight:700; color:var(--cream); line-height:1.2; }
 .q-hint { font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); margin-top:8px; }
 .q-cat { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--blue); margin-top:5px; text-transform:uppercase; }
-
 .quiz-opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
 .q-opt { background:var(--surface); border:1px solid rgba(255,123,84,0.15); border-radius:12px; padding:15px 16px; cursor:pointer; font-family:'DM Mono',monospace; font-size:14px; color:var(--cream); display:flex; align-items:center; gap:12px; transition:all 0.2s; text-align:left; }
 .q-opt:hover:not(:disabled) { background:var(--surface2); border-color:rgba(255,123,84,0.4); transform:translateY(-2px); }
@@ -204,19 +261,15 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .q-opt.correct .q-opt-letter { background:var(--green); color:#000; }
 .q-opt.wrong-pick { background:rgba(255,63,52,0.15); border-color:var(--red); }
 .q-opt.wrong-pick .q-opt-letter { background:var(--red); color:#fff; }
-
 .q-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-bottom:12px; visibility:hidden; opacity:0; min-height:42px; transition: opacity 0.3s ease; }
 .q-feedback.show { visibility:visible; opacity:1; }
 .q-feedback.ok { background:rgba(11,232,129,0.1); color:var(--green); border:1px solid rgba(11,232,129,0.3); }
 .q-feedback.ko { background:rgba(255,63,52,0.1); color:var(--red); border:1px solid rgba(255,63,52,0.3); }
-
 .btn-main { width:100%; padding:16px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; box-shadow:0 6px 24px rgba(255,82,50,0.4); transition:all 0.2s; display:none; }
 .btn-main.show { display:block; animation:fadeIn 0.3s ease; }
 .btn-main:hover { transform:translateY(-2px); box-shadow:0 10px 36px rgba(255,82,50,0.55); }
-
 #btn-next { display:block; visibility:hidden; opacity:0; transition: opacity 0.3s ease, transform 0.2s, box-shadow 0.2s; }
 #btn-next.show { visibility:visible; opacity:1; }
-
 .quiz-end { display:none; text-align:center; padding:50px 0; }
 .end-score { font-family:'Playfair Display',serif; font-size:90px; font-weight:900; letter-spacing:8px; line-height:1; }
 .end-score.s-great { color:var(--gold); text-shadow:0 0 60px rgba(255,221,89,0.5); }
@@ -227,13 +280,7 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 /* ═══════════════════════════════
    S3 FILL (Trous)
 ═══════════════════════════════ */
-.fill-scene-box {
-  background: #fdfaf3;
-  border-radius:16px; padding:32px 38px;
-  font-family:'DM Mono',monospace; font-size:16px;
-  line-height:2.6; color:#2a1a2b; margin-bottom:16px;
-  position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.6);
-}
+.fill-scene-box { background: #fdfaf3; border-radius:16px; padding:32px 38px; font-family:'DM Mono',monospace; font-size:16px; line-height:2.6; color:#2a1a2b; margin-bottom:16px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.6); }
 .fill-scene-box::before { content:'EJERCICIO · ESPAÑOL'; position:absolute; top:12px; right:18px; font-size:8px; letter-spacing:3px; color:rgba(0,0,0,0.2); }
 .sp-blank { display:inline-block; min-width:140px; position:relative; border-bottom:2px solid #ff7b54; background:rgba(255,123,84,0.08); border-radius:4px 4px 0 0; padding:1px 8px; margin:0 3px; }
 .sp-blank input { background:transparent; border:none; outline:none; font-family:'DM Mono',monospace; font-size:15px; font-weight:700; color:#ff5232; min-width:120px; width:100%; text-align:center; }
@@ -241,7 +288,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .sp-blank.ok input { color:#0ba05d; }
 .sp-blank.ko { border-color:#ff3f34; background:rgba(255,63,52,0.1); }
 .sp-blank.ko input { color:#d12b23; }
-
 .fill-hint-box { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 18px; margin-bottom:14px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:1px; color:var(--muted); }
 .fill-hint-box strong { color:var(--gold); }
 .fill-btns { display:flex; gap:10px; flex-wrap:wrap; }
@@ -264,7 +310,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .match-item.matched { border-color:var(--green); background:rgba(11,232,129,0.1); color:var(--green); cursor:default; }
 .match-item.wrong { border-color:var(--red); background:rgba(255,63,52,0.1); animation:wiggle 0.4s; }
 @keyframes wiggle { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
-
 .match-score { font-family:'Space Mono',monospace; font-size:12px; color:var(--muted); text-align:center; margin-bottom:16px; }
 .match-score strong { color:var(--cyan); }
 
@@ -275,7 +320,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .mission-icon { font-size:36px; }
 .mission-title { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:var(--purple); }
 .mission-sub { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--muted); margin-top:3px; }
-
 .exam-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
 .exam-item { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; display:flex; align-items:flex-start; gap:12px; }
 .exam-n { width:30px; height:30px; border-radius:7px; flex-shrink:0; background:rgba(255,123,84,0.15); border:1px solid rgba(255,123,84,0.3); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--blue); }
@@ -284,10 +328,8 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .exam-inp:focus { border-color:rgba(255,123,84,0.5); background:rgba(255,123,84,0.05); }
 .exam-inp.ok { border-color:var(--green); background:rgba(11,232,129,0.08); color:var(--green); }
 .exam-inp.ko { border-color:var(--red); background:rgba(255,63,52,0.08); color:var(--red); }
-
 .exam-cta { width:100%; padding:17px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--purple),var(--blue)); color:#1a0b1c; font-family:'Space Mono',monospace; font-size:14px; font-weight:900; letter-spacing:3px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; box-shadow:0 6px 28px rgba(255,184,77,0.3); }
 .exam-cta:hover { transform:translateY(-3px); box-shadow:0 10px 40px rgba(255,184,77,0.5); }
-
 .exam-result { display:none; text-align:center; padding:36px 20px; background:var(--surface); border:1px solid var(--border); border-radius:20px; margin-top:18px; }
 .exam-result.show { display:block; animation:fadeIn 0.4s ease; }
 .exam-result-score { font-family:'Playfair Display',serif; font-size:80px; font-weight:900; letter-spacing:6px; line-height:1; }
@@ -303,7 +345,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .lex-search { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 18px; width:100%; color:var(--cream); font-family:'Space Mono',monospace; font-size:12px; outline:none; margin-bottom:20px; transition:border 0.2s; }
 .lex-search:focus { border-color:rgba(255,123,84,0.4); }
 .lex-search::placeholder { color:var(--muted); }
-
 .cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; margin-bottom:26px; }
 .cat-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; cursor:pointer; transition:all 0.25s; text-align:center; position:relative; overflow:hidden; }
 .cat-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; transform:scaleX(0); transition:transform 0.3s; }
@@ -317,13 +358,10 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .cat-card-ico { font-size:32px; margin-bottom:8px; }
 .cat-card-name { font-family:'Space Mono',monospace; font-size:11px; font-weight: bold; letter-spacing:2px; text-transform:uppercase; color:var(--cream); }
 .cat-card-cnt { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); margin-top:6px; }
-
 .vocab-detail { display:none; }
 .vocab-detail.show { display:block; animation:fadeIn 0.35s ease; }
 .back-link { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; background:var(--surface); border:1px solid var(--border); color:var(--muted); cursor:pointer; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; transition:all 0.2s; }
 .back-link:hover { color:var(--cream); border-color:rgba(255,123,84,0.4); }
-
-.search-results { }
 .vocab-rows { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
 .vrow { background:var(--surface); border:1px solid var(--border); border-radius:11px; padding:12px 15px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; transition:all 0.2s; }
 .vrow:hover { background:var(--surface2); border-color:rgba(255,123,84,0.3); }
@@ -359,7 +397,7 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 /* ── RESPONSIVE ── */
 @media(max-width:600px) {
   header { padding:30px 16px 20px; }
-  .quiz-opts, .exam-list, .vocab-rows, .match-cols { grid-template-columns:1fr; }
+  .quiz-opts, .exam-list, .vocab-rows, .match-cols, .learn-dashboard { grid-template-columns:1fr; }
   .fc-btns { flex-direction:column; }
   .fill-btns { flex-wrap:wrap; }
   .cat-grid { grid-template-columns:1fr 1fr; }
@@ -404,7 +442,8 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 </div>
 
 <nav class="nav-tabs">
-  <button class="tab-btn active" onclick="goTab('flashcards',this)">🃏 Flashcards</button>
+  <button class="tab-btn active" onclick="goTab('learn',this)">🧠 Apprentissage</button>
+  <button class="tab-btn" onclick="goTab('flashcards',this)">🃏 Flashcards</button>
   <button class="tab-btn" onclick="goTab('quiz',this)">⚡ Quiz QCM</button>
   <button class="tab-btn" onclick="goTab('typo',this)">⌨️ Écriture</button>
   <button class="tab-btn" onclick="goTab('fill',this)">✍️ Trous</button>
@@ -415,7 +454,79 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 
 <main>
 
-<section class="section active" id="s-flashcards">
+<section class="section active" id="s-learn">
+  <div class="section-title">🧠 Mode <span class="acc">Apprentissage</span></div>
+  <p class="section-desc">Algorithme intelligent : les mots difficiles reviennent plus souvent, les mots maîtrisés disparaissent progressivement.</p>
+
+  <div class="learn-cat-row" id="learn-cats">
+    <div class="cat-pill active" onclick="pickLearnCat('all',this)">Tout</div>
+    <div class="cat-pill" onclick="pickLearnCat('vocab_div',this)">🌍 Vocab. Diversidad</div>
+    <div class="cat-pill" onclick="pickLearnCat('citas_div',this)">🗣️ Citas Diversidad</div>
+    <div class="cat-pill" onclick="pickLearnCat('vocab_fic',this)">📚 Vocab. Ficciones</div>
+    <div class="cat-pill" onclick="pickLearnCat('citas_fic',this)">🎬 Citas Ficciones</div>
+    <div class="cat-pill" onclick="pickLearnCat('phrases_oral',this)">🎓 Phrases Oral</div>
+  </div>
+
+  <div class="learn-dashboard">
+    <div class="learn-bucket b-new">
+      <div class="learn-bucket-count" id="lb-new">—</div>
+      <div class="learn-bucket-label">Restants</div>
+    </div>
+    <div class="learn-bucket b-learning">
+      <div class="learn-bucket-count" id="lb-learning">—</div>
+      <div class="learn-bucket-label">En cours</div>
+    </div>
+    <div class="learn-bucket b-mastered">
+      <div class="learn-bucket-count" id="lb-mastered">—</div>
+      <div class="learn-bucket-label">Maîtrisés ✓</div>
+    </div>
+  </div>
+
+  <div class="learn-progress-bar">
+    <div class="lp-mastered" id="lp-mastered" style="width:0%"></div>
+    <div class="lp-learning" id="lp-learning" style="width:0%"></div>
+    <div class="lp-new" id="lp-new" style="width:100%"></div>
+  </div>
+
+  <div id="learn-main">
+    <div style="text-align:center;">
+      <div class="learn-level-badge lvl1" id="learn-badge">Niveau 1 · Reconnaissance QCM</div>
+    </div>
+
+    <div class="learn-q-box">
+      <div class="learn-q-word" id="learn-q-word">—</div>
+      <div class="learn-q-hint" id="learn-q-hint"></div>
+      <div class="learn-q-cat" id="learn-q-cat"></div>
+
+      <div class="learn-opts" id="learn-opts"></div>
+
+      <div class="learn-type-wrap" id="learn-type-wrap" style="display:none">
+        <input class="learn-type-inp" id="learn-type-inp" type="text" placeholder="Tapez la traduction espagnole…" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')submitLearnType()">
+        <div class="learn-type-btns">
+          <button class="learn-type-btn submit" onclick="submitLearnType()">Valider ↵</button>
+          <button class="learn-type-btn skip" onclick="learnDontKnow()">Je ne sais pas</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="learn-feedback" id="learn-feedback"></div>
+    <button class="learn-next-btn" id="learn-next-btn" onclick="learnNext()">Siguiente →</button>
+  </div>
+
+  <div class="learn-chunk-done" id="learn-chunk-done">
+    <div class="learn-chunk-score" id="learn-chunk-score">—</div>
+    <div class="learn-chunk-msg" id="learn-chunk-msg"></div>
+    <button class="btn-main show" onclick="learnContinueChunk()" style="max-width:320px;margin:0 auto; display:block;">Continuer la session →</button>
+  </div>
+
+  <div class="learn-complete" id="learn-complete">
+    <div class="learn-complete-title">🚀 ¡DOMINADO!</div>
+    <div class="learn-complete-sub" id="learn-complete-sub">Tous les mots sont dans la catégorie "Maîtrisés".</div>
+    <button class="btn-main show" onclick="startLearn()" style="max-width:320px;margin:20px auto 0; display:block;">🔄 Recommencer</button>
+  </div>
+</section>
+
+<section class="section" id="s-flashcards">
   <div class="section-title">🃏 Flash<span class="acc">cards</span></div>
   <p class="section-desc">Devine la traduction espagnole, mémorise les phrases de tes PDF.</p>
 
@@ -616,7 +727,7 @@ document.addEventListener('mousemove', e => {
 });
 
 /* ══════════════════════════════════════
-   VOCABULARY DATA (FROM YOUR PDFS)
+   VOCABULARY DATA
 ══════════════════════════════════════ */
 const VOCAB = {
   vocab_div: {
@@ -695,6 +806,15 @@ const VOCAB = {
 const ALL = [];
 Object.keys(VOCAB).forEach(k => VOCAB[k].words.forEach(w => ALL.push({...w, cat: k})));
 
+const catNames = { 
+  vocab_div:'🌍 Vocab. Diversidad', 
+  citas_div:'🗣️ Citas Diversidad', 
+  vocab_fic:'📚 Vocab. Ficciones', 
+  citas_fic:'🎬 Citas Ficciones', 
+  phrases_oral:'🎓 Phrases Oral',
+  all: 'Tout' 
+};
+
 function normalizeStr(str) {
   if (!str) return "";
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") 
@@ -739,6 +859,7 @@ function goTab(name, btn) {
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('s-'+name).classList.add('active');
   btn.classList.add('active');
+  if(name==='learn') startLearn();
   if(name==='quiz') startQuiz();
   if(name==='fill') loadFill();
   if(name==='exam') loadExam();
@@ -748,10 +869,257 @@ function goTab(name, btn) {
 }
 
 /* ══════════════════════════════════════
-   S1 FLASHCARDS
+   MODE APPRENTISSAGE
+══════════════════════════════════════ */
+let learnCat = 'all';
+let learnState = [];
+let learnQueue = [];
+let learnChunkSet = [];
+let learnChunkIdx = 0;
+let learnAnswered = false;
+let learnChunkCorrect = 0;
+let learnChunkTotal = 0;
+const CHUNK_SIZE = 6;
+
+function pickLearnCat(cat, el) {
+  document.querySelectorAll('#learn-cats .cat-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active'); learnCat = cat; startLearn();
+}
+
+function startLearn() {
+  const src = learnCat==='all' ? ALL : ALL.filter(w=>w.cat===learnCat);
+  learnState = src.map(w => ({
+    word: w, level: 1, bucket: 'new', correctStreak: 0, wrongCount: 0
+  }));
+  learnQueue = shuffle([...learnState]);
+  learnChunkIdx = 0;
+  hideLearnScreens();
+  buildNextChunk();
+}
+
+function hideLearnScreens() {
+  document.getElementById('learn-main').style.display='block';
+  document.getElementById('learn-chunk-done').classList.remove('show');
+  document.getElementById('learn-complete').classList.remove('show');
+}
+
+function updateBuckets() {
+  const n = learnState.filter(s=>s.bucket==='new').length;
+  const l = learnState.filter(s=>s.bucket==='learning').length;
+  const m = learnState.filter(s=>s.bucket==='mastered').length;
+  const tot = learnState.length;
+  document.getElementById('lb-new').textContent = n;
+  document.getElementById('lb-learning').textContent = l;
+  document.getElementById('lb-mastered').textContent = m;
+  document.getElementById('lp-mastered').style.width = (m/tot*100)+'%';
+  document.getElementById('lp-learning').style.width = (l/tot*100)+'%';
+  document.getElementById('lp-new').style.width = (n/tot*100)+'%';
+}
+
+function buildNextChunk() {
+  updateBuckets();
+  if(learnState.every(s=>s.bucket==='mastered')) {
+    showComplete(); return;
+  }
+  const learning = learnState.filter(s=>s.bucket==='learning');
+  const newWords = learnState.filter(s=>s.bucket==='new');
+  let pool = [];
+  if(learning.length > 0) {
+    pool = shuffle([...learning]).slice(0, Math.min(CHUNK_SIZE, learning.length));
+    if(pool.length < CHUNK_SIZE && newWords.length > 0) {
+      pool = [...pool, ...shuffle([...newWords]).slice(0, Math.min(2, CHUNK_SIZE - pool.length))];
+    }
+  } else {
+    pool = shuffle([...newWords]).slice(0, CHUNK_SIZE);
+  }
+  learnChunkSet = [];
+  pool.forEach(s => {
+    learnChunkSet.push(s);
+    if(s.bucket==='learning' && s.wrongCount > 1) learnChunkSet.push(s);
+  });
+  learnChunkSet = shuffle(learnChunkSet);
+  learnChunkIdx = 0;
+  learnChunkCorrect = 0;
+  learnChunkTotal = learnChunkSet.length;
+  renderLearnQ();
+}
+
+function renderLearnQ() {
+  if(learnChunkIdx >= learnChunkSet.length) {
+    showChunkDone(); return;
+  }
+  learnAnswered = false;
+  const state = learnChunkSet[learnChunkIdx];
+  const w = state.word;
+  const level = state.level;
+
+  const badges = ['', 'Niveau 1 · Flashcard QCM', 'Niveau 2 · QCM Renforcé', 'Niveau 3 · Frappe libre', 'Niveau 4 · Frappe stricte → Maîtrise'];
+  const badgeClasses = ['', 'lvl1', 'lvl2', 'lvl3', 'lvl4'];
+  const badge = document.getElementById('learn-badge');
+  badge.textContent = badges[level];
+  badge.className = 'learn-level-badge ' + badgeClasses[level];
+
+  document.getElementById('learn-q-word').textContent = w.fr;
+  document.getElementById('learn-q-hint').textContent = level <= 2 ? 'Choisissez la traduction espagnole' : 'Tapez la traduction espagnole';
+  document.getElementById('learn-q-cat').textContent = catNames[w.cat] || '';
+
+  const fb = document.getElementById('learn-feedback');
+  fb.classList.remove('show','ok','ko');
+  document.getElementById('learn-next-btn').classList.remove('show');
+
+  if(level <= 2) {
+    document.getElementById('learn-opts').style.display='grid';
+    document.getElementById('learn-type-wrap').style.display='none';
+    renderLearnMCQ(state, level);
+  } else {
+    document.getElementById('learn-opts').style.display='none';
+    document.getElementById('learn-type-wrap').style.display='flex';
+    const inp = document.getElementById('learn-type-inp');
+    inp.value=''; inp.className='learn-type-inp'; inp.disabled=false;
+    setTimeout(()=>inp.focus(), 80);
+  }
+}
+
+function renderLearnMCQ(state, level) {
+  const w = state.word;
+  const correct = w.en;
+  let distractors;
+  if(level === 1) {
+    distractors = shuffle(ALL.filter(x=>x!==w)).slice(0,3).map(x=>x.en);
+  } else {
+    const sameCat = ALL.filter(x=>x!==w && x.cat===w.cat);
+    const other = ALL.filter(x=>x!==w && x.cat!==w.cat);
+    const pool = shuffle([...sameCat, ...other]);
+    distractors = pool.slice(0,3).map(x=>x.en);
+  }
+  const opts = shuffle([correct, ...distractors]);
+  const letters = ['A','B','C','D'];
+  const container = document.getElementById('learn-opts');
+  container.innerHTML = '';
+  opts.forEach((o,i)=>{
+    const b = document.createElement('button');
+    b.className = 'learn-opt';
+    b.innerHTML = `<span class="learn-opt-letter">${letters[i]}</span><span>${o}</span>`;
+    b.onclick = () => pickLearnMCQ(b, o, correct, state);
+    container.appendChild(b);
+  });
+}
+
+function pickLearnMCQ(btn, chosen, correct, state) {
+  if(learnAnswered) return;
+  learnAnswered = true;
+  document.querySelectorAll('.learn-opt').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.learn-opt').forEach(b=>{
+    if(b.querySelector('span:last-child')?.textContent===correct) b.classList.add('correct');
+  });
+  const ok = chosen === correct;
+  if(!ok) btn.classList.add('wrong-pick');
+  handleLearnResult(state, ok, correct);
+}
+
+function submitLearnType() {
+  if(learnAnswered) { learnNext(); return; }
+  const state = learnChunkSet[learnChunkIdx];
+  const inp = document.getElementById('learn-type-inp');
+  const val = inp.value;
+  if(!val.trim()) return;
+  learnAnswered = true;
+  inp.disabled = true;
+  
+  const correct = state.word.en;
+  const normVal = normalizeStr(val);
+  const targets = correct.split('/').map(normalizeStr);
+  
+  let ok;
+  if(state.level === 4) {
+    ok = targets.some(t => normVal === t);
+  } else {
+    ok = targets.some(t => normVal === t || (t.includes(normVal) && normVal.length >= Math.max(3, t.length - 2)));
+  }
+  
+  inp.className = 'learn-type-inp ' + (ok?'ok':'ko');
+  handleLearnResult(state, ok, correct);
+}
+
+function learnDontKnow() {
+  if(learnAnswered) return;
+  learnAnswered = true;
+  const state = learnChunkSet[learnChunkIdx];
+  document.getElementById('learn-type-inp').disabled = true;
+  handleLearnResult(state, false, state.word.en);
+}
+
+function handleLearnResult(state, ok, correct) {
+  if(ok) {
+    state.correctStreak++;
+    learnChunkCorrect++;
+    if(state.level < 4) state.level++;
+    if(state.level > 4) {
+      state.level = 4;
+      state.bucket = 'mastered';
+    } else if(state.correctStreak >= 2 && state.level === 4) {
+      state.bucket = 'mastered';
+    } else if(state.bucket === 'new') {
+      state.bucket = 'learning';
+    }
+    setLearnFB(true, '✅ ¡Correcto! ' + correct);
+    good(state.level * 3, `Niveau ${state.level} réussi !`);
+  } else {
+    state.wrongCount++;
+    state.correctStreak = 0;
+    if(state.level > 1) state.level--;
+    if(state.bucket === 'mastered') state.bucket = 'learning';
+    else state.bucket = 'learning';
+    const insertAt = Math.min(learnChunkIdx + 2, learnChunkSet.length);
+    learnChunkSet.splice(insertAt, 0, state);
+    learnChunkTotal++;
+    setLearnFB(false, '❌ La respuesta era: ' + correct);
+    bad();
+  }
+  updateBuckets();
+  document.getElementById('learn-next-btn').classList.add('show');
+}
+
+function setLearnFB(ok, msg) {
+  const fb = document.getElementById('learn-feedback');
+  fb.textContent = msg;
+  fb.className = 'learn-feedback show ' + (ok?'ok':'ko');
+}
+
+function learnNext() {
+  learnChunkIdx++;
+  renderLearnQ();
+}
+
+function showChunkDone() {
+  document.getElementById('learn-main').style.display='none';
+  document.getElementById('learn-chunk-done').classList.add('show');
+  document.getElementById('learn-complete').classList.remove('show');
+  const pct = learnChunkCorrect / learnChunkTotal;
+  document.getElementById('learn-chunk-score').textContent = learnChunkCorrect+'/'+learnChunkTotal;
+  const msgs = ['Sigue practicando...', '¡Vas bien!', '¡Muy buena serie!', '¡Excelente!'];
+  document.getElementById('learn-chunk-msg').textContent = msgs[Math.min(Math.floor(pct*4),3)];
+  updateBuckets();
+}
+
+function learnContinueChunk() {
+  document.getElementById('learn-chunk-done').classList.remove('show');
+  hideLearnScreens();
+  buildNextChunk();
+}
+
+function showComplete() {
+  document.getElementById('learn-main').style.display='none';
+  document.getElementById('learn-chunk-done').classList.remove('show');
+  document.getElementById('learn-complete').classList.add('show');
+  document.getElementById('learn-complete-sub').textContent = `Tous les ${learnState.length} mots sont maîtrisés ! Score total XP : ${xp}`;
+  boom(); good(100, '¡Todo dominado!');
+}
+
+/* ══════════════════════════════════════
+   S1 FLASHCARDS (rest)
 ══════════════════════════════════════ */
 let deck=[], fcIdx=0, flipped=false, fcGood=0, fcBad=0, fcCat='all', fcMode='fr-en';
-const catNames = { vocab_div:'🌍 Vocab. Diversidad', citas_div:'🗣️ Citas Diversidad', vocab_fic:'📚 Vocab. Ficciones', citas_fic:'🎬 Citas Ficciones', phrases_oral:'🎓 Phrases Oral' };
 
 function setMode(mode) {
   fcMode = mode;
@@ -991,10 +1359,8 @@ function skipTypo() {
   typoIdx++; setTimeout(renderTypo,600);
 }
 
-buildTypoDeck();
-
 /* ══════════════════════════════════════
-   S4 FILL (Texte à trous adapté à tes axes)
+   S4 FILL (Texte à trous)
 ══════════════════════════════════════ */
 const FILLS = [
   {
@@ -1233,39 +1599,10 @@ function searchVocab(q) {
 }
 
 /* ══════════════════════════════════════
-   UTILS
+   INIT
 ══════════════════════════════════════ */
-function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a; }
-
-function boom(){
-  const c=document.getElementById('confetti');
-  const ctx=c.getContext('2d');
-  c.width=innerWidth; c.height=innerHeight;
-  const colors=['#ff7b54','#ffb84d','#4bcffa','#ff6b81','#0be881'];
-  const pts=Array.from({length:180},()=>({
-    x:Math.random()*c.width, y:-15,
-    r:Math.random()*7+2,
-    color:colors[Math.random()*colors.length|0],
-    vx:(Math.random()-.5)*6, vy:Math.random()*4+2,
-    rot:Math.random()*360, vr:(Math.random()-.5)*10
-  }));
-  let f=0;
-  (function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    pts.forEach(p=>{
-      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
-      ctx.fillStyle=p.color;
-      ctx.fillRect(-p.r,-p.r*.5,p.r*2,p.r);
-      ctx.restore();
-      p.x+=p.vx; p.y+=p.vy; p.vy+=0.07; p.rot+=p.vr;
-    });
-    if(++f<200) requestAnimationFrame(draw);
-    else ctx.clearRect(0,0,c.width,c.height);
-  })();
-}
-
 sync();
-loadMatch();
+startLearn(); // Set Apprentissage as default active view
 </script>
 </body>
 </html>
