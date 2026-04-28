@@ -48,7 +48,8 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .section-title { font-family:'Playfair Display',serif; font-size:36px; font-weight:700; color:var(--cream); margin-bottom:4px; display:flex; align-items:center; gap:12px; }
 .section-title .acc { color:var(--blue); }
 .section-desc { font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); margin-bottom:28px; line-height:1.7; }
-/* APPRENTISSAGE */
+
+/* APPRENTISSAGE LUDIQUE ORAL */
 .learn-dashboard { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:20px; }
 .learn-bucket { border-radius:14px; padding:16px 18px; text-align:center; border:1px solid transparent; transition:all 0.3s; }
 .learn-bucket.b-new { background:rgba(255,123,84,0.1); border-color:rgba(255,123,84,0.3); }
@@ -60,27 +61,36 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .learn-progress-bar { height:5px; border-radius:100px; background:rgba(255,255,255,0.06); margin-bottom:22px; display:flex; overflow:hidden; }
 .lp-new { background:var(--blue2); transition:width 0.5s; } .lp-learning { background:var(--gold); transition:width 0.5s; } .lp-mastered { background:var(--green); transition:width 0.5s; }
 .learn-level-badge { display:inline-block; margin-bottom:14px; background:var(--surface2); border:1px solid var(--border); border-radius:20px; padding:4px 14px; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; }
-.learn-level-badge.lvl1 { color:var(--blue); border-color:rgba(255,123,84,0.4); } .learn-level-badge.lvl2 { color:var(--gold); border-color:rgba(255,221,89,0.4); } .learn-level-badge.lvl3 { color:var(--purple); border-color:rgba(255,184,77,0.4); } .learn-level-badge.lvl4 { color:var(--green); border-color:rgba(11,232,129,0.4); }
-.learn-q-box { background:var(--surface); border:1px solid rgba(255,123,84,0.2); border-radius:20px; padding:36px; text-align:center; position:relative; overflow:hidden; margin-bottom:16px; }
+.learn-level-badge.lvl1 { color:var(--blue); border-color:rgba(255,123,84,0.4); } .learn-level-badge.lvl2 { color:var(--gold); border-color:rgba(255,221,89,0.4); } .learn-level-badge.lvl3 { color:var(--green); border-color:rgba(11,232,129,0.4); }
+.learn-q-box { background:var(--surface); border:1px solid rgba(255,123,84,0.2); border-radius:20px; padding:36px; text-align:center; position:relative; overflow:hidden; margin-bottom:16px; min-height: 250px;}
 .learn-q-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--blue),transparent); }
-.learn-q-word { font-family:'Playfair Display',serif; font-size:clamp(26px,5vw,50px); font-weight:700; color:var(--cream); line-height:1.2; margin-bottom:8px; }
+.learn-q-word { font-family:'Playfair Display',serif; font-size:clamp(26px,5vw,46px); font-weight:700; color:var(--cream); line-height:1.2; margin-bottom:8px; }
 .learn-q-hint { font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); }
 .learn-q-cat { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--blue); text-transform:uppercase; margin-top:4px; }
-.learn-opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px; }
+.learn-opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:24px; }
 .learn-opt { background:var(--surface); border:1px solid rgba(255,123,84,0.15); border-radius:12px; padding:14px 16px; cursor:pointer; font-family:'DM Mono',monospace; font-size:13px; color:var(--cream); display:flex; align-items:center; gap:10px; transition:all 0.2s; text-align:left; }
 .learn-opt:hover:not(:disabled) { background:var(--surface2); border-color:rgba(255,123,84,0.4); transform:translateY(-2px); }
 .learn-opt-letter { width:26px; height:26px; border-radius:6px; flex-shrink:0; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); }
 .learn-opt.correct { background:rgba(11,232,129,0.15); border-color:var(--green); } .learn-opt.correct .learn-opt-letter { background:var(--green); color:#000; }
 .learn-opt.wrong-pick { background:rgba(255,63,52,0.15); border-color:var(--red); animation:lerr 0.4s; } .learn-opt.wrong-pick .learn-opt-letter { background:var(--red); color:#fff; }
 @keyframes lerr { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
-.learn-type-wrap { margin-top:18px; display:flex; flex-direction:column; align-items:center; gap:10px; }
-.learn-type-inp { background:rgba(255,255,255,0.04); border:1px solid rgba(255,123,84,0.3); border-radius:12px; padding:14px 20px; color:var(--cream); font-family:'Space Mono',monospace; font-size:16px; width:100%; max-width:460px; outline:none; text-align:center; transition:border 0.2s; }
-.learn-type-inp:focus { border-color:rgba(255,123,84,0.6); }
-.learn-type-inp.ok { border-color:var(--green); color:var(--green); background:rgba(11,232,129,0.05); } .learn-type-inp.ko { border-color:var(--red); color:var(--red); background:rgba(255,63,52,0.05); }
-.learn-type-btns { display:flex; gap:10px; width:100%; max-width:460px; }
-.learn-type-btn { padding:12px 20px; border-radius:9px; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; transition:all 0.2s; }
-.learn-type-btn.submit { background:linear-gradient(90deg,var(--blue2),var(--gold)); color:#1a0b1c; flex:1; } .learn-type-btn.skip { background:var(--surface2); border:1px solid var(--border); color:var(--muted); }
-.learn-type-btn:hover { transform:translateY(-2px); filter:brightness(1.1); }
+
+/* LE NOUVEAU WRAPPER ORAL */
+.oral-box { display:flex; flex-direction:column; align-items:center; gap:20px; margin-top:28px; }
+.oral-prompt { font-family:'Space Mono',monospace; font-size:14px; color:var(--purple); background:rgba(255,184,77,0.1); padding:8px 16px; border-radius:8px; border:1px dashed rgba(255,184,77,0.3); animation: pulse-border 2s infinite; }
+@keyframes pulse-border { 0%,100%{border-color:rgba(255,184,77,0.3);} 50%{border-color:rgba(255,184,77,0.8);} }
+.btn-oral-rev { background:linear-gradient(90deg,var(--purple),var(--blue)); color:#1a0b1c; font-family:'Space Mono',monospace; font-weight:700; border:none; padding:16px 28px; border-radius:12px; cursor:pointer; font-size:14px; transition:all 0.2s; text-transform:uppercase; letter-spacing:2px; box-shadow:0 6px 20px rgba(255,184,77,0.3); }
+.btn-oral-rev:hover { transform:translateY(-3px); filter:brightness(1.1); box-shadow:0 10px 30px rgba(255,184,77,0.5); }
+.oral-ans-text { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:var(--green); margin-bottom:4px; display:flex; align-items:center; gap:12px; }
+.oral-ans-speaker { cursor:pointer; font-size:24px; transition:transform 0.2s; }
+.oral-ans-speaker:hover { transform:scale(1.2); }
+.oral-actions { display:flex; gap:12px; width: 100%; max-width: 400px;}
+.btn-oral-eval { flex:1; padding:14px 20px; border-radius:10px; border:none; font-family:'Space Mono',monospace; font-size:12px; font-weight:700; cursor:pointer; transition:all 0.2s; text-transform: uppercase; letter-spacing: 1px;}
+.btn-oral-eval.yes { background:rgba(11,232,129,0.15); color:var(--green); border:1px solid rgba(11,232,129,0.4); }
+.btn-oral-eval.no { background:rgba(255,63,52,0.15); color:var(--red); border:1px solid rgba(255,63,52,0.4); }
+.btn-oral-eval:hover:not(:disabled) { transform:translateY(-2px); filter:brightness(1.2); }
+.btn-oral-eval:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+
 .learn-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-top:12px; visibility:hidden; opacity:0; min-height:42px; transition:opacity 0.3s ease; }
 .learn-feedback.show { visibility:visible; opacity:1; }
 .learn-feedback.ok { background:rgba(11,232,129,0.1); color:var(--green); border:1px solid rgba(11,232,129,0.3); } .learn-feedback.ko { background:rgba(255,63,52,0.1); color:var(--red); border:1px solid rgba(255,63,52,0.3); }
@@ -93,7 +103,8 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .learn-complete-title { font-family:'Playfair Display',serif; font-size:50px; font-weight:900; color:var(--green); text-shadow:0 0 60px rgba(11,232,129,0.5); margin-bottom:10px; }
 .learn-complete-sub { font-family:'DM Mono',monospace; font-size:15px; color:var(--muted); font-style:italic; }
 .learn-cat-row { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:20px; justify-content: center;}
-/* OTHERS */
+
+/* FLASHCARDS, QUIZ, FILL, ETC (rest is unchanged) */
 .cat-row { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:22px; justify-content: center; }
 .cat-pill { padding:6px 14px; border-radius:6px; border:1px solid rgba(255,123,84,0.2); background:var(--surface); cursor:pointer; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); transition:all 0.2s; }
 .cat-pill.active { background:var(--blue2); border-color:var(--blue2); color:#fff; } .cat-pill:hover:not(.active) { border-color:rgba(255,123,84,0.5); color:var(--cream); }
@@ -131,8 +142,7 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 .mission-banner { background:var(--surface); border:1px solid rgba(255,184,77,0.3); border-radius:16px; padding:20px 26px; margin-bottom:24px; display:flex; align-items:center; gap:18px; } .mission-icon { font-size:36px; } .mission-title { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:var(--purple); } .mission-sub { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--muted); margin-top:3px; } .exam-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; } .exam-item { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; display:flex; align-items:flex-start; gap:12px; } .exam-n { width:30px; height:30px; border-radius:7px; flex-shrink:0; background:rgba(255,123,84,0.15); border:1px solid rgba(255,123,84,0.3); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--blue); } .exam-fr { font-family:'DM Mono',monospace; font-size:14px; color:var(--cream); margin-bottom:6px; font-style:italic; color:var(--purple); } .exam-inp { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:7px; padding:7px 10px; color:var(--cream); font-family:'Space Mono',monospace; font-size:12px; width:100%; outline:none; transition:border 0.2s; } .exam-inp:focus { border-color:rgba(255,123,84,0.5); background:rgba(255,123,84,0.05); } .exam-inp.ok { border-color:var(--green); background:rgba(11,232,129,0.08); color:var(--green); } .exam-inp.ko { border-color:var(--red); background:rgba(255,63,52,0.08); color:var(--red); } .exam-cta { width:100%; padding:17px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--purple),var(--blue)); color:#1a0b1c; font-family:'Space Mono',monospace; font-size:14px; font-weight:900; letter-spacing:3px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; box-shadow:0 6px 28px rgba(255,184,77,0.3); } .exam-cta:hover { transform:translateY(-3px); box-shadow:0 10px 40px rgba(255,184,77,0.5); } .exam-result { display:none; text-align:center; padding:36px 20px; background:var(--surface); border:1px solid var(--border); border-radius:20px; margin-top:18px; } .exam-result.show { display:block; animation:fadeIn 0.4s ease; } .exam-result-score { font-family:'Playfair Display',serif; font-size:80px; font-weight:900; letter-spacing:6px; line-height:1; } .s-gold { color:var(--gold); text-shadow:0 0 40px rgba(255,221,89,0.5); } .s-silver { color:var(--silver); } .s-red { color:var(--red); } .exam-verdict { font-family:'DM Mono',monospace; font-size:14px; color:var(--muted); margin:10px 0 20px; font-style:italic; } .breakdown { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); line-height:2; text-align:left; max-width:520px; margin:0 auto 20px; }
 .lex-search { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 18px; width:100%; color:var(--cream); font-family:'Space Mono',monospace; font-size:12px; outline:none; margin-bottom:20px; transition:border 0.2s; } .lex-search:focus { border-color:rgba(255,123,84,0.4); } .lex-search::placeholder { color:var(--muted); } .cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; margin-bottom:26px; } .cat-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; cursor:pointer; transition:all 0.25s; text-align:center; position:relative; overflow:hidden; } .cat-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; transform:scaleX(0); transition:transform 0.3s; } .cat-card:hover { transform:translateY(-4px); border-color:rgba(255,123,84,0.3); background:var(--surface2); } .cat-card:hover::after { transform:scaleX(1); } .cat-card.c0::after { background:var(--blue); } .cat-card.c1::after { background:var(--gold); } .cat-card.c2::after { background:var(--cyan); } .cat-card.c3::after { background:var(--pink); } .cat-card.c4::after { background:var(--green); } .cat-card-ico { font-size:32px; margin-bottom:8px; } .cat-card-name { font-family:'Space Mono',monospace; font-size:11px; font-weight: bold; letter-spacing:2px; text-transform:uppercase; color:var(--cream); } .cat-card-cnt { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); margin-top:6px; } .vocab-detail { display:none; } .vocab-detail.show { display:block; animation:fadeIn 0.35s ease; } .back-link { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; background:var(--surface); border:1px solid var(--border); color:var(--muted); cursor:pointer; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; transition:all 0.2s; } .back-link:hover { color:var(--cream); border-color:rgba(255,123,84,0.4); } .vocab-rows { display:grid; grid-template-columns:1fr 1fr; gap:7px; } .vrow { background:var(--surface); border:1px solid var(--border); border-radius:11px; padding:12px 15px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; transition:all 0.2s; } .vrow:hover { background:var(--surface2); border-color:rgba(255,123,84,0.3); } .v-fr { font-family:'DM Mono',monospace; font-size:13px; color:var(--purple); font-style:italic; margin-bottom:4px; } .v-en { font-family:'DM Mono',monospace; font-size:14px; font-weight: bold; color:var(--cyan); } .v-cat { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:1px; text-transform:uppercase; padding:3px 7px; border-radius:4px; background:rgba(255,123,84,0.15); color:var(--blue); flex-shrink:0; margin-top:2px; }
 .popup { position:fixed; top:22px; right:22px; z-index:1000; background:var(--surface2); border:1px solid rgba(255,123,84,0.4); border-radius:14px; padding:14px 20px; display:flex; align-items:center; gap:12px; transform:translateX(140%); transition:transform 0.4s cubic-bezier(.22,1,.36,1); box-shadow:0 20px 60px rgba(0,0,0,0.6); } .popup.show { transform:translateX(0); } .p-ico { font-size:24px; } .p-txt { font-family:'Space Mono',monospace; font-size:14px; font-weight:bold; letter-spacing:2px; color:var(--gold); } .p-sub { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); } #confetti { position:fixed; inset:0; pointer-events:none; z-index:500; }
-.typo-box { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:36px; text-align:center; margin-bottom:20px; } .typo-q { font-family:'Playfair Display',serif; font-size:clamp(26px,4vw,46px); font-weight:700; color:var(--purple); margin-bottom:12px; line-height: 1.2;} .typo-hint { font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); margin-bottom:20px; } .typo-inp { background:rgba(255,255,255,0.04); border:1px solid rgba(255,123,84,0.3); border-radius:10px; padding:14px 20px; color:var(--cream); font-family:'Space Mono',monospace; font-size:16px; width:100%; max-width:400px; outline:none; text-align:center; transition:border 0.2s; } .typo-inp:focus { border-color:rgba(255,123,84,0.6); } .typo-inp.ok { border-color:var(--green); color:var(--green); } .typo-inp.ko { border-color:var(--red); color:var(--red); } .typo-btns { display:flex; gap:10px; justify-content:center; margin-top:14px; } .typo-btn { padding:11px 24px; border-radius:9px; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; transition:all 0.2s; } .typo-btn.submit { background:linear-gradient(90deg,var(--blue2),var(--gold)); color:#1a0b1c; flex:1; max-width:220px; } .typo-btn.skip { background:var(--surface2); border:1px solid var(--border); color:var(--muted); } .typo-btn:hover { transform:translateY(-2px); filter:brightness(1.1); } .typo-ans { font-family:'DM Mono',monospace; font-size:15px; font-weight:bold; color:var(--green); margin-top:12px; min-height:20px; } .typo-score-row { font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); text-align:center; margin-top:10px; } .typo-score-row strong { color:var(--cream); }
-@media(max-width:600px) { header { padding:30px 16px 20px; } .quiz-opts, .exam-list, .vocab-rows, .match-cols, .learn-dashboard { grid-template-columns:1fr; } .fc-btns { flex-direction:column; } .fill-btns { flex-wrap:wrap; } .cat-grid { grid-template-columns:1fr 1fr; } }
+@media(max-width:600px) { header { padding:30px 16px 20px; } .quiz-opts, .exam-list, .vocab-rows, .match-cols, .learn-dashboard { grid-template-columns:1fr; } .fc-btns { flex-direction:column; } .fill-btns { flex-wrap:wrap; } .cat-grid { grid-template-columns:1fr 1fr; } .oral-actions { flex-direction:column; } }
 </style>
 </head>
 <body>
@@ -173,7 +183,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
   <button class="tab-btn active" onclick="goTab('learn',this)">🧠 Apprentissage</button>
   <button class="tab-btn" onclick="goTab('flashcards',this)">🃏 Flashcards</button>
   <button class="tab-btn" onclick="goTab('quiz',this)">⚡ Quiz QCM</button>
-  <button class="tab-btn" onclick="goTab('typo',this)">⌨️ Écriture</button>
   <button class="tab-btn" onclick="goTab('fill',this)">✍️ Trous</button>
   <button class="tab-btn" onclick="goTab('match',this)">🔗 Paires</button>
   <button class="tab-btn" onclick="goTab('exam',this)">🎓 Exam Blanc</button>
@@ -184,7 +193,8 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 
 <section class="section active" id="s-learn">
   <div class="section-title">🧠 Mode <span class="acc">Apprentissage</span></div>
-  <p class="section-desc">Algorithme intelligent : les mots difficiles reviennent plus souvent, les mots maîtrisés disparaissent progressivement.</p>
+  <p class="section-desc">Aucune orthographe requise ! Mode 100% axé sur l'oral avec prononciation et mémorisation ludique.</p>
+  
   <div class="learn-cat-row" id="learn-cats">
     <div class="cat-pill active" onclick="pickLearnCat('all',this)">Tout</div>
     <div class="cat-pill" onclick="pickLearnCat('vocab_div',this)">🌍 Vocab. Diversidad</div>
@@ -193,27 +203,45 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
     <div class="cat-pill" onclick="pickLearnCat('citas_fic',this)">🎬 Citas Ficciones</div>
     <div class="cat-pill" onclick="pickLearnCat('phrases_oral',this)">🎓 Phrases Oral</div>
   </div>
+  
   <div class="learn-dashboard">
     <div class="learn-bucket b-new"><div class="learn-bucket-count" id="lb-new">0</div><div class="learn-bucket-label">Restants</div></div>
     <div class="learn-bucket b-learning"><div class="learn-bucket-count" id="lb-learning">0</div><div class="learn-bucket-label">En cours</div></div>
     <div class="learn-bucket b-mastered"><div class="learn-bucket-count" id="lb-mastered">0</div><div class="learn-bucket-label">Maîtrisés ✓</div></div>
   </div>
   <div class="learn-progress-bar"><div class="lp-mastered" id="lp-mastered" style="width:0%"></div><div class="lp-learning" id="lp-learning" style="width:0%"></div><div class="lp-new" id="lp-new" style="width:100%"></div></div>
+  
   <div id="learn-main">
-    <div style="text-align:center;"><div class="learn-level-badge lvl1" id="learn-badge">Niveau 1 · Reconnaissance QCM</div></div>
+    <div style="text-align:center;"><div class="learn-level-badge lvl1" id="learn-badge">Niveau 1 · Découverte QCM</div></div>
     <div class="learn-q-box">
       <div class="learn-q-word" id="learn-q-word">—</div>
       <div class="learn-q-hint" id="learn-q-hint"></div>
       <div class="learn-q-cat" id="learn-q-cat"></div>
+      
       <div class="learn-opts" id="learn-opts"></div>
-      <div class="learn-type-wrap" id="learn-type-wrap" style="display:none">
-        <input class="learn-type-inp" id="learn-type-inp" type="text" placeholder="Tapez la traduction espagnole…" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')submitLearnType()">
-        <div class="learn-type-btns"><button class="learn-type-btn submit" onclick="submitLearnType()">Valider ↵</button><button class="learn-type-btn skip" onclick="learnDontKnow()">Je ne sais pas</button></div>
+      
+      <div class="oral-box" id="learn-oral-wrap" style="display:none;">
+        <div class="oral-prompt">🗣️ Dis la traduction à voix haute !</div>
+        <button class="btn-oral-rev" id="btn-reveal-oral" onclick="revealOral()">👁️ Voir & Entendre la réponse</button>
+        
+        <div id="oral-answer-box" style="display:none; flex-direction:column; align-items:center; gap:16px; width:100%;">
+          <div class="oral-ans-text">
+            <span id="oral-answer-text"></span>
+            <span class="oral-ans-speaker" onclick="replayAudio()">🔊</span>
+          </div>
+          <div style="font-family:'DM Mono'; font-size:12px; color:var(--muted); margin-bottom:4px;">As-tu prononcé la bonne chose ?</div>
+          <div class="oral-actions">
+             <button class="btn-oral-eval yes" onclick="submitOral(true)">✅ J'avais bon !</button>
+             <button class="btn-oral-eval no" onclick="submitOral(false)">❌ Je me suis trompé</button>
+          </div>
+        </div>
       </div>
+
     </div>
     <div class="learn-feedback" id="learn-feedback"></div>
     <button class="learn-next-btn" id="learn-next-btn" onclick="learnNext()">Siguiente →</button>
   </div>
+  
   <div class="learn-chunk-done" id="learn-chunk-done">
     <div class="learn-chunk-score" id="learn-chunk-score">—</div><div class="learn-chunk-msg" id="learn-chunk-msg"></div>
     <button class="btn-main show" onclick="learnContinueChunk()" style="max-width:320px;margin:0 auto; display:block;">Continuer la session →</button>
@@ -245,7 +273,9 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
         <div class="fc-lang" id="fc-lang-front">Français</div><div class="fc-word" id="fc-q">—</div><div class="fc-sub" id="fc-hint"></div><div class="fc-category" id="fc-cat-badge"></div><div class="fc-tap">Cliquez pour retourner →</div>
       </div>
       <div class="fc-face fc-back">
-        <div class="fc-lang" id="fc-lang-back">Español</div><div class="fc-word" id="fc-a">—</div><div class="fc-sub" id="fc-extra"></div>
+        <div class="fc-lang" id="fc-lang-back">Español</div>
+        <div class="fc-word" id="fc-a" style="display:flex; align-items:center; gap:10px;">—</div>
+        <div class="fc-sub" id="fc-extra"></div>
       </div>
     </div>
   </div>
@@ -273,23 +303,6 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
   </div>
 </section>
 
-<section class="section" id="s-typo">
-  <div class="section-title">⌨️ Mode <span class="acc">Frappe</span></div>
-  <p class="section-desc">Tape la traduction exacte en espagnol.</p>
-  <div class="cat-row" id="typo-cats">
-    <div class="cat-pill active" onclick="pickTypoCat('all',this)">Tout</div>
-    <div class="cat-pill" onclick="pickTypoCat('vocab_div',this)">🌍 Vocab. Diversité</div>
-    <div class="cat-pill" onclick="pickTypoCat('vocab_fic',this)">📚 Vocab. Fictions</div>
-  </div>
-  <div class="typo-box">
-    <div class="typo-q" id="typo-q">—</div><div class="typo-hint" id="typo-hint"></div>
-    <input class="typo-inp" id="typo-inp" type="text" placeholder="Tapez la traduction espagnole…" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')checkTypo()">
-    <div class="typo-ans" id="typo-ans"></div>
-    <div class="typo-btns"><button class="typo-btn submit" onclick="checkTypo()">Valider ↵</button><button class="typo-btn skip" onclick="skipTypo()">Passer →</button></div>
-  </div>
-  <div class="typo-score-row">Mot <strong id="typo-i">1</strong> / <strong id="typo-tot">—</strong> &nbsp;·&nbsp; ✅ <span id="typo-good">0</span> &nbsp; ❌ <span id="typo-bad">0</span></div>
-</section>
-
 <section class="section" id="s-fill">
   <div class="section-title">✍️ Texte à <span class="acc">Trous</span></div>
   <p class="section-desc">Complète le texte avec les mots manquants. Entraînement idéal pour l'oral.</p>
@@ -311,7 +324,7 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 
 <section class="section" id="s-exam">
   <div class="section-title">🎓 <span class="acc">Exam</span> Blanc</div>
-  <p class="section-desc">Test final : traduis les 12 mots/phrases sans aucune aide.</p>
+  <p class="section-desc">Test final : orthographe optionnelle (le système est indulgent), teste-toi !</p>
   <div class="mission-banner">
     <div class="mission-icon">🏅</div>
     <div><div class="mission-title">MISIÓN: BAC ESPAÑOL</div><div class="mission-sub">12 mots · Français → Español</div></div>
@@ -344,12 +357,23 @@ main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z
 /* ══════════════════════════════════════
    CURSOR
 ══════════════════════════════════════ */
-const cur = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px';
-  ring.style.left = e.clientX+'px'; ring.style.top = e.clientY+'px';
-});
+const cur = document.getElementById('cursor'); const ring = document.getElementById('cursor-ring');
+document.addEventListener('mousemove', e => { cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px'; ring.style.left = e.clientX+'px'; ring.style.top = e.clientY+'px'; });
+
+/* ══════════════════════════════════════
+   TTS (TEXT TO SPEECH)
+══════════════════════════════════════ */
+let currentAudioWord = "";
+function speakES(text) {
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel(); 
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = 'es-ES';
+    msg.rate = 0.9; // Légèrement plus lent pour bien comprendre
+    speechSynthesis.speak(msg);
+  }
+}
+function replayAudio() { if(currentAudioWord) speakES(currentAudioWord); }
 
 /* ══════════════════════════════════════
    VOCABULARY DATA
@@ -358,57 +382,33 @@ const VOCAB = {
   vocab_div: {
     name: "Vocab: Diversidad", icon: "🌍", color: "c0",
     words: [
-      { fr: "réussir", en: "lograr" },
-      { fr: "la pierre angulaire / la base", en: "la piedra angular" },
-      { fr: "le respect", en: "el respeto" },
-      { fr: "la diversité", en: "la diversidad" },
-      { fr: "l'éradication", en: "la erradicación" },
-      { fr: "le racisme", en: "el racismo" },
-      { fr: "la xénophobie", en: "la xenofobia" },
-      { fr: "les préjugés", en: "los prejuicios" },
-      { fr: "handicapé(e)", en: "discapacitada / discapacitado" },
-      { fr: "l'égalité", en: "la igualdad" },
-      { fr: "la dignité", en: "la dignidad" },
-      { fr: "qui a du succès", en: "exitosa" },
-      { fr: "le syndrome de Down / trisomie 21", en: "el síndrome de Down" },
-      { fr: "la solidarité", en: "la solidaridad" },
-      { fr: "enrichir", en: "enriquecer" }
+      { fr: "réussir", en: "lograr" }, { fr: "la pierre angulaire / la base", en: "la piedra angular" }, { fr: "le respect", en: "el respeto" }, { fr: "la diversité", en: "la diversidad" },
+      { fr: "l'éradication", en: "la erradicación" }, { fr: "le racisme", en: "el racismo" }, { fr: "la xénophobie", en: "la xenofobia" }, { fr: "les préjugés", en: "los prejuicios" },
+      { fr: "handicapé(e)", en: "discapacitada / discapacitado" }, { fr: "l'égalité", en: "la igualdad" }, { fr: "la dignité", en: "la dignidad" }, { fr: "qui a du succès", en: "exitosa" },
+      { fr: "le syndrome de Down / trisomie 21", en: "el síndrome de Down" }, { fr: "la solidarité", en: "la solidaridad" }, { fr: "enrichir", en: "enriquecer" }
     ]
   },
   citas_div: {
     name: "Citas: Diversidad", icon: "🗣️", color: "c1",
     words: [
-      { fr: "Les différences nous rendent uniques.", en: "Las diferencias nos hacen únicos." },
-      { fr: "Nous sommes différents mais égaux.", en: "Somos diferentes pero iguales." },
-      { fr: "La diversité enrichit.", en: "La diversidad enriquece." },
-      { fr: "Tes préjugés sont les voix des autres.", en: "Tus prejuicios son las voces de otros." },
-      { fr: "Respecte-moi et vis la diversité.", en: "Respétame y vive la diversidad." },
-      { fr: "Existence, présence, insistance, résistance.", en: "Existencia, presencia, insistencia, resistencia." }
+      { fr: "Les différences nous rendent uniques.", en: "Las diferencias nos hacen únicos." }, { fr: "Nous sommes différents mais égaux.", en: "Somos diferentes pero iguales." },
+      { fr: "La diversité enrichit.", en: "La diversidad enriquece." }, { fr: "Tes préjugés sont les voix des autres.", en: "Tus prejuicios son las voces de otros." },
+      { fr: "Respecte-moi et vis la diversité.", en: "Respétame y vive la diversidad." }, { fr: "Existence, présence, insistance, résistance.", en: "Existencia, presencia, insistencia, resistencia." }
     ]
   },
   vocab_fic: {
     name: "Vocab: Ficciones", icon: "📚", color: "c2",
     words: [
-      { fr: "le ragot / le potin", en: "el chisme" },
-      { fr: "la télé-poubelle", en: "la telebasura" },
-      { fr: "l'addiction aux séries", en: "la seriefilia" },
-      { fr: "la lecture", en: "la lectura" },
-      { fr: "la montgolfière", en: "el globo" },
-      { fr: "le globe terrestre", en: "el globo terráqueo" },
-      { fr: "la fusée", en: "el cohete" },
-      { fr: "la colère", en: "la ira" },
-      { fr: "rompre avec quelqu'un", en: "romper con alguien" },
-      { fr: "valoir la peine", en: "valer la pena" },
-      { fr: "les épisodes", en: "los episodios" },
-      { fr: "les saisons", en: "las temporadas" },
-      { fr: "un personnage", en: "un personaje" }
+      { fr: "le ragot / le potin", en: "el chisme" }, { fr: "la télé-poubelle", en: "la telebasura" }, { fr: "l'addiction aux séries", en: "la seriefilia" },
+      { fr: "la lecture", en: "la lectura" }, { fr: "la montgolfière", en: "el globo" }, { fr: "le globe terrestre", en: "el globo terráqueo" }, { fr: "la fusée", en: "el cohete" },
+      { fr: "la colère", en: "la ira" }, { fr: "rompre avec quelqu'un", en: "romper con alguien" }, { fr: "valoir la peine", en: "valer la pena" },
+      { fr: "les épisodes", en: "los episodios" }, { fr: "les saisons", en: "las temporadas" }, { fr: "un personnage", en: "un personaje" }
     ]
   },
   citas_fic: {
     name: "Citas: Ficciones", icon: "🎬", color: "c3",
     words: [
-      { fr: "Tu es ce que tu lis.", en: "Eres lo que lees." },
-      { fr: "La lecture, ta meilleure aventure.", en: "La lectura, tu mejor aventura." },
+      { fr: "Tu es ce que tu lis.", en: "Eres lo que lees." }, { fr: "La lecture, ta meilleure aventure.", en: "La lectura, tu mejor aventura." },
       { fr: "Il est impossible de séparer réalité et fiction.", en: "Es imposible separar realidad y ficción." },
       { fr: "Terminer une série c'est comme rompre avec quelqu'un.", en: "Terminar una serie es como romper con alguien." },
       { fr: "Je crois qu'il vaut la peine de lire.", en: "Creo que vale la pena leer." }
@@ -417,39 +417,21 @@ const VOCAB = {
   phrases_oral: {
     name: "Phrases pour l'oral", icon: "🎓", color: "c4",
     words: [
-      { fr: "Cette image illustre le thème de...", en: "Esta imagen ilustra el tema de..." },
-      { fr: "La citation fait référence à...", en: "La cita hace referencia a..." },
-      { fr: "D'un côté... de l'autre côté...", en: "Por un lado... por otro lado..." },
-      { fr: "Je suis d'accord avec cette idée.", en: "Estoy de acuerdo con esta idea." },
-      { fr: "Le message principal est que...", en: "El mensaje principal es que..." },
-      { fr: "Cela nous invite à réfléchir sur...", en: "Esto nos invita a reflexionar sobre..." },
+      { fr: "Cette image illustre le thème de...", en: "Esta imagen ilustra el tema de..." }, { fr: "La citation fait référence à...", en: "La cita hace referencia a..." },
+      { fr: "D'un côté... de l'autre côté...", en: "Por un lado... por otro lado..." }, { fr: "Je suis d'accord avec cette idée.", en: "Estoy de acuerdo con esta idea." },
+      { fr: "Le message principal est que...", en: "El mensaje principal es que..." }, { fr: "Cela nous invite à réfléchir sur...", en: "Esto nos invita a reflexionar sobre..." },
       { fr: "En conclusion, je dirais que...", en: "Para concluir, diría que..." }
     ]
   }
 };
 
-const ALL = [];
-Object.keys(VOCAB).forEach(k => VOCAB[k].words.forEach(w => ALL.push({...w, cat: k})));
-
-const catNames = { 
-  vocab_div:'🌍 Vocab. Diversidad', 
-  citas_div:'🗣️ Citas Diversidad', 
-  vocab_fic:'📚 Vocab. Ficciones', 
-  citas_fic:'🎬 Citas Ficciones', 
-  phrases_oral:'🎓 Phrases Oral',
-  all: 'Tout' 
-};
+const ALL = []; Object.keys(VOCAB).forEach(k => VOCAB[k].words.forEach(w => ALL.push({...w, cat: k})));
+const catNames = { vocab_div:'🌍 Vocab. Diversidad', citas_div:'🗣️ Citas Diversidad', vocab_fic:'📚 Vocab. Ficciones', citas_fic:'🎬 Citas Ficciones', phrases_oral:'🎓 Phrases Oral', all: 'Tout' };
 
 function normalizeStr(str) {
   if (!str) return "";
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") 
-            .toLowerCase()
-            .replace(/[()]/g, "") 
-            .replace(/\b(el|la|los|las|un|una)\b/g, "") 
-            .replace(/[^a-z0-9]/g, "") 
-            .trim();
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[()]/g, "").replace(/\b(el|la|los|las|un|una)\b/g, "").replace(/[^a-z0-9]/g, "").trim();
 }
-
 function getFirstEn(str) { return str.split('/')[0].replace(/[()]/g, '').trim(); }
 function getFirstFr(str) { return str.split('/')[0].replace(/[()]/g, '').trim(); }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a; }
@@ -458,241 +440,135 @@ function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0
    STATE & NAVIGATION
 ══════════════════════════════════════ */
 let xp=0, streak=0, okCount=0, totalAns=0;
-
 function sync() {
-  document.getElementById('st-xp').textContent = xp;
-  document.getElementById('st-streak').textContent = streak;
-  document.getElementById('st-ok').textContent = okCount;
-  document.getElementById('st-acc').textContent = totalAns ? Math.round(okCount/totalAns*100)+'%' : '—';
-  document.getElementById('xp-lbl').textContent = xp+' / 600 XP';
-  document.getElementById('xp-fill').style.width = Math.min(xp/600*100,100)+'%';
+  document.getElementById('st-xp').textContent = xp; document.getElementById('st-streak').textContent = streak;
+  document.getElementById('st-ok').textContent = okCount; document.getElementById('st-acc').textContent = totalAns ? Math.round(okCount/totalAns*100)+'%' : '—';
+  document.getElementById('xp-lbl').textContent = xp+' / 600 XP'; document.getElementById('xp-fill').style.width = Math.min(xp/600*100,100)+'%';
 }
 function good(pts, msg) { xp+=pts; streak++; okCount++; totalAns++; sync(); pop('⭐',`+${pts} XP`,msg); }
 function bad() { streak=0; totalAns++; sync(); pop('💫','A repasar','Série perdue'); }
 function pop(ico,txt,sub) {
-  const p=document.getElementById('popup');
-  document.getElementById('p-ico').textContent=ico;
-  document.getElementById('p-txt').textContent=txt;
-  document.getElementById('p-sub').textContent=sub;
-  p.classList.add('show'); setTimeout(()=>p.classList.remove('show'),2600);
+  const p=document.getElementById('popup'); document.getElementById('p-ico').textContent=ico; document.getElementById('p-txt').textContent=txt;
+  document.getElementById('p-sub').textContent=sub; p.classList.add('show'); setTimeout(()=>p.classList.remove('show'),2600);
 }
 
 function goTab(name, btn) {
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('s-'+name).classList.add('active');
-  btn.classList.add('active');
-  if(name==='learn') startLearn();
-  if(name==='quiz') startQuiz();
-  if(name==='fill') loadFill();
-  if(name==='exam') loadExam();
-  if(name==='vocab') loadVocab();
-  if(name==='match') loadMatch();
-  if(name==='typo') buildTypoDeck();
+  document.getElementById('s-'+name).classList.add('active'); btn.classList.add('active');
+  if(name==='learn') startLearn(); if(name==='quiz') startQuiz(); if(name==='fill') loadFill();
+  if(name==='exam') loadExam(); if(name==='vocab') loadVocab(); if(name==='match') loadMatch();
 }
 
 /* ══════════════════════════════════════
-   MODE APPRENTISSAGE
+   MODE APPRENTISSAGE LUDIQUE (100% ORAL)
 ══════════════════════════════════════ */
-let learnCat = 'all';
-let learnState = [];
-let learnQueue = [];
-let learnChunkSet = [];
-let learnChunkIdx = 0;
-let learnAnswered = false;
-let learnChunkCorrect = 0;
-let learnChunkTotal = 0;
+let learnCat = 'all', learnState = [], learnChunkSet = [], learnChunkIdx = 0, learnAnswered = false, learnChunkCorrect = 0, learnChunkTotal = 0;
 const CHUNK_SIZE = 6;
 
-function pickLearnCat(cat, el) {
-  document.querySelectorAll('#learn-cats .cat-pill').forEach(p=>p.classList.remove('active'));
-  el.classList.add('active'); learnCat = cat; startLearn();
-}
-
+function pickLearnCat(cat, el) { document.querySelectorAll('#learn-cats .cat-pill').forEach(p=>p.classList.remove('active')); el.classList.add('active'); learnCat = cat; startLearn(); }
 function startLearn() {
   const src = learnCat==='all' ? ALL : ALL.filter(w=>w.cat===learnCat);
   learnState = src.map(w => ({ word: w, level: 1, bucket: 'new', correctStreak: 0, wrongCount: 0 }));
-  learnQueue = shuffle([...learnState]);
-  learnChunkIdx = 0;
-  hideLearnScreens();
-  buildNextChunk();
+  learnChunkIdx = 0; hideLearnScreens(); buildNextChunk();
 }
-
-function hideLearnScreens() {
-  document.getElementById('learn-main').style.display='block';
-  document.getElementById('learn-chunk-done').classList.remove('show');
-  document.getElementById('learn-complete').classList.remove('show');
-}
-
+function hideLearnScreens() { document.getElementById('learn-main').style.display='block'; document.getElementById('learn-chunk-done').classList.remove('show'); document.getElementById('learn-complete').classList.remove('show'); }
 function updateBuckets() {
-  const n = learnState.filter(s=>s.bucket==='new').length;
-  const l = learnState.filter(s=>s.bucket==='learning').length;
-  const m = learnState.filter(s=>s.bucket==='mastered').length;
-  const tot = learnState.length;
-  document.getElementById('lb-new').textContent = n;
-  document.getElementById('lb-learning').textContent = l;
-  document.getElementById('lb-mastered').textContent = m;
-  document.getElementById('lp-mastered').style.width = (m/tot*100)+'%';
-  document.getElementById('lp-learning').style.width = (l/tot*100)+'%';
-  document.getElementById('lp-new').style.width = (n/tot*100)+'%';
+  const n = learnState.filter(s=>s.bucket==='new').length, l = learnState.filter(s=>s.bucket==='learning').length, m = learnState.filter(s=>s.bucket==='mastered').length, tot = learnState.length;
+  document.getElementById('lb-new').textContent = n; document.getElementById('lb-learning').textContent = l; document.getElementById('lb-mastered').textContent = m;
+  document.getElementById('lp-mastered').style.width = (m/tot*100)+'%'; document.getElementById('lp-learning').style.width = (l/tot*100)+'%'; document.getElementById('lp-new').style.width = (n/tot*100)+'%';
 }
-
 function buildNextChunk() {
-  updateBuckets();
-  if(learnState.every(s=>s.bucket==='mastered')) { showComplete(); return; }
-  const learning = learnState.filter(s=>s.bucket==='learning');
-  const newWords = learnState.filter(s=>s.bucket==='new');
+  updateBuckets(); if(learnState.every(s=>s.bucket==='mastered')) { showComplete(); return; }
+  const learning = learnState.filter(s=>s.bucket==='learning'), newWords = learnState.filter(s=>s.bucket==='new');
   let pool = [];
-  if(learning.length > 0) {
-    pool = shuffle([...learning]).slice(0, Math.min(CHUNK_SIZE, learning.length));
-    if(pool.length < CHUNK_SIZE && newWords.length > 0) {
-      pool = [...pool, ...shuffle([...newWords]).slice(0, Math.min(2, CHUNK_SIZE - pool.length))];
-    }
-  } else {
-    pool = shuffle([...newWords]).slice(0, CHUNK_SIZE);
-  }
-  learnChunkSet = [];
-  pool.forEach(s => { learnChunkSet.push(s); if(s.bucket==='learning' && s.wrongCount > 1) learnChunkSet.push(s); });
-  learnChunkSet = shuffle(learnChunkSet);
-  learnChunkIdx = 0; learnChunkCorrect = 0; learnChunkTotal = learnChunkSet.length;
+  if(learning.length > 0) { pool = shuffle([...learning]).slice(0, Math.min(CHUNK_SIZE, learning.length)); if(pool.length < CHUNK_SIZE && newWords.length > 0) { pool = [...pool, ...shuffle([...newWords]).slice(0, Math.min(2, CHUNK_SIZE - pool.length))]; } } 
+  else { pool = shuffle([...newWords]).slice(0, CHUNK_SIZE); }
+  learnChunkSet = []; pool.forEach(s => { learnChunkSet.push(s); if(s.bucket==='learning' && s.wrongCount > 1) learnChunkSet.push(s); });
+  learnChunkSet = shuffle(learnChunkSet); learnChunkIdx = 0; learnChunkCorrect = 0; learnChunkTotal = learnChunkSet.length;
   renderLearnQ();
 }
-
 function renderLearnQ() {
   if(learnChunkIdx >= learnChunkSet.length) { showChunkDone(); return; }
-  learnAnswered = false;
-  const state = learnChunkSet[learnChunkIdx];
-  const w = state.word;
-  const level = state.level;
-
-  const badges = ['', 'Niveau 1 · Flashcard QCM', 'Niveau 2 · QCM Renforcé', 'Niveau 3 · Frappe libre', 'Niveau 4 · Frappe stricte → Maîtrise'];
-  const badgeClasses = ['', 'lvl1', 'lvl2', 'lvl3', 'lvl4'];
-  const badge = document.getElementById('learn-badge');
-  badge.textContent = badges[level];
-  badge.className = 'learn-level-badge ' + badgeClasses[level];
-
+  learnAnswered = false; const state = learnChunkSet[learnChunkIdx]; const w = state.word; const level = state.level;
+  const badges = ['', 'Niveau 1 · Découverte QCM', 'Niveau 2 · QCM Piège', 'Niveau 3 · Entraînement Oral 🗣️']; const badgeClasses = ['', 'lvl1', 'lvl2', 'lvl3'];
+  const badge = document.getElementById('learn-badge'); badge.textContent = badges[level]; badge.className = 'learn-level-badge ' + badgeClasses[level];
   document.getElementById('learn-q-word').textContent = w.fr;
-  document.getElementById('learn-q-hint').textContent = level <= 2 ? 'Choisissez la traduction espagnole' : 'Tapez la traduction espagnole';
+  document.getElementById('learn-q-hint').textContent = level <= 2 ? 'Choisissez la traduction espagnole' : 'Prononce-le puis vérifie !';
   document.getElementById('learn-q-cat').textContent = catNames[w.cat] || '';
-
-  const fb = document.getElementById('learn-feedback');
-  fb.classList.remove('show','ok','ko');
-  document.getElementById('learn-next-btn').classList.remove('show');
+  const fb = document.getElementById('learn-feedback'); fb.classList.remove('show','ok','ko'); document.getElementById('learn-next-btn').classList.remove('show');
 
   if(level <= 2) {
-    document.getElementById('learn-opts').style.display='grid';
-    document.getElementById('learn-type-wrap').style.display='none';
+    document.getElementById('learn-opts').style.display='grid'; document.getElementById('learn-oral-wrap').style.display='none';
     renderLearnMCQ(state, level);
   } else {
-    document.getElementById('learn-opts').style.display='none';
-    document.getElementById('learn-type-wrap').style.display='flex';
-    const inp = document.getElementById('learn-type-inp');
-    inp.value=''; inp.className='learn-type-inp'; inp.disabled=false;
-    setTimeout(()=>inp.focus(), 80);
+    document.getElementById('learn-opts').style.display='none'; document.getElementById('learn-oral-wrap').style.display='flex';
+    document.getElementById('btn-reveal-oral').style.display='block'; document.getElementById('oral-answer-box').style.display='none';
   }
 }
-
 function renderLearnMCQ(state, level) {
-  const w = state.word;
-  const correct = w.en;
-  let distractors;
+  const w = state.word; const correct = w.en; let distractors;
   if(level === 1) { distractors = shuffle(ALL.filter(x=>x!==w)).slice(0,3).map(x=>x.en); } 
-  else {
-    const sameCat = ALL.filter(x=>x!==w && x.cat===w.cat);
-    const other = ALL.filter(x=>x!==w && x.cat!==w.cat);
-    distractors = shuffle([...sameCat, ...other]).slice(0,3).map(x=>x.en);
-  }
-  const opts = shuffle([correct, ...distractors]);
-  const letters = ['A','B','C','D'];
-  const container = document.getElementById('learn-opts');
-  container.innerHTML = '';
-  opts.forEach((o,i)=>{
-    const b = document.createElement('button');
-    b.className = 'learn-opt';
-    b.innerHTML = `<span class="learn-opt-letter">${letters[i]}</span><span>${o}</span>`;
-    b.onclick = () => pickLearnMCQ(b, o, correct, state);
-    container.appendChild(b);
-  });
+  else { const sameCat = ALL.filter(x=>x!==w && x.cat===w.cat); const other = ALL.filter(x=>x!==w && x.cat!==w.cat); distractors = shuffle([...sameCat, ...other]).slice(0,3).map(x=>x.en); }
+  const opts = shuffle([correct, ...distractors]); const letters = ['A','B','C','D']; const container = document.getElementById('learn-opts'); container.innerHTML = '';
+  opts.forEach((o,i)=>{ const b = document.createElement('button'); b.className = 'learn-opt'; b.innerHTML = `<span class="learn-opt-letter">${letters[i]}</span><span>${o}</span>`; b.onclick = () => pickLearnMCQ(b, o, correct, state); container.appendChild(b); });
 }
-
 function pickLearnMCQ(btn, chosen, correct, state) {
-  if(learnAnswered) return;
-  learnAnswered = true;
+  if(learnAnswered) return; learnAnswered = true;
   document.querySelectorAll('.learn-opt').forEach(b=>b.disabled=true);
   document.querySelectorAll('.learn-opt').forEach(b=>{ if(b.querySelector('span:last-child')?.textContent===correct) b.classList.add('correct'); });
-  const ok = chosen === correct;
-  if(!ok) btn.classList.add('wrong-pick');
+  const ok = chosen === correct; if(!ok) btn.classList.add('wrong-pick');
+  if (ok) speakES(correct); // Petit bonus audio si c'est correct !
   handleLearnResult(state, ok, correct);
 }
 
-function submitLearnType() {
-  if(learnAnswered) { learnNext(); return; }
+// THE NEW ORAL MODE (LEVEL 3)
+function revealOral() {
   const state = learnChunkSet[learnChunkIdx];
-  const inp = document.getElementById('learn-type-inp');
-  const val = inp.value;
-  if(!val.trim()) return;
-  learnAnswered = true; inp.disabled = true;
+  document.getElementById('btn-reveal-oral').style.display = 'none';
+  document.getElementById('oral-answer-box').style.display = 'flex';
+  document.getElementById('oral-answer-text').textContent = state.word.en;
   
-  const correct = state.word.en;
-  const normVal = normalizeStr(val);
-  const targets = correct.split('/').map(normalizeStr);
-  let ok = state.level === 4 ? targets.some(t => normVal === t) : targets.some(t => normVal === t || (t.includes(normVal) && normVal.length >= Math.max(3, t.length - 2)));
+  // Audio
+  currentAudioWord = state.word.en;
+  speakES(currentAudioWord);
   
-  inp.className = 'learn-type-inp ' + (ok?'ok':'ko');
-  handleLearnResult(state, ok, correct);
+  document.querySelectorAll('.btn-oral-eval').forEach(b=>b.disabled=false);
 }
 
-function learnDontKnow() {
-  if(learnAnswered) return;
-  learnAnswered = true;
+function submitOral(ok) {
+  if(learnAnswered) return; learnAnswered = true;
   const state = learnChunkSet[learnChunkIdx];
-  document.getElementById('learn-type-inp').disabled = true;
-  handleLearnResult(state, false, state.word.en);
+  document.querySelectorAll('.btn-oral-eval').forEach(b => b.disabled = true);
+  handleLearnResult(state, ok, state.word.en);
 }
 
 function handleLearnResult(state, ok, correct) {
   if(ok) {
     state.correctStreak++; learnChunkCorrect++;
-    if(state.level < 4) state.level++;
-    if(state.level > 4) { state.level = 4; state.bucket = 'mastered'; } 
-    else if(state.correctStreak >= 2 && state.level === 4) { state.bucket = 'mastered'; } 
-    else if(state.bucket === 'new') { state.bucket = 'learning'; }
-    setLearnFB(true, '✅ ¡Correcto! ' + correct);
-    good(state.level * 3, `Niveau ${state.level} réussi !`);
+    if (state.bucket === 'new') state.bucket = 'learning';
+    if(state.level < 3) state.level++; else if(state.level === 3 && state.correctStreak >= 2) state.bucket = 'mastered';
+    setLearnFB(true, '✅ ¡Perfecto! ' + correct); good(state.level * 3, `Niveau ${state.level} réussi !`);
   } else {
     state.wrongCount++; state.correctStreak = 0;
-    if(state.level > 1) state.level--;
-    state.bucket = 'learning';
-    learnChunkSet.splice(Math.min(learnChunkIdx + 2, learnChunkSet.length), 0, state);
-    learnChunkTotal++;
-    setLearnFB(false, '❌ La respuesta era: ' + correct);
-    bad();
+    if(state.level > 1) state.level--; state.bucket = 'learning';
+    learnChunkSet.splice(Math.min(learnChunkIdx + 2, learnChunkSet.length), 0, state); learnChunkTotal++;
+    setLearnFB(false, '❌ La respuesta era: ' + correct); bad();
   }
-  updateBuckets();
-  document.getElementById('learn-next-btn').classList.add('show');
+  updateBuckets(); document.getElementById('learn-next-btn').classList.add('show');
 }
-
-function setLearnFB(ok, msg) {
-  const fb = document.getElementById('learn-feedback');
-  fb.textContent = msg; fb.className = 'learn-feedback show ' + (ok?'ok':'ko');
-}
+function setLearnFB(ok, msg) { const fb = document.getElementById('learn-feedback'); fb.textContent = msg; fb.className = 'learn-feedback show ' + (ok?'ok':'ko'); }
 function learnNext() { learnChunkIdx++; renderLearnQ(); }
 function showChunkDone() {
-  document.getElementById('learn-main').style.display='none';
-  document.getElementById('learn-chunk-done').classList.add('show');
-  const pct = learnChunkCorrect / learnChunkTotal;
-  document.getElementById('learn-chunk-score').textContent = learnChunkCorrect+'/'+learnChunkTotal;
-  const msgs = ['Sigue practicando...', '¡Vas bien!', '¡Muy buena serie!', '¡Excelente!'];
-  document.getElementById('learn-chunk-msg').textContent = msgs[Math.min(Math.floor(pct*4),3)];
+  document.getElementById('learn-main').style.display='none'; document.getElementById('learn-chunk-done').classList.add('show');
+  const pct = learnChunkCorrect / learnChunkTotal; document.getElementById('learn-chunk-score').textContent = learnChunkCorrect+'/'+learnChunkTotal;
+  const msgs = ['Sigue practicando...', '¡Vas bien!', '¡Muy buena serie!', '¡Excelente!']; document.getElementById('learn-chunk-msg').textContent = msgs[Math.min(Math.floor(pct*4),3)];
   updateBuckets();
 }
 function learnContinueChunk() { document.getElementById('learn-chunk-done').classList.remove('show'); hideLearnScreens(); buildNextChunk(); }
 function showComplete() {
-  document.getElementById('learn-main').style.display='none';
-  document.getElementById('learn-chunk-done').classList.remove('show');
-  document.getElementById('learn-complete').classList.add('show');
-  document.getElementById('learn-complete-sub').textContent = `Tous les mots sont maîtrisés ! Score total XP : ${xp}`;
-  boom(); good(100, '¡Todo dominado!');
+  document.getElementById('learn-main').style.display='none'; document.getElementById('learn-chunk-done').classList.remove('show'); document.getElementById('learn-complete').classList.add('show');
+  document.getElementById('learn-complete-sub').textContent = `Tous les mots sont maîtrisés ! Score total XP : ${xp}`; boom(); good(100, '¡Todo dominado!');
 }
 
 /* ══════════════════════════════════════
@@ -704,23 +580,22 @@ function pickCat(cat, el) { document.querySelectorAll('#fc-cats .cat-pill').forE
 function buildDeck() {
   const src = fcCat==='all' ? ALL : ALL.filter(w=>w.cat===fcCat);
   deck = shuffle([...src]); fcIdx=0; fcGood=0; fcBad=0; flipped=false;
-  document.getElementById('fc-card').classList.remove('flipped');
-  document.getElementById('fc-ans-btns').style.display='none';
-  document.getElementById('fc-reveal-btn').style.display='flex';
+  document.getElementById('fc-card').classList.remove('flipped'); document.getElementById('fc-ans-btns').style.display='none'; document.getElementById('fc-reveal-btn').style.display='flex';
   renderFC();
 }
 function renderFC() {
   if(fcIdx>=deck.length) {
-    document.getElementById('fc-q').textContent='🚀 Terminé !'; document.getElementById('fc-hint').textContent=`Score : ${fcGood}/${deck.length}`; document.getElementById('fc-a').textContent='';
+    document.getElementById('fc-q').textContent='🚀 Terminé !'; document.getElementById('fc-hint').textContent=`Score : ${fcGood}/${deck.length}`; document.getElementById('fc-a').innerHTML='';
     document.getElementById('fc-ans-btns').style.display='none'; document.getElementById('fc-reveal-btn').style.display='none';
     if(fcGood===deck.length) boom(); return;
   }
   const w=deck[fcIdx];
   if(fcMode==='fr-en') {
-    document.getElementById('fc-q').textContent = w.fr; document.getElementById('fc-a').textContent = w.en;
+    document.getElementById('fc-q').textContent = w.fr;
+    document.getElementById('fc-a').innerHTML = `<span>${w.en}</span> <span class="oral-ans-speaker" onclick="event.stopPropagation(); speakES('${w.en.replace(/'/g,"\\'")}')">🔊</span>`;
     document.getElementById('fc-lang-front').textContent = 'Français'; document.getElementById('fc-lang-back').textContent = 'Español';
   } else {
-    document.getElementById('fc-q').textContent = w.en; document.getElementById('fc-a').textContent = w.fr;
+    document.getElementById('fc-q').textContent = w.en; document.getElementById('fc-a').innerHTML = w.fr;
     document.getElementById('fc-lang-front').textContent = 'Español'; document.getElementById('fc-lang-back').textContent = 'Français';
   }
   document.getElementById('fc-hint').textContent = catNames[w.cat] || ''; document.getElementById('fc-cat-badge').textContent = catNames[w.cat] || '';
@@ -732,7 +607,10 @@ function renderFC() {
 function flipFC() {
   if(fcIdx>=deck.length) return;
   flipped=!flipped; document.getElementById('fc-card').classList.toggle('flipped',flipped);
-  if(flipped) { document.getElementById('fc-ans-btns').style.display='flex'; document.getElementById('fc-reveal-btn').style.display='none'; }
+  if(flipped) { 
+    document.getElementById('fc-ans-btns').style.display='flex'; document.getElementById('fc-reveal-btn').style.display='none'; 
+    if(fcMode==='fr-en') speakES(deck[fcIdx].en);
+  }
 }
 function ansFC(ok) { if(ok){fcGood++;good(5,'Flashcard réussie !');} else{fcBad++;bad();} fcIdx++; setTimeout(renderFC,180); }
 
@@ -742,16 +620,13 @@ function ansFC(ok) { if(ok){fcGood++;good(5,'Flashcard réussie !');} else{fcBad
 let qDeck=[], qIdx=0, qScore=0, qTimer=null, qDone=false;
 function startQuiz() { document.getElementById('quiz-main').style.display='block'; document.getElementById('quiz-end').style.display='none'; qDeck = shuffle([...ALL]).slice(0,12); qIdx=0; qScore=0; renderQ(); }
 function renderQ() {
-  if(qIdx>=qDeck.length){ endQuiz(); return; }
-  qDone=false; const w=qDeck[qIdx]; const frToEn=Math.random()>0.5;
+  if(qIdx>=qDeck.length){ endQuiz(); return; } qDone=false; const w=qDeck[qIdx]; const frToEn=Math.random()>0.5;
   document.getElementById('q-dir').textContent = frToEn ? 'FR → ES' : 'ES → FR'; document.getElementById('q-word').textContent = frToEn ? w.fr : w.en;
   document.getElementById('q-hint').textContent = ''; document.getElementById('q-cat').textContent = catNames[w.cat]||'';
   document.getElementById('qn').textContent = qIdx+1; document.getElementById('q-prog-fill').style.width = (qIdx/12*100)+'%';
-  const correct = frToEn ? w.en : w.fr;
-  const wrongs = shuffle(ALL.filter(x=>x!==w)).slice(0,3).map(x=>frToEn?x.en:x.fr);
-  const opts = shuffle([correct,...wrongs]);
-  const letters=['A','B','C','D']; const container=document.getElementById('quiz-opts'); container.innerHTML='';
-  opts.forEach((o,i)=>{ const b=document.createElement('button'); b.className='q-opt'; b.innerHTML=`<span class="q-opt-letter">${letters[i]}</span><span>${o}</span>`; b.onclick=()=>pickQ(b,o,correct); container.appendChild(b); });
+  const correct = frToEn ? w.en : w.fr; const wrongs = shuffle(ALL.filter(x=>x!==w)).slice(0,3).map(x=>frToEn?x.en:x.fr);
+  const opts = shuffle([correct,...wrongs]); const letters=['A','B','C','D']; const container=document.getElementById('quiz-opts'); container.innerHTML='';
+  opts.forEach((o,i)=>{ const b=document.createElement('button'); b.className='q-opt'; b.innerHTML=`<span class="q-opt-letter">${letters[i]}</span><span>${o}</span>`; b.onclick=()=>pickQ(b,o,correct,frToEn); container.appendChild(b); });
   document.getElementById('q-fb').classList.remove('show','ok','ko'); document.getElementById('btn-next').classList.remove('show');
   startTimer(15);
 }
@@ -766,10 +641,11 @@ function timeUpQ() {
   document.querySelectorAll('.q-opt').forEach(b=>{if(b.querySelector('span:last-child')?.textContent===correct)b.classList.add('correct');});
   setFB(false,'⏰ ¡Tiempo agotado! → '+correct); bad(); document.getElementById('btn-next').classList.add('show'); qIdx++;
 }
-function pickQ(btn,chosen,correct) {
+function pickQ(btn,chosen,correct,frToEn) {
   if(qDone)return; qDone=true; clearInterval(qTimer); document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
   document.querySelectorAll('.q-opt').forEach(b=>{ if(b.querySelector('span:last-child')?.textContent===correct) b.classList.add('correct'); });
   const ok=chosen===correct; if(!ok) btn.classList.add('wrong-pick');
+  if(frToEn && ok) speakES(correct); // Audio
   setFB(ok, ok?'✅ ¡Correcto!':'❌ La réponse était : '+correct);
   if(ok){qScore++;good(10,'Bonne réponse !');}else bad();
   document.getElementById('btn-next').classList.add('show'); qIdx++;
@@ -781,34 +657,6 @@ function endQuiz() {
   const msgs=['🌑 Continue à réviser…','🌙 En bonne voie !','⭐ Muy bien !','🚀 ¡MISIÓN CUMPLIDA!']; document.getElementById('end-msg').textContent=msgs[Math.min(Math.floor(qScore/3),3)];
   if(qScore>=11) boom();
 }
-
-/* ══════════════════════════════════════
-   FRAPPE (Type the answer)
-══════════════════════════════════════ */
-let typoDeck=[], typoIdx=0, typoGood=0, typoBad=0, typoCat='all', typoAnswered=false;
-function pickTypoCat(cat,el) { document.querySelectorAll('#typo-cats .cat-pill').forEach(p=>p.classList.remove('active')); el.classList.add('active'); typoCat=cat; buildTypoDeck(); }
-function buildTypoDeck() { const src = typoCat==='all' ? ALL : ALL.filter(w=>w.cat===typoCat); typoDeck=shuffle([...src]); typoIdx=0; typoGood=0; typoBad=0; renderTypo(); }
-function renderTypo() {
-  if(typoIdx>=typoDeck.length) {
-    document.getElementById('typo-q').textContent='🎉 Terminé !'; document.getElementById('typo-hint').textContent=`Score final : ${typoGood}/${typoDeck.length}`;
-    document.getElementById('typo-inp').value=''; document.getElementById('typo-inp').disabled=true;
-    if(typoGood===typoDeck.length) boom(); return;
-  }
-  typoAnswered=false; const w=typoDeck[typoIdx];
-  document.getElementById('typo-q').textContent=w.fr; document.getElementById('typo-hint').textContent='→ Traduis en espagnol'; document.getElementById('typo-ans').textContent='';
-  const inp=document.getElementById('typo-inp'); inp.value=''; inp.className='typo-inp'; inp.disabled=false; inp.focus();
-  document.getElementById('typo-i').textContent=typoIdx+1; document.getElementById('typo-tot').textContent=typoDeck.length; document.getElementById('typo-good').textContent=typoGood; document.getElementById('typo-bad').textContent=typoBad;
-}
-function checkTypo() {
-  if(typoAnswered) { typoIdx++; renderTypo(); return; }
-  const w=typoDeck[typoIdx]; const val=document.getElementById('typo-inp').value; if(!val.trim()) return;
-  const normVal = normalizeStr(val); const targets = w.en.split('/').map(normalizeStr); const ok = targets.some(t => normVal === t || (t.length >= 3 && t.includes(normVal)));
-  const inp=document.getElementById('typo-inp'); inp.className='typo-inp '+(ok?'ok':'ko');
-  document.getElementById('typo-ans').textContent=ok?'✅ '+w.en:'❌ '+w.en; document.getElementById('typo-ans').style.color=ok?'var(--green)':'var(--red)';
-  if(ok){typoGood++;good(8,'¡Perfecto!');}else{typoBad++;bad();}
-  typoAnswered=true; document.getElementById('typo-good').textContent=typoGood; document.getElementById('typo-bad').textContent=typoBad; inp.disabled=true;
-}
-function skipTypo() { if(!typoAnswered) { typoBad++; bad(); document.getElementById('typo-ans').textContent='→ '+typoDeck[typoIdx].en; document.getElementById('typo-ans').style.color='var(--muted)'; } typoIdx++; setTimeout(renderTypo,600); }
 
 /* ══════════════════════════════════════
    FILL (Texte à trous)
@@ -861,12 +709,13 @@ function selectMatch(el,pair) {
   if(prev.pair.id===pair.id){
     [prev.el,el].forEach(e=>{e.classList.remove('selected');e.classList.add('matched');e.onclick=null;});
     matchOk++; document.getElementById('match-ok').textContent=matchOk; matchSelected=null; good(10,'Bonne paire !');
+    speakES(pair.en); // Audio match
     if(matchOk===8){setTimeout(boom,300);pop('🎉','¡Perfecto!','Toutes les paires trouvées !');}
   } else { [prev.el,el].forEach(e=>e.classList.add('wrong')); setTimeout(()=>{[prev.el,el].forEach(e=>{e.classList.remove('wrong','selected');});},500); matchSelected=null; bad(); }
 }
 
 /* ══════════════════════════════════════
-   EXAM
+   EXAM BLANC
 ══════════════════════════════════════ */
 let examWords=[];
 function loadExam(){
@@ -894,12 +743,12 @@ function resetExam(){ loadExam(); }
 ══════════════════════════════════════ */
 function loadVocab(){
   const grid=document.getElementById('cat-grid'); grid.innerHTML='';
-  Object.keys(VOCAB).forEach((k,i)=>{ const v=VOCAB[k]; grid.innerHTML+=`<div class="cat-card c${i%5}" onclick="openCat('${k}')"><div class="cat-card-ico">${v.icon}</div><div class="cat-card-name">${v.name}</div><div class="cat-card-cnt">${v.words.length} elementos</div></div>`; });
+  Object.keys(VOCAB).forEach((k,i)=>{ const v=VOCAB[k]; grid.innerHTML+=`<div class="cat-card c${i%5}" onclick="openCat('${k}')"><div class="cat-card-ico">${v.icon}</div><div class="cat-card-name">${v.name}</div><div class="cat-card-cnt">${v.words.length} éléments</div></div>`; });
   document.getElementById('cat-grid').style.display='grid'; document.getElementById('vocab-detail').classList.remove('show'); document.getElementById('lex-search').value=''; document.getElementById('search-results').style.display='none';
 }
 function openCat(k){
   const v=VOCAB[k]; document.getElementById('cat-grid').style.display='none'; document.getElementById('vocab-detail').classList.add('show');
-  document.getElementById('vocab-rows').innerHTML=v.words.map(w=>`<div class="vrow"><div><div class="v-fr">${w.fr}</div><div class="v-en">${w.en}</div></div><div class="v-cat">${catNames[k] || k}</div></div>`).join('');
+  document.getElementById('vocab-rows').innerHTML=v.words.map(w=>`<div class="vrow"><div><div class="v-fr">${w.fr}</div><div class="v-en" style="cursor:pointer;" onclick="speakES('${w.en.replace(/'/g,"\\'")}')">${w.en} 🔊</div></div><div class="v-cat">${catNames[k] || k}</div></div>`).join('');
 }
 function closeVocab(){ document.getElementById('cat-grid').style.display='grid'; document.getElementById('vocab-detail').classList.remove('show'); }
 function searchVocab(q) {
@@ -908,26 +757,14 @@ function searchVocab(q) {
   const lq=normalizeStr(q); const results=ALL.filter(w=>normalizeStr(w.fr).includes(lq)||normalizeStr(w.en).includes(lq));
   sr.style.display='block'; lexView.style.display='none';
   if(!results.length){document.getElementById('search-rows').innerHTML='<div style="color:var(--muted);font-family:DM Mono,monospace;font-size:13px;padding:12px;">Aucun résultat.</div>';return;}
-  document.getElementById('search-rows').innerHTML=results.map(w=>`<div class="vrow"><div><div class="v-fr">${w.fr}</div><div class="v-en">${w.en}</div></div><div class="v-cat">${catNames[w.cat] || w.cat}</div></div>`).join('');
+  document.getElementById('search-rows').innerHTML=results.map(w=>`<div class="vrow"><div><div class="v-fr">${w.fr}</div><div class="v-en" style="cursor:pointer;" onclick="speakES('${w.en.replace(/'/g,"\\'")}')">${w.en} 🔊</div></div><div class="v-cat">${catNames[w.cat] || w.cat}</div></div>`).join('');
 }
 
 /* ══════════════════════════════════════
-   UTILS / INIT
+   INIT
 ══════════════════════════════════════ */
-function boom(){
-  const c=document.getElementById('confetti'); const ctx=c.getContext('2d'); c.width=innerWidth; c.height=innerHeight;
-  const colors=['#ff7b54','#ffb84d','#4bcffa','#ff6b81','#0be881'];
-  const pts=Array.from({length:180},()=>({ x:Math.random()*c.width, y:-15, r:Math.random()*7+2, color:colors[Math.random()*colors.length|0], vx:(Math.random()-.5)*6, vy:Math.random()*4+2, rot:Math.random()*360, vr:(Math.random()-.5)*10 }));
-  let f=0;
-  (function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    pts.forEach(p=>{ ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180); ctx.fillStyle=p.color; ctx.fillRect(-p.r,-p.r*.5,p.r*2,p.r); ctx.restore(); p.x+=p.vx; p.y+=p.vy; p.vy+=0.07; p.rot+=p.vr; });
-    if(++f<200) requestAnimationFrame(draw); else ctx.clearRect(0,0,c.width,c.height);
-  })();
-}
-
 sync();
-startLearn();
+startLearn(); // Set Apprentissage as default active view
 </script>
 </body>
 </html>
