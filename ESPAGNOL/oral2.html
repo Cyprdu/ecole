@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORAL·ÉXITO — Révisions Espagnol</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #1a0b1c; --surface: #2d1433; --surface2: #3e1c47; --border: rgba(255, 140, 120, 0.15);
+  --blue: #ff7b54; --blue2: #ff5232; --purple: #ffb84d; --pink: #ff6b81; --cyan: #4bcffa;
+  --gold: #ffdd59; --green: #0be881; --red: #ff3f34; --cream: #fff0e6; --silver: #a090a0;
+  --muted: #b898b3; --text: #fff0e6; --r: 16px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; min-height: 100vh; overflow-x: hidden; cursor: none; }
+.stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(ellipse at 20% 10%, rgba(255,123,84,0.06) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(255,184,77,0.05) 0%, transparent 50%); }
+.stars::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6) 0%, transparent 100%), radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,0.4) 0%, transparent 100%), radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.7) 0%, transparent 100%), radial-gradient(1px 1px at 70% 35%, rgba(255,255,255,0.5) 0%, transparent 100%), radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.6) 0%, transparent 100%), radial-gradient(1.5px 1.5px at 40% 90%, rgba(255,200,150,0.8) 0%, transparent 100%); }
+.cursor { width:10px; height:10px; background:var(--gold); border-radius:50%; position:fixed; z-index:9999; pointer-events:none; transform:translate(-50%,-50%); box-shadow:0 0 10px var(--gold); transition:transform 0.08s; }
+.cursor-ring { width:34px; height:34px; border:1px solid rgba(255,221,89,0.5); border-radius:50%; position:fixed; z-index:9998; pointer-events:none; transform:translate(-50%,-50%); transition:all 0.13s ease; }
+header { position: relative; z-index:10; padding: 56px 60px 36px; text-align: center; border-bottom: 1px solid rgba(255,123,84,0.15); background: linear-gradient(180deg, rgba(255,82,50,0.05) 0%, transparent 100%); }
+.orbit-rings { display:flex; justify-content:center; align-items:center; gap:24px; margin-bottom:22px; }
+.orbit-dot { width:8px; height:8px; border-radius:50%; background: var(--blue); box-shadow: 0 0 12px var(--blue); animation: pulse-dot 2s infinite; }
+.orbit-dot:nth-child(2) { background:var(--purple); box-shadow:0 0 12px var(--purple); animation-delay:.5s; width:12px;height:12px; }
+.orbit-dot:nth-child(3) { background:var(--cyan); box-shadow:0 0 12px var(--cyan); animation-delay:1s; }
+.orbit-dot:nth-child(4) { background:var(--pink); box-shadow:0 0 12px var(--pink); animation-delay:1.5s; }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.6)} }
+h1 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(40px,8vw,80px); letter-spacing: 6px; color: var(--cream); line-height: 1; text-shadow: 0 0 80px rgba(255,123,84,0.4); }
+h1 .accent { color: var(--blue); } h1 .accent2 { color: var(--gold); }
+.tagline { font-family: 'Space Mono', monospace; font-size:12px; letter-spacing:4px; color:var(--silver); text-transform: uppercase; margin-top: 12px; }
+.tagline em { color:var(--gold); font-style:normal; font-weight: bold; }
+.xp-bar-wrap { max-width:460px; margin:28px auto 0; }
+.xp-labels { display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+.xp-labels span { color:var(--gold); }
+.xp-track { height:4px; background:rgba(255,255,255,0.06); border-radius:100px; overflow:hidden; }
+.xp-fill { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--blue2),var(--gold)); box-shadow:0 0 20px rgba(255,221,89,0.5); transition:width 0.7s cubic-bezier(.22,1,.36,1); }
+.stats-row { display:flex; justify-content:center; gap:14px; padding:18px 40px; z-index:10; position:relative; flex-wrap:wrap; }
+.stat-chip { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px 16px; display:flex; align-items:center; gap:8px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:1px; }
+.stat-chip .val { color:var(--gold); font-weight:700; font-size:13px; }
+.stat-chip .lbl { color:var(--muted); }
+.nav-tabs { display:flex; justify-content:center; gap:6px; padding:0 30px 36px; position:relative; z-index:10; flex-wrap:wrap; }
+.tab-btn { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:11px 20px; color:var(--muted); font-family:'Space Mono',monospace; font-size:11px; font-weight:400; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.25s; display:flex; align-items:center; gap:8px; }
+.tab-btn:hover { color:var(--cream); border-color:rgba(255,123,84,0.4); background:var(--surface2); }
+.tab-btn.active { background:var(--blue2); border-color:var(--blue2); color:#fff; font-weight:700; box-shadow:0 4px 24px rgba(255,82,50,0.4); }
+main { max-width:880px; margin:0 auto; padding:0 24px 80px; position:relative; z-index:10; }
+.section { display:none; } .section.active { display:block; animation:fadeIn 0.4s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+.section-title { font-family:'Playfair Display',serif; font-size:36px; font-weight:700; color:var(--cream); margin-bottom:4px; display:flex; align-items:center; gap:12px; }
+.section-title .acc { color:var(--blue); }
+.section-desc { font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); margin-bottom:28px; line-height:1.7; }
+
+/* APPRENTISSAGE LUDIQUE ORAL */
+.learn-dashboard { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:20px; }
+.learn-bucket { border-radius:14px; padding:16px 18px; text-align:center; border:1px solid transparent; transition:all 0.3s; }
+.learn-bucket.b-new { background:rgba(255,123,84,0.1); border-color:rgba(255,123,84,0.3); }
+.learn-bucket.b-learning { background:rgba(255,221,89,0.1); border-color:rgba(255,221,89,0.3); }
+.learn-bucket.b-mastered { background:rgba(11,232,129,0.1); border-color:rgba(11,232,129,0.3); }
+.learn-bucket-count { font-family:'Playfair Display',serif; font-size:40px; font-weight:900; line-height:1; }
+.b-new .learn-bucket-count { color:var(--blue); } .b-learning .learn-bucket-count { color:var(--gold); } .b-mastered .learn-bucket-count { color:var(--green); }
+.learn-bucket-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-top:4px; }
+.learn-progress-bar { height:5px; border-radius:100px; background:rgba(255,255,255,0.06); margin-bottom:22px; display:flex; overflow:hidden; }
+.lp-new { background:var(--blue2); transition:width 0.5s; } .lp-learning { background:var(--gold); transition:width 0.5s; } .lp-mastered { background:var(--green); transition:width 0.5s; }
+.learn-level-badge { display:inline-block; margin-bottom:14px; background:var(--surface2); border:1px solid var(--border); border-radius:20px; padding:4px 14px; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; }
+.learn-level-badge.lvl1 { color:var(--blue); border-color:rgba(255,123,84,0.4); } .learn-level-badge.lvl2 { color:var(--gold); border-color:rgba(255,221,89,0.4); } .learn-level-badge.lvl3 { color:var(--green); border-color:rgba(11,232,129,0.4); }
+.learn-q-box { background:var(--surface); border:1px solid rgba(255,123,84,0.2); border-radius:20px; padding:36px; text-align:center; position:relative; overflow:hidden; margin-bottom:16px; min-height: 250px;}
+.learn-q-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--blue),transparent); }
+.learn-q-word { font-family:'Playfair Display',serif; font-size:clamp(26px,5vw,46px); font-weight:700; color:var(--cream); line-height:1.2; margin-bottom:8px; }
+.learn-q-hint { font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); }
+.learn-q-cat { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--blue); text-transform:uppercase; margin-top:4px; }
+.learn-opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:24px; }
+.learn-opt { background:var(--surface); border:1px solid rgba(255,123,84,0.15); border-radius:12px; padding:14px 16px; cursor:pointer; font-family:'DM Mono',monospace; font-size:13px; color:var(--cream); display:flex; align-items:center; gap:10px; transition:all 0.2s; text-align:left; }
+.learn-opt:hover:not(:disabled) { background:var(--surface2); border-color:rgba(255,123,84,0.4); transform:translateY(-2px); }
+.learn-opt-letter { width:26px; height:26px; border-radius:6px; flex-shrink:0; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); }
+.learn-opt.correct { background:rgba(11,232,129,0.15); border-color:var(--green); } .learn-opt.correct .learn-opt-letter { background:var(--green); color:#000; }
+.learn-opt.wrong-pick { background:rgba(255,63,52,0.15); border-color:var(--red); animation:lerr 0.4s; } .learn-opt.wrong-pick .learn-opt-letter { background:var(--red); color:#fff; }
+@keyframes lerr { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+/* LE NOUVEAU WRAPPER ORAL */
+.oral-box { display:flex; flex-direction:column; align-items:center; gap:20px; margin-top:28px; }
+.oral-prompt { font-family:'Space Mono',monospace; font-size:14px; color:var(--purple); background:rgba(255,184,77,0.1); padding:8px 16px; border-radius:8px; border:1px dashed rgba(255,184,77,0.3); animation: pulse-border 2s infinite; }
+@keyframes pulse-border { 0%,100%{border-color:rgba(255,184,77,0.3);} 50%{border-color:rgba(255,184,77,0.8);} }
+.btn-oral-rev { background:linear-gradient(90deg,var(--purple),var(--blue)); color:#1a0b1c; font-family:'Space Mono',monospace; font-weight:700; border:none; padding:16px 28px; border-radius:12px; cursor:pointer; font-size:14px; transition:all 0.2s; text-transform:uppercase; letter-spacing:2px; box-shadow:0 6px 20px rgba(255,184,77,0.3); }
+.btn-oral-rev:hover { transform:translateY(-3px); filter:brightness(1.1); box-shadow:0 10px 30px rgba(255,184,77,0.5); }
+.oral-ans-text { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:var(--green); margin-bottom:4px; display:flex; align-items:center; gap:12px; }
+.oral-ans-speaker { cursor:pointer; font-size:24px; transition:transform 0.2s; }
+.oral-ans-speaker:hover { transform:scale(1.2); }
+.oral-actions { display:flex; gap:12px; width: 100%; max-width: 400px;}
+.btn-oral-eval { flex:1; padding:14px 20px; border-radius:10px; border:none; font-family:'Space Mono',monospace; font-size:12px; font-weight:700; cursor:pointer; transition:all 0.2s; text-transform: uppercase; letter-spacing: 1px;}
+.btn-oral-eval.yes { background:rgba(11,232,129,0.15); color:var(--green); border:1px solid rgba(11,232,129,0.4); }
+.btn-oral-eval.no { background:rgba(255,63,52,0.15); color:var(--red); border:1px solid rgba(255,63,52,0.4); }
+.btn-oral-eval:hover:not(:disabled) { transform:translateY(-2px); filter:brightness(1.2); }
+.btn-oral-eval:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+
+.learn-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-top:12px; visibility:hidden; opacity:0; min-height:42px; transition:opacity 0.3s ease; }
+.learn-feedback.show { visibility:visible; opacity:1; }
+.learn-feedback.ok { background:rgba(11,232,129,0.1); color:var(--green); border:1px solid rgba(11,232,129,0.3); } .learn-feedback.ko { background:rgba(255,63,52,0.1); color:var(--red); border:1px solid rgba(255,63,52,0.3); }
+.learn-next-btn { width:100%; padding:15px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; box-shadow:0 6px 24px rgba(255,82,50,0.4); transition:all 0.2s; margin-top:12px; visibility:hidden; opacity:0; display:block; }
+.learn-next-btn.show { visibility:visible; opacity:1; } .learn-next-btn:hover { transform:translateY(-2px); }
+.learn-chunk-done { display:none; text-align:center; padding:28px 20px; background:var(--surface); border:1px solid var(--border); border-radius:20px; } .learn-chunk-done.show { display:block; animation:fadeIn 0.4s ease; }
+.learn-chunk-score { font-family:'Playfair Display',serif; font-size:56px; font-weight:900; color:var(--gold); text-shadow:0 0 40px rgba(255,221,89,0.4); }
+.learn-chunk-msg { font-family:'DM Mono',monospace; font-size:14px; color:var(--muted); margin:8px 0 20px; font-style:italic; }
+.learn-complete { display:none; text-align:center; padding:40px 20px; } .learn-complete.show { display:block; animation:fadeIn 0.4s ease; }
+.learn-complete-title { font-family:'Playfair Display',serif; font-size:50px; font-weight:900; color:var(--green); text-shadow:0 0 60px rgba(11,232,129,0.5); margin-bottom:10px; }
+.learn-complete-sub { font-family:'DM Mono',monospace; font-size:15px; color:var(--muted); font-style:italic; }
+.learn-cat-row { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:20px; justify-content: center;}
+
+/* FLASHCARDS, QUIZ, FILL, ETC (rest is unchanged) */
+.cat-row { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:22px; justify-content: center; }
+.cat-pill { padding:6px 14px; border-radius:6px; border:1px solid rgba(255,123,84,0.2); background:var(--surface); cursor:pointer; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); transition:all 0.2s; }
+.cat-pill.active { background:var(--blue2); border-color:var(--blue2); color:#fff; } .cat-pill:hover:not(.active) { border-color:rgba(255,123,84,0.5); color:var(--cream); }
+.fc-arena { perspective:1400px; margin-bottom:18px; }
+.fc-card { width:100%; height:260px; position:relative; cursor:pointer; transform-style:preserve-3d; transition:transform 0.65s cubic-bezier(.22,1,.36,1); } .fc-card.flipped { transform:rotateY(180deg); }
+.fc-face { position:absolute; inset:0; backface-visibility:hidden; border-radius:20px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding: 20px; }
+.fc-front { background: linear-gradient(135deg, #331520 0%, #1e0b12 100%); border: 1px solid rgba(255,123,84,0.3); box-shadow: 0 0 60px rgba(255,82,50,0.1), inset 0 1px 0 rgba(255,123,84,0.2); }
+.fc-front::before { content:''; position:absolute; inset:0; border-radius:20px; background:repeating-linear-gradient(0deg,transparent 0px,transparent 3px,rgba(0,0,0,0.12) 3px,rgba(0,0,0,0.12) 4px); pointer-events:none; }
+.fc-back { transform:rotateY(180deg); background:linear-gradient(135deg, #1a2a12 0%, #06180e 100%); border:1px solid rgba(52,211,153,0.3); box-shadow:0 0 60px rgba(52,211,153,0.1); }
+.fc-lang { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:3px; text-transform:uppercase; padding:4px 12px; border-radius:4px; }
+.fc-front .fc-lang { background:rgba(255,123,84,0.15); color:var(--blue); } .fc-back .fc-lang { background:rgba(52,211,153,0.15); color:var(--green); }
+.fc-word { font-family:'Playfair Display',serif; font-size:clamp(22px,4vw,42px); font-weight:700; text-align:center; padding:0 10px; line-height:1.2; }
+.fc-front .fc-word { color:var(--cream); } .fc-back .fc-word { color:var(--green); }
+.fc-sub { font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); } .fc-category { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--purple); opacity:0.8; }
+.fc-tap { position:absolute; bottom:14px; right:18px; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:rgba(255,255,255,0.2); text-transform:uppercase; }
+.fc-btns { display:flex; gap:12px; justify-content:center; }
+.fc-btn { flex:1; max-width:200px; padding:13px; border-radius:10px; border:none; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+.fc-btn.no { background:rgba(255,63,52,0.15); color:var(--red); border:1px solid rgba(255,63,52,0.3); } .fc-btn.yes { background:rgba(11,232,129,0.15); color:var(--green); border:1px solid rgba(11,232,129,0.3); }
+.fc-btn.flip { background:var(--blue2); color:#fff; font-weight:700; flex:1; max-width:100%; box-shadow:0 4px 20px rgba(255,82,50,0.4); } .fc-btn:hover { transform:translateY(-2px); filter:brightness(1.15); }
+.fc-score-row { text-align:center; margin-top:12px; font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:2px; } .fc-score-row strong { color:var(--cream); }
+.fc-mode-toggle { display:flex; gap:8px; margin-bottom:16px; justify-content:flex-end; } .mode-pill { padding:5px 12px; border-radius:5px; border:1px solid var(--border); background:var(--surface); font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); cursor:pointer; transition:all 0.2s; } .mode-pill.active { background:var(--purple); border-color:var(--purple); color:#000; font-weight: bold; }
+.quiz-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px; } .q-counter { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; } .q-timer { font-family:'Playfair Display',serif; font-size:34px; font-weight:700; color:var(--gold); } .q-timer.hot { color:var(--red); animation:shake 0.4s infinite; }
+@keyframes shake { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
+.q-progress { height:3px; background:rgba(255,255,255,0.05); border-radius:100px; margin-bottom:20px; } .q-prog-fill { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--blue2),var(--purple)); transition:width 0.4s; }
+.quiz-q-box { background:var(--surface); border:1px solid rgba(255,123,84,0.2); border-radius:20px; padding:36px; text-align:center; margin-bottom:16px; position:relative; overflow:hidden; } .quiz-q-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--blue),transparent); }
+.q-dir { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:3px; color:var(--purple); text-transform:uppercase; margin-bottom:10px; } .q-word { font-family:'Playfair Display',serif; font-size:clamp(26px,5vw,50px); font-weight:700; color:var(--cream); line-height:1.2; } .q-hint { font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); margin-top:8px; } .q-cat { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; color:var(--blue); margin-top:5px; text-transform:uppercase; }
+.quiz-opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; } .q-opt { background:var(--surface); border:1px solid rgba(255,123,84,0.15); border-radius:12px; padding:15px 16px; cursor:pointer; font-family:'DM Mono',monospace; font-size:14px; color:var(--cream); display:flex; align-items:center; gap:12px; transition:all 0.2s; text-align:left; } .q-opt:hover:not(:disabled) { background:var(--surface2); border-color:rgba(255,123,84,0.4); transform:translateY(-2px); } .q-opt-letter { width:26px; height:26px; border-radius:6px; flex-shrink:0; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; color:var(--muted); }
+.q-opt.correct { background:rgba(11,232,129,0.15); border-color:var(--green); } .q-opt.correct .q-opt-letter { background:var(--green); color:#000; } .q-opt.wrong-pick { background:rgba(255,63,52,0.15); border-color:var(--red); } .q-opt.wrong-pick .q-opt-letter { background:var(--red); color:#fff; }
+.q-feedback { border-radius:12px; padding:12px 18px; font-size:13px; font-family:'DM Mono',monospace; text-align:center; margin-bottom:12px; visibility:hidden; opacity:0; min-height:42px; transition: opacity 0.3s ease; } .q-feedback.show { visibility:visible; opacity:1; } .q-feedback.ok { background:rgba(11,232,129,0.1); color:var(--green); border:1px solid rgba(11,232,129,0.3); } .q-feedback.ko { background:rgba(255,63,52,0.1); color:var(--red); border:1px solid rgba(255,63,52,0.3); }
+.btn-main { width:100%; padding:16px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; font-family:'Space Mono',monospace; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; box-shadow:0 6px 24px rgba(255,82,50,0.4); transition:all 0.2s; display:none; } .btn-main.show { display:block; animation:fadeIn 0.3s ease; } .btn-main:hover { transform:translateY(-2px); box-shadow:0 10px 36px rgba(255,82,50,0.55); }
+#btn-next { display:block; visibility:hidden; opacity:0; transition: opacity 0.3s ease, transform 0.2s, box-shadow 0.2s; } #btn-next.show { visibility:visible; opacity:1; }
+.quiz-end { display:none; text-align:center; padding:50px 0; } .end-score { font-family:'Playfair Display',serif; font-size:90px; font-weight:900; letter-spacing:8px; line-height:1; } .end-score.s-great { color:var(--gold); text-shadow:0 0 60px rgba(255,221,89,0.5); } .end-score.s-mid { color:var(--silver); text-shadow:0 0 40px rgba(160,144,160,0.4); } .end-score.s-low { color:var(--red); text-shadow:0 0 40px rgba(255,63,52,0.4); } .end-msg { font-family:'DM Mono',monospace; font-size:15px; color:var(--muted); margin:12px 0 28px; font-style:italic; }
+.fill-scene-box { background: #fdfaf3; border-radius:16px; padding:32px 38px; font-family:'DM Mono',monospace; font-size:16px; line-height:2.6; color:#2a1a2b; margin-bottom:16px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.6); } .fill-scene-box::before { content:'EJERCICIO · ESPAÑOL'; position:absolute; top:12px; right:18px; font-size:8px; letter-spacing:3px; color:rgba(0,0,0,0.2); } .sp-blank { display:inline-block; min-width:140px; position:relative; border-bottom:2px solid #ff7b54; background:rgba(255,123,84,0.08); border-radius:4px 4px 0 0; padding:1px 8px; margin:0 3px; } .sp-blank input { background:transparent; border:none; outline:none; font-family:'DM Mono',monospace; font-size:15px; font-weight:700; color:#ff5232; min-width:120px; width:100%; text-align:center; } .sp-blank.ok { border-color:#0be881; background:rgba(11,232,129,0.1); } .sp-blank.ok input { color:#0ba05d; } .sp-blank.ko { border-color:#ff3f34; background:rgba(255,63,52,0.1); } .sp-blank.ko input { color:#d12b23; } .fill-hint-box { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 18px; margin-bottom:14px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:1px; color:var(--muted); } .fill-hint-box strong { color:var(--gold); } .fill-btns { display:flex; gap:10px; flex-wrap:wrap; } .fill-btn { padding:12px 24px; border-radius:10px; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; transition:all 0.2s; } .fill-btn.check { background:linear-gradient(90deg,var(--blue2),var(--blue)); color:#fff; flex:1; min-width:140px; } .fill-btn.reveal { background:var(--surface2); border:1px solid var(--border); color:var(--silver); } .fill-btn.next { background:var(--surface2); border:1px solid var(--border); color:var(--silver); } .fill-btn:hover { transform:translateY(-2px); filter:brightness(1.1); }
+.match-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; } .match-col-title { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); text-align:center; margin-bottom:8px; } .match-cols { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; } .match-col { display:flex; flex-direction:column; gap:8px; } .match-item { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 16px; font-family:'DM Mono',monospace; font-size:13px; color:var(--cream); cursor:pointer; transition:all 0.2s; text-align:center; line-height:1.3; } .match-item:hover:not(.matched):not(.selected) { border-color:rgba(255,123,84,0.4); background:var(--surface2); } .match-item.selected { border-color:var(--gold); background:rgba(255,221,89,0.15); color:var(--gold); } .match-item.matched { border-color:var(--green); background:rgba(11,232,129,0.1); color:var(--green); cursor:default; } .match-item.wrong { border-color:var(--red); background:rgba(255,63,52,0.1); animation:wiggle 0.4s; } @keyframes wiggle { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} } .match-score { font-family:'Space Mono',monospace; font-size:12px; color:var(--muted); text-align:center; margin-bottom:16px; } .match-score strong { color:var(--cyan); }
+.mission-banner { background:var(--surface); border:1px solid rgba(255,184,77,0.3); border-radius:16px; padding:20px 26px; margin-bottom:24px; display:flex; align-items:center; gap:18px; } .mission-icon { font-size:36px; } .mission-title { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:var(--purple); } .mission-sub { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--muted); margin-top:3px; } .exam-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; } .exam-item { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; display:flex; align-items:flex-start; gap:12px; } .exam-n { width:30px; height:30px; border-radius:7px; flex-shrink:0; background:rgba(255,123,84,0.15); border:1px solid rgba(255,123,84,0.3); display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--blue); } .exam-fr { font-family:'DM Mono',monospace; font-size:14px; color:var(--cream); margin-bottom:6px; font-style:italic; color:var(--purple); } .exam-inp { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:7px; padding:7px 10px; color:var(--cream); font-family:'Space Mono',monospace; font-size:12px; width:100%; outline:none; transition:border 0.2s; } .exam-inp:focus { border-color:rgba(255,123,84,0.5); background:rgba(255,123,84,0.05); } .exam-inp.ok { border-color:var(--green); background:rgba(11,232,129,0.08); color:var(--green); } .exam-inp.ko { border-color:var(--red); background:rgba(255,63,52,0.08); color:var(--red); } .exam-cta { width:100%; padding:17px; border-radius:12px; border:none; background:linear-gradient(90deg,var(--purple),var(--blue)); color:#1a0b1c; font-family:'Space Mono',monospace; font-size:14px; font-weight:900; letter-spacing:3px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; box-shadow:0 6px 28px rgba(255,184,77,0.3); } .exam-cta:hover { transform:translateY(-3px); box-shadow:0 10px 40px rgba(255,184,77,0.5); } .exam-result { display:none; text-align:center; padding:36px 20px; background:var(--surface); border:1px solid var(--border); border-radius:20px; margin-top:18px; } .exam-result.show { display:block; animation:fadeIn 0.4s ease; } .exam-result-score { font-family:'Playfair Display',serif; font-size:80px; font-weight:900; letter-spacing:6px; line-height:1; } .s-gold { color:var(--gold); text-shadow:0 0 40px rgba(255,221,89,0.5); } .s-silver { color:var(--silver); } .s-red { color:var(--red); } .exam-verdict { font-family:'DM Mono',monospace; font-size:14px; color:var(--muted); margin:10px 0 20px; font-style:italic; } .breakdown { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); line-height:2; text-align:left; max-width:520px; margin:0 auto 20px; }
+.lex-search { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 18px; width:100%; color:var(--cream); font-family:'Space Mono',monospace; font-size:12px; outline:none; margin-bottom:20px; transition:border 0.2s; } .lex-search:focus { border-color:rgba(255,123,84,0.4); } .lex-search::placeholder { color:var(--muted); } .cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; margin-bottom:26px; } .cat-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; cursor:pointer; transition:all 0.25s; text-align:center; position:relative; overflow:hidden; } .cat-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; transform:scaleX(0); transition:transform 0.3s; } .cat-card:hover { transform:translateY(-4px); border-color:rgba(255,123,84,0.3); background:var(--surface2); } .cat-card:hover::after { transform:scaleX(1); } .cat-card.c0::after { background:var(--blue); } .cat-card.c1::after { background:var(--gold); } .cat-card.c2::after { background:var(--cyan); } .cat-card.c3::after { background:var(--pink); } .cat-card.c4::after { background:var(--green); } .cat-card-ico { font-size:32px; margin-bottom:8px; } .cat-card-name { font-family:'Space Mono',monospace; font-size:11px; font-weight: bold; letter-spacing:2px; text-transform:uppercase; color:var(--cream); } .cat-card-cnt { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); margin-top:6px; } .vocab-detail { display:none; } .vocab-detail.show { display:block; animation:fadeIn 0.35s ease; } .back-link { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:8px; background:var(--surface); border:1px solid var(--border); color:var(--muted); cursor:pointer; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; transition:all 0.2s; } .back-link:hover { color:var(--cream); border-color:rgba(255,123,84,0.4); } .vocab-rows { display:grid; grid-template-columns:1fr 1fr; gap:7px; } .vrow { background:var(--surface); border:1px solid var(--border); border-radius:11px; padding:12px 15px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; transition:all 0.2s; } .vrow:hover { background:var(--surface2); border-color:rgba(255,123,84,0.3); } .v-fr { font-family:'DM Mono',monospace; font-size:13px; color:var(--purple); font-style:italic; margin-bottom:4px; } .v-en { font-family:'DM Mono',monospace; font-size:14px; font-weight: bold; color:var(--cyan); } .v-cat { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:1px; text-transform:uppercase; padding:3px 7px; border-radius:4px; background:rgba(255,123,84,0.15); color:var(--blue); flex-shrink:0; margin-top:2px; }
+.popup { position:fixed; top:22px; right:22px; z-index:1000; background:var(--surface2); border:1px solid rgba(255,123,84,0.4); border-radius:14px; padding:14px 20px; display:flex; align-items:center; gap:12px; transform:translateX(140%); transition:transform 0.4s cubic-bezier(.22,1,.36,1); box-shadow:0 20px 60px rgba(0,0,0,0.6); } .popup.show { transform:translateX(0); } .p-ico { font-size:24px; } .p-txt { font-family:'Space Mono',monospace; font-size:14px; font-weight:bold; letter-spacing:2px; color:var(--gold); } .p-sub { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); } #confetti { position:fixed; inset:0; pointer-events:none; z-index:500; }
+@media(max-width:600px) { header { padding:30px 16px 20px; } .quiz-opts, .exam-list, .vocab-rows, .match-cols, .learn-dashboard { grid-template-columns:1fr; } .fc-btns { flex-direction:column; } .fill-btns { flex-wrap:wrap; } .cat-grid { grid-template-columns:1fr 1fr; } .oral-actions { flex-direction:column; } }
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+<canvas id="confetti"></canvas>
+
+<div class="popup" id="popup">
+  <div class="p-ico" id="p-ico">🚀</div>
+  <div>
+    <div class="p-txt" id="p-txt">+10 XP</div>
+    <div class="p-sub" id="p-sub">¡Bien hecho!</div>
+  </div>
+</div>
+
+<header>
+  <div class="orbit-rings">
+    <div class="orbit-dot"></div><div class="orbit-dot"></div><div class="orbit-dot"></div><div class="orbit-dot"></div>
+  </div>
+  <h1><span class="accent">ORAL</span>·<span class="accent2">ÉXITO</span></h1>
+  <div class="tagline">Français <em>→</em> Español · Bac Espagnol</div>
+  <div class="xp-bar-wrap">
+    <div class="xp-labels"><span>XP Progression</span><span id="xp-lbl">0 / 600 XP</span></div>
+    <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+  </div>
+</header>
+
+<div class="stats-row">
+  <div class="stat-chip"><span class="val" id="st-xp">0</span><span class="lbl">&nbsp;XP</span></div>
+  <div class="stat-chip">🔥<span class="val" id="st-streak">0</span><span class="lbl">&nbsp;Racha</span></div>
+  <div class="stat-chip">✅<span class="val" id="st-ok">0</span><span class="lbl">&nbsp;Aciertos</span></div>
+  <div class="stat-chip">🎯<span class="val" id="st-acc">—</span><span class="lbl">&nbsp;Precisión</span></div>
+</div>
+
+<nav class="nav-tabs">
+  <button class="tab-btn active" onclick="goTab('learn',this)">🧠 Apprentissage</button>
+  <button class="tab-btn" onclick="goTab('flashcards',this)">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="goTab('quiz',this)">⚡ Quiz QCM</button>
+  <button class="tab-btn" onclick="goTab('fill',this)">✍️ Trous</button>
+  <button class="tab-btn" onclick="goTab('match',this)">🔗 Paires</button>
+  <button class="tab-btn" onclick="goTab('exam',this)">🎓 Exam Blanc</button>
+  <button class="tab-btn" onclick="goTab('vocab',this)">📚 Lexique</button>
+</nav>
+
+<main>
+
+<section class="section active" id="s-learn">
+  <div class="section-title">🧠 Mode <span class="acc">Apprentissage</span></div>
+  <p class="section-desc">Aucune orthographe requise ! Mode 100% axé sur l'oral avec prononciation et mémorisation ludique.</p>
+  
+  <div class="learn-cat-row" id="learn-cats">
+    <div class="cat-pill active" onclick="pickLearnCat('all',this)">Tout</div>
+    <div class="cat-pill" onclick="pickLearnCat('expresiones',this)">🗣️ Expresiones & Citas</div>
+    <div class="cat-pill" onclick="pickLearnCat('vocab_general',this)">📚 Vocabulaire Général</div>
+  </div>
+  
+  <div class="learn-dashboard">
+    <div class="learn-bucket b-new"><div class="learn-bucket-count" id="lb-new">0</div><div class="learn-bucket-label">Restants</div></div>
+    <div class="learn-bucket b-learning"><div class="learn-bucket-count" id="lb-learning">0</div><div class="learn-bucket-label">En cours</div></div>
+    <div class="learn-bucket b-mastered"><div class="learn-bucket-count" id="lb-mastered">0</div><div class="learn-bucket-label">Maîtrisés ✓</div></div>
+  </div>
+  <div class="learn-progress-bar"><div class="lp-mastered" id="lp-mastered" style="width:0%"></div><div class="lp-learning" id="lp-learning" style="width:0%"></div><div class="lp-new" id="lp-new" style="width:100%"></div></div>
+  
+  <div id="learn-main">
+    <div style="text-align:center;"><div class="learn-level-badge lvl1" id="learn-badge">Niveau 1 · Découverte QCM</div></div>
+    <div class="learn-q-box">
+      <div class="learn-q-word" id="learn-q-word">—</div>
+      <div class="learn-q-hint" id="learn-q-hint"></div>
+      <div class="learn-q-cat" id="learn-q-cat"></div>
+      
+      <div class="learn-opts" id="learn-opts"></div>
+      
+      <div class="oral-box" id="learn-oral-wrap" style="display:none;">
+        <div class="oral-prompt">🗣️ Dis la traduction à voix haute !</div>
+        <button class="btn-oral-rev" id="btn-reveal-oral" onclick="revealOral()">👁️ Voir & Entendre la réponse</button>
+        
+        <div id="oral-answer-box" style="display:none; flex-direction:column; align-items:center; gap:16px; width:100%;">
+          <div class="oral-ans-text">
+            <span id="oral-answer-text"></span>
+            <span class="oral-ans-speaker" onclick="replayAudio()">🔊</span>
+          </div>
+          <div style="font-family:'DM Mono'; font-size:12px; color:var(--muted); margin-bottom:4px;">As-tu prononcé la bonne chose ?</div>
+          <div class="oral-actions">
+             <button class="btn-oral-eval yes" onclick="submitOral(true)">✅ J'avais bon !</button>
+             <button class="btn-oral-eval no" onclick="submitOral(false)">❌ Je me suis trompé</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="learn-feedback" id="learn-feedback"></div>
+    <button class="learn-next-btn" id="learn-next-btn" onclick="learnNext()">Siguiente →</button>
+  </div>
+  
+  <div class="learn-chunk-done" id="learn-chunk-done">
+    <div class="learn-chunk-score" id="learn-chunk-score">—</div><div class="learn-chunk-msg" id="learn-chunk-msg"></div>
+    <button class="btn-main show" onclick="learnContinueChunk()" style="max-width:320px;margin:0 auto; display:block;">Continuer la session →</button>
+  </div>
+  <div class="learn-complete" id="learn-complete">
+    <div class="learn-complete-title">🚀 ¡DOMINADO!</div><div class="learn-complete-sub" id="learn-complete-sub">Tous les mots sont dans la catégorie "Maîtrisés".</div>
+    <button class="btn-main show" onclick="startLearn()" style="max-width:320px;margin:20px auto 0; display:block;">🔄 Recommencer</button>
+  </div>
+</section>
+
+<section class="section" id="s-flashcards">
+  <div class="section-title">🃏 Flash<span class="acc">cards</span></div>
+  <p class="section-desc">Devine la traduction espagnole, mémorise les phrases de tes PDF.</p>
+  <div class="cat-row" id="fc-cats">
+    <div class="cat-pill active" onclick="pickCat('all',this)">Tout</div>
+    <div class="cat-pill" onclick="pickCat('expresiones',this)">🗣️ Expresiones & Citas</div>
+    <div class="cat-pill" onclick="pickCat('vocab_general',this)">📚 Vocabulaire Général</div>
+  </div>
+  <div class="fc-mode-toggle">
+    <div class="mode-pill active" id="mode-fren" onclick="setMode('fr-en')">FR → ES</div>
+    <div class="mode-pill" id="mode-esfr" onclick="setMode('en-fr')">ES → FR</div>
+  </div>
+  <div class="fc-arena">
+    <div class="fc-card" id="fc-card" onclick="flipFC()">
+      <div class="fc-face fc-front">
+        <div class="fc-lang" id="fc-lang-front">Français</div><div class="fc-word" id="fc-q">—</div><div class="fc-sub" id="fc-hint"></div><div class="fc-category" id="fc-cat-badge"></div><div class="fc-tap">Cliquez pour retourner →</div>
+      </div>
+      <div class="fc-face fc-back">
+        <div class="fc-lang" id="fc-lang-back">Español</div>
+        <div class="fc-word" id="fc-a" style="display:flex; align-items:center; gap:10px;">—</div>
+        <div class="fc-sub" id="fc-extra"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-btns" id="fc-ans-btns" style="display:none">
+    <button class="fc-btn no" onclick="ansFC(false)">😬 À revoir</button><button class="fc-btn yes" onclick="ansFC(true)">✅ Je savais !</button>
+  </div>
+  <div class="fc-btns" id="fc-reveal-btn"><button class="fc-btn flip" onclick="flipFC()">👁 Voir la traduction</button></div>
+  <div class="fc-score-row">Carte <strong id="fc-i">1</strong> / <strong id="fc-tot">—</strong> &nbsp;·&nbsp; ✅ <span id="fc-good">0</span> &nbsp; ❌ <span id="fc-bad">0</span></div>
+</section>
+
+<section class="section" id="s-quiz">
+  <div class="section-title">⚡ Quiz <span class="acc">QCM</span></div>
+  <p class="section-desc">Choisis la bonne traduction avant la fin du chrono !</p>
+  <div id="quiz-main">
+    <div class="quiz-top"><div class="q-counter">Question <span id="qn">1</span>/12</div><div class="q-timer" id="q-timer">⏱ <span id="t-val">15</span>s</div></div>
+    <div class="q-progress"><div class="q-prog-fill" id="q-prog-fill" style="width:0%"></div></div>
+    <div class="quiz-q-box"><div class="q-dir" id="q-dir">FR → ES</div><div class="q-word" id="q-word">—</div><div class="q-hint" id="q-hint"></div><div class="q-cat" id="q-cat"></div></div>
+    <div class="quiz-opts" id="quiz-opts"></div>
+    <div class="q-feedback" id="q-fb"></div>
+    <button class="btn-main" id="btn-next" onclick="nextQ()">Siguiente →</button>
+  </div>
+  <div class="quiz-end" id="quiz-end">
+    <div class="end-score" id="end-score">—</div><div class="end-msg" id="end-msg"></div>
+    <button class="btn-main show" onclick="startQuiz()" style="max-width:320px;margin:0 auto; display:block;">🔄 Rejouer</button>
+  </div>
+</section>
+
+<section class="section" id="s-fill">
+  <div class="section-title">✍️ Texte à <span class="acc">Trous</span></div>
+  <p class="section-desc">Complète le texte avec les mots manquants. Entraînement idéal pour l'oral.</p>
+  <div class="fill-hint-box">Mots à placer : <strong id="fill-pool"></strong></div>
+  <div class="fill-scene-box" id="sp-box"></div>
+  <div class="fill-btns"><button class="fill-btn check" onclick="checkFill()">COMPROBAR</button><button class="fill-btn reveal" onclick="revealFill()">REVELAR</button><button class="fill-btn next" onclick="nextFill()">SIGUIENTE →</button></div>
+</section>
+
+<section class="section" id="s-match">
+  <div class="section-title">🔗 Jeu des <span class="acc">Paires</span></div>
+  <p class="section-desc">Associe chaque mot français à sa traduction espagnole.</p>
+  <div class="match-score">Paires trouvées : <strong id="match-ok">0</strong> / <strong id="match-tot">8</strong> &nbsp;·&nbsp; Tentatives : <strong id="match-tries">0</strong></div>
+  <div class="match-cols">
+    <div><div class="match-col-title">🇫🇷 Français</div><div class="match-col" id="match-fr"></div></div>
+    <div><div class="match-col-title">🇪🇸 Español</div><div class="match-col" id="match-en"></div></div>
+  </div>
+  <div style="display:flex;gap:10px;"><button class="btn-main show" onclick="loadMatch()" style="flex:1; display:block;">🔄 Nouveau Jeu</button></div>
+</section>
+
+<section class="section" id="s-exam">
+  <div class="section-title">🎓 <span class="acc">Exam</span> Blanc</div>
+  <p class="section-desc">Test final : orthographe optionnelle (le système est indulgent), teste-toi !</p>
+  <div class="mission-banner">
+    <div class="mission-icon">🏅</div>
+    <div><div class="mission-title">MISIÓN: BAC ESPAÑOL</div><div class="mission-sub">12 mots · Français → Español</div></div>
+  </div>
+  <div class="exam-list" id="exam-list"></div>
+  <button class="exam-cta" onclick="submitExam()">🚀 ENTREGAR EL EXAMEN</button>
+  <div class="exam-result" id="exam-result">
+    <div class="exam-result-score" id="exam-score">—</div><div class="exam-verdict" id="exam-verdict"></div><div class="breakdown" id="breakdown"></div>
+    <button class="btn-main show" onclick="resetExam()" style="max-width:300px;margin:0 auto; display:block;">🔄 Nouvel examen</button>
+  </div>
+</section>
+
+<section class="section" id="s-vocab">
+  <div class="section-title">📚 <span class="acc">Lexique</span> de l'Oral</div>
+  <p class="section-desc">Toutes les phrases, citations et mots tirés de tes PDF.</p>
+  <input class="lex-search" id="lex-search" type="text" placeholder="🔍 Chercher un mot (fr ou es)…" oninput="searchVocab(this.value)" autocomplete="off">
+  <div class="search-results" id="search-results" style="display:none"><div class="vocab-rows" id="search-rows"></div></div>
+  <div id="lex-cat-view">
+    <div class="cat-grid" id="cat-grid"></div>
+    <div class="vocab-detail" id="vocab-detail">
+      <button class="back-link" onclick="closeVocab()">← Retour</button>
+      <div class="vocab-rows" id="vocab-rows"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ══════════════════════════════════════
+   CURSOR
+══════════════════════════════════════ */
+const cur = document.getElementById('cursor'); const ring = document.getElementById('cursor-ring');
+document.addEventListener('mousemove', e => { cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px'; ring.style.left = e.clientX+'px'; ring.style.top = e.clientY+'px'; });
+
+/* ══════════════════════════════════════
+   TTS (TEXT TO SPEECH)
+══════════════════════════════════════ */
+let currentAudioWord = "";
+function speakES(text) {
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel(); 
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = 'es-ES';
+    msg.rate = 0.9; // Légèrement plus lent pour bien comprendre
+    speechSynthesis.speak(msg);
+  }
+}
+function replayAudio() { if(currentAudioWord) speakES(currentAudioWord); }
+
+/* ══════════════════════════════════════
+   VOCABULARY DATA
+══════════════════════════════════════ */
+const VOCAB = {
+  expresiones: {
+    name: "Expresiones & Citas", icon: "🗣️", color: "c1",
+    words: [
+      { fr: "À mon avis", en: "En mi opinión" },
+      { fr: "Ouvre-toi au monde", en: "Ábrete al mundo" },
+      { fr: "Ça n'a jamais été aussi pertinent.", en: "Nunca ha sido tan relevante." },
+      { fr: "Une question qui se pose en ce moment même", en: "Una pregunta que se está formulando ahora mismo" },
+      { fr: "Ces personnes peuvent nous apporter énormément", en: "Estas personas pueden aportarnos muchísimo" },
+      { fr: "Un grand philosophe que j'admire a dit : « Aime et fais ce que tu veux ».", en: "Un gran filósofo al que admiro dijo: «Ama y haz lo que quieras»." }
+    ]
+  },
+  vocab_general: {
+    name: "Vocabulaire Général", icon: "📚", color: "c2",
+    words: [
+      { fr: "le plus fort", en: "el más fuerte" },
+      { fr: "sans", en: "sin" },
+      { fr: "générations futures", en: "generaciones futuras" },
+      { fr: "dépourvu / vide", en: "vacío" },
+      { fr: "et cætera", en: "etcétera" },
+      { fr: "solide", en: "sólido" }
+    ]
+  }
+};
+
+const ALL = []; Object.keys(VOCAB).forEach(k => VOCAB[k].words.forEach(w => ALL.push({...w, cat: k})));
+const catNames = { expresiones:'🗣️ Expresiones & Citas', vocab_general:'📚 Vocabulaire Général', all: 'Tout' };
+
+function normalizeStr(str) {
+  if (!str) return "";
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[()]/g, "").replace(/\b(el|la|los|las|un|una)\b/g, "").replace(/[^a-z0-9]/g, "").trim();
+}
+function getFirstEn(str) { return str.split('/')[0].replace(/[()]/g, '').trim(); }
+function getFirstFr(str) { return str.split('/')[0].replace(/[()]/g, '').trim(); }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a; }
+
+/* ══════════════════════════════════════
+   STATE & NAVIGATION
+══════════════════════════════════════ */
+let xp=0, streak=0, okCount=0, totalAns=0;
+function sync() {
+  document.getElementById('st-xp').textContent = xp; document.getElementById('st-streak').textContent = streak;
+  document.getElementById('st-ok').textContent = okCount; document.getElementById('st-acc').textContent = totalAns ? Math.round(okCount/totalAns*100)+'%' : '—';
+  document.getElementById('xp-lbl').textContent = xp+' / 600 XP'; document.getElementById('xp-fill').style.width = Math.min(xp/600*100,100)+'%';
+}
+function good(pts, msg) { xp+=pts; streak++; okCount++; totalAns++; sync(); pop('⭐',`+${pts} XP`,msg); }
+function bad() { streak=0; totalAns++; sync(); pop('💫','A repasar','Série perdue'); }
+function pop(ico,txt,sub) {
+  const p=document.getElementById('popup'); document.getElementById('p-ico').textContent=ico; document.getElementById('p-txt').textContent=txt;
+  document.getElementById('p-sub').textContent=sub; p.classList.add('show'); setTimeout(()=>p.classList.remove('show'),2600);
+}
+
+function goTab(name, btn) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('s-'+name).classList.add('active'); btn.classList.add('active');
+  if(name==='learn') startLearn(); if(name==='quiz') startQuiz(); if(name==='fill') loadFill();
+  if(name==='exam') loadExam(); if(name==='vocab') loadVocab(); if(name==='match') loadMatch();
+}
+
+/* ══════════════════════════════════════
+   MODE APPRENTISSAGE LUDIQUE (100% ORAL)
+══════════════════════════════════════ */
+let learnCat = 'all', learnState = [], learnChunkSet = [], learnChunkIdx = 0, learnAnswered = false, learnChunkCorrect = 0, learnChunkTotal = 0;
+const CHUNK_SIZE = 6;
+
+function pickLearnCat(cat, el) { document.querySelectorAll('#learn-cats .cat-pill').forEach(p=>p.classList.remove('active')); el.classList.add('active'); learnCat = cat; startLearn(); }
+function startLearn() {
+  const src = learnCat==='all' ? ALL : ALL.filter(w=>w.cat===learnCat);
+  learnState = src.map(w => ({ word: w, level: 1, bucket: 'new', correctStreak: 0, wrongCount: 0 }));
+  learnChunkIdx = 0; hideLearnScreens(); buildNextChunk();
+}
+function hideLearnScreens() { document.getElementById('learn-main').style.display='block'; document.getElementById('learn-chunk-done').classList.remove('show'); document.getElementById('learn-complete').classList.remove('show'); }
+function updateBuckets() {
+  const n = learnState.filter(s=>s.bucket==='new').length, l = learnState.filter(s=>s.bucket==='learning').length, m = learnState.filter(s=>s.bucket==='mastered').length, tot = learnState.length;
+  document.getElementById('lb-new').textContent = n; document.getElementById('lb-learning').textContent = l; document.getElementById('lb-mastered').textContent = m;
+  document.getElementById('lp-mastered').style.width = (m/tot*100)+'%'; document.getElementById('lp-learning').style.width = (l/tot*100)+'%'; document.getElementById('lp-new').style.width = (n/tot*100)+'%';
+}
+function buildNextChunk() {
+  updateBuckets(); if(learnState.every(s=>s.bucket==='mastered')) { showComplete(); return; }
+  const learning = learnState.filter(s=>s.bucket==='learning'), newWords = learnState.filter(s=>s.bucket==='new');
+  let pool = [];
+  if(learning.length > 0) { pool = shuffle([...learning]).slice(0, Math.min(CHUNK_SIZE, learning.length)); if(pool.length < CHUNK_SIZE && newWords.length > 0) { pool = [...pool, ...shuffle([...newWords]).slice(0, Math.min(2, CHUNK_SIZE - pool.length))]; } } 
+  else { pool = shuffle([...newWords]).slice(0, CHUNK_SIZE); }
+  learnChunkSet = []; pool.forEach(s => { learnChunkSet.push(s); if(s.bucket==='learning' && s.wrongCount > 1) learnChunkSet.push(s); });
+  learnChunkSet = shuffle(learnChunkSet); learnChunkIdx = 0; learnChunkCorrect = 0; learnChunkTotal = learnChunkSet.length;
+  renderLearnQ();
+}
+function renderLearnQ() {
+  if(learnChunkIdx >= learnChunkSet.length) { showChunkDone(); return; }
+  learnAnswered = false; const state = learnChunkSet[learnChunkIdx]; const w = state.word; const level = state.level;
+  const badges = ['', 'Niveau 1 · Découverte QCM', 'Niveau 2 · QCM Piège', 'Niveau 3 · Entraînement Oral 🗣️']; const badgeClasses = ['', 'lvl1', 'lvl2', 'lvl3'];
+  const badge = document.getElementById('learn-badge'); badge.textContent = badges[level]; badge.className = 'learn-level-badge ' + badgeClasses[level];
+  document.getElementById('learn-q-word').textContent = w.fr;
+  document.getElementById('learn-q-hint').textContent = level <= 2 ? 'Choisissez la traduction espagnole' : 'Prononce-le puis vérifie !';
+  document.getElementById('learn-q-cat').textContent = catNames[w.cat] || '';
+  const fb = document.getElementById('learn-feedback'); fb.classList.remove('show','ok','ko'); document.getElementById('learn-next-btn').classList.remove('show');
+
+  if(level <= 2) {
+    document.getElementById('learn-opts').style.display='grid'; document.getElementById('learn-oral-wrap').style.display='none';
+    renderLearnMCQ(state, level);
+  } else {
+    document.getElementById('learn-opts').style.display='none'; document.getElementById('learn-oral-wrap').style.display='flex';
+    document.getElementById('btn-reveal-oral').style.display='block'; document.getElementById('oral-answer-box').style.display='none';
+  }
+}
+function renderLearnMCQ(state, level) {
+  const w = state.word; const correct = w.en; let distractors;
+  if(level === 1) { distractors = shuffle(ALL.filter(x=>x!==w)).slice(0,3).map(x=>x.en); } 
+  else { const sameCat = ALL.filter(x=>x!==w && x.cat===w.cat); const other = ALL.filter(x=>x!==w && x.cat!==w.cat); distractors = shuffle([...sameCat, ...other]).slice(0,3).map(x=>x.en); }
+  const opts = shuffle([correct, ...distractors]); const letters = ['A','B','C','D']; const container = document.getElementById('learn-opts'); container.innerHTML = '';
+  opts.forEach((o,i)=>{ const b = document.createElement('button'); b.className = 'learn-opt'; b.innerHTML = `<span class="learn-opt-letter">${letters[i]}</span><span>${o}</span>`; b.onclick = () => pickLearnMCQ(b, o, correct, state); container.appendChild(b); });
+}
+function pickLearnMCQ(btn, chosen, correct, state) {
+  if(learnAnswered) return; learnAnswered = true;
+  document.querySelectorAll('.learn-opt').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.learn-opt').forEach(b=>{ if(b.querySelector('span:last-child')?.textContent===correct) b.classList.add('correct'); });
+  const ok = chosen === correct; if(!ok) btn.classList.add('wrong-pick');
+  if (ok) speakES(correct); // Petit bonus audio si c'est correct !
+  handleLearnResult(state, ok, correct);
+}
+
+// THE NEW ORAL MODE (LEVEL 3)
+function revealOral() {
+  const state = learnChunkSet[learnChunkIdx];
+  document.getElementById('btn-reveal-oral').style.display = 'none';
+  document.getElementById('oral-answer-box').style.display = 'flex';
+  document.getElementById('oral-answer-text').textContent = state.word.en;
+  
+  // Audio
+  currentAudioWord = state.word.en;
+  speakES(currentAudioWord);
+  
+  document.querySelectorAll('.btn-oral-eval').forEach(b=>b.disabled=false);
+}
+
+function submitOral(ok) {
+  if(learnAnswered) return; learnAnswered = true;
+  const state = learnChunkSet[learnChunkIdx];
+  document.querySelectorAll('.btn-oral-eval').forEach(b => b.disabled = true);
+  handleLearnResult(state, ok, state.word.en);
+}
+
+function handleLearnResult(state, ok, correct) {
+  if(ok) {
+    state.correctStreak++; learnChunkCorrect++;
+    if (state.bucket === 'new') state.bucket = 'learning';
+    if(state.level < 3) state.level++; else if(state.level === 3 && state.correctStreak >= 2) state.bucket = 'mastered';
+    setLearnFB(true, '✅ ¡Perfecto! ' + correct); good(state.level * 3, `Niveau ${state.level} réussi !`);
+  } else {
+    state.wrongCount++; state.correctStreak = 0;
+    if(state.level > 1) state.level--; state.bucket = 'learning';
+    learnChunkSet.splice(Math.min(learnChunkIdx + 2, learnChunkSet.length), 0, state); learnChunkTotal++;
+    setLearnFB(false, '❌ La respuesta era: ' + correct); bad();
+  }
+  updateBuckets(); document.getElementById('learn-next-btn').classList.add('show');
+}
+function setLearnFB(ok, msg) { const fb = document.getElementById('learn-feedback'); fb.textContent = msg; fb.className = 'learn-feedback show ' + (ok?'ok':'ko'); }
+function learnNext() { learnChunkIdx++; renderLearnQ(); }
+function showChunkDone() {
+  document.getElementById('learn-main').style.display='none'; document.getElementById('learn-chunk-done').classList.add('show');
+  const pct = learnChunkCorrect / learnChunkTotal; document.getElementById('learn-chunk-score').textContent = learnChunkCorrect+'/'+learnChunkTotal;
+  const msgs = ['Sigue practicando...', '¡Vas bien!', '¡Muy buena serie!', '¡Excelente!']; document.getElementById('learn-chunk-msg').textContent = msgs[Math.min(Math.floor(pct*4),3)];
+  updateBuckets();
+}
+function learnContinueChunk() { document.getElementById('learn-chunk-done').classList.remove('show'); hideLearnScreens(); buildNextChunk(); }
+function showComplete() {
+  document.getElementById('learn-main').style.display='none'; document.getElementById('learn-chunk-done').classList.remove('show'); document.getElementById('learn-complete').classList.add('show');
+  document.getElementById('learn-complete-sub').textContent = `Tous les mots sont maîtrisés ! Score total XP : ${xp}`; boom(); good(100, '¡Todo dominado!');
+}
+
+/* ══════════════════════════════════════
+   FLASHCARDS
+══════════════════════════════════════ */
+let deck=[], fcIdx=0, flipped=false, fcGood=0, fcBad=0, fcCat='all', fcMode='fr-en';
+function setMode(mode) { fcMode = mode; document.getElementById('mode-fren').classList.toggle('active', mode==='fr-en'); document.getElementById('mode-esfr').classList.toggle('active', mode==='en-fr'); buildDeck(); }
+function pickCat(cat, el) { document.querySelectorAll('#fc-cats .cat-pill').forEach(p=>p.classList.remove('active')); el.classList.add('active'); fcCat=cat; buildDeck(); }
+function buildDeck() {
+  const src = fcCat==='all' ? ALL : ALL.filter(w=>w.cat===fcCat);
+  deck = shuffle([...src]); fcIdx=0; fcGood=0; fcBad=0; flipped=false;
+  document.getElementById('fc-card').classList.remove('flipped'); document.getElementById('fc-ans-btns').style.display='none'; document.getElementById('fc-reveal-btn').style.display='flex';
+  renderFC();
+}
+function renderFC() {
+  if(fcIdx>=deck.length) {
+    document.getElementById('fc-q').textContent='🚀 Terminé !'; document.getElementById('fc-hint').textContent=`Score : ${fcGood}/${deck.length}`; document.getElementById('fc-a').innerHTML='';
+    document.getElementById('fc-ans-btns').style.display='none'; document.getElementById('fc-reveal-btn').style.display='none';
+    if(fcGood===deck.length) boom(); return;
+  }
+  const w=deck[fcIdx];
+  if(fcMode==='fr-en') {
+    document.getElementById('fc-q').textContent = w.fr;
+    document.getElementById('fc-a').innerHTML = `<span>${w.en}</span> <span class="oral-ans-speaker" onclick="event.stopPropagation(); speakES('${w.en.replace(/'/g,"\\'")}')">🔊</span>`;
+    document.getElementById('fc-lang-front').textContent = 'Français'; document.getElementById('fc-lang-back').textContent = 'Español';
+  } else {
+    document.getElementById('fc-q').textContent = w.en; document.getElementById('fc-a').innerHTML = w.fr;
+    document.getElementById('fc-lang-front').textContent = 'Español'; document.getElementById('fc-lang-back').textContent = 'Français';
+  }
+  document.getElementById('fc-hint').textContent = catNames[w.cat] || ''; document.getElementById('fc-cat-badge').textContent = catNames[w.cat] || '';
+  document.getElementById('fc-i').textContent = fcIdx+1; document.getElementById('fc-tot').textContent = deck.length;
+  document.getElementById('fc-good').textContent = fcGood; document.getElementById('fc-bad').textContent = fcBad;
+  document.getElementById('fc-card').classList.remove('flipped'); flipped=false;
+  document.getElementById('fc-ans-btns').style.display='none'; document.getElementById('fc-reveal-btn').style.display='flex';
+}
+function flipFC() {
+  if(fcIdx>=deck.length) return;
+  flipped=!flipped; document.getElementById('fc-card').classList.toggle('flipped',flipped);
+  if(flipped) { 
+    document.getElementById('fc-ans-btns').style.display='flex'; document.getElementById('fc-reveal-btn').style.display='none'; 
+    if(fcMode==='fr-en') speakES(deck[fcIdx].en);
+  }
+}
+function ansFC(ok) { if(ok){fcGood++;good(5,'Flashcard réussie !');} else{fcBad++;bad();} fcIdx++; setTimeout(renderFC,180); }
+
+/* ══════════════════════════════════════
+   QUIZ QCM
+══════════════════════════════════════ */
+let qDeck=[], qIdx=0, qScore=0, qTimer=null, qDone=false;
+function startQuiz() { document.getElementById('quiz-main').style.display='block'; document.getElementById('quiz-end').style.display='none'; qDeck = shuffle([...ALL]).slice(0,12); qIdx=0; qScore=0; renderQ(); }
+function renderQ() {
+  if(qIdx>=qDeck.length){ endQuiz(); return; } qDone=false; const w=qDeck[qIdx]; const frToEn=Math.random()>0.5;
+  document.getElementById('q-dir').textContent = frToEn ? 'FR → ES' : 'ES → FR'; document.getElementById('q-word').textContent = frToEn ? w.fr : w.en;
+  document.getElementById('q-hint').textContent = ''; document.getElementById('q-cat').textContent = catNames[w.cat]||'';
+  document.getElementById('qn').textContent = qIdx+1; document.getElementById('q-prog-fill').style.width = (qIdx/12*100)+'%';
+  const correct = frToEn ? w.en : w.fr; const wrongs = shuffle(ALL.filter(x=>x!==w)).slice(0,3).map(x=>frToEn?x.en:x.fr);
+  const opts = shuffle([correct,...wrongs]); const letters=['A','B','C','D']; const container=document.getElementById('quiz-opts'); container.innerHTML='';
+  opts.forEach((o,i)=>{ const b=document.createElement('button'); b.className='q-opt'; b.innerHTML=`<span class="q-opt-letter">${letters[i]}</span><span>${o}</span>`; b.onclick=()=>pickQ(b,o,correct,frToEn); container.appendChild(b); });
+  document.getElementById('q-fb').classList.remove('show','ok','ko'); document.getElementById('btn-next').classList.remove('show');
+  startTimer(15);
+}
+function nextQ() { qIdx++; renderQ(); }
+function startTimer(sec) {
+  clearInterval(qTimer); let t=sec; document.getElementById('t-val').textContent=t; document.getElementById('q-timer').classList.remove('hot');
+  qTimer=setInterval(()=>{ t--; document.getElementById('t-val').textContent=t; if(t<=4) document.getElementById('q-timer').classList.add('hot'); if(t<=0){clearInterval(qTimer); timeUpQ();} },1000);
+}
+function timeUpQ() {
+  if(qDone)return; qDone=true; document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  const w=qDeck[qIdx]; const frToEn=document.getElementById('q-dir').textContent==='FR → ES'; const correct=frToEn?w.en:w.fr;
+  document.querySelectorAll('.q-opt').forEach(b=>{if(b.querySelector('span:last-child')?.textContent===correct)b.classList.add('correct');});
+  setFB(false,'⏰ ¡Tiempo agotado! → '+correct); bad(); document.getElementById('btn-next').classList.add('show'); qIdx++;
+}
+function pickQ(btn,chosen,correct,frToEn) {
+  if(qDone)return; qDone=true; clearInterval(qTimer); document.querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.q-opt').forEach(b=>{ if(b.querySelector('span:last-child')?.textContent===correct) b.classList.add('correct'); });
+  const ok=chosen===correct; if(!ok) btn.classList.add('wrong-pick');
+  if(frToEn && ok) speakES(correct); // Audio
+  setFB(ok, ok?'✅ ¡Correcto!':'❌ La réponse était : '+correct);
+  if(ok){qScore++;good(10,'Bonne réponse !');}else bad();
+  document.getElementById('btn-next').classList.add('show'); qIdx++;
+}
+function setFB(ok,msg) { const f=document.getElementById('q-fb'); f.textContent=msg; f.className='q-feedback show '+(ok?'ok':'ko'); }
+function endQuiz() {
+  clearInterval(qTimer); document.getElementById('quiz-main').style.display='none'; document.getElementById('quiz-end').style.display='block';
+  const sc=document.getElementById('end-score'); sc.textContent=qScore+'/12'; sc.className='end-score '+(qScore>=10?'s-great':qScore>=6?'s-mid':'s-low');
+  const msgs=['🌑 Continue à réviser…','🌙 En bonne voie !','⭐ Muy bien !','🚀 ¡MISIÓN CUMPLIDA!']; document.getElementById('end-msg').textContent=msgs[Math.min(Math.floor(qScore/3),3)];
+  if(qScore>=11) boom();
+}
+
+/* ══════════════════════════════════════
+   FILL (Texte à trous)
+══════════════════════════════════════ */
+const FILLS = [
+  { text: "__0__, debemos pensar en las __1__. No podemos dejar un mundo __2__ de valores. Hay que ser __3__ y no vivir __4__ esperanza.", answers: ["En mi opinión","generaciones futuras","vacío","el más fuerte","sin"], pool: "En mi opinión, generaciones futuras, vacío, el más fuerte, sin" },
+  { text: "Debemos construir un futuro __0__ y actuar. Por eso, te digo: ¡__1__! Este mensaje __2__.", answers: ["sólido","Ábrete al mundo","Nunca ha sido tan relevante"], pool: "sólido, Ábrete al mundo, Nunca ha sido tan relevante" },
+  { text: "¿Cómo mejorar la sociedad? Es __0__. Sabemos que __1__. Como inspiración, recuerda que __2__, y __3__.", answers: ["una pregunta que se está formulando ahora mismo","Estas personas pueden aportarnos muchísimo","Un gran filósofo al que admiro dijo: «Ama y haz lo que quieras»","etcétera"], pool: "una pregunta que se está formulando ahora mismo, Estas personas pueden aportarnos muchísimo, Un gran filósofo al que admiro dijo: «Ama y haz lo que quieras», etcétera" }
+];
+let fillI=0;
+function loadFill(){
+  const f=FILLS[fillI]; document.getElementById('fill-pool').textContent=f.pool; let html=f.text;
+  f.answers.forEach((_,i)=>{ html=html.replace(`__${i}__`,`<span class="sp-blank" id="spb${i}"><input type="text" placeholder="…" id="spi${i}" autocomplete="off" spellcheck="false"></span>`); });
+  document.getElementById('sp-box').innerHTML=html;
+}
+function checkFill(){
+  const f=FILLS[fillI]; let ok=0;
+  f.answers.forEach((ans,i)=>{
+    const inp=document.getElementById(`spi${i}`); const sp=document.getElementById(`spb${i}`);
+    const val = normalizeStr(inp.value); const ansNorm = normalizeStr(ans);
+    sp.classList.remove('ok','ko'); if(val===ansNorm){sp.classList.add('ok');ok++;} else sp.classList.add('ko');
+  });
+  if(ok===f.answers.length){good(20,'¡Texto perfecto!');setTimeout(boom,300);} else pop('💡',`${ok}/${f.answers.length} corrects`,'Réessayez !');
+}
+function revealFill(){ const f=FILLS[fillI]; f.answers.forEach((ans,i)=>{ document.getElementById(`spi${i}`).value=ans; document.getElementById(`spb${i}`).classList.add('ok'); document.getElementById(`spb${i}`).classList.remove('ko'); }); }
+function nextFill(){ fillI=(fillI+1)%FILLS.length; loadFill(); }
+
+/* ══════════════════════════════════════
+   MATCHING PAIRS
+══════════════════════════════════════ */
+let matchSelected=null, matchPairs=[], matchOk=0, matchTries=0;
+function loadMatch(){
+  const pool=shuffle([...ALL]).slice(0,8);
+  matchPairs=pool.map(w=>({fr:getFirstFr(w.fr), en:getFirstEn(w.en), id:Math.random().toString(36).slice(2)}));
+  matchSelected=null; matchOk=0; matchTries=0;
+  const frItems=shuffle([...matchPairs]); const enItems=shuffle([...matchPairs]);
+  const frCol=document.getElementById('match-fr'); const enCol=document.getElementById('match-en');
+  frCol.innerHTML=''; enCol.innerHTML='';
+  frItems.forEach(p=>{ const d=document.createElement('div'); d.className='match-item'; d.textContent=p.fr; d.dataset.id=p.id; d.dataset.side='fr'; d.onclick=()=>selectMatch(d,p); frCol.appendChild(d); });
+  enItems.forEach(p=>{ const d=document.createElement('div'); d.className='match-item'; d.textContent=p.en; d.dataset.id=p.id; d.dataset.side='en'; d.onclick=()=>selectMatch(d,p); enCol.appendChild(d); });
+  document.getElementById('match-ok').textContent=0; document.getElementById('match-tot').textContent=8; document.getElementById('match-tries').textContent=0;
+}
+function selectMatch(el,pair) {
+  if(el.classList.contains('matched')) return;
+  if(matchSelected && matchSelected.el===el) { el.classList.remove('selected'); matchSelected=null; return; }
+  if(!matchSelected) { if(el.classList.contains('selected')){ el.classList.remove('selected'); return; } el.classList.add('selected'); matchSelected={el,pair,side:el.dataset.side}; return; }
+  const prev=matchSelected;
+  if(prev.side===el.dataset.side){ prev.el.classList.remove('selected'); el.classList.add('selected'); matchSelected={el,pair,side:el.dataset.side}; return; }
+  matchTries++; document.getElementById('match-tries').textContent=matchTries;
+  if(prev.pair.id===pair.id){
+    [prev.el,el].forEach(e=>{e.classList.remove('selected');e.classList.add('matched');e.onclick=null;});
+    matchOk++; document.getElementById('match-ok').textContent=matchOk; matchSelected=null; good(10,'Bonne paire !');
+    speakES(pair.en); // Audio match
+    if(matchOk===8){setTimeout(boom,300);pop('🎉','¡Perfecto!','Toutes les paires trouvées !');}
+  } else { [prev.el,el].forEach(e=>e.classList.add('wrong')); setTimeout(()=>{[prev.el,el].forEach(e=>{e.classList.remove('wrong','selected');});},500); matchSelected=null; bad(); }
+}
+
+/* ══════════════════════════════════════
+   EXAM BLANC
+══════════════════════════════════════ */
+let examWords=[];
+function loadExam(){
+  examWords=shuffle([...ALL]).slice(0,12); const list=document.getElementById('exam-list'); list.innerHTML='';
+  examWords.forEach((w,i)=>{ list.innerHTML+=`<div class="exam-item"><div class="exam-n">${i+1}</div><div style="flex:1"><div class="exam-fr">${w.fr}</div><input class="exam-inp" id="ei${i}" type="text" placeholder="Traducción al español…" autocomplete="off" spellcheck="false"></div></div>`; });
+  document.getElementById('exam-result').classList.remove('show');
+}
+function submitExam(){
+  let ok=0; const lines=[];
+  examWords.forEach((w,i)=>{
+    const inp=document.getElementById(`ei${i}`); const val=inp.value;
+    const normVal = normalizeStr(val); const targets = w.en.split('/').map(normalizeStr); const correct = targets.some(t => normVal === t || (t.length >= 3 && t.includes(normVal)));
+    inp.classList.remove('ok','ko'); inp.classList.add(correct?'ok':'ko'); if(!correct) inp.placeholder=w.en; if(correct) ok++;
+    lines.push(`${i+1}. ${w.fr} → ${w.en} ${correct?'✅':'❌'}`);
+  });
+  const pct=ok/12; const sc=document.getElementById('exam-score'); sc.textContent=ok+'/12'; sc.className='exam-result-score '+(pct>=0.8?'s-gold':pct>=0.5?'s-silver':'s-red');
+  const verdicts=['🌑 Continue à t\'entraîner…','🌙 Bonne progression !','⭐ Très bien joué !','🚀 ¡SOBRESALIENTE!']; document.getElementById('exam-verdict').textContent=verdicts[Math.min(Math.floor(pct*4),3)];
+  document.getElementById('breakdown').innerHTML=lines.join('<br>'); document.getElementById('exam-result').classList.add('show');
+  if(pct>=0.8){good(50,'Examen réussi !');setTimeout(boom,400);} else if(pct>=0.5) good(20,'Bon effort !'); else bad();
+}
+function resetExam(){ loadExam(); }
+
+/* ══════════════════════════════════════
+   LEXIQUE
+══════════════════════════════════════ */
+function loadVocab(){
+  const grid=document.getElementById('cat-grid'); grid.innerHTML='';
+  Object.keys(VOCAB).forEach((k,i)=>{ const v=VOCAB[k]; grid.innerHTML+=`<div class="cat-card c${i%5}" onclick="openCat('${k}')"><div class="cat-card-ico">${v.icon}</div><div class="cat-card-name">${v.name}</div><div class="cat-card-cnt">${v.words.length} éléments</div></div>`; });
+  document.getElementById('cat-grid').style.display='grid'; document.getElementById('vocab-detail').classList.remove('show'); document.getElementById('lex-search').value=''; document.getElementById('search-results').style.display='none';
+}
+function openCat(k){
+  const v=VOCAB[k]; document.getElementById('cat-grid').style.display='none'; document.getElementById('vocab-detail').classList.add('show');
+  document.getElementById('vocab-rows').innerHTML=v.words.map(w=>`<div class="vrow"><div><div class="v-fr">${w.fr}</div><div class="v-en" style="cursor:pointer;" onclick="speakES('${w.en.replace(/'/g,"\\'")}')">${w.en} 🔊</div></div><div class="v-cat">${catNames[k] || k}</div></div>`).join('');
+}
+function closeVocab(){ document.getElementById('cat-grid').style.display='grid'; document.getElementById('vocab-detail').classList.remove('show'); }
+function searchVocab(q) {
+  const sr=document.getElementById('search-results'); const lexView=document.getElementById('lex-cat-view');
+  if(!q.trim()){sr.style.display='none'; lexView.style.display='block'; return;}
+  const lq=normalizeStr(q); const results=ALL.filter(w=>normalizeStr(w.fr).includes(lq)||normalizeStr(w.en).includes(lq));
+  sr.style.display='block'; lexView.style.display='none';
+  if(!results.length){document.getElementById('search-rows').innerHTML='<div style="color:var(--muted);font-family:DM Mono,monospace;font-size:13px;padding:12px;">Aucun résultat.</div>';return;}
+  document.getElementById('search-rows').innerHTML=results.map(w=>`<div class="vrow"><div><div class="v-fr">${w.fr}</div><div class="v-en" style="cursor:pointer;" onclick="speakES('${w.en.replace(/'/g,"\\'")}')">${w.en} 🔊</div></div><div class="v-cat">${catNames[w.cat] || w.cat}</div></div>`).join('');
+}
+
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
+sync();
+startLearn(); // Set Apprentissage as default active view
+</script>
+</body>
+</html>
