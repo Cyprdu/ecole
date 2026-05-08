@@ -1,1 +1,2262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Politiques Économiques Européennes — Terminale</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --blue-deep: #0a1628;
+    --blue-mid: #112244;
+    --blue-accent: #1a3a6b;
+    --cream: #f5f0e8;
+    --cream-dark: #e8e0d0;
+    --red-eu: #c0392b;
+    --text-light: #f0ebe0;
+    --text-dim: #a09888;
+    --border: rgba(201,168,76,0.25);
+    --glow: rgba(201,168,76,0.15);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--blue-deep);
+    color: var(--text-light);
+    font-family: var(--font-body);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ===== NOISE TEXTURE ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* ===== TABS ===== */
+  .tabs-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    background: rgba(10,22,40,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    height: 64px;
+  }
+
+  .tabs-logo {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-right: 3rem;
+    white-space: nowrap;
+    font-weight: 700;
+  }
+
+  .tabs-nav {
+    display: flex;
+    gap: 0;
+    flex: 1;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-dim);
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0 1.5rem;
+    height: 64px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .tab-btn:hover { color: var(--cream); }
+
+  .tab-btn.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+
+  .progress-bar {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    width: 0%;
+    z-index: 899;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px var(--gold);
+  }
+
+  /* ===== PANELS ===== */
+  .panel {
+    display: none;
+    min-height: 100vh;
+    padding-top: 64px;
+  }
+
+  .panel.active { display: block; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 50%, rgba(26,58,107,0.5) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 30% at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 60%);
+  }
+
+  .hero-stars {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .hero-star {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: starPulse var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--del, 0s);
+  }
+
+  @keyframes starPulse {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.8; transform: scale(1); }
+  }
+
+  .eu-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: rotate 30s linear infinite;
+  }
+
+  .eu-ring:nth-child(2) {
+    width: 800px;
+    height: 800px;
+    animation-direction: reverse;
+    animation-duration: 45s;
+    border-color: rgba(201,168,76,0.1);
+  }
+
+  @keyframes rotate { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    padding: 2rem;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.3s;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.1;
+    font-weight: 900;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.6s;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 650px;
+    margin: 0 auto 3rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.9s;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--gold);
+    color: var(--blue-deep);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.2s;
+    text-decoration: none;
+  }
+
+  .hero-cta:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(201,168,76,0.3);
+  }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.5s;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    animation: scrollDown 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollDown {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+    50% { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== SECTION STRUCTURE ===== */
+  .chapter {
+    padding: 0;
+  }
+
+  .chapter-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 6rem 6rem 3rem;
+    position: relative;
+  }
+
+  .chapter-number {
+    font-family: var(--font-display);
+    font-size: 8rem;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    user-select: none;
+    min-width: 120px;
+    text-align: right;
+  }
+
+  .chapter-info {
+    border-left: 3px solid var(--gold);
+    padding-left: 2rem;
+  }
+
+  .chapter-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .chapter-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  /* ===== SCROLLY SECTIONS ===== */
+  .scrolly-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    padding: 2rem 6rem;
+  }
+
+  .scrolly-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    position: relative;
+    padding: 2rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--gold), transparent);
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 0;
+    margin-bottom: 3rem;
+    opacity: 0;
+    transition: all 0.6s ease;
+  }
+
+  .timeline-item.visible { opacity: 1; }
+
+  .timeline-item:nth-child(even) .tl-content { order: 3; text-align: left; }
+  .timeline-item:nth-child(even) .tl-empty { order: 1; }
+  .timeline-item:nth-child(even) .tl-center { order: 2; }
+
+  .tl-content {
+    padding: 1.5rem 2rem;
+    background: var(--blue-mid);
+    border: 1px solid var(--border);
+    position: relative;
+    text-align: right;
+    transition: all 0.3s ease;
+  }
+
+  .tl-content:hover {
+    border-color: var(--gold);
+    background: var(--blue-accent);
+    transform: scale(1.02);
+    box-shadow: 0 8px 40px rgba(201,168,76,0.15);
+  }
+
+  .timeline-item:nth-child(even) .tl-content { text-align: left; }
+
+  .tl-year {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .tl-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--cream);
+  }
+
+  .tl-desc {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .tl-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .tl-dot {
+    width: 16px;
+    height: 16px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--gold);
+    z-index: 1;
+  }
+
+  .tl-empty { background: transparent; }
+
+  /* ===== BALASSA MODEL ===== */
+  .balassa-steps {
+    display: flex;
+    gap: 0;
+    margin: 2rem 0;
+    overflow: visible;
+  }
+
+  .balassa-step {
+    flex: 1;
+    padding: 2rem 1.5rem;
+    background: var(--blue-mid);
+    border-top: 3px solid transparent;
+    text-align: center;
+    position: relative;
+    transition: all 0.4s ease;
+    cursor: default;
+  }
+
+  .balassa-step:hover {
+    transform: translateY(-8px);
+    background: var(--blue-accent);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    z-index: 10;
+  }
+
+  .balassa-step.reached { border-top-color: var(--gold); }
+  .balassa-step.partial { border-top-color: rgba(201,168,76,0.4); }
+  .balassa-step.not-reached { border-top-color: rgba(201,168,76,0.1); }
+
+  .balassa-num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 900;
+    opacity: 0.15;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+
+  .balassa-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+    color: var(--gold);
+  }
+
+  .balassa-desc {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .balassa-badge {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+    border-radius: 2px;
+  }
+
+  .badge-done { background: rgba(201,168,76,0.2); color: var(--gold); }
+  .badge-partial { background: rgba(201,168,76,0.1); color: rgba(201,168,76,0.6); }
+  .badge-not { background: rgba(201,168,76,0.05); color: rgba(201,168,76,0.3); }
+
+  /* ===== CONTENT BLOCKS ===== */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .content-card {
+    background: var(--blue-mid);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .content-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .content-card:hover::before { transform: scaleX(1); }
+  .content-card:hover { border-color: rgba(201,168,76,0.5); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--glow);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--cream);
+  }
+
+  .card-text {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ===== DEFINITION BLOCK ===== */
+  .definition-block {
+    background: rgba(201,168,76,0.06);
+    border-left: 4px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+
+  .def-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .def-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--cream);
+  }
+
+  .def-text {
+    font-size: 0.87rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ===== KEY POINT ===== */
+  .key-point {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.25rem;
+    background: var(--blue-mid);
+    border: 1px solid var(--border);
+    margin: 1rem 0;
+    transition: all 0.3s ease;
+  }
+
+  .key-point:hover {
+    border-color: var(--gold);
+    background: var(--blue-accent);
+  }
+
+  .kp-marker {
+    width: 32px;
+    height: 32px;
+    background: var(--gold);
+    color: var(--blue-deep);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .kp-text {
+    font-size: 0.87rem;
+    line-height: 1.65;
+    color: var(--text-light);
+  }
+
+  /* ===== SECTION DIVIDER ===== */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 4rem 6rem 2rem;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .divider-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ===== VIDEO EMBED ===== */
+  .video-block {
+    margin: 2rem 0;
+    position: relative;
+  }
+
+  .video-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .video-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: #000;
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ===== BIG TEXT ===== */
+  .big-text-block {
+    padding: 5rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .big-text-block::before {
+    content: '';
+    position: absolute;
+    left: -200px;
+    top: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .big-quote {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--cream);
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .big-quote::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -0.5rem;
+    font-size: 5rem;
+    color: var(--gold);
+    line-height: 1;
+    opacity: 0.5;
+  }
+
+  .big-quote-source {
+    margin-top: 1.5rem;
+    padding-left: 3rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+  }
+
+  /* ===== STATS ROW ===== */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin: 2rem 0;
+    border: 1px solid var(--border);
+  }
+
+  .stat-item {
+    padding: 2rem;
+    background: var(--blue-mid);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .stat-item:hover {
+    background: var(--blue-accent);
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  /* ===== ACCORDION ===== */
+  .accordion {
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+  }
+
+  .accordion-item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .accordion-item:last-child { border-bottom: none; }
+
+  .accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.25rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    color: var(--text-light);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: left;
+    transition: all 0.3s ease;
+  }
+
+  .accordion-trigger:hover {
+    background: rgba(201,168,76,0.05);
+    color: var(--gold);
+  }
+
+  .accordion-trigger.open { color: var(--gold); background: rgba(201,168,76,0.08); }
+
+  .accordion-arrow {
+    width: 20px;
+    height: 20px;
+    border: 1px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+  }
+
+  .accordion-trigger.open .accordion-arrow { transform: rotate(45deg); }
+
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    background: rgba(0,0,0,0.2);
+  }
+
+  .accordion-body.open { max-height: 600px; }
+
+  .accordion-content {
+    padding: 1.25rem 1.75rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ===== BCE INSTRUMENTS VISUAL ===== */
+  .bce-instruments {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .instrument-card {
+    background: var(--blue-mid);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: default;
+  }
+
+  .instrument-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px var(--glow);
+  }
+
+  .instrument-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .instrument-card:hover::after { opacity: 1; }
+
+  .inst-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .inst-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--cream);
+  }
+
+  .inst-desc {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .inst-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+  }
+
+  /* ===== COMPARISON TABLE ===== */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.84rem;
+  }
+
+  .compare-table th {
+    background: var(--blue-accent);
+    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 2px solid var(--gold);
+  }
+
+  .compare-table td {
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-light);
+    vertical-align: top;
+  }
+
+  .compare-table tr:hover td {
+    background: rgba(201,168,76,0.04);
+  }
+
+  .compare-table .highlight-cell {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ===== POLICY MIX DIAGRAM ===== */
+  .policy-mix-diagram {
+    background: var(--blue-mid);
+    border: 1px solid var(--border);
+    padding: 3rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ===== PROBLEMATIQUES ===== */
+  .problematiques-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .prob-item {
+    background: var(--blue-mid);
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .prob-item::before {
+    content: attr(data-type);
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    opacity: 0.7;
+    text-transform: uppercase;
+  }
+
+  .prob-item:hover {
+    border-color: var(--gold);
+    background: var(--blue-accent);
+    transform: translateX(4px);
+  }
+
+  .prob-type-badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .prob-text {
+    font-size: 0.83rem;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  /* ===== SECTION BACKGROUND ===== */
+  .section-alt-bg {
+    background: rgba(26,58,107,0.15);
+    padding: 4rem 6rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--cream);
+  }
+
+  .section-sub {
+    font-size: 0.87rem;
+    color: var(--text-dim);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+
+  /* ===== IA PANEL ===== */
+  #panel-ia {
+    min-height: 100vh;
+    padding-top: 64px;
+    display: none;
+    flex-direction: column;
+  }
+
+  #panel-ia.active {
+    display: flex;
+  }
+
+  .ia-layout {
+    flex: 1;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 2rem;
+    gap: 0;
+    min-height: calc(100vh - 64px);
+  }
+
+  .ia-header {
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .ia-header-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--cream);
+  }
+
+  .ia-header-sub {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .ia-chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .chat-msg {
+    display: flex;
+    gap: 1rem;
+    animation: fadeUp 0.4s ease;
+  }
+
+  .chat-msg.user { flex-direction: row-reverse; }
+
+  .chat-avatar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    background: var(--blue-mid);
+  }
+
+  .chat-bubble {
+    max-width: 75%;
+    padding: 1rem 1.25rem;
+    font-size: 0.87rem;
+    line-height: 1.7;
+    background: var(--blue-mid);
+    border: 1px solid var(--border);
+    color: var(--text-light);
+  }
+
+  .chat-msg.user .chat-bubble {
+    background: rgba(201,168,76,0.1);
+    border-color: rgba(201,168,76,0.3);
+  }
+
+  .chat-msg.ai .chat-avatar { background: rgba(201,168,76,0.15); border-color: var(--gold); }
+
+  .ia-input-area {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .ia-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .suggestion-btn {
+    background: var(--blue-mid);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    padding: 0.4rem 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+  }
+
+  .suggestion-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.06);
+  }
+
+  .ia-input-row {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .ia-input {
+    flex: 1;
+    background: var(--blue-mid);
+    border: 1px solid var(--border);
+    color: var(--text-light);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding: 0.875rem 1.25rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+    resize: none;
+    min-height: 50px;
+  }
+
+  .ia-input:focus { border-color: var(--gold); }
+
+  .ia-send {
+    background: var(--gold);
+    border: none;
+    color: var(--blue-deep);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 1.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-end;
+    height: 50px;
+    white-space: nowrap;
+  }
+
+  .ia-send:hover:not(:disabled) {
+    background: var(--gold-light);
+    box-shadow: 0 8px 30px rgba(201,168,76,0.3);
+  }
+
+  .ia-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .typing-indicator {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 0.5rem 0;
+  }
+
+  .typing-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: typingBounce 1.2s ease-in-out infinite;
+  }
+
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-8px); opacity: 1; }
+  }
+
+  /* ===== ALERT BLOCK ===== */
+  .alert-block {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    border-left: 3px solid;
+  }
+
+  .alert-block.warning {
+    background: rgba(201,168,76,0.07);
+    border-color: var(--gold);
+  }
+
+  .alert-block.danger {
+    background: rgba(192,57,43,0.08);
+    border-color: var(--red-eu);
+  }
+
+  .alert-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+  .alert-content { font-size: 0.85rem; color: var(--text-light); line-height: 1.65; }
+
+  .alert-content strong { color: var(--gold); }
+
+  /* ===== FOOTER ===== */
+  .site-footer {
+    padding: 3rem 6rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4rem;
+  }
+
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+
+  .footer-note {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ===== PROSE ===== */
+  .prose {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--text-dim);
+    max-width: 800px;
+  }
+
+  .prose strong {
+    color: var(--cream);
+    font-weight: 600;
+  }
+
+  .prose em {
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* ===== CHIP TAGS ===== */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .chip {
+    padding: 0.3rem 0.875rem;
+    border: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    background: rgba(201,168,76,0.04);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .scrolly-section, .chapter-header, .section-alt-bg { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .content-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .bce-instruments { grid-template-columns: 1fr; }
+    .balassa-steps { flex-direction: column; }
+    .timeline::before { left: 20px; }
+    .timeline-item { grid-template-columns: 40px 1fr; }
+    .tl-empty { display: none; }
+    .timeline-item:nth-child(even) .tl-content { text-align: left; order: unset; }
+    .timeline-item:nth-child(even) .tl-center { order: unset; }
+    .problematiques-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TABS BAR -->
+<nav class="tabs-bar">
+  <div class="tabs-logo">🇪🇺 Éco — Terminale</div>
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="showPanel('cours')">📖 Cours</button>
+    <button class="tab-btn" onclick="showPanel('ia')">🤖 Assistant IA</button>
+  </div>
+</nav>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ========== PANEL COURS ========== -->
+<div id="panel-cours" class="panel active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-stars" id="starsContainer"></div>
+    <div class="eu-ring"></div>
+    <div class="eu-ring"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Terminale — Sciences Économiques &amp; Sociales</div>
+      <h1 class="hero-title">
+        Quelles politiques<br><em>économiques</em><br>dans le cadre européen&nbsp;?
+      </h1>
+      <p class="hero-subtitle">
+        Un voyage interactif à travers l'intégration européenne, de la déclaration Schuman à la politique monétaire de la BCE — du marché commun au policy mix contemporain.
+      </p>
+      <a href="#chapitre-1" class="hero-cta">
+        Commencer le cours
+        <span>↓</span>
+      </a>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPITRE 1 ==================== -->
+  <div id="chapitre-1" class="chapter">
+    <div class="chapter-header reveal">
+      <div class="chapter-number">1</div>
+      <div class="chapter-info">
+        <div class="chapter-tag">Partie 1 / 2</div>
+        <h2 class="chapter-title">L'intégration européenne<br>et ses effets économiques</h2>
+      </div>
+    </div>
+
+    <!-- VIDEO 1 -->
+    <div class="scrolly-section reveal">
+      <div class="video-block">
+        <div class="video-label">📹 Vidéo de cours — Partie 1</div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/tv1NqR7d6Sw" title="Quelles politiques économiques dans le cadre européen (1/2)" frameborder="0" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTE SCHUMAN -->
+    <div class="big-text-block reveal">
+      <p class="big-quote">
+        La paix mondiale ne saurait être sauvegardée sans des efforts créateurs à la mesure des dangers qui la menacent.
+      </p>
+      <p class="big-quote-source">— Robert Schuman, Déclaration du 9 mai 1950</p>
+    </div>
+
+    <!-- DEFINITION -->
+    <div class="scrolly-section reveal">
+      <div class="definition-block">
+        <div class="def-label">Définition clé</div>
+        <div class="def-title">Intégration européenne</div>
+        <div class="def-text">Processus économique permettant de rassembler des économies nationales dans le but de former un <strong>ensemble régional supranational</strong> en renforçant la cohérence de cet ensemble. Cette intégration s'exerce principalement par le développement des échanges et la mise en œuvre de <strong>politiques économiques communes et harmonisées</strong>.</div>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="section-divider reveal">
+      <div class="divider-line"></div>
+      <div class="divider-label">Chronologie historique</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="scrolly-section">
+      <h3 class="section-heading reveal" style="padding-bottom:1.5rem;">Les 12 dates clés de l'intégration</h3>
+      <div class="timeline" id="timeline"></div>
+    </div>
+
+    <!-- BALASSA MODEL -->
+    <div class="section-alt-bg reveal">
+      <div class="section-heading">Le modèle de Béla Balassa (1961)</div>
+      <div class="section-sub">L'économiste hongrois définit 5 étapes progressives d'intégration économique. L'UE en a franchi 4, la 5ème restant incomplète.</div>
+
+      <div class="balassa-steps">
+        <div class="balassa-step reached">
+          <div class="balassa-num">1</div>
+          <div class="balassa-label">Zone de libre-échange</div>
+          <div class="balassa-desc">Suppression des barrières tarifaires et non-tarifaires entre membres. Normes communes.</div>
+          <div class="balassa-badge badge-done">✓ Atteinte (CECA 1951)</div>
+        </div>
+        <div class="balassa-step reached">
+          <div class="balassa-num">2</div>
+          <div class="balassa-label">Union douanière</div>
+          <div class="balassa-desc">Tarif extérieur commun vis-à-vis des pays tiers. Politique commerciale unifiée.</div>
+          <div class="balassa-badge badge-done">✓ Atteinte (1968)</div>
+        </div>
+        <div class="balassa-step reached">
+          <div class="balassa-num">3</div>
+          <div class="balassa-label">Marché commun</div>
+          <div class="balassa-desc">4 libertés : biens, personnes, services, capitaux. Libre circulation totale.</div>
+          <div class="balassa-badge badge-done">✓ Atteinte (Acte unique 1986)</div>
+        </div>
+        <div class="balassa-step reached">
+          <div class="balassa-num">4</div>
+          <div class="balassa-label">Union économique &amp; monétaire</div>
+          <div class="balassa-desc">Monnaie unique (€), BCE, harmonisation des politiques économiques.</div>
+          <div class="balassa-badge badge-done">✓ Atteinte (Maastricht 1992)</div>
+        </div>
+        <div class="balassa-step partial">
+          <div class="balassa-num">5</div>
+          <div class="balassa-label">Union politique</div>
+          <div class="balassa-desc">Unification totale des politiques, défense commune, institutions fédérales.</div>
+          <div class="balassa-badge badge-partial">⚠ Incomplète</div>
+        </div>
+      </div>
+
+      <div class="alert-block warning" style="margin-top:2rem;">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-content">
+          <strong>À retenir :</strong> L'UE n'est pas encore une union politique car les États conservent une souveraineté importante, notamment sur la politique budgétaire. L'UE n'a pas d'armée propre.
+        </div>
+      </div>
+    </div>
+
+    <!-- EFFETS SUR LA CROISSANCE -->
+    <div class="section-divider reveal">
+      <div class="divider-line"></div>
+      <div class="divider-label">Effets économiques</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="scrolly-section reveal">
+      <div class="section-heading">Effets du marché unique sur la croissance</div>
+      <div class="section-sub">L'intégration a eu des effets positifs majeurs mais aussi des effets négatifs à nuancer.</div>
+
+      <div class="content-grid">
+        <div class="content-card reveal reveal-delay-1">
+          <div class="card-icon">📈</div>
+          <div class="card-title">Commerce intra-zone stimulé</div>
+          <div class="card-text">La suppression des droits de douane et la reconnaissance de normes communes ont fortement stimulé les échanges intra-européens, créant un cercle vertueux de croissance.</div>
+        </div>
+        <div class="content-card reveal reveal-delay-2">
+          <div class="card-icon">⚖️</div>
+          <div class="card-title">Concurrence accrue</div>
+          <div class="card-text">Le libre-échange a intensifié la concurrence, poussant les entreprises à <strong>innover</strong> ou à <strong>baisser leurs prix</strong> pour conquérir de nouveaux marchés.</div>
+        </div>
+        <div class="content-card reveal reveal-delay-3">
+          <div class="card-icon">🏭</div>
+          <div class="card-title">Économies d'échelle</div>
+          <div class="card-text">L'agrandissement du marché permet de diminuer les coûts unitaires de production. Les baisses de prix favorisent l'accroissement de la demande, donc la croissance.</div>
+        </div>
+        <div class="content-card reveal reveal-delay-4">
+          <div class="card-icon">💶</div>
+          <div class="card-title">IDE facilités par l'euro</div>
+          <div class="card-text">La monnaie unique élimine le risque de change, facilitant les investissements directs à l'étranger et réduisant les coûts de transaction entre pays membres.</div>
+        </div>
+      </div>
+
+      <!-- EFFETS NEGATIFS -->
+      <div class="alert-block danger" style="margin-top:2rem;">
+        <div class="alert-icon">⚡</div>
+        <div class="alert-content">
+          <strong>Effets négatifs à connaître :</strong><br>
+          • <strong>Désindustrialisation</strong> : les entreprises ont délocalisé vers les pays à bas coûts (PECO), créant des régions « sinistrées ».<br>
+          • <strong>Effets asymétriques</strong> : la croissance ne profite pas de manière égale à tous les pays ni toutes les régions.<br>
+          • <strong>PAC critiquée</strong> : favorise l'agriculture intensive et les grandes exploitations au détriment de l'environnement.
+        </div>
+      </div>
+    </div>
+
+    <!-- POLITIQUE DE CONCURRENCE -->
+    <div class="section-divider reveal">
+      <div class="divider-line"></div>
+      <div class="divider-label">Politique de la concurrence</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="scrolly-section reveal">
+      <div class="definition-block">
+        <div class="def-label">Définition</div>
+        <div class="def-title">Politique européenne de la concurrence</div>
+        <div class="def-text">Ensemble de principes et mesures permettant de <strong>favoriser une concurrence libre et non faussée</strong> au sein de l'UE au nom de la défense des consommateurs. C'est une compétence <strong>exclusive</strong> de la Commission européenne.</div>
+      </div>
+
+      <div class="section-heading" style="margin-top:2rem; margin-bottom:1rem;">Les 3 piliers de la politique de concurrence</div>
+
+      <div class="accordion" id="concurrenceAccordion">
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>🤝 Lutte contre les ententes et cartels</span>
+            <span class="accordion-arrow">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <p>Une <strong>entente</strong> est un accord anticoncurrentiel entre producteurs sur les prix et/ou quantités. La Commission sanctionne ces pratiques et met en place un <strong>programme de clémence</strong> : réduction ou annulation des amendes pour les entreprises qui dénoncent l'entente.</p>
+              <br>
+              <p><em>Exemple :</em> En 2010, Air France et KLM ont obtenu une réduction de 20% de leur amende en collaborant à l'enquête sur une entente sur les surtaxes aériennes.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>👑 Lutte contre les abus de position dominante</span>
+            <span class="accordion-arrow">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <p>Trois pratiques interdites :</p>
+              <br>
+              <div class="key-point">
+                <div class="kp-marker">1</div>
+                <div class="kp-text"><strong>Prix prédateur (dumping)</strong> : fixer un prix inférieur au coût de production pour éliminer des concurrents.</div>
+              </div>
+              <div class="key-point">
+                <div class="kp-marker">2</div>
+                <div class="kp-text"><strong>Vente liée</strong> : obliger les clients à acheter deux produits simultanément pour éliminer des concurrents.</div>
+              </div>
+              <div class="key-point">
+                <div class="kp-marker">3</div>
+                <div class="kp-text"><strong>Remise de fidélité exclusive</strong> : rabais conditionnels à un approvisionnement exclusif chez le vendeur.</div>
+              </div>
+              <br>
+              <p><em>Exemple :</em> En 2018, Google a reçu une amende de <strong>4,34 milliards €</strong> pour restrictions anticoncurrentielles imposées aux fabricants d'appareils mobiles depuis 2011.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>💰 Contrôle des aides d'État</span>
+            <span class="accordion-arrow">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <p>La Commission réglemente les aides publiques (subventions, exonérations fiscales, garanties de prêt) qui risquent de fausser la concurrence.</p>
+              <br>
+              <p><strong>Dérogations possibles</strong> : soutien aux régions en difficulté, financement de la recherche et des PME, protection de l'environnement.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-row reveal" style="margin-top:2rem;">
+        <div class="stat-item">
+          <div class="stat-value">4,34<span style="font-size:1.5rem;">Mrd€</span></div>
+          <div class="stat-label">Amende Google (2018)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">27</div>
+          <div class="stat-label">États membres de l'UE</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">20<span style="font-size:1.5rem;">%</span></div>
+          <div class="stat-label">Réduction amende Air France-KLM</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">1951</div>
+          <div class="stat-label">Création de la CECA</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /chapitre-1 -->
+
+  <!-- ==================== CHAPITRE 2 ==================== -->
+  <div id="chapitre-2" class="chapter" style="margin-top:3rem;">
+    <div class="chapter-header reveal">
+      <div class="chapter-number">2</div>
+      <div class="chapter-info">
+        <div class="chapter-tag">Partie 2 / 2</div>
+        <h2 class="chapter-title">Politiques monétaires<br>et budgétaires dans la zone euro</h2>
+      </div>
+    </div>
+
+    <!-- VIDEO 2 -->
+    <div class="scrolly-section reveal">
+      <div class="video-block">
+        <div class="video-label">📹 Vidéo de cours — Partie 2</div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/a1axOEZizf4" title="Quelles politiques économiques dans le cadre européen (2/2)" frameborder="0" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- POLITIQUE MONETAIRE -->
+    <div class="section-divider reveal">
+      <div class="divider-line"></div>
+      <div class="divider-label">La BCE et la politique monétaire</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="scrolly-section reveal">
+      <div class="definition-block">
+        <div class="def-label">Définition</div>
+        <div class="def-title">Politique monétaire</div>
+        <div class="def-text">Instrument économique <strong>conjoncturel</strong> utilisé par une banque centrale pour garantir la <strong>stabilité de la monnaie</strong> (inflation faible ≈ 2%) en agissant sur la quantité de monnaie en circulation. La politique monétaire de la zone euro est conduite en toute autonomie par la <strong>BCE</strong> dont le siège est à Francfort.</div>
+      </div>
+
+      <div class="section-heading" style="margin:2rem 0 1rem;">Pourquoi l'Union Économique et Monétaire ?</div>
+      <div class="prose reveal">
+        Dans les années 1970, les économies européennes se livraient de véritables « guerres économiques » via des <strong>dévaluations compétitives</strong> de leurs monnaies pour gagner des parts de marché. Face à l'instabilité des changes, plusieurs tentatives d'encadrement ont échoué (Serpent monétaire 1972, SME 1979) avant que le Traité de Maastricht (1992) ne décide la création de l'euro.
+      </div>
+
+      <div class="section-heading" style="margin:2.5rem 0 1rem;">Les 4 instruments de la BCE</div>
+
+      <div class="bce-instruments">
+        <div class="instrument-card reveal reveal-delay-1">
+          <div class="inst-icon">📊</div>
+          <div class="inst-title">Taux directeur</div>
+          <div class="inst-desc">Taux de refinancement des banques commerciales. En le modifiant, la BCE influence les taux d'intérêt des crédits aux ménages et entreprises.</div>
+          <div class="inst-tag">Historiquement bas depuis 2014 (0%)</div>
+        </div>
+        <div class="instrument-card reveal reveal-delay-2">
+          <div class="inst-icon">🏦</div>
+          <div class="inst-title">Réserves obligatoires</div>
+          <div class="inst-desc">Les banques commerciales déposent 1% de leurs dépôts auprès de la BCE, régulant ainsi la création monétaire et l'octroi de crédits.</div>
+          <div class="inst-tag">113 Mrd€ en 2016</div>
+        </div>
+        <div class="instrument-card reveal reveal-delay-3">
+          <div class="inst-icon">📜</div>
+          <div class="inst-title">Open market</div>
+          <div class="inst-desc">Achat ou vente de titres financiers (bons du Trésor) aux banques commerciales sur le marché interbancaire pour réguler la liquidité.</div>
+          <div class="inst-tag">Généralisé depuis 2007-2008</div>
+        </div>
+      </div>
+
+      <div class="definition-block" style="margin-top:1.5rem;">
+        <div class="def-label">Mesures non conventionnelles</div>
+        <div class="def-title">Quantitative Easing (QE)</div>
+        <div class="def-text">Politique de « prêteur en dernier ressort » : rachat massif de titres de dette et injection de liquidités pour relancer le cycle du crédit lors des crises.<br><em>Exemple :</em> Plan de relance de <strong>750 milliards €</strong> pour répondre à la crise Covid-19.</div>
+      </div>
+    </div>
+
+    <!-- POLITIQUE BUDGETAIRE -->
+    <div class="section-divider reveal">
+      <div class="divider-line"></div>
+      <div class="divider-label">La politique budgétaire</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="scrolly-section reveal">
+      <div class="definition-block">
+        <div class="def-label">Définition</div>
+        <div class="def-title">Politique budgétaire</div>
+        <div class="def-text">L'autre forme de politique économique conjoncturelle. Elle passe par la modification du budget de l'État — ses <strong>recettes</strong> (impôts) et ses <strong>dépenses</strong> — pour atteindre des objectifs macroéconomiques.</div>
+      </div>
+
+      <div class="content-grid" style="margin-top:1.5rem;">
+        <div class="content-card reveal">
+          <div class="card-icon">🚀</div>
+          <div class="card-title">Politique de relance</div>
+          <div class="card-text">Augmenter les dépenses publiques et/ou réduire les prélèvements → stimule la demande → croissance et emploi. Creuse le déficit à court terme.</div>
+        </div>
+        <div class="content-card reveal">
+          <div class="card-icon">🛑</div>
+          <div class="card-title">Politique d'austérité</div>
+          <div class="card-text">Réduire les dépenses et/ou augmenter les impôts → freine l'inflation → réduit la dette et le déficit. Ralentit la croissance à court terme.</div>
+        </div>
+      </div>
+
+      <!-- PSC -->
+      <div class="section-heading" style="margin:2.5rem 0 1rem;">Le Pacte de Stabilité et de Croissance (PSC)</div>
+
+      <div class="alert-block warning">
+        <div class="alert-icon">📋</div>
+        <div class="alert-content">
+          <strong>Critères de convergence (Maastricht 1992 / PSC 1997) :</strong><br>
+          • Déficit public ≤ <strong>3% du PIB</strong><br>
+          • Dette publique ≤ <strong>60% du PIB</strong><br><br>
+          Ces règles exposent les gouvernements à des <strong>sanctions</strong> de la part de l'UE en cas de dépassement.
+        </div>
+      </div>
+
+      <div class="compare-table-wrapper reveal" style="margin-top:2rem; overflow-x:auto;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Pays</th>
+              <th>Croissance PIB 2019</th>
+              <th>Inflation 2019</th>
+              <th>Déficit/Excédent</th>
+              <th>Dette publique</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="highlight-cell">Allemagne</td><td>+0,6%</td><td>1,4%</td><td>+1,4% ✓</td><td>59,8% ✓</td></tr>
+            <tr><td class="highlight-cell">France</td><td>+1,3%</td><td>1,3%</td><td>-3,0% ⚠</td><td>98,1% ✗</td></tr>
+            <tr><td class="highlight-cell">Espagne</td><td>+2,0%</td><td>0,8%</td><td>-2,8% ⚠</td><td>95,5% ✗</td></tr>
+            <tr><td class="highlight-cell">Grèce</td><td>+2,4%</td><td>0,5%</td><td>+1,5% ✓</td><td>176,6% ✗</td></tr>
+            <tr><td class="highlight-cell">Italie</td><td>+0,2%</td><td>0,6%</td><td>-1,6% ✓</td><td>134,8% ✗</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:0.72rem; color:var(--text-dim); margin-top:0.5rem;">Source : Eurostat (2020)</p>
+    </div>
+
+    <!-- CHOCS ASYMÉTRIQUES & POLICY MIX -->
+    <div class="section-divider reveal">
+      <div class="divider-line"></div>
+      <div class="divider-label">Difficultés de coordination</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="scrolly-section reveal">
+      <div class="section-heading">Le problème du Policy Mix européen</div>
+      <div class="section-sub">La politique monétaire est unique (BCE) mais les politiques budgétaires restent nationales → risque de chocs asymétriques.</div>
+
+      <div class="definition-block">
+        <div class="def-label">Définition</div>
+        <div class="def-title">Choc asymétrique</div>
+        <div class="def-text">Perturbation qui affecte l'offre ou la demande dans <strong>un secteur spécifique ou un seul pays</strong> d'une zone monétaire. Problème : une politique monétaire unique ne peut pas répondre à des problèmes localisés.</div>
+      </div>
+
+      <div class="section-heading" style="margin:2.5rem 0 1rem;">Les 3 grandes difficultés de coordination</div>
+
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>⚡ Conflits entre politique monétaire et budgétaires</span>
+            <span class="accordion-arrow">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              Si un État mène une ambitieuse politique de relance, il peut créer de l'inflation, forçant la BCE à durcir sa politique monétaire — ce qui <strong>pénalise tous les pays de la zone euro</strong>, même ceux qui n'ont pas adopté la relance. Le budget européen (≈1% du PIB de l'UE) est trop faible pour mener des politiques de relance d'envergure.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>🌍 Absence de mécanismes de solidarité</span>
+            <span class="accordion-arrow">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              Contrairement aux États-Unis, la zone euro n'a pas de mécanismes de <strong>compensation budgétaire fédérale</strong>. Un citoyen suédois ne contribue pas au remboursement de la dette grecque. La crise Covid-19 a mis en lumière ce manque, opposant les pays « frugaux » (Pays-Bas, Danemark, Suède, Autriche) aux pays plus endettés.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            <span>📉 Hétérogénéité fiscale : le dumping fiscal</span>
+            <span class="accordion-arrow">+</span>
+          </button>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              Les écarts de fiscalité entre pays membres empêchent toute planification économique coordonnée. L'Irlande a fixé un taux d'impôt sur les sociétés très bas, attirant les sièges de multinationales. Cette pratique qualifiée de <strong>dumping fiscal</strong> provoque un nivellement par le bas de la fiscalité au niveau européen.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLÉMATIQUES D'EXAMEN -->
+    <div class="section-alt-bg reveal">
+      <div class="section-heading">📝 Problématiques d'examen</div>
+      <div class="section-sub">Toutes les questions susceptibles de tomber au Bac — organisées par type d'exercice.</div>
+
+      <div class="chips" style="margin-bottom:1.5rem;">
+        <div class="chip">EC1 — Mobilisation</div>
+        <div class="chip">EC3 — Raisonnement</div>
+        <div class="chip">Dissertation</div>
+      </div>
+
+      <div class="problematiques-grid">
+        <div class="prob-item" data-type="EC1">
+          <div class="prob-type-badge">EC1</div>
+          <div class="prob-text">Exposez deux caractéristiques de l'intégration européenne.</div>
+        </div>
+        <div class="prob-item" data-type="EC1">
+          <div class="prob-type-badge">EC1</div>
+          <div class="prob-text">Expliquez deux effets du marché unique sur la croissance à l'aide d'exemples.</div>
+        </div>
+        <div class="prob-item" data-type="EC1">
+          <div class="prob-type-badge">EC1</div>
+          <div class="prob-text">Quels sont les objectifs et modalités de la politique européenne de la concurrence ?</div>
+        </div>
+        <div class="prob-item" data-type="EC1">
+          <div class="prob-type-badge">EC1</div>
+          <div class="prob-text">Quelles critiques peut-on adresser à la politique européenne de la concurrence ?</div>
+        </div>
+        <div class="prob-item" data-type="EC1">
+          <div class="prob-type-badge">EC1</div>
+          <div class="prob-text">Expliquez comment la politique monétaire agit sur la conjoncture.</div>
+        </div>
+        <div class="prob-item" data-type="EC1">
+          <div class="prob-type-badge">EC1</div>
+          <div class="prob-text">Expliquez comment la politique budgétaire agit sur la conjoncture.</div>
+        </div>
+        <div class="prob-item" data-type="EC1">
+          <div class="prob-type-badge">EC1</div>
+          <div class="prob-text">Montrez que la politique budgétaire de chaque pays est contrainte par les traités européens.</div>
+        </div>
+        <div class="prob-item" data-type="EC1">
+          <div class="prob-type-badge">EC1</div>
+          <div class="prob-text">Expliquez via un exemple comment un choc asymétrique pose problème avec une politique monétaire unique.</div>
+        </div>
+        <div class="prob-item" data-type="EC3">
+          <div class="prob-type-badge">EC3</div>
+          <div class="prob-text">Quelles sont les caractéristiques de l'intégration économique européenne ?</div>
+        </div>
+        <div class="prob-item" data-type="EC3">
+          <div class="prob-type-badge">EC3</div>
+          <div class="prob-text">Montrez les effets du marché unique sur la croissance.</div>
+        </div>
+        <div class="prob-item" data-type="EC3">
+          <div class="prob-type-badge">EC3</div>
+          <div class="prob-text">Montrez comment politique monétaire et budgétaire agissent sur la conjoncture.</div>
+        </div>
+        <div class="prob-item" data-type="EC3">
+          <div class="prob-type-badge">EC3</div>
+          <div class="prob-text">Montrez qu'il existe des difficultés de coordination de la politique monétaire et budgétaire dans la zone euro.</div>
+        </div>
+        <div class="prob-item" data-type="Dissertation" style="grid-column:1/-1;">
+          <div class="prob-type-badge">Dissertation</div>
+          <div class="prob-text">Quels sont les effets de la politique européenne de la concurrence ? | La politique de concurrence européenne est-elle efficace ? | Dans quelle mesure le marché unique est-il efficace ? | Quelles sont les difficultés de coordination de la politique monétaire et budgétaire dans la zone euro ? | Dans quelle mesure la politique monétaire et les politiques budgétaires peuvent-elles être efficaces dans la zone euro ?</div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:2rem;">
+        <button class="hero-cta" onclick="showPanel('ia')" style="display:inline-flex;">
+          🤖 S'entraîner avec l'IA
+        </button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-brand">Politiques Économiques Européennes — Terminale SES</div>
+      <div class="footer-note">Sources : Schoolmouv · Eurostat · Traités européens</div>
+    </footer>
+
+  </div><!-- /chapitre-2 -->
+
+</div><!-- /panel-cours -->
+
+<!-- ========== PANEL IA ========== -->
+<div id="panel-ia" class="panel">
+  <div class="ia-header">
+    <h2 class="ia-header-title">🤖 Assistant IA — Cours d'Économie Européenne</h2>
+    <p class="ia-header-sub">Posez toutes vos questions sur le chapitre. L'IA connaît l'intégralité du cours.</p>
+  </div>
+
+  <div class="ia-layout">
+    <div class="ia-chat" id="iaChat">
+      <div class="chat-msg ai">
+        <div class="chat-avatar">🤖</div>
+        <div class="chat-bubble">
+          Bonjour ! Je suis votre assistant spécialisé sur le chapitre <strong>« Quelles politiques économiques dans le cadre européen ? »</strong>.<br><br>
+          Je connais tout le cours : l'intégration européenne, le modèle de Balassa, les effets du marché unique, la politique de la concurrence, la BCE, la politique monétaire et budgétaire, le PSC, les chocs asymétriques, le policy mix…<br><br>
+          Posez-moi n'importe quelle question, y compris des exercices d'examen !
+        </div>
+      </div>
+    </div>
+
+    <div class="ia-input-area">
+      <div class="ia-suggestions" id="suggestions">
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">Qu'est-ce qu'un choc asymétrique ?</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">Explique le modèle de Balassa</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">Comment fonctionne le taux directeur de la BCE ?</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">Quels sont les effets du marché unique ?</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">Qu'est-ce que le PSC ?</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">Aide-moi pour une dissertation sur la concurrence européenne</button>
+      </div>
+      <div class="ia-input-row">
+        <textarea class="ia-input" id="iaInput" placeholder="Posez votre question sur le cours…" rows="2" onkeydown="handleKey(event)"></textarea>
+        <button class="ia-send" id="iaSendBtn" onclick="sendMessage()">Envoyer →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== TABS ====================
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.querySelectorAll('.tab-btn')[name === 'cours' ? 0 : 1].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ==================== STARS ====================
+const starsContainer = document.getElementById('starsContainer');
+for (let i = 0; i < 30; i++) {
+  const star = document.createElement('div');
+  star.className = 'hero-star';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 100 + '%';
+  star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+  star.style.setProperty('--del', (-Math.random() * 4) + 's');
+  starsContainer.appendChild(star);
+}
+
+// ==================== PROGRESS BAR ====================
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop || document.body.scrollTop;
+  const total = doc.scrollHeight - doc.clientHeight;
+  document.getElementById('progressBar').style.width = (scrolled / total * 100) + '%';
+});
+
+// ==================== SCROLL REVEAL ====================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal, .scrolly-section, .timeline-item').forEach(el => observer.observe(el));
+
+// ==================== TIMELINE DATA ====================
+const timelineData = [
+  { year: '1950', title: 'Déclaration Schuman', desc: 'Robert Schuman propose la mise en commun des productions franco-allemandes de charbon et d\'acier — fondement du projet européen.' },
+  { year: '1951', title: 'CECA', desc: 'Traité instituant la Communauté Européenne du Charbon et de l\'Acier entre 6 pays : France, Allemagne, Italie, Belgique, Pays-Bas, Luxembourg.' },
+  { year: '1957', title: 'Traité de Rome — CEE', desc: 'Création de la Communauté Économique Européenne (Marché commun). Début du projet d\'union douanière et économique.' },
+  { year: '1962', title: 'Lancement de la PAC', desc: 'La Politique Agricole Commune est lancée pour garantir l\'autosuffisance alimentaire via des subventions aux agriculteurs.' },
+  { year: '1968', title: 'Union douanière complète', desc: 'Suppression totale des droits de douane entre les 6 pays et mise en place d\'un tarif extérieur commun.' },
+  { year: '1986', title: 'Acte unique européen', desc: 'Réaffirme la libre circulation des facteurs de production (travail et capital). Pose les bases du marché unique.' },
+  { year: '1992', title: 'Traité de Maastricht', desc: 'Institution de l\'Union Européenne. Lancement de la monnaie unique, critères de convergence (3% et 60% du PIB).' },
+  { year: '1993', title: 'Marché unique effectif', desc: 'Entrée en vigueur officielle du marché unique : libre circulation des biens, services, personnes et capitaux.' },
+  { year: '1999', title: 'Naissance de l\'euro', desc: 'Onze pays adoptent l\'euro. La BCE prend en charge la politique monétaire. Les billets et pièces arrivent en 2002.' },
+  { year: '2009', title: 'Traité de Lisbonne', desc: 'Reprend les dispositions institutionnelles du traité constitutionnel rejeté en 2005 par la France et les Pays-Bas.' },
+  { year: '2010', title: 'Crise des dettes souveraines', desc: 'Plan d\'aide à la Grèce de 110 milliards d\'euros. Révèle les failles de la coordination budgétaire européenne.' },
+  { year: '2020', title: 'Brexit', desc: 'Le Royaume-Uni quitte officiellement l\'UE, premier pays à procéder à une telle sortie depuis le référendum de 2016.' },
+];
+
+const timelineEl = document.getElementById('timeline');
+timelineData.forEach((item, i) => {
+  const isLeft = i % 2 === 0;
+  const div = document.createElement('div');
+  div.className = 'timeline-item';
+  div.innerHTML = isLeft ? `
+    <div class="tl-content">
+      <div class="tl-year">${item.year}</div>
+      <div class="tl-title">${item.title}</div>
+      <div class="tl-desc">${item.desc}</div>
+    </div>
+    <div class="tl-center"><div class="tl-dot"></div></div>
+    <div class="tl-empty"></div>
+  ` : `
+    <div class="tl-empty"></div>
+    <div class="tl-center"><div class="tl-dot"></div></div>
+    <div class="tl-content">
+      <div class="tl-year">${item.year}</div>
+      <div class="tl-title">${item.title}</div>
+      <div class="tl-desc">${item.desc}</div>
+    </div>
+  `;
+  setTimeout(() => observer.observe(div), 100);
+  timelineEl.appendChild(div);
+});
+
+// ==================== ACCORDION ====================
+function toggleAccordion(trigger) {
+  const body = trigger.nextElementSibling;
+  const isOpen = trigger.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.accordion-trigger').forEach(t => {
+    t.classList.remove('open');
+    t.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    trigger.classList.add('open');
+    body.classList.add('open');
+  }
+}
+
+// ==================== IA CHAT ====================
+const SYSTEM_PROMPT = `Tu es un professeur expert en Sciences Économiques et Sociales (SES) de terminale, spécialisé dans le chapitre "Quelles politiques économiques dans le cadre européen ?".
+
+Voici l'intégralité du cours que tu dois maîtriser :
+
+PARTIE 1 - L'INTÉGRATION EUROPÉENNE ET SES EFFETS ÉCONOMIQUES
+
+L'intégration européenne est un processus économique permettant de rassembler des économies nationales dans le but de former un ensemble régional supranational en renforçant la cohérence de cet ensemble.
+
+DATES CLÉS :
+1951 : Traité CECA (France, Allemagne, Italie, Bénélux)
+1957 : Traité de Rome - CEE (Marché commun)
+1962 : Lancement de la PAC
+1968 : Suppression totale des droits de douane entre les 6
+1986 : Acte unique européen (4 libertés)
+1992 : Traité de Maastricht (UE, monnaie unique en route)
+1993 : Entrée en vigueur du Marché unique
+1997 : Pacte de Stabilité et de Croissance (PSC) : déficit < 3% PIB, dette < 60% PIB
+1999 : 11 pays adoptent l'euro, BCE prend en charge la politique monétaire
+2002 : Mise en circulation des pièces et billets
+2007 : Traité de Lisbonne (en application 2009)
+2010 : Plan d'aide à la Grèce (110 Mrd€) - crise dettes souveraines
+2016 : Référendum Brexit - 2020 : Royaume-Uni quitte l'UE
+
+MEMBRES UE : 27 pays (France, Allemagne, Italie, Belgique, Pays-Bas, Luxembourg depuis 1957 + élargissements successifs). La zone euro compte 19 membres.
+
+MODÈLE DE BÉLA BALASSA (1961) - 5 étapes :
+1. Zone de libre-échange (CECA 1951) ✓
+2. Union douanière (1968) ✓
+3. Marché commun / 4 libertés (Acte unique 1986) ✓
+4. Union économique et monétaire (Maastricht 1992 / euro 1999) ✓
+5. Union politique (non atteinte - États conservent souveraineté budgétaire, pas d'armée européenne)
+
+EFFETS DU MARCHÉ UNIQUE SUR LA CROISSANCE :
+EFFETS POSITIFS :
+- Commerce intra-zone stimulé (suppression droits douane + normes communes)
+- Concurrence accrue → innovation et baisse des prix
+- Économies d'échelle (taille du marché → coûts unitaires baissent → demande augmente → croissance)
+- PAC → gains de productivité agricoles (autosuffisance alimentaire)
+- IDE facilités par le marché unique des capitaux (1992) et l'euro (suppression risque de change)
+
+EFFETS NÉGATIFS :
+- Désindustrialisation : délocalisations vers les PECO (pays à bas coûts), régions "sinistrées"
+- Croissance asymétrique : ne profite pas également à tous les pays/régions
+- PAC critiquée : favorise grandes exploitations → agriculture intensive → impacts environnementaux négatifs
+
+POLITIQUE EUROPÉENNE DE LA CONCURRENCE :
+Définition : ensemble de principes pour favoriser une concurrence libre et non faussée - compétence EXCLUSIVE de la Commission européenne.
+3 piliers :
+1. Lutte contre ententes/cartels : programme de clémence (réduction amendes si dénonciation) - ex: Air France-KLM 2010 (-20% amende)
+2. Lutte contre abus de position dominante : prix prédateur (dumping), vente liée, remise de fidélité exclusive - ex: Google amende 4,34 Mrd€ en 2018
+3. Contrôle aides d'État : subventions, exonérations fiscales, garanties de prêt - dérogations possibles (régions en difficulté, R&D, PME, environnement)
+
+LIMITES DE LA POLITIQUE DE CONCURRENCE :
+- N'empêche pas les délocalisations
+- PAC favorise grandes exploitations (inverse de la concurrence équitable)
+- Dumping fiscal (Irlande : IS très bas) = concurrence entre États eux-mêmes
+- Insuffisances face aux GAFAM (pouvoir numérique)
+
+PARTIE 2 - POLITIQUES MONÉTAIRES ET BUDGÉTAIRES DANS LA ZONE EURO
+
+POLITIQUE MONÉTAIRE :
+Définition : instrument conjoncturel pour garantir la stabilité des prix (inflation ≈ 2%) en agissant sur la masse monétaire.
+La BCE (créée 1998, siège Francfort) conduit seule la politique monétaire de la zone euro de façon INDÉPENDANTE.
+Contrairement à la Fed américaine, la BCE a UN SEUL objectif : stabilité des prix.
+
+4 instruments de la BCE :
+1. Taux directeur (taux de refinancement) : influence les taux des banques commerciales → crédits aux ménages/entreprises. Historiquement bas depuis 2014 (0%).
+2. Réserves obligatoires : 1% des dépôts déposés à la BCE → régule création monétaire. 113 Mrd€ en 2016.
+3. Open market : achat/vente de titres (bons du Trésor) sur le marché interbancaire → régule liquidités.
+4. Quantitative Easing (politique non conventionnelle) : rachat massif de titres + injection liquidités = "prêteur en dernier ressort". Ex: 750 Mrd€ plan COVID.
+
+POURQUOI L'UEM ? Contexte historique :
+Années 1970 : guerres économiques via dévaluations compétitives
+1972 : Serpent monétaire européen (échec)
+1979 : SME (+/-2,25%) (échec)
+1944-1973 : Bretton Woods (changes fixes, dollar = or)
+1974 : Fin étalon-or → changes flottants → Forex
+1992 : Maastricht → décision monnaie unique
+1999 : Euro scriptural
+2002 : Pièces et billets
+
+POLITIQUE BUDGÉTAIRE :
+Définition : modification du budget de l'État (recettes et/ou dépenses) pour atteindre des objectifs macroéconomiques.
+RELANCE : ↑ dépenses publiques et/ou ↓ prélèvements → ↑ demande → ↑ croissance (creuse le déficit)
+AUSTÉRITÉ : ↑ impôts et/ou ↓ dépenses → ↓ déficit/dette (freine croissance à court terme)
+
+Budget UE 2020 : 153 Mrd€ = 1% du PIB (25x moins que budget fédéral américain). Budget France = 350 Mrd€.
+70% du budget UE = PAC + Politique de cohésion (réduction inégalités régionales).
+Les États membres récupèrent 94% des dépenses européennes.
+
+PACTE DE STABILITÉ ET DE CROISSANCE (PSC 1997) :
+Contraintes :
+- Déficit public ≤ 3% du PIB
+- Dette publique ≤ 60% du PIB
+Ces règles exposent les États à des SANCTIONS de l'UE.
+Exception COVID : levée temporaire des limites de 3% et 60%.
+
+DIFFICULTÉS DE COORDINATION (POLICY MIX) :
+Policy mix = articulation politique monétaire + politique budgétaire.
+Problème fondamental : politique monétaire UNIQUE (BCE) mais politiques budgétaires NATIONALES.
+
+3 grandes difficultés :
+1. Conflits monétaire/budgétaire : si un État relance → inflation → BCE durcit → pénalise tous les pays
+2. Absence de mécanismes de solidarité : pas de compensation budgétaire fédérale (≠ États-Unis). Ex: Suédois ne contribue pas à la dette grecque. Pays "frugaux" (Pays-Bas, Danemark, Suède, Autriche) vs pays endettés.
+3. Dumping fiscal : hétérogénéité fiscale (Irlande IS très bas) → nivellement par le bas, distorsions de concurrence entre États membres. Luxembourg exemple similaire.
+
+DONNÉES MACROÉCONOMIQUES 2019 (Eurostat) :
+Allemagne : +0,6% PIB, 1,4% inflation, +1,4% (excédent), 59,8% dette ✓✓
+France : +1,3%, 1,3%, -3,0% (limite), 98,1% ✗
+Grèce : +2,4%, 0,5%, +1,5%, 176,6% ✗ (très endettée)
+Espagne : +2,0%, 0,8%, -2,8%, 95,5% ✗
+Italie : +0,2%, 0,6%, -1,6%, 134,8% ✗
+
+CONCLUSION : L'UE doit rouvrir le débat sur un vrai gouvernement économique de la zone euro, redéfinir les missions de la BCE, créer des institutions plus démocratiques et envisager une Europe sociale avec un système de protection commun.
+
+PROBLÉMATIQUES PROBABLES AU BAC :
+EC1 : caractéristiques intégration, effets marché unique, objectifs/modalités politique concurrence, critiques politique concurrence, politique monétaire sur conjoncture, politique budgétaire sur conjoncture, contraintes PSC, choc asymétrique avec exemple.
+EC3 : caractéristiques intégration économique, effets marché unique, articulation politique monétaire/budgétaire, difficultés coordination zone euro.
+Dissertation : effets politique concurrence, efficacité marché unique, difficultés coordination zone euro, efficacité policy mix.
+
+INSTRUCTIONS :
+- Réponds toujours en français
+- Donne des réponses structurées et pédagogiques
+- Utilise des exemples tirés du cours
+- Pour les questions d'examen, aide à structurer la réponse
+- Sois précis sur les dates, chiffres et définitions
+- Si l'élève prépare un exercice type Bac, guide-le avec méthode
+- Tes réponses doivent être claires, détaillées mais pas trop longues`;
+
+const chatEl = document.getElementById('iaChat');
+const inputEl = document.getElementById('iaInput');
+const sendBtn = document.getElementById('iaSendBtn');
+
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `chat-msg ${role}`;
+  div.innerHTML = `
+    <div class="chat-avatar">${role === 'user' ? '🎓' : '🤖'}</div>
+    <div class="chat-bubble">${text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>
+  `;
+  chatEl.appendChild(div);
+  chatEl.scrollTop = chatEl.scrollHeight;
+}
+
+function showTyping() {
+  const div = document.createElement('div');
+  div.className = 'chat-msg ai';
+  div.id = 'typingIndicator';
+  div.innerHTML = `
+    <div class="chat-avatar">🤖</div>
+    <div class="chat-bubble">
+      <div class="typing-indicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+    </div>
+  `;
+  chatEl.appendChild(div);
+  chatEl.scrollTop = chatEl.scrollHeight;
+}
+
+function removeTyping() {
+  const el = document.getElementById('typingIndicator');
+  if (el) el.remove();
+}
+
+let conversationHistory = [];
+
+async function sendMessage() {
+  const text = inputEl.value.trim();
+  if (!text) return;
+
+  addMsg('user', text);
+  inputEl.value = '';
+  sendBtn.disabled = true;
+  document.getElementById('suggestions').style.display = 'none';
+  showTyping();
+
+  conversationHistory.push({ role: 'user', content: text });
+
+  try {
+    const response = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBkgE2hLDRrzzgorOkc6JOaylcPkHnvb1M',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: conversationHistory.map(m => ({
+            role: m.role === 'user' ? 'user' : 'model',
+            parts: [{ text: m.content }]
+          })),
+          generationConfig: { temperature: 0.7, maxOutputTokens: 1500 }
+        })
+      }
+    );
+
+    const data = await response.json();
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Désolé, je n\'ai pas pu répondre. Réessayez.';
+
+    removeTyping();
+    addMsg('ai', reply);
+    conversationHistory.push({ role: 'assistant', content: reply });
+  } catch (err) {
+    removeTyping();
+    addMsg('ai', 'Erreur de connexion. Vérifiez votre connexion internet et réessayez.');
+    console.error(err);
+  }
+
+  sendBtn.disabled = false;
+}
+
+function sendSuggestion(btn) {
+  inputEl.value = btn.textContent;
+  sendMessage();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+// Init observers after build
+setTimeout(() => {
+  document.querySelectorAll('.reveal, .scrolly-section, .timeline-item').forEach(el => observer.observe(el));
+}, 500);
+</script>
+</body>
+</html>
