@@ -1,0 +1,1995 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSI — Dictionnaires Python</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/brython@3.12.0/brython.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/brython@3.12.0/brython_stdlib.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0a0a0a;
+    --bg1:#111111;
+    --bg2:#181818;
+    --bg3:#222222;
+    --border:#2a2a2a;
+    --border2:#333333;
+    --text:#f0f0f0;
+    --text2:#999999;
+    --text3:#555555;
+    --accent:#00d4aa;
+    --accent2:#00b894;
+    --accent-dim:rgba(0,212,170,0.08);
+    --accent-dim2:rgba(0,212,170,0.15);
+    --red:#ff4d6d;
+    --orange:#ff9f43;
+    --blue:#74b9ff;
+    --purple:#a29bfe;
+    --yellow:#ffd32a;
+    --font:'IBM Plex Sans',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  html,body{height:100%;overflow:hidden}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.6;display:flex;flex-direction:column}
+
+  /* HEADER */
+  header{background:var(--bg1);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;flex-shrink:0;z-index:10}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;letter-spacing:-0.02em}
+  .logo-icon{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#000;font-family:var(--mono);font-size:11px;font-weight:600}
+  .logo-sub{font-size:12px;color:var(--text2);font-weight:400;margin-top:1px}
+  .progress-bar{display:flex;align-items:center;gap:12px}
+  .progress-label{font-size:12px;color:var(--text2)}
+  .progress-track{width:120px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
+  .progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 0.4s ease;width:0%}
+
+  /* LAYOUT */
+  .app{display:flex;flex:1;overflow:hidden}
+
+  /* SIDEBAR */
+  nav{width:220px;background:var(--bg1);border-right:1px solid var(--border);overflow-y:auto;flex-shrink:0;padding:1rem 0}
+  nav::-webkit-scrollbar{width:4px}
+  nav::-webkit-scrollbar-track{background:transparent}
+  nav::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+  .nav-section{padding:0 1rem;margin-bottom:0.25rem}
+  .nav-section-title{font-size:10px;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;font-weight:600;padding:0.75rem 0 0.4rem}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--text2);transition:all 0.15s;border:1px solid transparent;margin-bottom:1px;position:relative}
+  .nav-item:hover{background:var(--bg2);color:var(--text)}
+  .nav-item.active{background:var(--accent-dim);color:var(--accent);border-color:var(--accent-dim2)}
+  .nav-item.done::after{content:'✓';position:absolute;right:8px;font-size:10px;color:var(--accent);opacity:0.7}
+  .nav-num{font-family:var(--mono);font-size:11px;color:var(--text3);width:16px;flex-shrink:0}
+  .nav-item.active .nav-num{color:var(--accent)}
+
+  /* MAIN */
+  main{flex:1;overflow-y:auto;padding:2.5rem 3rem;max-width:900px}
+  main::-webkit-scrollbar{width:6px}
+  main::-webkit-scrollbar-track{background:transparent}
+  main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+  /* CONTENT */
+  .page{display:none}
+  .page.active{display:block;animation:fadeIn 0.25s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  .page-tag{font-size:11px;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;font-weight:600;margin-bottom:0.75rem;display:flex;align-items:center;gap:6px}
+  .page-tag::before{content:'';width:20px;height:2px;background:var(--accent);border-radius:1px}
+  h1{font-size:28px;font-weight:600;letter-spacing:-0.03em;color:var(--text);margin-bottom:0.5rem;line-height:1.2}
+  h2{font-size:20px;font-weight:600;letter-spacing:-0.02em;margin:2rem 0 1rem;color:var(--text)}
+  h3{font-size:15px;font-weight:500;color:var(--text2);margin:1.5rem 0 0.75rem;text-transform:uppercase;letter-spacing:0.05em;font-size:12px}
+  .subtitle{color:var(--text2);margin-bottom:2rem;font-size:14px;line-height:1.7}
+
+  /* CODE BLOCKS */
+  .code-block{background:var(--bg1);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.25rem 0}
+  .code-header{padding:8px 14px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+  .code-lang{font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.05em}
+  .code-copy{font-size:11px;color:var(--text2);cursor:pointer;padding:2px 8px;border-radius:4px;border:1px solid var(--border2);background:transparent;color:var(--text2);transition:all 0.15s}
+  .code-copy:hover{border-color:var(--accent);color:var(--accent)}
+  pre{padding:16px;font-family:var(--mono);font-size:13px;line-height:1.7;overflow-x:auto;color:var(--text)}
+  pre::-webkit-scrollbar{height:4px}
+  pre::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+  /* SYNTAX HIGHLIGHT */
+  .kw{color:var(--purple)}
+  .fn{color:var(--blue)}
+  .st{color:var(--accent)}
+  .cm{color:var(--text3);font-style:italic}
+  .nm{color:var(--orange)}
+  .op{color:var(--text2)}
+
+  /* CALLOUT BOXES */
+  .callout{border-radius:8px;padding:14px 16px;margin:1.25rem 0;border-left:3px solid;font-size:14px}
+  .callout.info{background:rgba(116,185,255,0.06);border-color:var(--blue)}
+  .callout.tip{background:rgba(0,212,170,0.06);border-color:var(--accent)}
+  .callout.warning{background:rgba(255,159,67,0.06);border-color:var(--orange)}
+  .callout.error{background:rgba(255,77,109,0.06);border-color:var(--red)}
+  .callout-title{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px}
+  .callout.info .callout-title{color:var(--blue)}
+  .callout.tip .callout-title{color:var(--accent)}
+  .callout.warning .callout-title{color:var(--orange)}
+  .callout.error .callout-title{color:var(--red)}
+  .callout p{color:var(--text2);margin:0}
+
+  /* INTERACTIVE RUNNER */
+  .runner{background:var(--bg1);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.25rem 0}
+  .runner-header{padding:10px 14px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .runner-title{font-size:12px;color:var(--text2);font-family:var(--mono)}
+  .runner-actions{display:flex;gap:6px}
+  .btn-run{background:var(--accent);color:#000;border:none;padding:6px 14px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all 0.15s;display:flex;align-items:center;gap:5px}
+  .btn-run:hover{background:var(--accent2)}
+  .btn-run:active{transform:scale(0.97)}
+  .btn-reset{background:transparent;color:var(--text2);border:1px solid var(--border2);padding:6px 12px;border-radius:5px;font-size:12px;cursor:pointer;font-family:var(--font);transition:all 0.15s}
+  .btn-reset:hover{border-color:var(--text2);color:var(--text)}
+  .runner-editor{padding:0}
+  .runner-editor textarea{width:100%;background:transparent;border:none;padding:14px;font-family:var(--mono);font-size:13px;color:var(--text);resize:vertical;min-height:100px;outline:none;line-height:1.7}
+  .runner-output{border-top:1px solid var(--border);padding:12px 14px;font-family:var(--mono);font-size:13px;min-height:36px;color:var(--text);line-height:1.6;white-space:pre-wrap}
+  .runner-output.has-error{color:var(--red)}
+  .runner-output.empty{color:var(--text3);font-style:italic;font-size:12px}
+  .output-label{font-size:10px;letter-spacing:0.08em;color:var(--text3);text-transform:uppercase;padding:6px 14px 0;font-weight:600}
+
+  /* QUIZ */
+  .quiz{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:18px;margin:1.25rem 0}
+  .quiz-q{font-size:14px;font-weight:500;margin-bottom:14px;line-height:1.5}
+  .quiz-q code{background:var(--bg2);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--accent)}
+  .quiz-opts{display:flex;flex-direction:column;gap:6px}
+  .quiz-opt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:6px;border:1px solid var(--border);cursor:pointer;transition:all 0.15s;font-size:13px}
+  .quiz-opt:hover{border-color:var(--border2);background:var(--bg2)}
+  .quiz-opt.selected{border-color:var(--accent);background:var(--accent-dim)}
+  .quiz-opt.correct{border-color:var(--accent);background:rgba(0,212,170,0.1);color:var(--accent)}
+  .quiz-opt.wrong{border-color:var(--red);background:rgba(255,77,109,0.08);color:var(--red)}
+  .quiz-radio{width:14px;height:14px;border:1px solid var(--border2);border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+  .quiz-opt.selected .quiz-radio,.quiz-opt.correct .quiz-radio{background:var(--accent);border-color:var(--accent)}
+  .quiz-opt.wrong .quiz-radio{background:var(--red);border-color:var(--red)}
+  .quiz-radio-dot{width:6px;height:6px;background:#000;border-radius:50%;display:none}
+  .quiz-opt.selected .quiz-radio-dot,.quiz-opt.correct .quiz-radio-dot,.quiz-opt.wrong .quiz-radio-dot{display:block}
+  .quiz-feedback{margin-top:10px;padding:10px 12px;border-radius:6px;font-size:13px;display:none}
+  .quiz-feedback.show{display:block}
+  .quiz-feedback.ok{background:rgba(0,212,170,0.08);color:var(--accent)}
+  .quiz-feedback.ko{background:rgba(255,77,109,0.08);color:var(--red)}
+  .quiz-btn{margin-top:12px;background:transparent;color:var(--text2);border:1px solid var(--border2);padding:6px 14px;border-radius:5px;font-size:12px;cursor:pointer;font-family:var(--font);transition:all 0.15s}
+  .quiz-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:13px}
+  th{text-align:left;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.05em}
+  td{padding:8px 12px;border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:12px}
+  tr:nth-child(even) td{background:rgba(255,255,255,0.02)}
+
+  /* INLINE CODE */
+  code{background:var(--bg2);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--accent)}
+
+  /* DIVIDER */
+  .divider{border:none;border-top:1px solid var(--border);margin:2rem 0}
+
+  /* EXERCISE CARD */
+  .exo-card{background:var(--bg1);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:1.5rem 0}
+  .exo-header{padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+  .exo-num{font-family:var(--mono);font-size:11px;color:var(--text3)}
+  .exo-title{font-size:14px;font-weight:500}
+  .exo-diff{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;letter-spacing:0.05em}
+  .diff-easy{background:rgba(0,212,170,0.12);color:var(--accent)}
+  .diff-medium{background:rgba(255,159,67,0.12);color:var(--orange)}
+  .diff-hard{background:rgba(255,77,109,0.12);color:var(--red)}
+  .exo-body{padding:18px}
+  .exo-desc{font-size:14px;color:var(--text2);margin-bottom:1rem;line-height:1.7}
+  .exo-desc code{color:var(--accent)}
+  .expected{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-family:var(--mono);font-size:12px;color:var(--text2);margin-bottom:1rem}
+  .expected-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px}
+
+  /* NOTION CARD (KEY CONCEPT) */
+  .concept{display:flex;gap:14px;padding:14px;background:var(--bg1);border:1px solid var(--border);border-radius:8px;margin:1rem 0;align-items:flex-start}
+  .concept-icon{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+  .concept-icon.green{background:rgba(0,212,170,0.12)}
+  .concept-icon.blue{background:rgba(116,185,255,0.12)}
+  .concept-icon.orange{background:rgba(255,159,67,0.12)}
+  .concept-icon.red{background:rgba(255,77,109,0.12)}
+  .concept-icon.purple{background:rgba(162,155,254,0.12)}
+  .concept-body h4{font-size:13px;font-weight:500;margin-bottom:3px}
+  .concept-body p{font-size:13px;color:var(--text2);line-height:1.6}
+
+  /* SCHEMA DICT */
+  .dict-visual{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:20px;margin:1.25rem 0;font-family:var(--mono);font-size:13px}
+  .dict-brace{color:var(--text3);font-size:18px}
+  .dict-pair{display:flex;align-items:center;gap:0;padding:4px 0 4px 20px}
+  .dict-key{color:var(--blue);background:rgba(116,185,255,0.08);padding:2px 8px;border-radius:4px 0 0 4px;border:1px solid rgba(116,185,255,0.2);border-right:none}
+  .dict-sep{color:var(--text3);padding:0 4px}
+  .dict-val{padding:2px 8px;border-radius:0 4px 4px 0;border:1px solid rgba(0,212,170,0.2);border-left:none}
+  .dict-val.str{color:var(--accent);background:rgba(0,212,170,0.08)}
+  .dict-val.num{color:var(--orange);background:rgba(255,159,67,0.08)}
+  .dict-val.lst{color:var(--purple);background:rgba(162,155,254,0.08)}
+  .dict-comma{color:var(--text3)}
+
+  /* NAV BUTTONS */
+  .page-nav{display:flex;justify-content:space-between;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+  .btn-nav{background:transparent;border:1px solid var(--border2);color:var(--text2);padding:8px 16px;border-radius:6px;font-size:13px;cursor:pointer;font-family:var(--font);transition:all 0.15s;display:flex;align-items:center;gap:6px}
+  .btn-nav:hover{border-color:var(--accent);color:var(--accent)}
+  .btn-nav.primary{background:var(--accent);color:#000;border-color:var(--accent)}
+  .btn-nav.primary:hover{background:var(--accent2)}
+
+  /* SCORE */
+  .score-board{text-align:center;padding:2rem;background:var(--bg1);border:1px solid var(--border);border-radius:8px;margin:1.5rem 0}
+  .score-num{font-size:48px;font-weight:600;color:var(--accent);font-family:var(--mono)}
+  .score-label{font-size:13px;color:var(--text2);margin-top:4px}
+
+  /* TABS within page */
+  .tabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
+  .tab{padding:8px 14px;font-size:13px;cursor:pointer;color:var(--text2);border-bottom:2px solid transparent;transition:all 0.15s;margin-bottom:-1px}
+  .tab:hover{color:var(--text)}
+  .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+
+  /* BREADCRUMB */
+  .breadcrumb{font-size:12px;color:var(--text3);margin-bottom:1.5rem;display:flex;align-items:center;gap:6px}
+  .breadcrumb span{color:var(--text2)}
+</style>
+</head>
+<body onload="brython()">
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">{ }</div>
+    <div>
+      <div>NSI — Dictionnaires Python</div>
+      <div class="logo-sub">Cours complet · Bac 2025</div>
+    </div>
+  </div>
+  <div class="progress-bar">
+    <span class="progress-label">Progression</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-label" id="progressText">0 / 8</span>
+  </div>
+</header>
+
+<div class="app">
+<nav>
+  <div class="nav-section">
+    <div class="nav-section-title">Cours</div>
+    <div class="nav-item active" onclick="showPage('p0')" id="nav-p0"><span class="nav-num">01</span>C'est quoi un dict ?</div>
+    <div class="nav-item" onclick="showPage('p1')" id="nav-p1"><span class="nav-num">02</span>Créer un dict</div>
+    <div class="nav-item" onclick="showPage('p2')" id="nav-p2"><span class="nav-num">03</span>Lire & accéder</div>
+    <div class="nav-item" onclick="showPage('p3')" id="nav-p3"><span class="nav-num">04</span>Modifier & ajouter</div>
+    <div class="nav-item" onclick="showPage('p4')" id="nav-p4"><span class="nav-num">05</span>Supprimer des clés</div>
+    <div class="nav-item" onclick="showPage('p5')" id="nav-p5"><span class="nav-num">06</span>Boucles & itération</div>
+    <div class="nav-item" onclick="showPage('p6')" id="nav-p6"><span class="nav-num">07</span>Listes de dicts</div>
+    <div class="nav-item" onclick="showPage('p7')" id="nav-p7"><span class="nav-num">08</span>Méthodes utiles</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Pratique</div>
+    <div class="nav-item" onclick="showPage('exos')" id="nav-exos"><span class="nav-num">⚡</span>Exercices</div>
+    <div class="nav-item" onclick="showPage('bac')" id="nav-bac"><span class="nav-num">🎯</span>Style bac</div>
+    <div class="nav-item" onclick="showPage('recap')" id="nav-recap"><span class="nav-num">📋</span>Récap & memo</div>
+  </div>
+</nav>
+
+<main id="mainContent">
+
+<!-- PAGE 0 : INTRO -->
+<div class="page active" id="p0">
+  <div class="breadcrumb">Cours <span>›</span> Introduction</div>
+  <div class="page-tag">Leçon 01</div>
+  <h1>C'est quoi un dictionnaire ?</h1>
+  <p class="subtitle">Une structure de données fondamentale en Python — et un classique du bac NSI.</p>
+
+  <div class="concept">
+    <div class="concept-icon green">🧠</div>
+    <div class="concept-body">
+      <h4>Définition</h4>
+      <p>Un dictionnaire est une collection de paires <strong>clé → valeur</strong>. Contrairement aux listes (indexées par des entiers 0, 1, 2…), les dictionnaires sont indexés par des <strong>clés</strong> — qui peuvent être des chaînes, des entiers, des tuples…</p>
+    </div>
+  </div>
+
+  <h2>La métaphore parfaite</h2>
+  <p style="color:var(--text2);font-size:14px;margin-bottom:1rem">Imagine un vrai dictionnaire de langue : tu cherches le <strong>mot</strong> (la clé) et tu trouves la <strong>définition</strong> (la valeur). C'est exactement ça.</p>
+
+  <div class="dict-visual">
+    <div class="dict-brace">{</div>
+    <div class="dict-pair"><span class="dict-key">"nom"</span><span class="dict-sep">:</span><span class="dict-val str">"Alice"</span><span class="dict-comma">,</span></div>
+    <div class="dict-pair"><span class="dict-key">"age"</span><span class="dict-sep">:</span><span class="dict-val num">17</span><span class="dict-comma">,</span></div>
+    <div class="dict-pair"><span class="dict-key">"classe"</span><span class="dict-sep">:</span><span class="dict-val str">"Terminale"</span><span class="dict-comma">,</span></div>
+    <div class="dict-pair"><span class="dict-key">"notes"</span><span class="dict-sep">:</span><span class="dict-val lst">[15, 18, 12]</span></div>
+    <div class="dict-brace">}</div>
+  </div>
+
+  <h2>Dict vs Liste — quand choisir ?</h2>
+  <table>
+    <tr><th>Structure</th><th>Accès</th><th>Usage typique</th></tr>
+    <tr><td>Liste <code>[]</code></td><td>par index numérique</td><td>Séquence ordonnée de même type</td></tr>
+    <tr><td>Dictionnaire <code>{}</code></td><td>par clé nommée</td><td>Objet avec propriétés nommées</td></tr>
+  </table>
+
+  <div class="callout tip">
+    <div class="callout-title">💡 Bonne pratique</div>
+    <p>Si tu veux stocker des infos sur <em>une entité</em> (un élève, un produit, un personnage…), utilise un dict. Si tu veux une collection de valeurs du même type, utilise une liste.</p>
+  </div>
+
+  <h2>Propriétés à retenir</h2>
+  <div class="concept"><div class="concept-icon blue">🔑</div><div class="concept-body"><h4>Clés uniques</h4><p>Deux clés identiques dans un dict, c'est impossible — la deuxième écrase la première.</p></div></div>
+  <div class="concept"><div class="concept-icon orange">📦</div><div class="concept-body"><h4>Valeurs libres</h4><p>La valeur peut être n'importe quoi : entier, chaîne, liste, un autre dict, une fonction…</p></div></div>
+  <div class="concept"><div class="concept-icon purple">⚡</div><div class="concept-body"><h4>Accès ultra-rapide</h4><p>Trouver une valeur par sa clé est aussi rapide que d'accéder à une liste par index — O(1).</p></div></div>
+  <div class="concept"><div class="concept-icon green">📋</div><div class="concept-body"><h4>Ordonné (Python ≥ 3.7)</h4><p>Depuis Python 3.7, les dictionnaires conservent l'ordre d'insertion des clés.</p></div></div>
+
+  <hr class="divider">
+
+  <div class="quiz" id="quiz0">
+    <div class="quiz-q">Dans un dictionnaire Python, qu'est-ce qui doit être <em>unique</em> ?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="checkQuiz('quiz0',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>Les valeurs</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz0',this,true)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>Les clés</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz0',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>Les deux</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz0',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>Ni l'un ni l'autre</div>
+    </div>
+    <div class="quiz-feedback" id="quiz0-fb"></div>
+  </div>
+
+  <div class="page-nav">
+    <div></div>
+    <button class="btn-nav primary" onclick="showPage('p1')">Créer un dict →</button>
+  </div>
+</div>
+
+<!-- PAGE 1 : CRÉER -->
+<div class="page" id="p1">
+  <div class="breadcrumb">Cours <span>›</span> Création</div>
+  <div class="page-tag">Leçon 02</div>
+  <h1>Créer un dictionnaire</h1>
+  <p class="subtitle">Trois façons de créer un dict — apprends-les toutes, le bac peut en tester plusieurs.</p>
+
+  <h2>Méthode 1 — Littérale (la plus courante)</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">copier</button></div>
+    <pre><span class="cm"># Accolades + paires clé: valeur</span>
+etudiant = {
+    <span class="st">"nom"</span>: <span class="st">"Alice"</span>,
+    <span class="st">"age"</span>: <span class="nm">17</span>,
+    <span class="st">"moyenne"</span>: <span class="nm">15.5</span>,
+    <span class="st">"options"</span>: [<span class="st">"NSI"</span>, <span class="st">"Math expertes"</span>]
+}
+
+<span class="fn">print</span>(etudiant)</pre>
+  </div>
+
+  <h2>Méthode 2 — dict() avec mots-clés</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">copier</button></div>
+    <pre><span class="cm"># Avec la fonction dict()</span>
+etudiant = <span class="fn">dict</span>(nom=<span class="st">"Bob"</span>, age=<span class="nm">18</span>, moyenne=<span class="nm">14.0</span>)
+
+<span class="cm"># Attention : les clés deviennent des strings automatiquement</span>
+<span class="fn">print</span>(etudiant)  <span class="cm"># {'nom': 'Bob', 'age': 18, 'moyenne': 14.0}</span></pre>
+  </div>
+
+  <h2>Méthode 3 — Dictionnaire vide, puis remplissage</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">copier</button></div>
+    <pre><span class="cm"># Démarrer vide et ajouter ensuite</span>
+inventaire = {}  <span class="cm"># ou dict()</span>
+inventaire[<span class="st">"pommes"</span>] = <span class="nm">10</span>
+inventaire[<span class="st">"bananes"</span>] = <span class="nm">5</span>
+inventaire[<span class="st">"oranges"</span>] = <span class="nm">8</span>
+
+<span class="fn">print</span>(inventaire)
+<span class="cm"># {'pommes': 10, 'bananes': 5, 'oranges': 8}</span></pre>
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-title">⚠️ Piège classique</div>
+    <p>Si tu utilises deux fois la même clé lors de la création, seule la <strong>dernière valeur</strong> est conservée — sans erreur !</p>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>d = {<span class="st">"x"</span>: <span class="nm">1</span>, <span class="st">"x"</span>: <span class="nm">99</span>}
+<span class="fn">print</span>(d)  <span class="cm"># {'x': 99}  ← la valeur 1 est perdue !</span></pre>
+  </div>
+
+  <h2>🧪 Essaie toi-même</h2>
+  <div class="runner" id="r1">
+    <div class="runner-header">
+      <span class="runner-title">python — éditable</span>
+      <div class="runner-actions">
+        <button class="btn-reset" onclick="resetRunner('r1','r1-default')">reset</button>
+        <button class="btn-run" onclick="runPython('r1')">▶ Exécuter</button>
+      </div>
+    </div>
+    <div class="runner-editor">
+      <textarea id="r1-code" spellcheck="false"># Crée un dictionnaire représentant ta série préférée
+serie = {
+    "titre": "Breaking Bad",
+    "annee": 2008,
+    "saisons": 5,
+    "note": 9.5
+}
+
+print("Titre :", serie["titre"])
+print("Lancée en :", serie["annee"])
+print("Nombre de saisons :", serie["saisons"])
+print("Le dict complet :", serie)
+</textarea>
+    </div>
+    <div class="output-label">Sortie</div>
+    <div class="runner-output empty" id="r1-output">En attente d'exécution…</div>
+  </div>
+  <textarea id="r1-default" style="display:none"># Crée un dictionnaire représentant ta série préférée
+serie = {
+    "titre": "Breaking Bad",
+    "annee": 2008,
+    "saisons": 5,
+    "note": 9.5
+}
+
+print("Titre :", serie["titre"])
+print("Lancée en :", serie["annee"])
+print("Nombre de saisons :", serie["saisons"])
+print("Le dict complet :", serie)
+</textarea>
+
+  <hr class="divider">
+  <div class="quiz" id="quiz1">
+    <div class="quiz-q">Quel est le résultat de <code>d = {"a": 1, "b": 2, "a": 99}</code> suivi de <code>print(d["a"])</code> ?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="checkQuiz('quiz1',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>1</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz1',this,true)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>99</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz1',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>Erreur KeyError</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz1',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>[1, 99]</div>
+    </div>
+    <div class="quiz-feedback" id="quiz1-fb"></div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn-nav" onclick="showPage('p0')">← Intro</button>
+    <button class="btn-nav primary" onclick="showPage('p2')">Lire & accéder →</button>
+  </div>
+</div>
+
+<!-- PAGE 2 : LIRE -->
+<div class="page" id="p2">
+  <div class="breadcrumb">Cours <span>›</span> Lecture</div>
+  <div class="page-tag">Leçon 03</div>
+  <h1>Lire & accéder aux valeurs</h1>
+  <p class="subtitle">Deux façons d'accéder aux données — et une seule façon de ne pas planter son programme.</p>
+
+  <h2>Accès direct par clé</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>personne = {<span class="st">"nom"</span>: <span class="st">"Lucas"</span>, <span class="st">"age"</span>: <span class="nm">17</span>, <span class="st">"ville"</span>: <span class="st">"Lyon"</span>}
+
+<span class="cm"># Accès classique avec []</span>
+<span class="fn">print</span>(personne[<span class="st">"nom"</span>])   <span class="cm"># Lucas</span>
+<span class="fn">print</span>(personne[<span class="st">"age"</span>])   <span class="cm"># 17</span>
+
+<span class="cm"># Si la clé n'existe pas → KeyError !</span>
+<span class="fn">print</span>(personne[<span class="st">"email"</span>])  <span class="cm"># 💥 KeyError: 'email'</span></pre>
+  </div>
+
+  <h2>Accès sécurisé avec .get()</h2>
+  <div class="callout tip">
+    <div class="callout-title">✅ Bonne pratique</div>
+    <p>Utilise <code>.get(clé)</code> quand tu n'es pas sûr que la clé existe. Retourne <code>None</code> par défaut, ou une valeur de fallback que tu choisis.</p>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>personne = {<span class="st">"nom"</span>: <span class="st">"Lucas"</span>, <span class="st">"age"</span>: <span class="nm">17</span>}
+
+<span class="cm"># .get() sans default → None si absent</span>
+email = personne.<span class="fn">get</span>(<span class="st">"email"</span>)
+<span class="fn">print</span>(email)  <span class="cm"># None — pas d'erreur !</span>
+
+<span class="cm"># .get() avec valeur par défaut</span>
+ville = personne.<span class="fn">get</span>(<span class="st">"ville"</span>, <span class="st">"Inconnue"</span>)
+<span class="fn">print</span>(ville)  <span class="cm"># Inconnue</span></pre>
+  </div>
+
+  <h2>Vérifier si une clé existe — in</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>personne = {<span class="st">"nom"</span>: <span class="st">"Lucas"</span>, <span class="st">"age"</span>: <span class="nm">17</span>}
+
+<span class="kw">if</span> <span class="st">"nom"</span> <span class="kw">in</span> personne:
+    <span class="fn">print</span>(<span class="st">"La clé 'nom' existe :"</span>, personne[<span class="st">"nom"</span>])
+
+<span class="kw">if</span> <span class="st">"email"</span> <span class="kw">not in</span> personne:
+    <span class="fn">print</span>(<span class="st">"Pas d'email renseigné"</span>)</pre>
+  </div>
+
+  <h2>Accéder à une valeur imbriquée</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>etudiant = {
+    <span class="st">"nom"</span>: <span class="st">"Alice"</span>,
+    <span class="st">"notes"</span>: [<span class="nm">15</span>, <span class="nm">18</span>, <span class="nm">12</span>],
+    <span class="st">"adresse"</span>: {<span class="st">"ville"</span>: <span class="st">"Paris"</span>, <span class="st">"code"</span>: <span class="st">"75001"</span>}
+}
+
+<span class="cm"># Accéder à la 2e note (index 1)</span>
+<span class="fn">print</span>(etudiant[<span class="st">"notes"</span>][<span class="nm">1</span>])  <span class="cm"># 18</span>
+
+<span class="cm"># Accéder à la ville dans l'adresse imbriquée</span>
+<span class="fn">print</span>(etudiant[<span class="st">"adresse"</span>][<span class="st">"ville"</span>])  <span class="cm"># Paris</span></pre>
+  </div>
+
+  <h2>🧪 Essaie toi-même</h2>
+  <div class="runner" id="r2">
+    <div class="runner-header">
+      <span class="runner-title">python — éditable</span>
+      <div class="runner-actions">
+        <button class="btn-reset" onclick="resetRunner('r2','r2-default')">reset</button>
+        <button class="btn-run" onclick="runPython('r2')">▶ Exécuter</button>
+      </div>
+    </div>
+    <div class="runner-editor">
+      <textarea id="r2-code" spellcheck="false">jeu = {
+    "titre": "Hollow Knight",
+    "studio": "Team Cherry",
+    "note": 9.4,
+    "genres": ["metroidvania", "action", "plateformes"]
+}
+
+# Accès direct
+print("Titre :", jeu["titre"])
+
+# Accès sécurisé
+print("Prix :", jeu.get("prix", "Non renseigné"))
+
+# Vérification
+if "genres" in jeu:
+    print("Premier genre :", jeu["genres"][0])
+
+# Ton tour : affiche le studio et la note
+</textarea>
+    </div>
+    <div class="output-label">Sortie</div>
+    <div class="runner-output empty" id="r2-output">En attente…</div>
+  </div>
+  <textarea id="r2-default" style="display:none">jeu = {
+    "titre": "Hollow Knight",
+    "studio": "Team Cherry",
+    "note": 9.4,
+    "genres": ["metroidvania", "action", "plateformes"]
+}
+
+# Accès direct
+print("Titre :", jeu["titre"])
+
+# Accès sécurisé
+print("Prix :", jeu.get("prix", "Non renseigné"))
+
+# Vérification
+if "genres" in jeu:
+    print("Premier genre :", jeu["genres"][0])
+
+# Ton tour : affiche le studio et la note
+</textarea>
+
+  <div class="quiz" id="quiz2">
+    <div class="quiz-q">Que retourne <code>{"a": 1}.get("b", 42)</code> ?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="checkQuiz('quiz2',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>None</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz2',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>KeyError</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz2',this,true)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>42</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz2',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>1</div>
+    </div>
+    <div class="quiz-feedback" id="quiz2-fb"></div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn-nav" onclick="showPage('p1')">← Créer</button>
+    <button class="btn-nav primary" onclick="showPage('p3')">Modifier & ajouter →</button>
+  </div>
+</div>
+
+<!-- PAGE 3 : MODIFIER -->
+<div class="page" id="p3">
+  <div class="breadcrumb">Cours <span>›</span> Modification</div>
+  <div class="page-tag">Leçon 04</div>
+  <h1>Modifier & ajouter des clés</h1>
+  <p class="subtitle">Les dicts sont mutables — on peut les modifier à volonté après création.</p>
+
+  <h2>Modifier une valeur existante</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>joueur = {<span class="st">"pseudo"</span>: <span class="st">"Hero42"</span>, <span class="st">"score"</span>: <span class="nm">100</span>, <span class="st">"vies"</span>: <span class="nm">3</span>}
+
+<span class="cm"># Modifier une valeur existante</span>
+joueur[<span class="st">"score"</span>] = <span class="nm">250</span>  <span class="cm"># remplace 100 par 250</span>
+<span class="fn">print</span>(joueur[<span class="st">"score"</span>])  <span class="cm"># 250</span>
+
+<span class="cm"># Incrémenter</span>
+joueur[<span class="st">"score"</span>] += <span class="nm">50</span>
+<span class="fn">print</span>(joueur[<span class="st">"score"</span>])  <span class="cm"># 300</span></pre>
+  </div>
+
+  <h2>Ajouter une nouvelle clé</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre><span class="cm"># La syntaxe est IDENTIQUE à la modification</span>
+<span class="cm"># Python crée la clé si elle n'existe pas</span>
+joueur[<span class="st">"niveau"</span>] = <span class="nm">5</span>   <span class="cm"># nouvelle clé</span>
+joueur[<span class="st">"arme"</span>] = <span class="st">"épée"</span>  <span class="cm"># nouvelle clé</span>
+
+<span class="fn">print</span>(joueur)
+<span class="cm"># {'pseudo': 'Hero42', 'score': 300, 'vies': 3, 'niveau': 5, 'arme': 'épée'}</span></pre>
+  </div>
+
+  <h2>Fusionner deux dicts — update()</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>base = {<span class="st">"nom"</span>: <span class="st">"Alice"</span>, <span class="st">"age"</span>: <span class="nm">17</span>}
+ajout = {<span class="st">"ville"</span>: <span class="st">"Lyon"</span>, <span class="st">"age"</span>: <span class="nm">18</span>}  <span class="cm"># age sera écrasé</span>
+
+base.<span class="fn">update</span>(ajout)
+<span class="fn">print</span>(base)
+<span class="cm"># {'nom': 'Alice', 'age': 18, 'ville': 'Lyon'}</span>
+
+<span class="cm"># Python 3.9+ : opérateur |</span>
+resultat = base | ajout
+<span class="fn">print</span>(resultat)</pre>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-title">ℹ️ À retenir</div>
+    <p><code>d[clé] = valeur</code> fait les deux : modifie si la clé existe, crée sinon. Python ne fait pas la différence.</p>
+  </div>
+
+  <h2>🧪 Exercice guidé — Gestion d'un stock</h2>
+  <div class="runner" id="r3">
+    <div class="runner-header">
+      <span class="runner-title">python — éditable</span>
+      <div class="runner-actions">
+        <button class="btn-reset" onclick="resetRunner('r3','r3-default')">reset</button>
+        <button class="btn-run" onclick="runPython('r3')">▶ Exécuter</button>
+      </div>
+    </div>
+    <div class="runner-editor">
+      <textarea id="r3-code" spellcheck="false">stock = {"stylos": 10, "cahiers": 5, "gommes": 20}
+
+# 1. On vend 3 stylos
+stock["stylos"] -= 3
+print("Après vente:", stock["stylos"], "stylos")
+
+# 2. On reçoit un nouveau produit
+stock["règles"] = 15
+print("Nouveau produit ajouté")
+
+# 3. On double le stock de gommes
+stock["gommes"] = stock["gommes"] * 2
+print("Stock complet:", stock)
+</textarea>
+    </div>
+    <div class="output-label">Sortie</div>
+    <div class="runner-output empty" id="r3-output">En attente…</div>
+  </div>
+  <textarea id="r3-default" style="display:none">stock = {"stylos": 10, "cahiers": 5, "gommes": 20}
+
+# 1. On vend 3 stylos
+stock["stylos"] -= 3
+print("Après vente:", stock["stylos"], "stylos")
+
+# 2. On reçoit un nouveau produit
+stock["règles"] = 15
+print("Nouveau produit ajouté")
+
+# 3. On double le stock de gommes
+stock["gommes"] = stock["gommes"] * 2
+print("Stock complet:", stock)
+</textarea>
+
+  <div class="quiz" id="quiz3">
+    <div class="quiz-q">Après <code>d = {"x": 5}</code> puis <code>d["y"] = 10</code>, que vaut <code>len(d)</code> ?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="checkQuiz('quiz3',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>1</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz3',this,true)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>2</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz3',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>Erreur</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz3',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>15</div>
+    </div>
+    <div class="quiz-feedback" id="quiz3-fb"></div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn-nav" onclick="showPage('p2')">← Lire</button>
+    <button class="btn-nav primary" onclick="showPage('p4')">Supprimer →</button>
+  </div>
+</div>
+
+<!-- PAGE 4 : SUPPRIMER -->
+<div class="page" id="p4">
+  <div class="breadcrumb">Cours <span>›</span> Suppression</div>
+  <div class="page-tag">Leçon 05</div>
+  <h1>Supprimer des clés</h1>
+  <p class="subtitle">Trois façons de retirer une clé — chacune a son usage.</p>
+
+  <table>
+    <tr><th>Méthode</th><th>Retourne</th><th>Erreur si absent ?</th></tr>
+    <tr><td><code>del d[clé]</code></td><td>rien</td><td>✅ Oui — KeyError</td></tr>
+    <tr><td><code>d.pop(clé)</code></td><td>la valeur</td><td>✅ Oui (sans default)</td></tr>
+    <tr><td><code>d.pop(clé, default)</code></td><td>valeur ou default</td><td>❌ Non</td></tr>
+    <tr><td><code>d.clear()</code></td><td>rien</td><td>❌ Non</td></tr>
+  </table>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>config = {<span class="st">"debug"</span>: <span class="kw">True</span>, <span class="st">"port"</span>: <span class="nm">8080</span>, <span class="st">"host"</span>: <span class="st">"localhost"</span>}
+
+<span class="cm"># del — simple suppression</span>
+<span class="kw">del</span> config[<span class="st">"debug"</span>]
+<span class="fn">print</span>(config)  <span class="cm"># {'port': 8080, 'host': 'localhost'}</span>
+
+<span class="cm"># pop() — supprime ET récupère la valeur</span>
+port = config.<span class="fn">pop</span>(<span class="st">"port"</span>)
+<span class="fn">print</span>(<span class="st">"Port récupéré :"</span>, port)  <span class="cm"># 8080</span>
+
+<span class="cm"># pop() avec default — sans risque</span>
+val = config.<span class="fn">pop</span>(<span class="st">"timeout"</span>, <span class="nm">30</span>)  <span class="cm"># 'timeout' absent → retourne 30</span>
+<span class="fn">print</span>(<span class="st">"Timeout :"</span>, val)
+
+<span class="cm"># clear() — vide tout</span>
+config.<span class="fn">clear</span>()
+<span class="fn">print</span>(config)  <span class="cm"># {}</span></pre>
+  </div>
+
+  <h2>🧪 Essaie</h2>
+  <div class="runner" id="r4">
+    <div class="runner-header">
+      <span class="runner-title">python — éditable</span>
+      <div class="runner-actions">
+        <button class="btn-reset" onclick="resetRunner('r4','r4-default')">reset</button>
+        <button class="btn-run" onclick="runPython('r4')">▶ Exécuter</button>
+      </div>
+    </div>
+    <div class="runner-editor">
+      <textarea id="r4-code" spellcheck="false">panier = {"pommes": 3, "bananes": 5, "cerises": 12, "kiwis": 2}
+
+# Supprimer les cerises
+del panier["cerises"]
+
+# Récupérer les bananes (et les retirer du panier)
+bananes_qty = panier.pop("bananes")
+print(f"Bananes retirées : {bananes_qty}")
+
+# Essayer de retirer quelque chose d'absent (sans erreur)
+val = panier.pop("mangues", 0)
+print(f"Mangues retirées : {val}")
+
+print("Panier final :", panier)
+print("Nb articles :", len(panier))
+</textarea>
+    </div>
+    <div class="output-label">Sortie</div>
+    <div class="runner-output empty" id="r4-output">En attente…</div>
+  </div>
+  <textarea id="r4-default" style="display:none">panier = {"pommes": 3, "bananes": 5, "cerises": 12, "kiwis": 2}
+
+# Supprimer les cerises
+del panier["cerises"]
+
+# Récupérer les bananes (et les retirer du panier)
+bananes_qty = panier.pop("bananes")
+print(f"Bananes retirées : {bananes_qty}")
+
+# Essayer de retirer quelque chose d'absent (sans erreur)
+val = panier.pop("mangues", 0)
+print(f"Mangues retirées : {val}")
+
+print("Panier final :", panier)
+print("Nb articles :", len(panier))
+</textarea>
+
+  <div class="quiz" id="quiz4">
+    <div class="quiz-q">Que fait <code>d.pop("clé", None)</code> si <code>"clé"</code> n'est pas dans <code>d</code> ?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="checkQuiz('quiz4',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>Lève une KeyError</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz4',this,true)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>Retourne None sans erreur</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz4',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>Retourne False</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz4',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>Supprime tout le dict</div>
+    </div>
+    <div class="quiz-feedback" id="quiz4-fb"></div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn-nav" onclick="showPage('p3')">← Modifier</button>
+    <button class="btn-nav primary" onclick="showPage('p5')">Boucles →</button>
+  </div>
+</div>
+
+<!-- PAGE 5 : BOUCLES -->
+<div class="page" id="p5">
+  <div class="breadcrumb">Cours <span>›</span> Itération</div>
+  <div class="page-tag">Leçon 06</div>
+  <h1>Boucles & itération</h1>
+  <p class="subtitle">Parcourir un dictionnaire — la compétence la plus testée au bac.</p>
+
+  <div class="concept"><div class="concept-icon blue">🔁</div><div class="concept-body"><h4>Trois vues sur un dict</h4><p><code>.keys()</code> → les clés · <code>.values()</code> → les valeurs · <code>.items()</code> → les deux ensemble (en tuples)</p></div></div>
+
+  <h2>Boucle sur les clés (défaut)</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>scores = {<span class="st">"Alice"</span>: <span class="nm">92</span>, <span class="st">"Bob"</span>: <span class="nm">78</span>, <span class="st">"Clara"</span>: <span class="nm">85</span>}
+
+<span class="cm"># Parcourir les clés (par défaut)</span>
+<span class="kw">for</span> nom <span class="kw">in</span> scores:
+    <span class="fn">print</span>(nom)  <span class="cm"># Alice, Bob, Clara</span>
+
+<span class="cm"># Explicite — même résultat</span>
+<span class="kw">for</span> nom <span class="kw">in</span> scores.<span class="fn">keys</span>():
+    <span class="fn">print</span>(nom)</pre>
+  </div>
+
+  <h2>Boucle sur les valeurs</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre><span class="kw">for</span> score <span class="kw">in</span> scores.<span class="fn">values</span>():
+    <span class="fn">print</span>(score)  <span class="cm"># 92, 78, 85</span>
+
+<span class="cm"># Calculer une moyenne</span>
+total = <span class="fn">sum</span>(scores.<span class="fn">values</span>())
+moy = total / <span class="fn">len</span>(scores)
+<span class="fn">print</span>(<span class="st">f"Moyenne : {moy:.1f}"</span>)  <span class="cm"># 85.0</span></pre>
+  </div>
+
+  <h2>Boucle sur les paires — .items() ⭐ la plus utile</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre><span class="cm"># .items() retourne (clé, valeur) → déballage direct</span>
+<span class="kw">for</span> nom, score <span class="kw">in</span> scores.<span class="fn">items</span>():
+    <span class="fn">print</span>(<span class="st">f"{nom} a obtenu {score}/100"</span>)
+
+<span class="cm"># Filtrer dans la boucle</span>
+<span class="kw">for</span> nom, score <span class="kw">in</span> scores.<span class="fn">items</span>():
+    <span class="kw">if</span> score >= <span class="nm">85</span>:
+        <span class="fn">print</span>(<span class="st">f"✓ {nom} est reçu avec mention"</span>)</pre>
+  </div>
+
+  <h2>Construire un dict avec une boucle</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>prenoms = [<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Clara"</span>]
+
+<span class="cm"># Méthode classique</span>
+longueurs = {}
+<span class="kw">for</span> p <span class="kw">in</span> prenoms:
+    longueurs[p] = <span class="fn">len</span>(p)
+
+<span class="fn">print</span>(longueurs)  <span class="cm"># {'Alice': 5, 'Bob': 3, 'Clara': 5}</span>
+
+<span class="cm"># Compréhension de dict — version pro</span>
+longueurs = {p: <span class="fn">len</span>(p) <span class="kw">for</span> p <span class="kw">in</span> prenoms}
+<span class="fn">print</span>(longueurs)  <span class="cm"># identique !</span></pre>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-title">⭐ Compréhension de dict — à connaître</div>
+    <p>Syntaxe : <code>{clé: valeur for élément in itérable}</code> — plus concis et souvent attendu au bac.</p>
+  </div>
+
+  <h2>🧪 Exercice — Analyse de scores</h2>
+  <div class="runner" id="r5">
+    <div class="runner-header">
+      <span class="runner-title">python — éditable</span>
+      <div class="runner-actions">
+        <button class="btn-reset" onclick="resetRunner('r5','r5-default')">reset</button>
+        <button class="btn-run" onclick="runPython('r5')">▶ Exécuter</button>
+      </div>
+    </div>
+    <div class="runner-editor">
+      <textarea id="r5-code" spellcheck="false">resultats = {
+    "Alice": 88,
+    "Bob": 62,
+    "Clara": 95,
+    "David": 74,
+    "Eva": 91
+}
+
+# Afficher tous les résultats
+print("=== Résultats ===")
+for nom, note in resultats.items():
+    mention = "TB" if note >= 90 else ("B" if note >= 80 else ("AB" if note >= 70 else "P"))
+    print(f"  {nom:<8} : {note}/100  ({mention})")
+
+# Calculer la moyenne
+moy = sum(resultats.values()) / len(resultats)
+print(f"\nMoyenne de classe : {moy:.1f}")
+
+# Trouver le meilleur
+meilleur = max(resultats, key=resultats.get)
+print(f"Meilleur(e) : {meilleur} avec {resultats[meilleur]}")
+</textarea>
+    </div>
+    <div class="output-label">Sortie</div>
+    <div class="runner-output empty" id="r5-output">En attente…</div>
+  </div>
+  <textarea id="r5-default" style="display:none">resultats = {
+    "Alice": 88,
+    "Bob": 62,
+    "Clara": 95,
+    "David": 74,
+    "Eva": 91
+}
+
+# Afficher tous les résultats
+print("=== Résultats ===")
+for nom, note in resultats.items():
+    mention = "TB" if note >= 90 else ("B" if note >= 80 else ("AB" if note >= 70 else "P"))
+    print(f"  {nom:<8} : {note}/100  ({mention})")
+
+# Calculer la moyenne
+moy = sum(resultats.values()) / len(resultats)
+print(f"\nMoyenne de classe : {moy:.1f}")
+
+# Trouver le meilleur
+meilleur = max(resultats, key=resultats.get)
+print(f"Meilleur(e) : {meilleur} avec {resultats[meilleur]}")
+</textarea>
+
+  <div class="quiz" id="quiz5">
+    <div class="quiz-q">Quelle méthode retourne à la fois les clés ET les valeurs d'un dictionnaire ?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="checkQuiz('quiz5',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>.keys()</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz5',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>.values()</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz5',this,true)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>.items()</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz5',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>.pairs()</div>
+    </div>
+    <div class="quiz-feedback" id="quiz5-fb"></div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn-nav" onclick="showPage('p4')">← Supprimer</button>
+    <button class="btn-nav primary" onclick="showPage('p6')">Listes de dicts →</button>
+  </div>
+</div>
+
+<!-- PAGE 6 : LISTES DE DICTS -->
+<div class="page" id="p6">
+  <div class="breadcrumb">Cours <span>›</span> Structures avancées</div>
+  <div class="page-tag">Leçon 07</div>
+  <h1>Listes de dictionnaires</h1>
+  <p class="subtitle">La structure la plus utilisée en NSI — représente des tables, des fichiers JSON, des bases de données.</p>
+
+  <div class="callout info">
+    <div class="callout-title">📌 Contexte</div>
+    <p>Une liste de dicts, c'est comme un tableau : chaque dict = une ligne, chaque clé = une colonne. C'est exactement ce que tu obtiens quand tu lis un fichier CSV ou une API REST.</p>
+  </div>
+
+  <h2>Créer & accéder</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>eleves = [
+    {<span class="st">"nom"</span>: <span class="st">"Alice"</span>, <span class="st">"age"</span>: <span class="nm">17</span>, <span class="st">"note"</span>: <span class="nm">88</span>},
+    {<span class="st">"nom"</span>: <span class="st">"Bob"</span>,   <span class="st">"age"</span>: <span class="nm">18</span>, <span class="st">"note"</span>: <span class="nm">72</span>},
+    {<span class="st">"nom"</span>: <span class="st">"Clara"</span>, <span class="st">"age"</span>: <span class="nm">17</span>, <span class="st">"note"</span>: <span class="nm">95</span>},
+]
+
+<span class="cm"># Accéder au premier élève</span>
+<span class="fn">print</span>(eleves[<span class="nm">0</span>])              <span class="cm"># {'nom': 'Alice', ...}</span>
+<span class="fn">print</span>(eleves[<span class="nm">0</span>][<span class="st">"nom"</span>])      <span class="cm"># Alice</span>
+
+<span class="cm"># Modifier la note de Bob (index 1)</span>
+eleves[<span class="nm">1</span>][<span class="st">"note"</span>] = <span class="nm">80</span></pre>
+  </div>
+
+  <h2>Parcourir et traiter</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre><span class="cm"># Afficher tous les élèves</span>
+<span class="kw">for</span> eleve <span class="kw">in</span> eleves:
+    <span class="fn">print</span>(<span class="st">f"{eleve['nom']} — note : {eleve['note']}"</span>)
+
+<span class="cm"># Filtrer : garder les notes >= 80</span>
+bons_eleves = [e <span class="kw">for</span> e <span class="kw">in</span> eleves <span class="kw">if</span> e[<span class="st">"note"</span>] >= <span class="nm">80</span>]
+<span class="fn">print</span>(bons_eleves)
+
+<span class="cm"># Trouver l'élève avec la meilleure note</span>
+meilleur = <span class="fn">max</span>(eleves, key=<span class="kw">lambda</span> e: e[<span class="st">"note"</span>])
+<span class="fn">print</span>(<span class="st">"Meilleur :"</span>, meilleur[<span class="st">"nom"</span>])</pre>
+  </div>
+
+  <h2>Ajouter un élève</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>nouvel_eleve = {<span class="st">"nom"</span>: <span class="st">"David"</span>, <span class="st">"age"</span>: <span class="nm">17</span>, <span class="st">"note"</span>: <span class="nm">79</span>}
+eleves.<span class="fn">append</span>(nouvel_eleve)
+<span class="fn">print</span>(<span class="st">f"Classe : {len(eleves)} élèves"</span>)</pre>
+  </div>
+
+  <h2>Trier par valeur de champ</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre><span class="cm"># Trier par note décroissante</span>
+classes_par_note = <span class="fn">sorted</span>(eleves, key=<span class="kw">lambda</span> e: e[<span class="st">"note"</span>], reverse=<span class="kw">True</span>)
+<span class="kw">for</span> e <span class="kw">in</span> classes_par_note:
+    <span class="fn">print</span>(e[<span class="st">"nom"</span>], <span class="st">"-"</span>, e[<span class="st">"note"</span>])</pre>
+  </div>
+
+  <h2>🧪 Application concrète — Catalogue de films</h2>
+  <div class="runner" id="r6">
+    <div class="runner-header">
+      <span class="runner-title">python — éditable</span>
+      <div class="runner-actions">
+        <button class="btn-reset" onclick="resetRunner('r6','r6-default')">reset</button>
+        <button class="btn-run" onclick="runPython('r6')">▶ Exécuter</button>
+      </div>
+    </div>
+    <div class="runner-editor">
+      <textarea id="r6-code" spellcheck="false">films = [
+    {"titre": "Inception",     "annee": 2010, "note": 8.8, "genre": "SF"},
+    {"titre": "The Dark Knight","annee": 2008, "note": 9.0, "genre": "Action"},
+    {"titre": "Interstellar",  "annee": 2014, "note": 8.6, "genre": "SF"},
+    {"titre": "Parasite",      "annee": 2019, "note": 8.5, "genre": "Thriller"},
+    {"titre": "Dune",          "annee": 2021, "note": 8.0, "genre": "SF"},
+]
+
+# 1. Afficher les films de SF
+print("=== Films SF ===")
+for f in films:
+    if f["genre"] == "SF":
+        print(f"  {f['titre']} ({f['annee']}) — {f['note']}/10")
+
+# 2. Trouver le film le mieux noté
+top = max(films, key=lambda f: f["note"])
+print(f"\n🏆 Meilleur film : {top['titre']} ({top['note']})")
+
+# 3. Note moyenne
+moy = sum(f["note"] for f in films) / len(films)
+print(f"📊 Note moyenne : {moy:.2f}")
+
+# 4. Films après 2010
+recents = [f["titre"] for f in films if f["annee"] > 2010]
+print(f"📅 Films après 2010 : {recents}")
+</textarea>
+    </div>
+    <div class="output-label">Sortie</div>
+    <div class="runner-output empty" id="r6-output">En attente…</div>
+  </div>
+  <textarea id="r6-default" style="display:none">films = [
+    {"titre": "Inception",     "annee": 2010, "note": 8.8, "genre": "SF"},
+    {"titre": "The Dark Knight","annee": 2008, "note": 9.0, "genre": "Action"},
+    {"titre": "Interstellar",  "annee": 2014, "note": 8.6, "genre": "SF"},
+    {"titre": "Parasite",      "annee": 2019, "note": 8.5, "genre": "Thriller"},
+    {"titre": "Dune",          "annee": 2021, "note": 8.0, "genre": "SF"},
+]
+
+# 1. Afficher les films de SF
+print("=== Films SF ===")
+for f in films:
+    if f["genre"] == "SF":
+        print(f"  {f['titre']} ({f['annee']}) — {f['note']}/10")
+
+# 2. Trouver le film le mieux noté
+top = max(films, key=lambda f: f["note"])
+print(f"\n🏆 Meilleur film : {top['titre']} ({top['note']})")
+
+# 3. Note moyenne
+moy = sum(f["note"] for f in films) / len(films)
+print(f"📊 Note moyenne : {moy:.2f}")
+
+# 4. Films après 2010
+recents = [f["titre"] for f in films if f["annee"] > 2010]
+print(f"📅 Films après 2010 : {recents}")
+</textarea>
+
+  <div class="quiz" id="quiz6">
+    <div class="quiz-q">Comment accède-t-on à l'âge du deuxième élève dans <code>eleves = [{"nom":"A","age":17},{"nom":"B","age":18}]</code> ?</div>
+    <div class="quiz-opts">
+      <div class="quiz-opt" onclick="checkQuiz('quiz6',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>eleves["age"][1]</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz6',this,true)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>eleves[1]["age"]</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz6',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>eleves[2]["age"]</div>
+      <div class="quiz-opt" onclick="checkQuiz('quiz6',this,false)"><div class="quiz-radio"><div class="quiz-radio-dot"></div></div>eleves.age[1]</div>
+    </div>
+    <div class="quiz-feedback" id="quiz6-fb"></div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn-nav" onclick="showPage('p5')">← Boucles</button>
+    <button class="btn-nav primary" onclick="showPage('p7')">Méthodes →</button>
+  </div>
+</div>
+
+<!-- PAGE 7 : METHODES -->
+<div class="page" id="p7">
+  <div class="breadcrumb">Cours <span>›</span> Méthodes</div>
+  <div class="page-tag">Leçon 08</div>
+  <h1>Méthodes utiles</h1>
+  <p class="subtitle">Le tour complet des méthodes built-in — avec exemples.</p>
+
+  <table>
+    <tr><th>Méthode</th><th>Description</th><th>Retourne</th></tr>
+    <tr><td><code>d.keys()</code></td><td>toutes les clés</td><td>vue des clés</td></tr>
+    <tr><td><code>d.values()</code></td><td>toutes les valeurs</td><td>vue des valeurs</td></tr>
+    <tr><td><code>d.items()</code></td><td>paires (clé, valeur)</td><td>vue des tuples</td></tr>
+    <tr><td><code>d.get(k, def)</code></td><td>valeur de k, ou def</td><td>valeur ou None</td></tr>
+    <tr><td><code>d.pop(k, def)</code></td><td>supprime k, retourne valeur</td><td>valeur</td></tr>
+    <tr><td><code>d.update(d2)</code></td><td>fusionne d2 dans d</td><td>None</td></tr>
+    <tr><td><code>d.copy()</code></td><td>copie superficielle</td><td>nouveau dict</td></tr>
+    <tr><td><code>d.clear()</code></td><td>vide le dict</td><td>None</td></tr>
+    <tr><td><code>d.setdefault(k,v)</code></td><td>retourne d[k], crée si absent</td><td>valeur</td></tr>
+    <tr><td><code>len(d)</code></td><td>nombre de paires</td><td>entier</td></tr>
+  </table>
+
+  <h2>setdefault() — méthode souvent oubliée</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre><span class="cm"># setdefault : retourne la valeur si la clé existe,</span>
+<span class="cm"># sinon l'initialise avec la valeur par défaut</span>
+compteur = {}
+
+mots = [<span class="st">"chat"</span>, <span class="st">"chien"</span>, <span class="st">"chat"</span>, <span class="st">"oiseau"</span>, <span class="st">"chien"</span>, <span class="st">"chat"</span>]
+<span class="kw">for</span> mot <span class="kw">in</span> mots:
+    compteur.<span class="fn">setdefault</span>(mot, <span class="nm">0</span>)  <span class="cm"># initialise à 0 si absent</span>
+    compteur[mot] += <span class="nm">1</span>
+
+<span class="fn">print</span>(compteur)  <span class="cm"># {'chat': 3, 'chien': 2, 'oiseau': 1}</span></pre>
+  </div>
+
+  <h2>copy() — attention aux pièges</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span></div>
+    <pre>original = {<span class="st">"a"</span>: <span class="nm">1</span>, <span class="st">"b"</span>: [<span class="nm">2</span>, <span class="nm">3</span>]}
+
+<span class="cm"># Mauvaise façon — les deux variables pointent sur le même objet</span>
+mauvaise_copie = original  <span class="cm"># PAS une copie !</span>
+mauvaise_copie[<span class="st">"a"</span>] = <span class="nm">999</span>
+<span class="fn">print</span>(original[<span class="st">"a"</span>])  <span class="cm"># 999 — original modifié !</span>
+
+<span class="cm"># Bonne façon — copie superficielle</span>
+copie = original.<span class="fn">copy</span>()
+copie[<span class="st">"a"</span>] = <span class="nm">1</span>  <span class="cm"># ne touche pas original</span>
+
+<span class="cm"># Attention : les valeurs mutables (listes) sont toujours partagées</span>
+<span class="cm"># Pour copie profonde : import copy ; copy.deepcopy(d)</span></pre>
+  </div>
+
+  <h2>🧪 Application — Compteur de fréquences</h2>
+  <div class="runner" id="r7">
+    <div class="runner-header">
+      <span class="runner-title">python — éditable</span>
+      <div class="runner-actions">
+        <button class="btn-reset" onclick="resetRunner('r7','r7-default')">reset</button>
+        <button class="btn-run" onclick="runPython('r7')">▶ Exécuter</button>
+      </div>
+    </div>
+    <div class="runner-editor">
+      <textarea id="r7-code" spellcheck="false">texte = "le python est un langage de programmation le python est rapide"
+mots = texte.split()
+
+# Compter la fréquence de chaque mot
+freq = {}
+for mot in mots:
+    freq[mot] = freq.get(mot, 0) + 1
+
+print("Fréquences :")
+for mot, count in sorted(freq.items(), key=lambda x: x[1], reverse=True):
+    bar = "█" * count
+    print(f"  {mot:<15} {bar} ({count})")
+
+print(f"\nMot le plus fréquent : '{max(freq, key=freq.get)}'")
+print(f"Mots distincts : {len(freq)}")
+</textarea>
+    </div>
+    <div class="output-label">Sortie</div>
+    <div class="runner-output empty" id="r7-output">En attente…</div>
+  </div>
+  <textarea id="r7-default" style="display:none">texte = "le python est un langage de programmation le python est rapide"
+mots = texte.split()
+
+# Compter la fréquence de chaque mot
+freq = {}
+for mot in mots:
+    freq[mot] = freq.get(mot, 0) + 1
+
+print("Fréquences :")
+for mot, count in sorted(freq.items(), key=lambda x: x[1], reverse=True):
+    bar = "█" * count
+    print(f"  {mot:<15} {bar} ({count})")
+
+print(f"\nMot le plus fréquent : '{max(freq, key=freq.get)}'")
+print(f"Mots distincts : {len(freq)}")
+</textarea>
+
+  <div class="page-nav">
+    <button class="btn-nav" onclick="showPage('p6')">← Listes de dicts</button>
+    <button class="btn-nav primary" onclick="showPage('exos')">Exercices ⚡</button>
+  </div>
+</div>
+
+<!-- PAGE EXERCICES -->
+<div class="page" id="exos">
+  <div class="breadcrumb">Pratique <span>›</span> Exercices</div>
+  <div class="page-tag">Pratique</div>
+  <h1>Exercices</h1>
+  <p class="subtitle">Résous les exercices dans l'éditeur intégré. Chaque exercice est autonome.</p>
+
+  <!-- EXO 1 -->
+  <div class="exo-card">
+    <div class="exo-header">
+      <span class="exo-num">Ex. 01</span>
+      <span class="exo-title">Fiche d'identité</span>
+      <span class="exo-diff diff-easy">Facile</span>
+    </div>
+    <div class="exo-body">
+      <p class="exo-desc">Crée un dictionnaire <code>personne</code> avec les clés : <code>"prenom"</code>, <code>"nom"</code>, <code>"age"</code>, <code>"ville"</code>. Affiche ensuite une phrase d'introduction : <em>"Bonjour, je m'appelle Prénom Nom, j'ai X ans et j'habite à Ville."</em></p>
+      <div class="runner" id="ex1">
+        <div class="runner-header">
+          <span class="runner-title">python</span>
+          <div class="runner-actions">
+            <button class="btn-reset" onclick="resetRunner('ex1','ex1-default')">reset</button>
+            <button class="btn-run" onclick="runPython('ex1')">▶ Exécuter</button>
+          </div>
+        </div>
+        <div class="runner-editor">
+          <textarea id="ex1-code" spellcheck="false"># Crée ton dictionnaire ici
+personne = {
+    # complète ici
+}
+
+# Affiche la phrase d'introduction
+print(...)
+</textarea>
+        </div>
+        <div class="output-label">Sortie</div>
+        <div class="runner-output empty" id="ex1-output">En attente…</div>
+      </div>
+      <textarea id="ex1-default" style="display:none"># Crée ton dictionnaire ici
+personne = {
+    # complète ici
+}
+
+# Affiche la phrase d'introduction
+print(...)
+</textarea>
+    </div>
+  </div>
+
+  <!-- EXO 2 -->
+  <div class="exo-card">
+    <div class="exo-header">
+      <span class="exo-num">Ex. 02</span>
+      <span class="exo-title">Convertisseur de notes</span>
+      <span class="exo-diff diff-easy">Facile</span>
+    </div>
+    <div class="exo-body">
+      <p class="exo-desc">À partir d'un dict <code>notes</code> avec des matières comme clés et des notes (sur 20) comme valeurs, calcule et affiche la moyenne, la meilleure note et la moins bonne.</p>
+      <div class="runner" id="ex2">
+        <div class="runner-header">
+          <span class="runner-title">python</span>
+          <div class="runner-actions">
+            <button class="btn-reset" onclick="resetRunner('ex2','ex2-default')">reset</button>
+            <button class="btn-run" onclick="runPython('ex2')">▶ Exécuter</button>
+          </div>
+        </div>
+        <div class="runner-editor">
+          <textarea id="ex2-code" spellcheck="false">notes = {
+    "Maths": 14,
+    "NSI": 17,
+    "Physique": 12,
+    "Français": 13,
+    "Anglais": 16
+}
+
+# Calcule la moyenne
+# ...
+
+# Trouve la meilleure et la moins bonne matière
+# ...
+</textarea>
+        </div>
+        <div class="output-label">Sortie</div>
+        <div class="runner-output empty" id="ex2-output">En attente…</div>
+      </div>
+      <textarea id="ex2-default" style="display:none">notes = {
+    "Maths": 14,
+    "NSI": 17,
+    "Physique": 12,
+    "Français": 13,
+    "Anglais": 16
+}
+
+# Calcule la moyenne
+# ...
+
+# Trouve la meilleure et la moins bonne matière
+# ...
+</textarea>
+    </div>
+  </div>
+
+  <!-- EXO 3 -->
+  <div class="exo-card">
+    <div class="exo-header">
+      <span class="exo-num">Ex. 03</span>
+      <span class="exo-title">Fusion & nettoyage</span>
+      <span class="exo-diff diff-medium">Moyen</span>
+    </div>
+    <div class="exo-body">
+      <p class="exo-desc">Tu as deux dicts partiels <code>info1</code> et <code>info2</code>. Fusionne-les dans un dict <code>complet</code>, puis supprime la clé <code>"tmp"</code> si elle existe, et affiche le résultat trié par clé.</p>
+      <div class="runner" id="ex3">
+        <div class="runner-header">
+          <span class="runner-title">python</span>
+          <div class="runner-actions">
+            <button class="btn-reset" onclick="resetRunner('ex3','ex3-default')">reset</button>
+            <button class="btn-run" onclick="runPython('ex3')">▶ Exécuter</button>
+          </div>
+        </div>
+        <div class="runner-editor">
+          <textarea id="ex3-code" spellcheck="false">info1 = {"nom": "Alice", "age": 17, "tmp": "à supprimer"}
+info2 = {"ville": "Lyon", "classe": "Terminale", "option": "NSI"}
+
+# 1. Fusionne les deux dicts
+complet = ...
+
+# 2. Supprime la clé "tmp" sans erreur
+...
+
+# 3. Affiche les paires triées par clé
+for cle, val in sorted(complet.items()):
+    print(f"  {cle}: {val}")
+</textarea>
+        </div>
+        <div class="output-label">Sortie</div>
+        <div class="runner-output empty" id="ex3-output">En attente…</div>
+      </div>
+      <textarea id="ex3-default" style="display:none">info1 = {"nom": "Alice", "age": 17, "tmp": "à supprimer"}
+info2 = {"ville": "Lyon", "classe": "Terminale", "option": "NSI"}
+
+# 1. Fusionne les deux dicts
+complet = ...
+
+# 2. Supprime la clé "tmp" sans erreur
+...
+
+# 3. Affiche les paires triées par clé
+for cle, val in sorted(complet.items()):
+    print(f"  {cle}: {val}")
+</textarea>
+    </div>
+  </div>
+
+  <!-- EXO 4 -->
+  <div class="exo-card">
+    <div class="exo-header">
+      <span class="exo-num">Ex. 04</span>
+      <span class="exo-title">Base de données élèves</span>
+      <span class="exo-diff diff-medium">Moyen</span>
+    </div>
+    <div class="exo-body">
+      <p class="exo-desc">Travaille avec une liste de dicts représentant des élèves. Écris une fonction <code>rechercher(eleves, champ, valeur)</code> qui retourne tous les élèves dont le champ correspond à la valeur.</p>
+      <div class="runner" id="ex4">
+        <div class="runner-header">
+          <span class="runner-title">python</span>
+          <div class="runner-actions">
+            <button class="btn-reset" onclick="resetRunner('ex4','ex4-default')">reset</button>
+            <button class="btn-run" onclick="runPython('ex4')">▶ Exécuter</button>
+          </div>
+        </div>
+        <div class="runner-editor">
+          <textarea id="ex4-code" spellcheck="false">eleves = [
+    {"nom": "Alice",  "classe": "TG1", "option": "NSI", "note": 88},
+    {"nom": "Bob",    "classe": "TG2", "option": "Math", "note": 72},
+    {"nom": "Clara",  "classe": "TG1", "option": "NSI", "note": 95},
+    {"nom": "David",  "classe": "TG2", "option": "NSI", "note": 79},
+    {"nom": "Eva",    "classe": "TG1", "option": "Math", "note": 91},
+]
+
+def rechercher(eleves, champ, valeur):
+    """Retourne les élèves dont eleve[champ] == valeur"""
+    # À compléter
+    pass
+
+# Test 1 : élèves de TG1
+tg1 = rechercher(eleves, "classe", "TG1")
+print("Élèves de TG1 :")
+for e in tg1:
+    print(f"  {e['nom']} — {e['note']}")
+
+# Test 2 : élèves en option NSI
+nsi = rechercher(eleves, "option", "NSI")
+print(f"\nÉlèves NSI : {[e['nom'] for e in nsi]}")
+</textarea>
+        </div>
+        <div class="output-label">Sortie</div>
+        <div class="runner-output empty" id="ex4-output">En attente…</div>
+      </div>
+      <textarea id="ex4-default" style="display:none">eleves = [
+    {"nom": "Alice",  "classe": "TG1", "option": "NSI", "note": 88},
+    {"nom": "Bob",    "classe": "TG2", "option": "Math", "note": 72},
+    {"nom": "Clara",  "classe": "TG1", "option": "NSI", "note": 95},
+    {"nom": "David",  "classe": "TG2", "option": "NSI", "note": 79},
+    {"nom": "Eva",    "classe": "TG1", "option": "Math", "note": 91},
+]
+
+def rechercher(eleves, champ, valeur):
+    """Retourne les élèves dont eleve[champ] == valeur"""
+    # À compléter
+    pass
+
+# Test 1 : élèves de TG1
+tg1 = rechercher(eleves, "classe", "TG1")
+print("Élèves de TG1 :")
+for e in tg1:
+    print(f"  {e['nom']} — {e['note']}")
+
+# Test 2 : élèves en option NSI
+nsi = rechercher(eleves, "option", "NSI")
+print(f"\nÉlèves NSI : {[e['nom'] for e in nsi]}")
+</textarea>
+    </div>
+  </div>
+
+  <!-- EXO 5 -->
+  <div class="exo-card">
+    <div class="exo-header">
+      <span class="exo-num">Ex. 05</span>
+      <span class="exo-title">Inventaire de jeu RPG</span>
+      <span class="exo-diff diff-hard">Difficile</span>
+    </div>
+    <div class="exo-body">
+      <p class="exo-desc">Simule un inventaire de jeu RPG. Implémente les fonctions <code>ajouter_item</code>, <code>utiliser_item</code> et <code>afficher_inventaire</code>. Un item a un nom, une quantité et un effet.</p>
+      <div class="runner" id="ex5">
+        <div class="runner-header">
+          <span class="runner-title">python</span>
+          <div class="runner-actions">
+            <button class="btn-reset" onclick="resetRunner('ex5','ex5-default')">reset</button>
+            <button class="btn-run" onclick="runPython('ex5')">▶ Exécuter</button>
+          </div>
+        </div>
+        <div class="runner-editor">
+          <textarea id="ex5-code" spellcheck="false">inventaire = {}
+
+def ajouter_item(inv, nom, quantite, effet):
+    """Ajoute ou incrémente un item dans l'inventaire"""
+    if nom in inv:
+        inv[nom]["quantite"] += quantite
+    else:
+        inv[nom] = {"quantite": quantite, "effet": effet}
+
+def utiliser_item(inv, nom):
+    """Utilise un item (diminue de 1), retourne l'effet ou None"""
+    if nom not in inv or inv[nom]["quantite"] <= 0:
+        return None
+    effet = inv[nom]["effet"]
+    inv[nom]["quantite"] -= 1
+    if inv[nom]["quantite"] == 0:
+        del inv[nom]
+    return effet
+
+def afficher_inventaire(inv):
+    if not inv:
+        print("Inventaire vide")
+        return
+    print("=== Inventaire ===")
+    for nom, data in inv.items():
+        print(f"  {nom:<20} x{data['quantite']}  [{data['effet']}]")
+
+# Tests
+ajouter_item(inventaire, "Potion de soin", 3, "+50 HP")
+ajouter_item(inventaire, "Elixir de mana", 1, "+30 MP")
+ajouter_item(inventaire, "Potion de soin", 2, "+50 HP")  # s'ajoute
+
+afficher_inventaire(inventaire)
+
+print("\nUtilisation d'une potion...")
+effet = utiliser_item(inventaire, "Potion de soin")
+print(f"Effet : {effet}")
+
+afficher_inventaire(inventaire)
+</textarea>
+        </div>
+        <div class="output-label">Sortie</div>
+        <div class="runner-output empty" id="ex5-output">En attente…</div>
+      </div>
+      <textarea id="ex5-default" style="display:none">inventaire = {}
+
+def ajouter_item(inv, nom, quantite, effet):
+    """Ajoute ou incrémente un item dans l'inventaire"""
+    if nom in inv:
+        inv[nom]["quantite"] += quantite
+    else:
+        inv[nom] = {"quantite": quantite, "effet": effet}
+
+def utiliser_item(inv, nom):
+    """Utilise un item (diminue de 1), retourne l'effet ou None"""
+    if nom not in inv or inv[nom]["quantite"] <= 0:
+        return None
+    effet = inv[nom]["effet"]
+    inv[nom]["quantite"] -= 1
+    if inv[nom]["quantite"] == 0:
+        del inv[nom]
+    return effet
+
+def afficher_inventaire(inv):
+    if not inv:
+        print("Inventaire vide")
+        return
+    print("=== Inventaire ===")
+    for nom, data in inv.items():
+        print(f"  {nom:<20} x{data['quantite']}  [{data['effet']}]")
+
+# Tests
+ajouter_item(inventaire, "Potion de soin", 3, "+50 HP")
+ajouter_item(inventaire, "Elixir de mana", 1, "+30 MP")
+ajouter_item(inventaire, "Potion de soin", 2, "+50 HP")  # s'ajoute
+
+afficher_inventaire(inventaire)
+
+print("\nUtilisation d'une potion...")
+effet = utiliser_item(inventaire, "Potion de soin")
+print(f"Effet : {effet}")
+
+afficher_inventaire(inventaire)
+</textarea>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn-nav" onclick="showPage('p7')">← Cours</button>
+    <button class="btn-nav primary" onclick="showPage('bac')">Style bac 🎯</button>
+  </div>
+</div>
+
+<!-- PAGE BAC -->
+<div class="page" id="bac">
+  <div class="breadcrumb">Pratique <span>›</span> Style bac</div>
+  <div class="page-tag">Entraînement</div>
+  <h1>Exercices style bac NSI</h1>
+  <p class="subtitle">Format identique aux sujets officiels — lit l'énoncé, complète le code, vérifie.</p>
+
+  <div class="exo-card">
+    <div class="exo-header">
+      <span class="exo-num">Bac 01</span>
+      <span class="exo-title">Gestion d'une bibliothèque</span>
+      <span class="exo-diff diff-medium">Moyen</span>
+    </div>
+    <div class="exo-body">
+      <p class="exo-desc">On modélise une bibliothèque par une liste de dictionnaires. Chaque livre est représenté par un dictionnaire avec les clés <code>"titre"</code>, <code>"auteur"</code>, <code>"annee"</code> et <code>"disponible"</code> (booléen).</p>
+      <p class="exo-desc"><strong>1.</strong> Écrire une fonction <code>chercher_auteur(biblio, auteur)</code> qui retourne la liste des titres de livres écrits par cet auteur.<br>
+      <strong>2.</strong> Écrire une fonction <code>emprunter(biblio, titre)</code> qui marque le livre comme non disponible si il l'est, ou affiche un message sinon.<br>
+      <strong>3.</strong> Écrire une fonction <code>stats(biblio)</code> qui retourne un dict <code>{"total": ..., "disponibles": ..., "empruntes": ...}</code>.</p>
+      <div class="runner" id="bac1">
+        <div class="runner-header">
+          <span class="runner-title">python</span>
+          <div class="runner-actions">
+            <button class="btn-reset" onclick="resetRunner('bac1','bac1-default')">reset</button>
+            <button class="btn-run" onclick="runPython('bac1')">▶ Exécuter</button>
+          </div>
+        </div>
+        <div class="runner-editor">
+          <textarea id="bac1-code" spellcheck="false">bibliotheque = [
+    {"titre": "1984",             "auteur": "Orwell",  "annee": 1949, "disponible": True},
+    {"titre": "Le Meilleur des mondes","auteur": "Huxley","annee": 1932,"disponible": True},
+    {"titre": "La Ferme des animaux","auteur": "Orwell","annee": 1945,"disponible": False},
+    {"titre": "Fahrenheit 451",   "auteur": "Bradbury","annee": 1953, "disponible": True},
+    {"titre": "Dune",             "auteur": "Herbert", "annee": 1965, "disponible": False},
+]
+
+def chercher_auteur(biblio, auteur):
+    # À compléter
+    pass
+
+def emprunter(biblio, titre):
+    # À compléter
+    pass
+
+def stats(biblio):
+    # À compléter
+    pass
+
+# --- Tests ---
+print("Livres d'Orwell :", chercher_auteur(bibliotheque, "Orwell"))
+
+emprunter(bibliotheque, "1984")
+emprunter(bibliotheque, "Dune")  # déjà emprunté
+
+print("Stats :", stats(bibliotheque))
+</textarea>
+        </div>
+        <div class="output-label">Sortie</div>
+        <div class="runner-output empty" id="bac1-output">En attente…</div>
+      </div>
+      <textarea id="bac1-default" style="display:none">bibliotheque = [
+    {"titre": "1984",             "auteur": "Orwell",  "annee": 1949, "disponible": True},
+    {"titre": "Le Meilleur des mondes","auteur": "Huxley","annee": 1932,"disponible": True},
+    {"titre": "La Ferme des animaux","auteur": "Orwell","annee": 1945,"disponible": False},
+    {"titre": "Fahrenheit 451",   "auteur": "Bradbury","annee": 1953, "disponible": True},
+    {"titre": "Dune",             "auteur": "Herbert", "annee": 1965, "disponible": False},
+]
+
+def chercher_auteur(biblio, auteur):
+    # À compléter
+    pass
+
+def emprunter(biblio, titre):
+    # À compléter
+    pass
+
+def stats(biblio):
+    # À compléter
+    pass
+
+# --- Tests ---
+print("Livres d'Orwell :", chercher_auteur(bibliotheque, "Orwell"))
+
+emprunter(bibliotheque, "1984")
+emprunter(bibliotheque, "Dune")  # déjà emprunté
+
+print("Stats :", stats(bibliotheque))
+</textarea>
+    </div>
+  </div>
+
+  <div class="exo-card">
+    <div class="exo-header">
+      <span class="exo-num">Bac 02</span>
+      <span class="exo-title">Analyse de résultats électoraux</span>
+      <span class="exo-diff diff-hard">Difficile</span>
+    </div>
+    <div class="exo-body">
+      <p class="exo-desc">Les résultats d'un vote sont donnés sous forme d'une liste de dicts avec les clés <code>"candidat"</code> et <code>"voix"</code>. Écris les fonctions demandées pour analyser ces résultats.</p>
+      <div class="runner" id="bac2">
+        <div class="runner-header">
+          <span class="runner-title">python</span>
+          <div class="runner-actions">
+            <button class="btn-reset" onclick="resetRunner('bac2','bac2-default')">reset</button>
+            <button class="btn-run" onclick="runPython('bac2')">▶ Exécuter</button>
+          </div>
+        </div>
+        <div class="runner-editor">
+          <textarea id="bac2-code" spellcheck="false">resultats = [
+    {"candidat": "Alice Martin",  "voix": 1240},
+    {"candidat": "Bob Dupont",    "voix": 890},
+    {"candidat": "Clara Lemaire", "voix": 1560},
+    {"candidat": "David Morin",   "voix": 430},
+    {"candidat": "Eva Laurent",   "voix": 980},
+]
+
+def total_votants(resultats):
+    """Retourne le nombre total de votes exprimés"""
+    # À compléter
+    pass
+
+def pourcentages(resultats):
+    """
+    Retourne un nouveau dict {candidat: pourcentage}
+    Les pourcentages sont arrondis à 2 décimales
+    """
+    # À compléter
+    pass
+
+def vainqueur(resultats):
+    """Retourne le dict du candidat ayant obtenu le plus de voix"""
+    # À compléter
+    pass
+
+def second_tour(resultats):
+    """
+    Retourne la liste des 2 candidats avec le plus de voix
+    (format : liste de dicts)
+    """
+    # À compléter
+    pass
+
+# --- Tests ---
+total = total_votants(resultats)
+print(f"Total votants : {total}")
+
+pcts = pourcentages(resultats)
+print("Pourcentages :")
+for candidat, pct in pcts.items():
+    print(f"  {candidat}: {pct}%")
+
+gagnant = vainqueur(resultats)
+print(f"\n🏆 Vainqueur : {gagnant['candidat']} ({gagnant['voix']} voix)")
+
+s2 = second_tour(resultats)
+print(f"Second tour : {[c['candidat'] for c in s2]}")
+</textarea>
+        </div>
+        <div class="output-label">Sortie</div>
+        <div class="runner-output empty" id="bac2-output">En attente…</div>
+      </div>
+      <textarea id="bac2-default" style="display:none">resultats = [
+    {"candidat": "Alice Martin",  "voix": 1240},
+    {"candidat": "Bob Dupont",    "voix": 890},
+    {"candidat": "Clara Lemaire", "voix": 1560},
+    {"candidat": "David Morin",   "voix": 430},
+    {"candidat": "Eva Laurent",   "voix": 980},
+]
+
+def total_votants(resultats):
+    """Retourne le nombre total de votes exprimés"""
+    # À compléter
+    pass
+
+def pourcentages(resultats):
+    """
+    Retourne un nouveau dict {candidat: pourcentage}
+    Les pourcentages sont arrondis à 2 décimales
+    """
+    # À compléter
+    pass
+
+def vainqueur(resultats):
+    """Retourne le dict du candidat ayant obtenu le plus de voix"""
+    # À compléter
+    pass
+
+def second_tour(resultats):
+    """
+    Retourne la liste des 2 candidats avec le plus de voix
+    (format : liste de dicts)
+    """
+    # À compléter
+    pass
+
+# --- Tests ---
+total = total_votants(resultats)
+print(f"Total votants : {total}")
+
+pcts = pourcentages(resultats)
+print("Pourcentages :")
+for candidat, pct in pcts.items():
+    print(f"  {candidat}: {pct}%")
+
+gagnant = vainqueur(resultats)
+print(f"\n🏆 Vainqueur : {gagnant['candidat']} ({gagnant['voix']} voix)")
+
+s2 = second_tour(resultats)
+print(f"Second tour : {[c['candidat'] for c in s2]}")
+</textarea>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <button class="btn-nav" onclick="showPage('exos')">← Exercices</button>
+    <button class="btn-nav primary" onclick="showPage('recap')">Récap 📋</button>
+  </div>
+</div>
+
+<!-- PAGE RECAP -->
+<div class="page" id="recap">
+  <div class="breadcrumb">Pratique <span>›</span> Récapitulatif</div>
+  <div class="page-tag">Mémo</div>
+  <h1>Récap & mémo bac</h1>
+  <p class="subtitle">Tout ce qu'il faut maîtriser sur une seule page.</p>
+
+  <h2>Opérations essentielles</h2>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python — antisèche complète</span></div>
+    <pre><span class="cm"># ── CRÉER ──────────────────────────────────────────</span>
+d = {<span class="st">"clé"</span>: <span class="st">"valeur"</span>, <span class="st">"n"</span>: <span class="nm">42</span>}    <span class="cm"># littérale</span>
+d = <span class="fn">dict</span>(clé=<span class="st">"valeur"</span>, n=<span class="nm">42</span>)        <span class="cm"># dict()</span>
+d = {}                                   <span class="cm"># vide</span>
+
+<span class="cm"># ── LIRE ───────────────────────────────────────────</span>
+d[<span class="st">"clé"</span>]                  <span class="cm"># accès direct (KeyError si absent)</span>
+d.<span class="fn">get</span>(<span class="st">"clé"</span>)             <span class="cm"># sécurisé → None si absent</span>
+d.<span class="fn">get</span>(<span class="st">"clé"</span>, <span class="nm">42</span>)        <span class="cm"># sécurisé → 42 par défaut</span>
+<span class="st">"clé"</span> <span class="kw">in</span> d               <span class="cm"># True/False</span>
+<span class="fn">len</span>(d)                   <span class="cm"># nombre de paires</span>
+
+<span class="cm"># ── MODIFIER / AJOUTER ─────────────────────────────</span>
+d[<span class="st">"clé"</span>] = <span class="st">"nouvelle"</span>    <span class="cm"># modifie OU crée</span>
+d.<span class="fn">update</span>({<span class="st">"a"</span>: <span class="nm">1</span>})       <span class="cm"># fusionne</span>
+
+<span class="cm"># ── SUPPRIMER ──────────────────────────────────────</span>
+<span class="kw">del</span> d[<span class="st">"clé"</span>]              <span class="cm"># supprime (KeyError si absent)</span>
+d.<span class="fn">pop</span>(<span class="st">"clé"</span>)             <span class="cm"># supprime + retourne valeur</span>
+d.<span class="fn">pop</span>(<span class="st">"clé"</span>, <span class="kw">None</span>)      <span class="cm"># sécurisé</span>
+d.<span class="fn">clear</span>()                <span class="cm"># vide tout</span>
+
+<span class="cm"># ── ITÉRER ─────────────────────────────────────────</span>
+<span class="kw">for</span> k <span class="kw">in</span> d:               <span class="cm"># clés seulement</span>
+<span class="kw">for</span> k <span class="kw">in</span> d.<span class="fn">keys</span>():        <span class="cm"># explicite</span>
+<span class="kw">for</span> v <span class="kw">in</span> d.<span class="fn">values</span>():      <span class="cm"># valeurs seulement</span>
+<span class="kw">for</span> k, v <span class="kw">in</span> d.<span class="fn">items</span>():   <span class="cm"># les deux ⭐</span>
+
+<span class="cm"># ── COMPRÉHENSION ──────────────────────────────────</span>
+{k: v*<span class="nm">2</span> <span class="kw">for</span> k, v <span class="kw">in</span> d.<span class="fn">items</span>()}      <span class="cm"># transformer</span>
+{k: v <span class="kw">for</span> k, v <span class="kw">in</span> d.<span class="fn">items</span>() <span class="kw">if</span> v>0}  <span class="cm"># filtrer</span>
+
+<span class="cm"># ── LISTES DE DICTS ────────────────────────────────</span>
+liste[i][<span class="st">"clé"</span>]           <span class="cm"># accès</span>
+<span class="fn">max</span>(liste, key=<span class="kw">lambda</span> x: x[<span class="st">"champ"</span>])   <span class="cm"># max</span>
+<span class="fn">sorted</span>(liste, key=<span class="kw">lambda</span> x: x[<span class="st">"champ"</span>]) <span class="cm"># trier</span>
+[x <span class="kw">for</span> x <span class="kw">in</span> liste <span class="kw">if</span> x[<span class="st">"champ"</span>] == v]  <span class="cm"># filtrer</span></pre>
+  </div>
+
+  <h2>Erreurs classiques au bac</h2>
+  <div class="callout error">
+    <div class="callout-title">❌ Erreur 1 — KeyError</div>
+    <p>Accéder à une clé absente avec <code>d["clé_absente"]</code> → toujours utiliser <code>.get()</code> ou tester <code>"clé" in d</code> avant.</p>
+  </div>
+  <div class="callout error">
+    <div class="callout-title">❌ Erreur 2 — Modifier pendant l'itération</div>
+    <p>Ne jamais supprimer ou ajouter des clés pendant un <code>for k in d</code>. Itère sur <code>list(d.keys())</code> à la place.</p>
+  </div>
+  <div class="callout error">
+    <div class="callout-title">❌ Erreur 3 — Copie par référence</div>
+    <p><code>d2 = d</code> ne copie pas — les deux variables pointent sur le même objet. Utilise <code>d2 = d.copy()</code>.</p>
+  </div>
+  <div class="callout error">
+    <div class="callout-title">❌ Erreur 4 — Clés en double</div>
+    <p>Créer un dict avec deux fois la même clé est silencieux : la deuxième valeur écrase la première sans avertissement.</p>
+  </div>
+
+  <h2>🧪 Bac blanc rapide — 5 minutes</h2>
+  <div class="runner" id="recap1">
+    <div class="runner-header">
+      <span class="runner-title">python — zone libre</span>
+      <div class="runner-actions">
+        <button class="btn-reset" onclick="resetRunner('recap1','recap1-default')">reset</button>
+        <button class="btn-run" onclick="runPython('recap1')">▶ Exécuter</button>
+      </div>
+    </div>
+    <div class="runner-editor">
+      <textarea id="recap1-code" spellcheck="false"># ── DÉFI FINAL ────────────────────────────────────
+# Tu as une liste de produits d'une boutique.
+# Sans regarder le cours :
+# 1. Trouve le produit le plus cher
+# 2. Calcule le prix moyen
+# 3. Liste les produits en rupture (stock == 0)
+# 4. Applique une remise de 10% sur tout
+
+produits = [
+    {"nom": "Casque",    "prix": 89.99, "stock": 12},
+    {"nom": "Souris",    "prix": 29.99, "stock": 0},
+    {"nom": "Clavier",   "prix": 59.99, "stock": 5},
+    {"nom": "Moniteur",  "prix": 299.99,"stock": 0},
+    {"nom": "Webcam",    "prix": 49.99, "stock": 8},
+]
+
+# Ton code ici...
+</textarea>
+    </div>
+    <div class="output-label">Sortie</div>
+    <div class="runner-output empty" id="recap1-output">En attente…</div>
+  </div>
+  <textarea id="recap1-default" style="display:none"># ── DÉFI FINAL ────────────────────────────────────
+# Tu as une liste de produits d'une boutique.
+# Sans regarder le cours :
+# 1. Trouve le produit le plus cher
+# 2. Calcule le prix moyen
+# 3. Liste les produits en rupture (stock == 0)
+# 4. Applique une remise de 10% sur tout
+
+produits = [
+    {"nom": "Casque",    "prix": 89.99, "stock": 12},
+    {"nom": "Souris",    "prix": 29.99, "stock": 0},
+    {"nom": "Clavier",   "prix": 59.99, "stock": 5},
+    {"nom": "Moniteur",  "prix": 299.99,"stock": 0},
+    {"nom": "Webcam",    "prix": 49.99, "stock": 8},
+]
+
+# Ton code ici...
+</textarea>
+
+  <div class="page-nav">
+    <button class="btn-nav" onclick="showPage('bac')">← Bac</button>
+    <button class="btn-nav primary" onclick="showPage('p0')">↩ Retour au début</button>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script type="text/python" id="brython-runner">
+from browser import document, window
+import sys
+import io
+
+def run_code(code, output_id):
+    old_stdout = sys.stdout
+    old_stderr = sys.stderr
+    sys.stdout = io.StringIO()
+    sys.stderr = io.StringIO()
+    out_div = document[output_id]
+    try:
+        exec(code, {})
+        output = sys.stdout.getvalue()
+        err = sys.stderr.getvalue()
+        out_div.className = "runner-output"
+        out_div.text = output + err if (output or err) else "✓ Exécuté sans sortie"
+    except Exception as e:
+        out_div.className = "runner-output has-error"
+        out_div.text = f"Erreur : {type(e).__name__}: {e}"
+    finally:
+        sys.stdout = old_stdout
+        sys.stderr = old_stderr
+
+window.bryRun = run_code
+</script>
+
+<script>
+const PAGES = ['p0','p1','p2','p3','p4','p5','p6','p7','exos','bac','recap'];
+const LESSON_PAGES = ['p0','p1','p2','p3','p4','p5','p6','p7'];
+const visited = new Set();
+
+function showPage(id) {
+  PAGES.forEach(p => {
+    document.getElementById(p).classList.remove('active');
+    const nav = document.getElementById('nav-' + p);
+    if (nav) nav.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+  const nav = document.getElementById('nav-' + id);
+  if (nav) {
+    nav.classList.add('active');
+    if (!visited.has(id)) { nav.classList.add('done'); visited.add(id); }
+  }
+  document.querySelector('main').scrollTop = 0;
+  updateProgress();
+}
+
+function updateProgress() {
+  const done = LESSON_PAGES.filter(p => visited.has(p)).length;
+  const total = LESSON_PAGES.length;
+  document.getElementById('progressFill').style.width = (done/total*100) + '%';
+  document.getElementById('progressText').textContent = done + ' / ' + total;
+}
+
+function runPython(runnerId) {
+  const code = document.getElementById(runnerId + '-code').value;
+  const outId = runnerId + '-output';
+  const outDiv = document.getElementById(outId);
+  outDiv.className = 'runner-output';
+  outDiv.textContent = '⏳ Exécution…';
+  setTimeout(() => {
+    if (window.bryRun) {
+      window.bryRun(code, outId);
+    } else {
+      outDiv.textContent = 'Chargement de Brython en cours, réessaie dans 2s…';
+    }
+  }, 100);
+}
+
+function resetRunner(runnerId, defaultId) {
+  const def = document.getElementById(defaultId);
+  if (def) document.getElementById(runnerId + '-code').value = def.value;
+  const out = document.getElementById(runnerId + '-output');
+  out.className = 'runner-output empty';
+  out.textContent = 'En attente…';
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = 'copié ✓';
+    setTimeout(() => btn.textContent = 'copier', 1500);
+  });
+}
+
+const QUIZ_ANSWERS = {
+  'quiz0': '✓ Correct ! Les clés doivent être uniques dans un dictionnaire Python. Les valeurs, elles, peuvent se répéter.',
+  'quiz1': '✓ Correct ! La deuxième définition écrase la première. Python garde 99.',
+  'quiz2': '✓ Correct ! .get() avec un second argument retourne ce fallback si la clé est absente.',
+  'quiz3': '✓ Correct ! d avait 1 clé, on en ajoute une → len(d) == 2.',
+  'quiz4': '✓ Correct ! .pop(clé, None) retourne None sans lever d\'erreur si la clé est absente.',
+  'quiz5': '✓ Correct ! .items() retourne des tuples (clé, valeur) qu\'on peut déballer directement.',
+  'quiz6': '✓ Correct ! Liste → index numérique d\'abord, puis clé du dict.'
+};
+
+function checkQuiz(quizId, opt, isCorrect) {
+  const quiz = document.getElementById(quizId);
+  if (quiz.dataset.answered) return;
+  quiz.dataset.answered = '1';
+  const opts = quiz.querySelectorAll('.quiz-opt');
+  opts.forEach(o => {
+    o.style.pointerEvents = 'none';
+    if (o === opt) o.classList.add(isCorrect ? 'correct' : 'wrong');
+  });
+  const fb = document.getElementById(quizId + '-fb');
+  fb.className = 'quiz-feedback show ' + (isCorrect ? 'ok' : 'ko');
+  fb.textContent = isCorrect
+    ? QUIZ_ANSWERS[quizId]
+    : '✗ Pas tout à fait. ' + (quizId === 'quiz0' ? 'Les valeurs peuvent se répéter, mais pas les clés.'
+      : quizId === 'quiz1' ? 'La dernière valeur pour une clé écrase les précédentes.'
+      : quizId === 'quiz2' ? '.get() avec un second paramètre retourne ce paramètre si la clé est absente.'
+      : quizId === 'quiz3' ? 'On ajoute une nouvelle clé "y", donc le dict a 2 entrées.'
+      : quizId === 'quiz4' ? 'Avec un default, .pop() ne lève jamais d\'erreur.'
+      : quizId === 'quiz5' ? '.items() retourne des tuples (clé, valeur).'
+      : 'Index numérique d\'abord pour la liste, clé ensuite pour le dict.');
+}
+
+showPage('p0');
+</script>
+</body>
+</html>
