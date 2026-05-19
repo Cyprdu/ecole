@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Histoire — Révisions DS · 1968–1991</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Mono:wght@400;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --cream: #f5f0e8;
+    --warm: #e8dcc8;
+    --red: #c0392b;
+    --gold: #b8860b;
+    --blue: #1a3a5c;
+    --rust: #8b3a2a;
+    --sage: #4a6741;
+    --paper: #faf6ef;
+    --shadow: rgba(15,14,12,0.15);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem;
+    height: 56px;
+    background: var(--ink);
+    border-bottom: 2px solid var(--gold);
+  }
+  .nav-logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.15em;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .nav-tabs { display:flex; gap:0; }
+  .nav-tab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    color: var(--warm); text-transform: uppercase;
+    padding: 0 1.2rem; height: 56px;
+    display: flex; align-items: center;
+    cursor: pointer; border: none; background: transparent;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .nav-tab:hover, .nav-tab.active {
+    color: #fff; border-bottom-color: var(--red);
+  }
+
+  /* ── PAGES ── */
+  .page { display:none; padding-top: 56px; min-height: 100vh; }
+  .page.active { display:block; }
+
+  /* ══════════════════════════════════
+     COURS — SCROLLYTELLING
+  ══════════════════════════════════ */
+
+  /* HERO */
+  .hero {
+    position: relative; height: 100vh;
+    background: var(--ink);
+    display: flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .hero-year {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(8rem,20vw,18rem);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(184,134,11,0.3);
+    position:absolute; user-select:none;
+    animation: heroYear 8s ease-in-out infinite alternate;
+  }
+  @keyframes heroYear { from{transform:translateY(-10px)} to{transform:translateY(10px)} }
+  .hero-content { position:relative; text-align:center; z-index:2; }
+  .hero-subtitle {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.7rem; letter-spacing:0.3em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:1.5rem;
+  }
+  .hero-title {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,5vw,4rem);
+    font-weight:400; color:var(--cream);
+    line-height:1.15; margin-bottom:2rem;
+  }
+  .hero-title em { color:var(--red); font-style:italic; }
+  .hero-desc {
+    font-size:1.15rem; color:rgba(245,240,232,0.6);
+    max-width:480px; line-height:1.7; margin:0 auto 2.5rem;
+  }
+  .hero-scroll {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.65rem; letter-spacing:0.2em;
+    color:var(--gold); text-transform:uppercase;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* SECTION WRAPPER */
+  .chapter {
+    position:relative;
+    padding: 5rem 0;
+  }
+  .chapter-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* EPOCH DIVIDER */
+  .epoch {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .epoch-line { flex:1; height:1px; background:var(--gold); opacity:0.4; }
+  .epoch-label {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.65rem; letter-spacing:0.25em;
+    color:var(--gold); text-transform:uppercase;
+  }
+
+  /* CHAPTER TITLE */
+  .ch-num {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.65rem; letter-spacing:0.2em;
+    color:var(--red); text-transform:uppercase;
+    margin-bottom:0.5rem;
+  }
+  .ch-title {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.8rem,4vw,3rem);
+    font-weight:700; line-height:1.2;
+    margin-bottom:1.5rem;
+  }
+  .ch-lead {
+    font-size:1.3rem; line-height:1.8;
+    color:#3a3530; font-style:italic;
+    border-left:3px solid var(--red);
+    padding-left:1.5rem; margin-bottom:2.5rem;
+  }
+  .ch-body {
+    font-size:1.1rem; line-height:1.9;
+    color:#2a2520;
+  }
+  .ch-body p { margin-bottom:1.2rem; }
+
+  /* ALTERNATING LAYOUT SECTIONS */
+  .chapter.alt { background: var(--ink); color:var(--cream); }
+  .chapter.alt .ch-title { color:var(--cream); }
+  .chapter.alt .ch-lead { color:rgba(245,240,232,0.7); border-color:var(--gold); }
+  .chapter.alt .ch-body { color:rgba(245,240,232,0.85); }
+  .chapter.alt .epoch-label { color:var(--gold); }
+  .chapter.alt .epoch-line { background:var(--gold); }
+
+  .chapter.rust-bg { background:#2a0f0a; color:var(--cream); }
+  .chapter.rust-bg .ch-title { color:var(--cream); }
+  .chapter.rust-bg .ch-lead { color:rgba(245,240,232,0.7); border-color:var(--rust); }
+  .chapter.rust-bg .ch-body { color:rgba(245,240,232,0.85); }
+  .chapter.rust-bg .epoch-label { color:#e07060; }
+
+  .chapter.blue-bg { background:#0d1f30; color:var(--cream); }
+  .chapter.blue-bg .ch-title { color:var(--cream); }
+  .chapter.blue-bg .ch-lead { color:rgba(245,240,232,0.7); border-color:#4a90d9; }
+  .chapter.blue-bg .ch-body { color:rgba(245,240,232,0.85); }
+  .chapter.blue-bg .epoch-label { color:#7ab8f5; }
+
+  /* TIMELINE */
+  .timeline { position:relative; margin:2.5rem 0; }
+  .timeline::before {
+    content:''; position:absolute; left:0; top:0; bottom:0;
+    width:2px; background:var(--gold); opacity:0.5;
+  }
+  .tl-event {
+    position:relative; padding:0.8rem 0 0.8rem 2rem; margin-bottom:0.5rem;
+    opacity:0; transform:translateX(-20px);
+    transition: all 0.5s ease;
+  }
+  .tl-event.visible { opacity:1; transform:translateX(0); }
+  .tl-event::before {
+    content:''; position:absolute; left:-5px; top:1.1rem;
+    width:12px; height:12px; border-radius:50%;
+    background:var(--red); border:2px solid var(--paper);
+    box-shadow: 0 0 0 2px var(--red);
+  }
+  .tl-date {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.7rem; color:var(--gold); letter-spacing:0.1em;
+    margin-bottom:0.2rem;
+  }
+  .tl-fact { font-size:1rem; line-height:1.6; }
+
+  .chapter.alt .timeline::before { background:var(--gold); }
+  .chapter.alt .tl-event::before { background:var(--red); border-color:var(--ink); box-shadow:0 0 0 2px var(--red); }
+  .chapter.alt .tl-date { color:var(--gold); }
+  .chapter.alt .tl-fact { color:rgba(245,240,232,0.85); }
+  .chapter.rust-bg .timeline::before { background:#e07060; }
+  .chapter.rust-bg .tl-event::before { background:#e07060; border-color:#2a0f0a; box-shadow:0 0 0 2px #e07060; }
+  .chapter.rust-bg .tl-date { color:#e07060; }
+  .chapter.blue-bg .timeline::before { background:#4a90d9; }
+  .chapter.blue-bg .tl-event::before { background:#4a90d9; border-color:#0d1f30; box-shadow:0 0 0 2px #4a90d9; }
+  .chapter.blue-bg .tl-date { color:#7ab8f5; }
+
+  /* CARDS GRID */
+  .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:1rem; margin:2rem 0; }
+  .card {
+    border:1px solid rgba(184,134,11,0.3);
+    padding:1.2rem 1.4rem;
+    position:relative;
+    opacity:0; transform:translateY(20px);
+    transition: all 0.5s ease;
+  }
+  .card.visible { opacity:1; transform:translateY(0); }
+  .card-label {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:0.5rem;
+  }
+  .card-title { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; margin-bottom:0.4rem; }
+  .card-text { font-size:0.95rem; line-height:1.6; opacity:0.8; }
+
+  .chapter.alt .card { border-color:rgba(184,134,11,0.25); background:rgba(255,255,255,0.04); }
+  .chapter.alt .card-title { color:var(--cream); }
+  .chapter.rust-bg .card { border-color:rgba(224,112,96,0.3); background:rgba(255,255,255,0.04); }
+  .chapter.rust-bg .card-title { color:var(--cream); }
+  .chapter.blue-bg .card { border-color:rgba(74,144,217,0.3); background:rgba(255,255,255,0.04); }
+  .chapter.blue-bg .card-title { color:var(--cream); }
+
+  /* QUOTE BLOCK */
+  .quote-block {
+    background:var(--red);
+    color:#fff;
+    padding:2rem 2.5rem;
+    margin:2rem 0;
+    position:relative;
+  }
+  .quote-block::before {
+    content:'"';
+    font-family:'Playfair Display',serif;
+    font-size:8rem; line-height:0.5;
+    color:rgba(255,255,255,0.15);
+    position:absolute; top:1.5rem; left:1rem;
+  }
+  .quote-text {
+    font-family:'Playfair Display',serif;
+    font-size:1.3rem; font-style:italic;
+    line-height:1.6; position:relative; z-index:1;
+  }
+  .quote-src {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.65rem; letter-spacing:0.15em;
+    text-transform:uppercase; margin-top:0.8rem;
+    opacity:0.8; position:relative; z-index:1;
+  }
+
+  /* FACT BOX */
+  .fact-box {
+    border:1px solid var(--gold);
+    padding:1.2rem 1.5rem;
+    margin:1.5rem 0;
+    display:flex; gap:1rem; align-items:flex-start;
+  }
+  .fact-icon { font-size:1.5rem; flex-shrink:0; }
+  .fact-text { font-size:1rem; line-height:1.6; }
+  .chapter.alt .fact-box, .chapter.rust-bg .fact-box, .chapter.blue-bg .fact-box { border-color:rgba(184,134,11,0.4); }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity:0; transform:translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* SECTION BANNER */
+  .sec-banner {
+    background:var(--red);
+    padding:1rem 2rem;
+    margin-bottom:3rem;
+    display:flex; align-items:center; gap:1rem;
+  }
+  .sec-banner-num {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:3rem; font-weight:600;
+    color:rgba(255,255,255,0.15);
+    line-height:1;
+  }
+  .sec-banner-title {
+    font-family:'Playfair Display',serif;
+    font-size:1.5rem; color:#fff;
+  }
+
+  /* ══════════════════════════════════
+     EXERCICES
+  ══════════════════════════════════ */
+  #page-exercices {
+    background: var(--paper);
+  }
+  .ex-hero {
+    background:var(--ink);
+    padding:4rem 2rem 3rem;
+    text-align:center;
+  }
+  .ex-hero h1 {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,5vw,3.5rem);
+    color:var(--cream); margin-bottom:0.5rem;
+  }
+  .ex-hero p {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.7rem; letter-spacing:0.2em;
+    color:var(--gold); text-transform:uppercase;
+  }
+  .ex-content {
+    max-width:800px; margin:0 auto; padding:3rem 2rem;
+  }
+  .ex-section-title {
+    font-family:'Playfair Display',serif;
+    font-size:1.6rem; font-weight:700;
+    margin-bottom:1.5rem;
+    padding-bottom:0.5rem;
+    border-bottom:2px solid var(--gold);
+  }
+  .quiz-block { margin-bottom:2.5rem; }
+  .quiz-q {
+    font-size:1.1rem; font-weight:600; margin-bottom:1rem; line-height:1.6;
+  }
+  .quiz-q span {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.7rem; color:var(--gold);
+    margin-right:0.5rem; letter-spacing:0.1em;
+  }
+  .quiz-options { display:flex; flex-direction:column; gap:0.5rem; }
+  .quiz-opt {
+    display:flex; align-items:flex-start; gap:0.8rem;
+    padding:0.8rem 1rem;
+    border:1px solid rgba(0,0,0,0.15);
+    cursor:pointer;
+    font-size:1rem; line-height:1.5;
+    transition: all 0.15s;
+    background:transparent;
+    text-align:left;
+  }
+  .quiz-opt:hover { background:rgba(192,57,43,0.06); border-color:var(--red); }
+  .quiz-opt.correct { background:rgba(74,103,65,0.12); border-color:var(--sage); color:var(--sage); }
+  .quiz-opt.wrong { background:rgba(192,57,43,0.1); border-color:var(--red); color:var(--red); text-decoration:line-through; }
+  .quiz-opt .opt-letter {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.7rem; font-weight:600;
+    flex-shrink:0; width:18px; padding-top:2px;
+  }
+  .quiz-feedback {
+    margin-top:0.8rem; padding:0.8rem 1rem;
+    font-size:0.95rem; line-height:1.5;
+    display:none; border-left:3px solid;
+  }
+  .quiz-feedback.correct { border-color:var(--sage); background:rgba(74,103,65,0.07); color:var(--sage); display:block; }
+  .quiz-feedback.wrong { border-color:var(--red); background:rgba(192,57,43,0.07); color:var(--red); display:block; }
+
+  /* DATE GAME */
+  .date-game { margin-bottom:2.5rem; }
+  .date-game-q {
+    font-size:1.1rem; font-weight:600; margin-bottom:1rem;
+  }
+  .date-input-row { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
+  .date-input {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:1rem; padding:0.6rem 0.8rem;
+    border:2px solid rgba(0,0,0,0.2);
+    background:transparent; width:120px;
+    outline:none; transition:border 0.2s;
+  }
+  .date-input:focus { border-color:var(--red); }
+  .date-btn {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase;
+    padding:0.6rem 1.2rem;
+    background:var(--ink); color:var(--cream);
+    border:none; cursor:pointer; transition:background 0.2s;
+  }
+  .date-btn:hover { background:var(--red); }
+  .date-result { margin-top:0.6rem; font-size:0.95rem; font-style:italic; display:none; }
+  .date-result.ok { color:var(--sage); display:block; }
+  .date-result.ko { color:var(--red); display:block; }
+
+  /* SCORE */
+  .score-bar {
+    background:var(--ink); color:var(--cream);
+    padding:1.2rem 1.5rem;
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:2rem;
+    position:sticky; top:56px; z-index:50;
+  }
+  .score-label {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase;
+    color:var(--gold);
+  }
+  .score-val {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:1.2rem; color:#fff;
+  }
+  .score-reset {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase;
+    padding:0.4rem 0.9rem;
+    background:transparent; border:1px solid rgba(255,255,255,0.2);
+    color:rgba(255,255,255,0.6); cursor:pointer;
+    transition:all 0.2s;
+  }
+  .score-reset:hover { border-color:var(--red); color:#fff; background:var(--red); }
+
+  /* SEPARATOR */
+  .sep { height:1px; background:linear-gradient(to right,transparent,var(--gold),transparent); margin:3rem 0; opacity:0.4; }
+
+  /* FOOTER */
+  footer {
+    background:var(--ink);
+    text-align:center;
+    padding:2rem;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.65rem; letter-spacing:0.2em;
+    color:rgba(245,240,232,0.3); text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Histoire · DS 2026</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('cours')">📖 Cours</button>
+    <button class="nav-tab" onclick="showPage('exercices')">✏️ Exercices</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════
+     PAGE COURS
+══════════════════════════════════ -->
+<div id="page-cours" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-year">1968</div>
+    <div class="hero-content">
+      <div class="hero-subtitle">Révisions DS · Terminale · 1968–1991</div>
+      <h1 class="hero-title">Le monde en <em>rupture</em><br>et la France face à l'Histoire</h1>
+      <p class="hero-desc">Guerre froide, construction européenne, révolutions, décolonisation — navigue à travers les grandes crises du XXe siècle.</p>
+      <div class="hero-scroll">↓ Défiler pour apprendre</div>
+    </div>
+  </div>
+
+  <!-- ── CHAPITRE 1 : 1968 ── -->
+  <div class="chapter">
+    <div class="chapter-inner">
+      <div class="epoch"><div class="epoch-line"></div><div class="epoch-label">Chapitre 1 — 1968</div><div class="epoch-line"></div></div>
+      <div class="ch-num">01 / Contexte mondial</div>
+      <h2 class="ch-title reveal">L'année 1968 :<br>un monde bipolaire qui se complexifie</h2>
+      <div class="ch-lead reveal">1968 marque un tournant : la Guerre froide ne se réduit plus à deux blocs figés. Partout, des contestations émergent — à l'Est comme à l'Ouest.</div>
+      <div class="ch-body">
+        <p class="reveal">La Guerre froide structure encore le monde en deux blocs (USA / URSS), mais cette architecture est de plus en plus contestée. On assiste à une multiplication des acteurs et des conflits qui échappent à la logique binaire des grandes puissances.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card reveal">
+          <div class="card-label">Doc 1 · Témoignage</div>
+          <div class="card-title">Contestation du Vietnam</div>
+          <div class="card-text">Des voix s'élèvent contre la guerre américaine au Vietnam. Ce mouvement critique à la fois les États-Unis <em>et</em> l'URSS — naissance de nouvelles idées dans le Tiers-monde.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Doc 2 · Photo — Sorbonne, Paris</div>
+          <div class="card-title">Mai 68 en France</div>
+          <div class="card-text">Des étudiants à la Sorbonne contestent leurs conditions de travail et s'opposent à la tradition. C'est un mouvement contestataire sans précédent qui secoue l'Occident.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Doc 3 · Presse — Prague</div>
+          <div class="card-title">Printemps de Prague</div>
+          <div class="card-text">La Tchécoslovaquie tente un assouplissement du communisme. Réponse soviétique : intervention militaire des troupes du Pacte de Varsovie. La contestation existe aussi <em>à l'intérieur du bloc de l'Est</em>.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Doc 4 · Carte</div>
+          <div class="card-title">Montée des contestations mondiales</div>
+          <div class="card-text">Une carte révèle la montée des violences et des contestations partout dans le monde : USA, Europe occidentale, pays communistes. Tous les camps sont touchés.</div>
+        </div>
+      </div>
+
+      <div class="quote-block reveal">
+        <div class="quote-text">En 1968, chaque camp connaît une vague de contestation. On assiste à une baisse de l'influence américaine en Amérique du Sud, à l'assassinat de Martin Luther King, à la naissance du mouvement hippie… La situation internationale devient de plus en plus complexe.</div>
+        <div class="quote-src">Synthèse — Cours de classe</div>
+      </div>
+
+      <div class="ch-body">
+        <p class="reveal"><strong>Le communisme révolutionnaire</strong> (inspiré de Che Guevara, du maoïsme) s'oppose au modèle soviétique classique. Le Tiers-monde cherche sa propre voie, distincte des deux Grands.</p>
+        <p class="reveal">Bilan : En 1968, le monde bipolaire est mis à l'épreuve par des acteurs multiples. La contestation devient un phénomène <em>universel</em>, signe que ni les USA ni l'URSS ne peuvent contrôler totalement leur sphère d'influence.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHAPITRE 2 : GUERRE D'ALGÉRIE ── -->
+  <div class="chapter alt">
+    <div class="chapter-inner">
+      <div class="epoch"><div class="epoch-line"></div><div class="epoch-label">Chapitre 2 — Décolonisation</div><div class="epoch-line"></div></div>
+      <div class="ch-num" style="color:var(--gold)">02 / La décolonisation française</div>
+      <h2 class="ch-title reveal">La guerre d'Algérie<br><span style="color:var(--red)">1954 – 1962</span></h2>
+      <div class="ch-lead reveal">L'Algérie, colonisée dès 1830 et divisée en départements français, est au cœur d'un conflit qui va ébranler la IVe République et provoquer la naissance de la Ve.</div>
+
+      <div class="timeline">
+        <div class="tl-event">
+          <div class="tl-date">1er novembre 1954 — « Toussaint Rouge »</div>
+          <div class="tl-fact">Le FLN (Front de Libération Nationale) déclenche une série d'attentats. La guerre commence, mais l'État français parle seulement d'« opérations de maintien de l'ordre ».</div>
+        </div>
+        <div class="tl-event">
+          <div class="tl-date">1956</div>
+          <div class="tl-fact">La IVe République (René Coty) envoie le contingent : des jeunes de service militaire partent 28 mois après seulement 2 mois de formation. L'opinion commence à basculer contre la guerre.</div>
+        </div>
+        <div class="tl-event">
+          <div class="tl-date">Juin 1958</div>
+          <div class="tl-fact">L'instabilité politique provoque la chute de la IVe République. De Gaulle revient au pouvoir. Les partisans de l'Algérie française espèrent qu'il maintiendra la présence française.</div>
+        </div>
+        <div class="tl-event">
+          <div class="tl-date">1959</div>
+          <div class="tl-fact">De Gaulle comprend que l'indépendance est inéluctable et engage le processus de décolonisation — contre l'avis des partisans de l'Algérie française.</div>
+        </div>
+        <div class="tl-event">
+          <div class="tl-date">1961 — Attentat du Petit-Clamart</div>
+          <div class="tl-fact">L'OAS (Organisation Armée Secrète) tente d'assassiner De Gaulle. Cet événement le convainc d'accélérer la réforme constitutionnelle (élection du président au suffrage universel).</div>
+        </div>
+        <div class="tl-event">
+          <div class="tl-date">Mars 1962 — Accords d'Évian</div>
+          <div class="tl-fact">Fin des combats. Accord de paix.</div>
+        </div>
+        <div class="tl-event">
+          <div class="tl-date">Juillet 1962</div>
+          <div class="tl-fact">L'indépendance de l'Algérie est proclamée. Le FLN prend le pouvoir. Des centaines de milliers de Pieds-Noirs (Européens d'Algérie) fuient vers la France.</div>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card reveal">
+          <div class="card-label">Acteur clé</div>
+          <div class="card-title">Les Pieds-Noirs</div>
+          <div class="card-text">Européens installés en Algérie depuis des générations, ils quittent massivement le pays pour la métropole après l'indépendance.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Acteur clé</div>
+          <div class="card-title">Les Harkis</div>
+          <div class="card-text">Algériens engagés dans l'armée française, considérés comme des traîtres par le FLN. Beaucoup sont exécutés. Ceux qui fuient en France sont mal accueillis. Reconnaissance officielle seulement dans les années 1990-2000 (Chirac).</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Conséquence politique</div>
+          <div class="card-title">Naissance de la Ve République</div>
+          <div class="card-text">La crise algérienne détruit la IVe République. De Gaulle instaure un régime présidentiel fort, avec l'élection du président au suffrage universel direct.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHAPITRE 3 : TIERS MONDE / BANDUNG ── -->
+  <div class="chapter">
+    <div class="chapter-inner">
+      <div class="epoch"><div class="epoch-line"></div><div class="epoch-label">Chapitre 3 — Tiers-monde</div><div class="epoch-line"></div></div>
+      <div class="ch-num">03 / Le Tiers-monde s'affirme</div>
+      <h2 class="ch-title reveal">Bandung 1955 :<br>les non-alignés</h2>
+      <div class="ch-lead reveal">Le terme « Tiers-monde » est inventé en 1952 par l'économiste Alfred Sauvy pour désigner les pays qui refusent de choisir entre les deux blocs.</div>
+      <div class="ch-body">
+        <p class="reveal">En 1955, la <strong>Conférence de Bandung</strong> réunit l'Inde, l'Égypte, l'Indonésie et des observateurs comme le FLN algérien. Ces pays forment le <strong>mouvement des non-alignés</strong>, qui s'élargira lors de la conférence de Belgrade (Yougoslavie de Tito, Cuba…).</p>
+      </div>
+      <div class="cards">
+        <div class="card reveal">
+          <div class="card-label">Crise 1956</div>
+          <div class="card-title">Suez — Triomphe de Nasser</div>
+          <div class="card-text">L'Égyptien Nasser nationalise le canal de Suez. France, UK et Israël interviennent militairement mais sont contraints de reculer sous la pression des deux Grands. Victoire symbolique du Tiers-monde.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Mouvement</div>
+          <div class="card-title">Le Panarabisme</div>
+          <div class="card-text">Porté par Nasser, ce mouvement vise à unifier les peuples arabes face à l'impérialisme occidental.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Chine & Tiers-monde</div>
+          <div class="card-title">Bandung : la Chine comme modèle</div>
+          <div class="card-text">À Bandung, la Chine se positionne comme le leader des pays colonisés, offrant une alternative au modèle soviétique — avant de rompre avec l'URSS au début des années 1960.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHAPITRE 4 : FRANCE GUERRE FROIDE ── -->
+  <div class="chapter blue-bg">
+    <div class="chapter-inner">
+      <div class="epoch"><div class="epoch-line"></div><div class="epoch-label">Chapitre 4 — La France & la Guerre froide</div><div class="epoch-line"></div></div>
+      <div class="ch-num" style="color:#7ab8f5">04 / De Gaulle et la grandeur nationale</div>
+      <h2 class="ch-title reveal">La France entre les blocs :<br>une voie indépendante</h2>
+      <div class="ch-lead reveal">Comment la France, après les humiliations d'Indochine, d'Algérie et de Suez, retrouve-t-elle un rang de grande puissance ? Par une politique d'indépendance radicale vis-à-vis des États-Unis.</div>
+
+      <div class="cards">
+        <div class="card reveal">
+          <div class="card-label">Axe 1 — Indépendance militaire</div>
+          <div class="card-title">La bombe atomique française</div>
+          <div class="card-text">La France refuse de dépendre des USA pour sa défense. Elle développe sa propre bombe nucléaire (premier essai à Mururoa). En 1966, De Gaulle retire la France du commandement intégré de l'OTAN et expulse les bases américaines.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Axe 2 — Dialogue avec l'Est</div>
+          <div class="card-title">Khrouchtchev & De Gaulle</div>
+          <div class="card-text">La France développe des relations diplomatiques avec le bloc communiste (rencontre De Gaulle / Khrouchtchev, mars 1960). Puis reconnaissance de la République Populaire de Chine le 8 janvier 1964.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Axe 3 — Soutien au Tiers-monde</div>
+          <div class="card-title">Le discours de Phnom Penh</div>
+          <div class="card-text">De Gaulle s'oppose publiquement à l'intervention américaine au Vietnam. Il propose une aide économique à l'Amérique latine, s'attaquant à la « chasse gardée » américaine.</div>
+        </div>
+      </div>
+
+      <div class="fact-box reveal">
+        <div class="fact-icon">⚡</div>
+        <div class="fact-text"><strong>7 mars 1966 :</strong> Le général de Gaulle officialise le retrait de la France du commandement intégré de l'OTAN. Il expulse les bases américaines du territoire français pour retrouver une pleine souveraineté — « Yankee Go Home ».</div>
+      </div>
+
+      <div class="quote-block reveal">
+        <div class="quote-text">La stratégie de De Gaulle repose sur une ambition simple : la grandeur et l'indépendance de la France — visant l'émergence d'un troisième bloc neutre entre l'Est et l'Ouest.</div>
+        <div class="quote-src">Conclusion — Travail de classe (Cyprien, Ambroise, Pierre, Louna, Mohamed)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHAPITRE 5 : FRANCE CONSTRUCTION EUROPÉENNE ── -->
+  <div class="chapter">
+    <div class="chapter-inner">
+      <div class="epoch"><div class="epoch-line"></div><div class="epoch-label">Chapitre 5 — Construction européenne</div><div class="epoch-line"></div></div>
+      <div class="ch-num">05 / La France dans l'Europe</div>
+      <h2 class="ch-title reveal">Moteur et obstacle :<br>la France face à l'Europe</h2>
+      <div class="ch-lead reveal">La France est à la fois initiatrice de la construction européenne et son principal frein, lorsqu'elle juge ses intérêts nationaux menacés.</div>
+
+      <div class="cards">
+        <div class="card reveal">
+          <div class="card-label">1951 — Robert Schuman</div>
+          <div class="card-title">La CECA</div>
+          <div class="card-text">Communauté Européenne du Charbon et de l'Acier. Première organisation supranationale européenne. La France en est un moteur essentiel, pour reconstruire économiquement et lier l'Allemagne.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">1957</div>
+          <div class="card-title">Le Traité de Rome</div>
+          <div class="card-text">Crée la CEE (Communauté Économique Européenne). Marché commun, libre circulation. La France y voit des avantages commerciaux (PAC — Politique Agricole Commune).</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">1965 — Crise</div>
+          <div class="card-title">La « Chaise vide »</div>
+          <div class="card-text">De Gaulle boycotte les institutions européennes : la France n'envoie plus de représentants. Comme les décisions se prennent à l'unanimité, rien n'avance. La CEE est paralysée.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Opposition — Veto</div>
+          <div class="card-title">Plan Fouchet & UK rejeté</div>
+          <div class="card-text">Le plan Fouchet échoue (avril 1962) : opposition belgo-néerlandaise car ce projet enterrerait l'Europe supranationale. De Gaulle oppose son <strong>veto à l'entrée du Royaume-Uni</strong> dans le Marché commun, le considérant comme le « cheval de Troie » américain.</div>
+        </div>
+      </div>
+
+      <div class="fact-box reveal">
+        <div class="fact-icon">⚖️</div>
+        <div class="fact-text"><strong>Tension centrale :</strong> Opposition entre <strong>souverainistes</strong> (les gaullistes — préserver la souveraineté nationale) et <strong>fédéralistes</strong> (partisans d'une Europe supranationale intégrée). Ce débat structure la politique européenne française jusqu'à aujourd'hui.</div>
+      </div>
+
+      <div class="ch-body">
+        <p class="reveal">La France conditionne son engagement européen à la préservation de ses propres intérêts. L'objectif de De Gaulle : une Europe des nations autonome, ni fédérale ni sous influence américaine.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHAPITRE 6 : RÉVOLUTION IRANIENNE ── -->
+  <div class="chapter rust-bg">
+    <div class="chapter-inner">
+      <div class="epoch"><div class="epoch-line"></div><div class="epoch-label">Chapitre 6 — Années 70–80</div><div class="epoch-line"></div></div>
+      <div class="ch-num" style="color:#e07060">06 / Les remises en cause</div>
+      <h2 class="ch-title reveal">La Révolution Islamique d'Iran<br><span style="color:#e07060">1979</span></h2>
+      <div class="ch-lead reveal">L'Iran du Shah, allié des États-Unis, s'effondre. Une révolution islamique chiite recompose l'équilibre du Moyen-Orient.</div>
+
+      <div class="ch-body">
+        <p class="reveal">Depuis 1941, l'Iran est dirigé par le <strong>Shah Mohammad Reza</strong>. En 1963, il lance la « Révolution blanche » : modernisation, émancipation des femmes, occidentalisation forcée. Objectif : faire de l'Iran une grande puissance. Mais cette modernisation brutale crée une fracture profonde dans la société iranienne.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card reveal">
+          <div class="card-label">Raisons sociales/économiques</div>
+          <div class="card-title">Inégalités et pauvreté</div>
+          <div class="card-text">La modernisation profite à une élite liée au Shah, tandis que la majorité de la population reste pauvre. Les fastes du régime choquent.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Raisons politiques</div>
+          <div class="card-title">La SAVAK — terreur d'État</div>
+          <div class="card-text">Police secrète impitoyable, corruption généralisée, dérive autoritaire, atteintes à la Constitution. Le Shah dirige une dictature répressive.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Raisons religieuses</div>
+          <div class="card-title">L'occidentalisation comme affront</div>
+          <div class="card-text">Les religieux chiites rejettent l'occidentalisation comme un « affront à l'Islam ». L'ayatollah Khomeini, en exil, devient le symbole de la résistance.</div>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-event">
+          <div class="tl-date">7 janvier 1978</div>
+          <div class="tl-fact">Tribune gouvernementale contre Khomeini → soulèvement de Qom et Tabriz.</div>
+        </div>
+        <div class="tl-event">
+          <div class="tl-date">Été 1978</div>
+          <div class="tl-fact">Émeutes massives, attentats (incendie d'un cinéma : 401 morts), rassemblements à Téhéran réunissant religieux et laïcs.</div>
+        </div>
+        <div class="tl-event">
+          <div class="tl-date">8 septembre 1978 — « Vendredi Noir »</div>
+          <div class="tl-fact">Le Shah décrète la loi martiale. L'armée tire sur des milliers d'étudiants à Téhéran.</div>
+        </div>
+        <div class="tl-event">
+          <div class="tl-date">Janvier 1979</div>
+          <div class="tl-fact">Fuite du Shah d'Iran.</div>
+        </div>
+        <div class="tl-event">
+          <div class="tl-date">1er février 1979</div>
+          <div class="tl-fact">Retour triomphal de l'ayatollah Khomeini à Téhéran après 15 ans d'exil. Proclamation de la République Islamique (théocratie chiite).</div>
+        </div>
+      </div>
+
+      <div class="fact-box reveal">
+        <div class="fact-icon">🌍</div>
+        <div class="fact-text"><strong>Conséquences internationales :</strong> Rupture Iran–USA (crise des otages à l'ambassade américaine), rupture avec Israël, inquiétude des pays sunnites voisins (Arabie Saoudite, Irak de Saddam Hussein) → guerre Iran-Irak 1980–1988.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHAPITRE 7 : REAGAN / DENG / MITTERRAND ── -->
+  <div class="chapter alt">
+    <div class="chapter-inner">
+      <div class="epoch"><div class="epoch-line"></div><div class="epoch-label">Chapitre 7 — Le tournant néolibéral</div><div class="epoch-line"></div></div>
+      <div class="ch-num" style="color:var(--gold)">07 / Trois modèles économiques</div>
+      <h2 class="ch-title reveal">Reagan, Deng Xiaoping,<br>Mitterrand : trois voies</h2>
+      <div class="ch-lead reveal">Face aux crises des années 70, trois pays font des choix radicalement différents pour relancer leur économie.</div>
+
+      <div class="cards">
+        <div class="card reveal">
+          <div class="card-label">États-Unis 1981–1989</div>
+          <div class="card-title">Ronald Reagan — le « Gipper »</div>
+          <div class="card-text">Contexte de doute post-Vietnam, Watergate, crise des otages iraniens. Reagan baisse les taxes de +20% et les impôts de ~40%. Politique ultra-libérale favorable aux grandes entreprises. C'est le <strong>Reaganomics</strong> (néolibéralisme).</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">Chine 1978–1992</div>
+          <div class="card-title">Deng Xiaoping — « Socialisme de marché »</div>
+          <div class="card-text">Successeur de Mao, il met en place les <strong>Quatre Modernisations</strong> (agriculture, industrie, science, défense) et crée les <strong>ZES</strong> (Zones Économiques Spéciales). La Chine s'ouvre à la mondialisation tout en restant sous contrôle du parti communiste. Croissance jusqu'à 10% !</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">France 1981</div>
+          <div class="card-title">François Mitterrand — la voie de gauche</div>
+          <div class="card-text">Élu en mai 1981, Mitterrand fait le choix inverse de Reagan : nationalisations massives, impôt sur les grandes fortunes, augmentation du SMIC, semaine de 39h, 5e semaine de congés payés, retraite à 60 ans, abolition de la peine de mort.</div>
+        </div>
+      </div>
+
+      <div class="ch-body">
+        <p class="reveal"><strong>Bilan pour la Chine :</strong> Les ZES (4 villes puis 14 autres) permettent une croissance exceptionnelle mais creusent les inégalités entre le littoral et l'intérieur. Contrairement à l'URSS, le contrôle total de l'État évite l'effondrement du régime.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHAPITRE 8 : MITTERRAND & SOCIÉTÉ ── -->
+  <div class="chapter">
+    <div class="chapter-inner">
+      <div class="epoch"><div class="epoch-line"></div><div class="epoch-label">Chapitre 8 — Société française</div><div class="epoch-line"></div></div>
+      <div class="ch-num">08 / Les transformations de la société</div>
+      <h2 class="ch-title reveal">Les grandes réformes sociales :<br>de la loi Veil à Mitterrand</h2>
+      <div class="ch-lead reveal">Entre les années 1970 et 1991, la société française se transforme profondément, sous l'impulsion de réformes législatives majeures.</div>
+
+      <div class="cards">
+        <div class="card reveal">
+          <div class="card-label">1975 — Simone Veil</div>
+          <div class="card-title">Loi sur l'IVG</div>
+          <div class="card-text">La loi Veil légalise l'interruption volontaire de grossesse en France. Débat parlementaire intense, vote courageux de Veil. Grande avancée pour le droit des femmes.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">1981 — Mitterrand</div>
+          <div class="card-title">Abolition de la peine de mort</div>
+          <div class="card-text">Robert Badinter, garde des Sceaux, défend l'abolition. La France rejoint les démocraties européennes qui ont banni la peine capitale. Dernière exécution en 1977 (Hamida Djandoubi, guillotiné).</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">1981 — Social</div>
+          <div class="card-title">Abrogation du délit d'homosexualité</div>
+          <div class="card-text">L'homosexualité n'est plus un délit pénal. Grande avancée pour les droits LGBTQ+.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">1981–1982 — Culture</div>
+          <div class="card-title">Libération culturelle</div>
+          <div class="card-text">Autorisation des radios privées locales, création de la Fête de la Musique, de la Fête du Cinéma, création de la Haute Autorité de l'Audiovisuel.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">1981 — Travail</div>
+          <div class="card-title">Réformes du travail</div>
+          <div class="card-text">Durée de travail réduite à 39h (puis 35h plus tard), 5e semaine de congés payés, âge de la retraite abaissé à 60 ans, augmentation du SMIC.</div>
+        </div>
+        <div class="card reveal">
+          <div class="card-label">1981 — Économique</div>
+          <div class="card-title">Nationalisations & ISF</div>
+          <div class="card-text">Vagues de nationalisations (banques, industries), politique de Grands Travaux (Louvre, Opéra Bastille…), mise en place de l'Impôt de Solidarité sur la Fortune (ISF).</div>
+        </div>
+      </div>
+
+      <div class="quote-block reveal">
+        <div class="quote-text">La France de Mitterrand fait le choix inverse du néolibéralisme : là où Reagan baisse les impôts des riches, Mitterrand les taxe. Là où Thatcher privatise, Mitterrand nationalise. C'est un laboratoire unique d'une politique de gauche au pouvoir.</div>
+        <div class="quote-src">Synthèse — Cours</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EURO -->
+  <div class="chapter blue-bg">
+    <div class="chapter-inner">
+      <div class="epoch"><div class="epoch-line"></div><div class="epoch-label">Bonus — La monnaie unique</div><div class="epoch-line"></div></div>
+      <div class="ch-num" style="color:#7ab8f5">Bonus / L'euro</div>
+      <h2 class="ch-title reveal">Le projet de monnaie unique</h2>
+      <div class="ch-body">
+        <p class="reveal">Le projet de monnaie unique est né à la fin des années 1980. Les premiers pays l'adoptent <strong>en 1999</strong>. Mis en circulation progressivement entre 2000 et 2001. En janvier 2026, la Bulgarie a rejoint la zone euro. Il reste 6 États membres de l'UE qui n'utilisent pas l'euro (dont la Suède par choix, la Hongrie faute de conditions remplies).</p>
+        <p class="reveal"><strong>Taux actuels (mai 2026) :</strong> 1 € = 1,17 $ (USD) · 1 € = 1,89 £ (GBP) · 1 € = 8 ¥ Renminbi (CNY).</p>
+        <p class="reveal">Les prochains billets mettront à l'honneur la culture européenne (Marie Curie…) puis les fleuves et la nature.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>Révisions DS Histoire · Thème 3 · 1968–1991 · Site créé pour apprendre</footer>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE EXERCICES
+══════════════════════════════════ -->
+<div id="page-exercices" class="page">
+  <div class="ex-hero">
+    <h1>Exercices & Auto-évaluation</h1>
+    <p>Teste tes connaissances — Dates · Acteurs · Événements</p>
+  </div>
+
+  <div class="score-bar">
+    <div>
+      <div class="score-label">Score</div>
+      <div class="score-val" id="scoreDisplay">0 / 0</div>
+    </div>
+    <button class="score-reset" onclick="resetScore()">↺ Réinitialiser</button>
+  </div>
+
+  <div class="ex-content">
+
+    <!-- QCM 1 — 1968 -->
+    <div class="ex-section-title">📅 Quiz — L'année 1968 dans le monde</div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>Q1</span>Que se passe-t-il à Prague en 1968 ?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Les troupes soviétiques interviennent bel et bien, mais c\'est pour <em>écraser</em> le Printemps de Prague, pas pour le soutenir.')"><span class="opt-letter">A</span>L'URSS soutient le mouvement de libéralisation tchécoslovaque</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Correct ! L\'URSS et les troupes du Pacte de Varsovie écrasent le Printemps de Prague — tentative d\'assouplissement du communisme par Dubček.')"><span class="opt-letter">B</span>L'URSS et le Pacte de Varsovie écrasent le Printemps de Prague</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — les États-Unis ne sont pas intervenus en Tchécoslovaquie.')"><span class="opt-letter">C</span>Les États-Unis envahissent la Tchécoslovaquie</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — 1968 est une rupture, pas une réconciliation.')"><span class="opt-letter">D</span>La Tchécoslovaquie rejoint l'OTAN</button>
+      </div>
+      <div class="quiz-feedback" id="fb-0"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>Q2</span>Qu'est-ce que le « Mai 68 » en France illustre principalement ?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Non — Mai 68 est un mouvement de contestation sociale et culturelle, pas une révolution communiste.')"><span class="opt-letter">A</span>Une révolution communiste</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — le mouvement est notamment dirigé contre le gaullisme et la société de consommation.')"><span class="opt-letter">B</span>Un soutien massif au général de Gaulle</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Exact ! Des étudiants contestent leurs conditions de travail, les valeurs traditionnelles, et déclenchent une grève générale. C\'est le symbole de la contestation en Occident.')"><span class="opt-letter">C</span>Un mouvement contestataire étudiant et ouvrier contre la société traditionnelle</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — c\'est l\'inverse : c\'est une remise en cause des institutions.')"><span class="opt-letter">D</span>Une adhésion enthousiaste aux valeurs de la Ve République</button>
+      </div>
+      <div class="quiz-feedback" id="fb-1"></div>
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- QCM 2 — Algérie / Décolonisation -->
+    <div class="ex-section-title">🌍 Quiz — La guerre d'Algérie</div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>Q3</span>Qu'est-ce que la « Toussaint Rouge » (1er nov. 1954) ?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Non — ce sont des attentats, pas une bataille.')"><span class="opt-letter">A</span>Une grande bataille entre l'armée française et le FLN</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Correct ! Le FLN déclenche une série d\'attentats le 1er novembre 1954, marquant le début de la guerre d\'Algérie.')"><span class="opt-letter">B</span>La série d'attentats du FLN qui marque le début de la guerre d'Algérie</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — les accords d\'Évian sont signés en mars 1962.')"><span class="opt-letter">C</span>La signature des accords d'Évian</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — la fuite du Shah est un événement iranien de 1979.')"><span class="opt-letter">D</span>La fuite du Shah d'Iran</button>
+      </div>
+      <div class="quiz-feedback" id="fb-2"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>Q4</span>Qui sont les Harkis ?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Non — les Pieds-Noirs sont les Européens installés en Algérie.')"><span class="opt-letter">A</span>Les Européens nés en Algérie (Pieds-Noirs)</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — ce sont des Algériens, pas des soldats métropolitains.')"><span class="opt-letter">B</span>Des soldats français métropolitains</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Exact ! Les Harkis sont des Algériens qui ont combattu aux côtés de l\'armée française. Après l\'indépendance, beaucoup ont été exécutés par le FLN. Ceux qui ont fui en France ont été mal accueillis. Reconnaissance officielle sous Chirac dans les années 1990-2000.')"><span class="opt-letter">C</span>Des Algériens qui ont combattu aux côtés de l'armée française</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — l\'OAS est une organisation terroriste pro-Algérie française, différente des Harkis.')"><span class="opt-letter">D</span>Les membres de l'OAS</button>
+      </div>
+      <div class="quiz-feedback" id="fb-3"></div>
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- QCM 3 — France Guerre froide / Europe -->
+    <div class="ex-section-title">🇫🇷 Quiz — France, Guerre froide & Europe</div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>Q5</span>Que fait De Gaulle le 7 mars 1966 par rapport à l'OTAN ?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Non — De Gaulle fait exactement l\'inverse !')"><span class="opt-letter">A</span>Il renforce l'engagement français dans l'OTAN</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — la France ne rejoindra le commandement intégré de l\'OTAN que sous Sarkozy en 2009.')"><span class="opt-letter">B</span>Il crée l'OTAN</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Parfait ! De Gaulle retire la France du commandement intégré de l\'OTAN et expulse les bases américaines du territoire français pour affirmer la pleine souveraineté nationale.')"><span class="opt-letter">C</span>Il retire la France du commandement intégré et expulse les bases américaines</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — la dissolution est impossible, l\'OTAN est une alliance internationale.')"><span class="opt-letter">D</span>Il dissout l'OTAN</button>
+      </div>
+      <div class="quiz-feedback" id="fb-4"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>Q6</span>Qu'est-ce que la « politique de la chaise vide » ?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Non — c\'est une politique française, pas américaine.')"><span class="opt-letter">A</span>La décision américaine de quitter les institutions européennes</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Exact ! La France refuse d\'envoyer ses représentants aux réunions du Conseil de la CEE (1965). Comme les décisions se prennent à l\'unanimité, rien ne peut être voté en l\'absence de la France — la CEE est paralysée.')"><span class="opt-letter">B</span>La France boycotte les institutions de la CEE, paralysant les décisions</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — c\'est une crise politique, pas économique.')"><span class="opt-letter">C</span>La crise économique de l'Europe des années 1970</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — c\'est tout le contraire !')"><span class="opt-letter">D</span>Le refus de la France de rejoindre l'Europe</button>
+      </div>
+      <div class="quiz-feedback" id="fb-5"></div>
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- QCM 4 — Iran / Reagan / Mitterrand -->
+    <div class="ex-section-title">🕌 Quiz — Iran, Reagan, Mitterrand</div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>Q7</span>Qu'est-ce que le « Vendredi noir » en Iran (8 septembre 1978) ?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Non — Khomeini n\'est rentré qu\'en février 1979.')"><span class="opt-letter">A</span>Le retour de Khomeini à Téhéran</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — c\'est l\'inverse : le Shah fuit en janvier 1979.')"><span class="opt-letter">B</span>La fuite du Shah</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Correct ! Le 8 septembre 1978, le Shah décrète la loi martiale. L\'armée tire sur des milliers d\'étudiants manifestants à Téhéran, faisant de nombreuses victimes. C\'est un tournant dans la révolution.')"><span class="opt-letter">C</span>Le Shah décrète la loi martiale ; l'armée tire sur des étudiants manifestants</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — la République islamique est proclamée officiellement deux mois après le retour de Khomeini (début 1979).')"><span class="opt-letter">D</span>La proclamation de la République islamique</button>
+      </div>
+      <div class="quiz-feedback" id="fb-6"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>Q8</span>Quelle réforme majeure Mitterrand fait-il voter en 1981 liée à la justice ?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Non — c\'est une loi antérieure (loi Veil, 1975).')"><span class="opt-letter">A</span>La légalisation de l'IVG</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — la semaine de 35h n\'a été votée que sous Jospin, à la fin des années 1990.')"><span class="opt-letter">B</span>La semaine de 35 heures</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Bravo ! Robert Badinter, garde des Sceaux, défend l\'abolition. La France abolit la peine de mort en 1981. Dernière exécution en 1977.')"><span class="opt-letter">C</span>L'abolition de la peine de mort</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — bien que Mitterrand abaisse l\'âge de la retraite à 60 ans, ce n\'est pas lié à la justice.')"><span class="opt-letter">D</span>La retraite à 55 ans</button>
+      </div>
+      <div class="quiz-feedback" id="fb-7"></div>
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- DATES -->
+    <div class="ex-section-title">📆 Jeu des dates — Complète l'année</div>
+
+    <div class="date-game">
+      <div class="date-game-q">📌 Les Accords d'Évian (fin de la guerre d'Algérie) sont signés en mars…</div>
+      <div class="date-input-row">
+        <input class="date-input" id="d1" type="text" placeholder="19__">
+        <button class="date-btn" onclick="checkDate('d1','1962','r1')">Vérifier</button>
+      </div>
+      <div class="date-result" id="r1"></div>
+    </div>
+
+    <div class="date-game">
+      <div class="date-game-q">📌 La conférence de Bandung (non-alignés) a lieu en…</div>
+      <div class="date-input-row">
+        <input class="date-input" id="d2" type="text" placeholder="19__">
+        <button class="date-btn" onclick="checkDate('d2','1955','r2')">Vérifier</button>
+      </div>
+      <div class="date-result" id="r2"></div>
+    </div>
+
+    <div class="date-game">
+      <div class="date-game-q">📌 Le retour triomphal de Khomeini à Téhéran a lieu le 1er février…</div>
+      <div class="date-input-row">
+        <input class="date-input" id="d3" type="text" placeholder="19__">
+        <button class="date-btn" onclick="checkDate('d3','1979','r3')">Vérifier</button>
+      </div>
+      <div class="date-result" id="r3"></div>
+    </div>
+
+    <div class="date-game">
+      <div class="date-game-q">📌 De Gaulle retire la France du commandement intégré de l'OTAN en…</div>
+      <div class="date-input-row">
+        <input class="date-input" id="d4" type="text" placeholder="19__">
+        <button class="date-btn" onclick="checkDate('d4','1966','r4')">Vérifier</button>
+      </div>
+      <div class="date-result" id="r4"></div>
+    </div>
+
+    <div class="date-game">
+      <div class="date-game-q">📌 La CECA (premier jalon européen porté par Schuman) est créée en…</div>
+      <div class="date-input-row">
+        <input class="date-input" id="d5" type="text" placeholder="19__">
+        <button class="date-btn" onclick="checkDate('d5','1951','r5')">Vérifier</button>
+      </div>
+      <div class="date-result" id="r5"></div>
+    </div>
+
+    <div class="date-game">
+      <div class="date-game-q">📌 Mitterrand est élu président de la République en…</div>
+      <div class="date-input-row">
+        <input class="date-input" id="d6" type="text" placeholder="19__">
+        <button class="date-btn" onclick="checkDate('d6','1981','r6')">Vérifier</button>
+      </div>
+      <div class="date-result" id="r6"></div>
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- ACTEURS -->
+    <div class="ex-section-title">👤 Associe l'acteur à son rôle</div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>Q9</span>Qui est l'ayatollah Khomeini ?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Non — le Shah est Mohammad Reza Pahlavi, le monarque iranien renversé.')"><span class="opt-letter">A</span>Le Shah d'Iran renversé en 1979</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — Nasser est le président égyptien, figure du panarabisme.')"><span class="opt-letter">B</span>Le président égyptien qui a nationalisé Suez</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Exact ! Khomeini est le guide religieux chiite en exil qui revient triomphalement en Iran le 1er février 1979 pour diriger la République Islamique — une théocratie.')"><span class="opt-letter">C</span>Le guide religieux chiite qui dirige la Révolution islamique et la République islamique d'Iran</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — Robert Badinter est le garde des Sceaux de Mitterrand, artisan de l\'abolition de la peine de mort en France.')"><span class="opt-letter">D</span>Le ministre français qui abolit la peine de mort</button>
+      </div>
+      <div class="quiz-feedback" id="fb-8"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>Q10</span>Qu'est-ce que la politique des « Quatre Modernisations » de Deng Xiaoping ?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Non — la Révolution culturelle, c\'est Mao, pas Deng.')"><span class="opt-letter">A</span>La continuité de la Révolution culturelle de Mao</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Parfait ! Deng modernise l\'agriculture, l\'industrie, la science et la défense. Il ouvre la Chine à la mondialisation avec les ZES tout en maintenant le parti unique communiste au pouvoir.')"><span class="opt-letter">B</span>La modernisation de l'agriculture, l'industrie, la science et la défense, avec ouverture aux marchés étrangers (ZES)</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — c\'est Reagan qui privatise massivement.')"><span class="opt-letter">C</span>Un programme de privatisations massives à l'américaine</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — la Chine reste un parti unique sous Deng, même s\'il y a des ZES.')"><span class="opt-letter">D</span>La démocratisation de la Chine sur le modèle occidental</button>
+      </div>
+      <div class="quiz-feedback" id="fb-9"></div>
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- VRAI/FAUX -->
+    <div class="ex-section-title">✅ Vrai ou Faux</div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>VF1</span>« De Gaulle a soutenu l'entrée du Royaume-Uni dans le Marché commun européen. »</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Non — c\'est le contraire ! De Gaulle a mis son veto à l\'adhésion britannique à deux reprises (1963 et 1967), la considérant comme le cheval de Troie américain dans l\'Europe.')"><span class="opt-letter">✓</span>Vrai</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Exact ! De Gaulle s\'est opposé à deux reprises à l\'entrée du Royaume-Uni dans le Marché commun, craignant qu\'il serve les intérêts américains.')"><span class="opt-letter">✗</span>Faux</button>
+      </div>
+      <div class="quiz-feedback" id="fb-10"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>VF2</span>« La conférence de Bandung (1955) réunit des pays qui refusent de choisir entre les deux blocs. »</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,true,'Correct ! Bandung réunit les non-alignés : Inde, Égypte, Indonésie… Ces pays refusent d\'appartenir ni au bloc occidental ni au bloc soviétique.')"><span class="opt-letter">✓</span>Vrai</button>
+        <button class="quiz-opt" onclick="answer(this,false,'Non — Bandung est précisément la conférence fondatrice du mouvement des non-alignés.')"><span class="opt-letter">✗</span>Faux</button>
+      </div>
+      <div class="quiz-feedback" id="fb-11"></div>
+    </div>
+
+    <div class="quiz-block">
+      <div class="quiz-q"><span>VF3</span>« L'OAS était favorable à l'indépendance de l'Algérie. »</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,false,'Non ! L\'OAS est au contraire violemment anti-indépendantiste. Elle commet des attentats pour empêcher l\'indépendance de l\'Algérie, allant jusqu\'à tenter d\'assassiner De Gaulle.')"><span class="opt-letter">✓</span>Vrai</button>
+        <button class="quiz-opt" onclick="answer(this,true,'Exact ! L\'OAS (Organisation de l\'Armée Secrète) lutte par le terrorisme pour maintenir l\'Algérie française. Elle s\'oppose directement à De Gaulle.')"><span class="opt-letter">✗</span>Faux</button>
+      </div>
+      <div class="quiz-feedback" id="fb-12"></div>
+    </div>
+
+    <div style="height:3rem;"></div>
+  </div>
+
+  <footer>Bon courage pour ton DS ! 💪 Histoire · Thème 3 · 1968–1991</footer>
+</div>
+
+<script>
+// ── NAVIGATION ──
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+function initReveal() {
+  document.querySelectorAll('.reveal, .tl-event, .card').forEach(el => {
+    observer.observe(el);
+  });
+}
+initReveal();
+
+// ── SCORE ──
+let correct = 0, total = 0;
+const answered = {};
+
+function updateScore() {
+  document.getElementById('scoreDisplay').textContent = correct + ' / ' + total;
+}
+
+function resetScore() {
+  correct = 0; total = 0;
+  Object.keys(answered).forEach(k => delete answered[k]);
+  updateScore();
+  document.querySelectorAll('.quiz-opt').forEach(b => {
+    b.classList.remove('correct','wrong');
+    b.disabled = false;
+  });
+  document.querySelectorAll('.quiz-feedback').forEach(f => {
+    f.className = 'quiz-feedback';
+    f.innerHTML = '';
+  });
+}
+
+function answer(btn, isCorrect, explanation) {
+  const block = btn.closest('.quiz-block');
+  const fbId = block.querySelector('.quiz-feedback').id;
+  if(answered[fbId]) return;
+  answered[fbId] = true;
+  total++;
+  if(isCorrect) {
+    correct++;
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+    // Show correct answer highlighted
+    block.querySelectorAll('.quiz-opt').forEach(b => {
+      if(b !== btn) b.style.opacity = '0.5';
+    });
+  }
+  block.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+  const fb = document.getElementById(fbId);
+  fb.innerHTML = (isCorrect ? '✓ ' : '✗ ') + explanation;
+  fb.className = 'quiz-feedback ' + (isCorrect ? 'correct' : 'wrong');
+  updateScore();
+}
+
+// ── DATE GAME ──
+let dateAnswered = {};
+
+function checkDate(inputId, correct_ans, resultId) {
+  if(dateAnswered[inputId]) return;
+  const val = document.getElementById(inputId).value.trim();
+  const res = document.getElementById(resultId);
+  if(val === correct_ans) {
+    res.textContent = '✓ Parfait ! ' + correct_ans + ' — bonne réponse.';
+    res.className = 'date-result ok';
+    dateAnswered[inputId] = true;
+    total++; correct++;
+    updateScore();
+  } else if(val === '') {
+    res.textContent = 'Entre une année (ex: 1962)';
+    res.className = 'date-result ko';
+    res.style.display = 'block';
+  } else {
+    res.textContent = '✗ Raté… La bonne réponse est ' + correct_ans + '.';
+    res.className = 'date-result ko';
+    dateAnswered[inputId] = true;
+    total++;
+    updateScore();
+  }
+}
+
+// Allow pressing Enter on date inputs
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.date-input').forEach(input => {
+    input.addEventListener('keypress', (e) => {
+      if(e.key === 'Enter') {
+        input.nextElementSibling.click();
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
