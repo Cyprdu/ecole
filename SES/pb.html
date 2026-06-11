@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Générateur de Sujets SES - Terminale (Mode Entraînement)</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    
     <style>
         :root {
             --bg-color: #0f172a;
@@ -296,8 +300,6 @@
 
     </div>
 
-    <script src="[https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js](https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js)"></script>
-
     <script>
         const dataset = [
             {
@@ -444,7 +446,6 @@
         let currentActiveQuestion = null;
         let cachedAnswers = [];
 
-        // Sécurisation de l'accès au cache local (évite le crash sur une page blanche)
         try {
             const stored = localStorage.getItem('ses_cached_answers');
             if (stored) {
@@ -454,7 +455,6 @@
             console.warn("L'accès au cache local est bloqué par le navigateur, la sauvegarde automatique sera désactivée pour cette session.", e);
         }
 
-        // Affichage immédiat du compteur
         updateCounterDisplay();
 
         function updateCounterDisplay() {
@@ -525,7 +525,6 @@
             try {
                 localStorage.setItem('ses_cached_answers', JSON.stringify(cachedAnswers));
             } catch (e) {
-                // Ignore l'erreur si le cache est bloqué
             }
             updateCounterDisplay();
         }
@@ -554,11 +553,11 @@
         }
 
         function stopAndGeneratePDF() {
-            if (typeof html2pdf === "undefined") {
-                alert("Le moteur PDF est encore en train de se charger ou a été bloqué par votre navigateur. Veuillez réessayer dans quelques secondes.");
-                return;
-            }
+            generateStructuredPDF();
+        }
 
+        // Nouvelle fonction avec pdfmake
+        function generateStructuredPDF() {
             const answerField = document.getElementById("userAnswer");
             const answerText = answerField.value.trim();
 
@@ -575,77 +574,58 @@
             }
 
             if (cachedAnswers.length === 0) {
-                alert("Vous n'avez rédigé et soumis aucun plan détaillé pour le moment. Rédigez une réponse et soumettez-la avant de générer le fichier.");
+                alert("Vous n'avez rédigé et soumis aucun plan détaillé pour le moment.");
                 return;
             }
 
-            generateStructuredPDF();
-        }
-
-        function generateStructuredPDF() {
-            const containerNode = document.createElement('div');
-            containerNode.style.position = 'absolute';
-            containerNode.style.top = '-9999px';
-            containerNode.style.left = '-9999px';
-            containerNode.style.width = '190mm';
-            containerNode.style.padding = '30px';
-            containerNode.style.color = '#111827';
-            containerNode.style.backgroundColor = '#ffffff';
-            containerNode.style.fontFamily = '"Segoe UI", Arial, sans-serif';
-
-            let docHTML = `
-                <div style="text-align: center; border-bottom: 3px solid #3b82f6; padding-bottom: 20px; margin-bottom: 35px;">
-                    <h1 style="color: #1e3a8a; margin: 0 0 8px 0; font-size: 2.2rem; font-weight: bold;">Session d'Entraînement : Plans Détaillés SES</h1>
-                    <p style="color: #4b5563; margin: 0; font-size: 1.1rem;">Généré automatiquement le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}</p>
-                    <p style="color: #10b981; margin: 5px 0 0 0; font-size: 0.95rem; font-weight: bold; font-style: italic;">Prêt pour soumission et correction par l'IA</p>
-                </div>
-            `;
-
-            cachedAnswers.forEach((item, index) => {
-                docHTML += `
-                    <div style="margin-bottom: 40px; border: 1px solid #d1d5db; border-radius: 8px; padding: 22px; background-color: #f9fafb;">
-                        <div style="font-size: 0.85rem; color: #6b7280; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">
-                            Chapitre : ${item.chapter}
-                        </div>
-                        <div style="margin-bottom: 15px; display: flex; align-items: flex-start; gap: 10px;">
-                            <span style="background-color: #4f46e5; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; white-space: nowrap;">${item.type}</span>
-                            <strong style="font-size: 1.15rem; color: #111827; line-height: 1.4;">Sujet N°${index + 1} : ${item.question}</strong>
-                        </div>
-                        <div style="margin-top: 15px; border-top: 1px dashed #cccccc; padding-top: 15px;">
-                            <h4 style="margin: 0 0 8px 0; color: #374151; font-size: 1rem; font-weight: bold;">Plan Rédigé :</h4>
-                            <div style="white-space: pre-wrap; font-size: 1rem; color: #111827; line-height: 1.6; font-family: monospace, Courier; background-color: #ffffff; padding: 15px; border: 1px solid #e5e7eb; border-radius: 6px; min-height: 50px; word-break: break-word;">${escapeHtmlSpecialChars(item.answer)}</div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            containerNode.innerHTML = docHTML;
-            document.body.appendChild(containerNode);
-
-            const pdfOptions = {
-                margin:       12,
-                filename:     `SES_Terminale_Plans_Detailles_${new Date().toISOString().slice(0,10)}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, logging: false, useCORS: true, windowWidth: 1024 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak:    { mode: ['css', 'legacy'] }
+            const docDefinition = {
+                info: {
+                    title: 'Plans_Detailles_Entrainement',
+                },
+                pageMargins: [40, 60, 40, 60],
+                content: [
+                    { text: "Session d'Entraînement : Plans Détaillés", style: 'mainTitle' },
+                    { text: `Généré automatiquement le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}`, style: 'subTitle' },
+                    { text: "Prêt pour relecture", style: 'successTag', margin: [0, 0, 0, 30] }
+                ],
+                styles: {
+                    mainTitle: { fontSize: 22, bold: true, color: '#1e3a8a', alignment: 'center', margin: [0, 0, 0, 5] },
+                    subTitle: { fontSize: 11, color: '#4b5563', alignment: 'center', margin: [0, 0, 0, 5] },
+                    successTag: { fontSize: 10, bold: true, italics: true, color: '#10b981', alignment: 'center' },
+                    chapterTag: { fontSize: 10, bold: true, color: '#6b7280', margin: [0, 20, 0, 5] },
+                    questionBlock: { margin: [0, 0, 0, 15] },
+                    typeBadge: { fontSize: 12, bold: true, color: '#4f46e5' },
+                    questionText: { fontSize: 14, bold: true, color: '#111827' },
+                    answerHeader: { fontSize: 11, bold: true, color: '#374151', margin: [0, 10, 0, 8] },
+                    answerContent: { fontSize: 11, color: '#1f2937', margin: [0, 0, 0, 20], lineHeight: 1.4 }
+                },
+                defaultStyle: {
+                    font: 'Roboto'
+                }
             };
 
-            html2pdf().set(pdfOptions).from(containerNode).save().then(() => {
-                document.body.removeChild(containerNode);
-                if (confirm("Votre PDF contenant tous vos plans détaillés a été généré avec succès ! Souhaitez-vous vider le cache pour démarrer une nouvelle session d'exercices à blanc ?")) {
-                    clearSessionCache();
-                }
+            cachedAnswers.forEach((item, index) => {
+                docDefinition.content.push(
+                    { text: `CHAPITRE : ${item.chapter.toUpperCase()}`, style: 'chapterTag', unbreakable: true },
+                    {
+                        text: [
+                            { text: `[${item.type}] `, style: 'typeBadge' },
+                            { text: `Sujet N°${index + 1} : ${item.question}`, style: 'questionText' }
+                        ],
+                        style: 'questionBlock',
+                        unbreakable: true 
+                    },
+                    { text: 'Plan Rédigé :', style: 'answerHeader' },
+                    { text: item.answer, style: 'answerContent' },
+                    { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 1, lineColor: '#e5e7eb' }], margin: [0, 10, 0, 10] }
+                );
             });
-        }
 
-        function escapeHtmlSpecialChars(text) {
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+            pdfMake.createPdf(docDefinition).download(`Plans_Detailles_${new Date().toISOString().slice(0,10)}.pdf`);
+
+            if (confirm("Votre PDF a été généré avec succès ! Souhaitez-vous vider le cache pour démarrer une nouvelle session ?")) {
+                clearSessionCache();
+            }
         }
 
         function clearSessionCache() {
@@ -653,7 +633,6 @@
             try {
                 localStorage.removeItem('ses_cached_answers');
             } catch (e) {
-                // Ignoré
             }
             updateCounterDisplay();
             document.getElementById("userAnswer").value = "";
