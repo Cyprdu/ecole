@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Sujets SES - Terminale (Mode Entraînement)</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --danger-hover: #dc2626;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 40px 0;
+        }
+
+        /* Top Bar Utilities */
+        .top-bar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .btn-util {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-util:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Container arranged for focus */
+        .container {
+            text-align: center;
+            max-width: 850px;
+            width: 90%;
+            padding: 40px;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Timer Dashboard */
+        .timer-box {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: monospace;
+            color: #f59e0b;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: -15px;
+        }
+
+        .btn-timer {
+            background: none;
+            border: 1px solid var(--text-muted);
+            color: var(--text-muted);
+            padding: 4px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .btn-timer:hover {
+            color: var(--text-main);
+            border-color: var(--text-main);
+        }
+
+        /* Stats Counter Badge */
+        .status-counter {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Displays */
+        .display-zone {
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin: 0 0 10px 0;
+        }
+
+        .title-display {
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            background-color: #6366f1;
+            color: white;
+        }
+
+        /* Input text processor area styled workspace */
+        .workspace-zone {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .workspace-label {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            padding-left: 4px;
+        }
+
+        .text-processor {
+            width: 100%;
+            min-height: 280px;
+            background-color: #0f172a;
+            color: var(--text-main);
+            border: 2px solid #334155;
+            border-radius: 12px;
+            padding: 18px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            resize: vertical;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .text-processor:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+            background-color: #0b0f19;
+        }
+
+        /* Central Action Buttons */
+        .btn-main {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-main:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--success-color);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary:hover {
+            background-color: #059669;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+            transform: translateY(-2px);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <button class="btn-util" onclick="if(confirm('Voulez-vous réinitialiser la session actuelle et effacer le cache des réponses ?')) { clearSessionCache(); }">🗑️ Reset Session</button>
+        <button class="btn-util" onclick="toggleFullscreen()">🖥️ Plein Écran</button>
+    </div>
+
+    <div class="container">
+        
+        <div>
+            <div class="timer-box" id="timerDisplay">45:00</div>
+            <div class="timer-controls">
+                <button class="btn-timer" onclick="startTimer()">Démarrer</button>
+                <button class="btn-timer" onclick="pauseTimer()">Pause</button>
+                <button class="btn-timer" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <div class="status-counter">
+            📚 Plans enregistrés dans cette session : <span id="savedCount" style="color: var(--success-color); font-weight: bold;">0</span>
+        </div>
+
+        <hr style="width:100%; border:0; border-top:1px solid rgba(255,255,255,0.1); margin: 5px 0;">
+
+        <div class="display-zone" id="displayZone">
+            <p style="color: var(--text-muted); font-size: 1.2rem; font-style: italic;">Cliquez sur un bouton ci-dessous pour démarrer le tirage automatique continu.</p>
+        </div>
+
+        <div class="workspace-zone hidden" id="workspaceZone">
+            <label class="workspace-label" for="userAnswer">Votre Plan Détaillé (gère les sauts de ligne) :</label>
+            <textarea class="text-processor" id="userAnswer" placeholder="Rédigez l'introduction, les grandes parties (I, II...) et les sous-parties de votre plan détaillé ici... Utilisez librement la touche Entrée pour revenir à la ligne."></textarea>
+            
+            <div class="button-group" style="margin-top: 10px;">
+                <button class="btn-main" id="btnSubmitAnswer" onclick="submitAndNext()" style="flex: 1;">📥 Soumettre & Suivant</button>
+                <button class="btn-main btn-danger" id="btnStopSession" onclick="stopAndGeneratePDF()" style="flex: 1;">🛑 Arrêter & Télécharger le PDF</button>
+            </div>
+        </div>
+
+        <div id="initialControls" style="display: flex; flex-direction: column; gap: 15px; width: 100%; align-items: center;">
+            <button class="btn-main" id="btnDrawChapter" onclick="drawChapter()">🎲 Tirer un Chapitre au Sort</button>
+            <button class="btn-main btn-secondary hidden" id="btnDrawQuestion" onclick="drawQuestion()">📝 Piocher une Question</button>
+            <button class="btn-main btn-secondary" id="btnContinuousMode" onclick="startContinuousMode()" style="background-color: #6366f1; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);">🔄 Lancer le Mode Continu Toutes Catégories</button>
+        </div>
+
+    </div>
+
+    <script src="[https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js](https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js)"></script>
+
+    <script>
+        const dataset = [
+            {
+                chapter: "Comment est structurée la société française actuelle ?",
+                questions: [
+                    { type: "EC1", text: "Montrez que l'espace social français est structuré par de multiples facteurs (le genre, le cycle de vie...)." },
+                    { type: "EC1", text: "Présentez la position socioprofessionnelle comme un facteur de structuration sociale." },
+                    { type: "EC1", text: "Expliquez comment la structure socioprofessionnelle a évolué en France depuis les années 1950 (féminisation, tertiarisation)." },
+                    { type: "EC3", text: "Vous montrerez que les classes sociales restent un outil pertinent pour analyser la société française contemporaine, malgré les dynamiques de recomposition." },
+                    { type: "EC3", text: "Vous montrerez comment l'évolution de la structure socioprofessionnelle a transformé la société française actuelle." }
+                ]
+            },
+            {
+                chapter: "Comment expliquer l’engagement politique dans les sociétés démocratiques ?",
+                questions: [
+                    { type: "EC1", text: "A l’aide d’exemples, montrez que l’engagement politique prend des formes variées." },
+                    { type: "EC1", text: "A l’aide d’un exemple, illustrez le paradoxe de l’action collective." },
+                    { type: "EC1", text: "A l’aide de deux exemples, expliquez pourquoi les individus s’engagent politiquement." },
+                    { type: "EC1", text: "À partir de deux exemples, illustrez les transformations de l’action collective." },
+                    { type: "EC1", text: "Illustrez la diversité des objets de l’action collective et de ses acteurs, et de leurs répertoires." },
+                    { type: "EC1", text: "Illustrez la diversité des répertoires de l’action collective." },
+                    { type: "EC3", text: "Vous montrerez que l’action collective s’est transformée en France depuis 1970." },
+                    { type: "EC3", text: "Vous montrerez que l’action collective a tendance à se diversifier." },
+                    { type: "EC3", text: "Vous montrerez que les raisons de l’engagement politique répondent à différentes logiques." }
+                ]
+            },
+            {
+                chapter: "Comment lutter contre le chômage ?",
+                questions: [
+                    { type: "EC1", text: "Montrez à l’aide d’exemples que les problèmes d’appariements peuvent créer du chômage structurel." },
+                    { type: "EC1", text: "Montrez comment les asymétries d’information sont des sources de chômage structurel." },
+                    { type: "EC1", text: "Quelles sont les limites du salaire minimum pour réduire le chômage structurel ?" },
+                    { type: "EC1", text: "Donnez un effet positif de l’existence d’un salaire minimum pour lutter contre le chômage." },
+                    { type: "EC1", text: "Quels sont les effets des règles de protection de l’emploi sur le niveau du chômage conjoncturel ?" },
+                    { type: "EC1", text: "Comment des fluctuations de l’activité économique peuvent causer un chômage conjoncturel." },
+                    { type: "EC1", text: "Donnez des exemples de politiques mises en œuvre pour lutter contre le chômage." },
+                    { type: "EC1", text: "Montrez que les politiques macroéconomiques de soutien de la demande globale peuvent réduire le chômage." },
+                    { type: "EC1", text: "Comment les politiques d’allégement du coût du travail peuvent-elles réduire le chômage ?" },
+                    { type: "EC1", text: "A l’aide d’exemples, montrez que les politiques de formation et de flexibilisation peuvent lutter contre le chômage." },
+                    { type: "EC3", text: "Vous montrerez que le chômage structurel a plusieurs sources." },
+                    { type: "EC3", text: "Vous montrerez les effets des institutions sur le chômage structurel." },
+                    { type: "EC3", text: "Vous montrerez comment les politiques d’allègement du coût du travail permettent de lutter contre le chômage." },
+                    { type: "EC3", text: "Vous montrerez comment les politiques de soutien de la demande globale permettent de lutter contre le chômage." },
+                    { type: "EC3", text: "Vous montrerez comment les politiques de formation et de flexibilisation permettent de lutter contre le chômage." }
+                ]
+            },
+            {
+                chapter: "Quelle action publique pour l’environnement ?",
+                questions: [
+                    { type: "EC1", text: "Montrer comment l’environnement est devenu un problème public." },
+                    { type: "EC1", text: "Présenter deux acteurs qui participent à la construction des questions environnementales comme problème public." },
+                    { type: "EC1", text: "Montrer que les acteurs qui ont permis à l’environnement de devenir un problème public entretiennent des relations de coopération et de conflit." },
+                    { type: "EC1", text: "Montrer que l’action publique pour l’environnement articule différentes échelles." },
+                    { type: "EC1", text: "Expliquer que les accords internationaux en matière d’environnement sont contraints par des stratégies de passager clandestin." },
+                    { type: "EC1", text: "Expliquer que les accords internationaux en matière d’environnement sont contraints par des inégalités de développement entre pays." },
+                    { type: "EC1", text: "Montrer comment la taxation est un instrument permettant d’agir contre les externalités négatives sur l’environnement." },
+                    { type: "EC1", text: "Montrer comment la réglementation est un instrument permettant d’agir contre les externalités négatives sur l’environnement." },
+                    { type: "EC1", text: "Montrer comment la subvention à l’innovation verte est un instrument permettant d’agir contre les externalités négatives sur l’environnement." },
+                    { type: "EC1", text: "Montrer comment le marché des quotas d’émission est un instrument permettant d’agir contre les externalités négatives sur l’environnement." },
+                    { type: "EC1", text: "Présenter un instrument dont disposent les pouvoirs publics pour faire face aux externalités négatives sur l’environnement." },
+                    { type: "EC1", text: "Montrer les avantages/inconvénients de la taxation." },
+                    { type: "EC1", text: "Montrer les avantages/inconvénients de la réglementation." },
+                    { type: "EC1", text: "Montrer les avantages/inconvénients de la subvention aux énergies vertes." },
+                    { type: "EC1", text: "Montrer les avantages/inconvénients du marché des quotas d’émission." },
+                    { type: "EC1", text: "Montrer que la mise en œuvre des instruments luttant contre les externalités négatives se heurtent à des dysfonctionnements de l’action publique." },
+                    { type: "EC3", text: "Montrer que les acteurs qui ont participé à la construction des questions environnementales comme problème public sont multiples." },
+                    { type: "EC3", text: "Montrer que les pouvoirs publics disposent de plusieurs instruments pour faire face aux externalités négatives sur l’environnement." },
+                    { type: "EC3", text: "Montrer que les négociations et accords internationaux liés à la préservation de l’environnement sont contraints." }
+                ]
+            },
+            {
+                chapter: "Quelles mutations du travail et de l’emploi ?",
+                questions: [
+                    { type: "EC1", text: "Quʼest-ce qui fait la qualité dʼun emploi ? Vous présenterez 3 descripteurs de la qualité des emplois." },
+                    { type: "EC1", text: "Vous montrerez que les frontières entre l’inactivité, l’emploi et le chômage sont floues." },
+                    { type: "EC1", text: "Quelles sont les caractéristiques de l’organisation taylorienne du travail ?" },
+                    { type: "EC1", text: "Distinguez les principales caractéristiques des modèles d’organisation taylorien de celles des principes post-tayloriens." },
+                    { type: "EC3", text: "Vous montrerez que les évolutions des formes d’emploi rendent plus incertaines les frontières entre emploi, chômage et inactivité." },
+                    { type: "EC3", text: "Quels sont les effets du numériques sur le travail et lʼemploi ?" },
+                    { type: "EC3", text: "Comment le numérique brouille-t-il les frontières du travail ?" }
+                ]
+            },
+            {
+                chapter: "Quelles politiques économiques dans le cadre européen ?",
+                questions: [
+                    { type: "EC1", text: "Présentez les objectifs de la politique de la concurrence européenne." },
+                    { type: "EC1", text: "Expliquez comment la Banque Centrale Européenne conduit sa politique monétaire." },
+                    { type: "EC1", text: "Montrez que la politique budgétaire au sein de la zone euro fait face à des contraintes réglementaires." },
+                    { type: "EC3", text: "Vous montrerez que les politiques économiques européennes souffrent de défauts de coordination." },
+                    { type: "EC3", text: "Vous montrerez comment la politique européenne de la concurrence peut freiner la mise en oeuvre d'une politique industrielle stratégique." }
+                ]
+            },
+            {
+                chapter: "Quels sont les caractéristiques et les facteurs de la mobilité sociale ?",
+                questions: [
+                    { type: "EC1", text: "Distinguez mobilité sociale intergénérationnelle et la mobilité professionnelle." },
+                    { type: "EC1", text: "Présentez deux limites des tables de mobilité comme instrument de mesure de la mobilité." },
+                    { type: "EC1", text: "Montrez, à l’aide d’un exemple, que la mobilité observée comporte une composante structurelle." },
+                    { type: "EC1", text: "Montrez qu’une société plus mobile n’est pas nécessairement une société plus fluide." },
+                    { type: "EC1", text: "Montrez à l’aide d’un exemple que les niveaux de formation contribuent à expliquer la mobilité sociale." },
+                    { type: "EC1", text: "Montrez qu’une l’évolution de la structure socioprofessionnelle contribue à expliquer la mobilité sociale." },
+                    { type: "EC1", text: "Montrez à l’aide d’un exemple que les ressources et configurations familiales contribuent à expliquer la mobilité sociale." },
+                    { type: "EC3", text: "Montrez les effets de l'évolution de la structure par catégories socioprofessionnelles sur la mobilité sociale." },
+                    { type: "EC3", text: "Vous démontrerez que la famille peut constituer un frein à la mobilité sociale des individus." },
+                    { type: "EC3", text: "Vous montrerez que l'école ne parvient pas toujours à assurer une mobilité sociale." }
+                ]
+            },
+            {
+                chapter: "Quels sont les fondements du commerce international ?",
+                questions: [
+                    { type: "EC1", text: "Expliquez comment les dotations technologiques et factorielles déterminent la spécialisation internationale." },
+                    { type: "EC1", text: "Distinguez le commerce inter-branche du commerce intra-branche." },
+                    { type: "EC1", text: "Présentez un argument économique justifiant la mise en place de mesures protectionnistes." },
+                    { type: "EC1", text: "Présentez deux avantages attendus de la mise en place du libre-échange." },
+                    { type: "EC3", text: "Vous montrerez comment l'internationalisation des chaînes de valeur transforme l'organisation mondiale du commerce." },
+                    { type: "EC3", text: "Vous montrerez que si le libre-échange engendre globalement des gains de productivité, il génère aussi des inégalités internes." }
+                ]
+            },
+            {
+                chapter: "Sources et défis de la croissance économique",
+                questions: [
+                    { type: "EC1", text: "Présentez le lien entre productivité globale des facteurs et progrès technique." },
+                    { type: "EC1", text: "Montrez, à l'aide d'un exemple, comment le progrès technique peut contribuer à la croissance économique." },
+                    { type: "EC1", text: "Montrez que le facteur capital est source de croissance économique." },
+                    { type: "EC1", text: "Montrez à l'aide d'un exemple que le progrès technique résulte de l’innovation." },
+                    { type: "EC1", text: "Montrez à l’aide d’un exemple que les droits de propriété favorisent la croissance économique." },
+                    { type: "EC1", text: "Montrez à l’aide d’un exemple que l’innovation s’accompagne d’un processus de destruction créatrice." },
+                    { type: "EC1", text: "Montrez que le progrès technique peut engendrer des inégalités de revenu." },
+                    { type: "EC1", text: "Montrez que la croissance économique se heurte à des limites écologiques." },
+                    { type: "EC1", text: "Montrez à l’aide d’un exemple comment l’innovation peut aider à reculer les limites écologiques de la croissance." },
+                    { type: "EC3", text: "Vous montrerez comment le progrès technique favorise la croissance économique." },
+                    { type: "EC3", text: "Vous montrerez comment l’accumulation des facteurs contribue à la croissance." },
+                    { type: "EC3", text: "Vous montrerez que le progrès technique a un caractère endogène." },
+                    { type: "EC3", text: "Vous montrerez que le progrès technique est facteur de croissance." },
+                    { type: "EC3", text: "Vous montrerez que les institutions jouent un rôle dans la croissance économique." },
+                    { type: "EC3", text: "Vous montrerez que la croissance économique rencontre des défis." },
+                    { type: "EC3", text: "Vous montrerez comment l’innovation peut être une solution aux limites écologiques de la croissance économique." },
+                    { type: "EC3", text: "Vous montrerez que le progrès technique peut engendrer des inégalités de revenus." }
+                ]
+            }
+        ];
+
+        let currentChapterIndex = null;
+        let currentActiveQuestion = null;
+        let cachedAnswers = [];
+
+        // Sécurisation de l'accès au cache local (évite le crash sur une page blanche)
+        try {
+            const stored = localStorage.getItem('ses_cached_answers');
+            if (stored) {
+                cachedAnswers = JSON.parse(stored);
+            }
+        } catch (e) {
+            console.warn("L'accès au cache local est bloqué par le navigateur, la sauvegarde automatique sera désactivée pour cette session.", e);
+        }
+
+        // Affichage immédiat du compteur
+        updateCounterDisplay();
+
+        function updateCounterDisplay() {
+            document.getElementById("savedCount").innerText = cachedAnswers.length;
+        }
+
+        function startContinuousMode() {
+            document.getElementById("initialControls").style.display = "none";
+            drawRandomQuestionAcrossAll();
+        }
+
+        function drawRandomQuestionAcrossAll() {
+            currentChapterIndex = Math.floor(Math.random() * dataset.length);
+            const chapter = dataset[currentChapterIndex];
+            const randomQuestion = chapter.questions[Math.floor(Math.random() * chapter.questions.length)];
+            
+            displayQuestion(chapter.chapter, randomQuestion);
+        }
+
+        function drawChapter() {
+            currentChapterIndex = Math.floor(Math.random() * dataset.length);
+            const selected = dataset[currentChapterIndex];
+
+            const displayZone = document.getElementById("displayZone");
+            displayZone.innerHTML = `
+                <h2>Chapitre Sélectionné</h2>
+                <p class="title-display">${selected.chapter}</p>
+            `;
+
+            document.getElementById("btnDrawQuestion").classList.remove("hidden");
+            document.getElementById("workspaceZone").classList.add("hidden");
+        }
+
+        function drawQuestion() {
+            if (currentChapterIndex === null) return;
+            
+            const questions = dataset[currentChapterIndex].questions;
+            const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+
+            displayQuestion(dataset[currentChapterIndex].chapter, randomQuestion);
+            document.getElementById("initialControls").style.display = "none";
+        }
+
+        function displayQuestion(chapterTitle, questionObj) {
+            currentActiveQuestion = {
+                chapter: chapterTitle,
+                type: questionObj.type,
+                text: questionObj.text
+            };
+
+            const displayZone = document.getElementById("displayZone");
+            displayZone.innerHTML = `
+                <h2>${chapterTitle}</h2>
+                <div style="margin-top: 15px;">
+                    <span class="badge">${questionObj.type}</span>
+                    <p class="title-display" style="font-size: 1.4rem; font-weight: 500;">${questionObj.text}</p>
+                </div>
+            `;
+
+            document.getElementById("workspaceZone").classList.remove("hidden");
+            const textarea = document.getElementById("userAnswer");
+            textarea.value = "";
+            textarea.focus();
+        }
+
+        function saveToCache(answerNode) {
+            cachedAnswers.push(answerNode);
+            try {
+                localStorage.setItem('ses_cached_answers', JSON.stringify(cachedAnswers));
+            } catch (e) {
+                // Ignore l'erreur si le cache est bloqué
+            }
+            updateCounterDisplay();
+        }
+
+        function submitAndNext() {
+            const answerField = document.getElementById("userAnswer");
+            const answerText = answerField.value.trim();
+
+            if (!currentActiveQuestion) return;
+
+            if (answerText === "") {
+                const skip = confirm("Votre espace de saisie est vide. Souhaitez-vous passer à une autre problématique sans enregistrer de plan ?");
+                if (!skip) return;
+            } else {
+                const answerNode = {
+                    chapter: currentActiveQuestion.chapter,
+                    type: currentActiveQuestion.type,
+                    question: currentActiveQuestion.text,
+                    answer: answerText,
+                    timestamp: new Date().toLocaleString('fr-FR')
+                };
+                saveToCache(answerNode);
+            }
+
+            drawRandomQuestionAcrossAll();
+        }
+
+        function stopAndGeneratePDF() {
+            if (typeof html2pdf === "undefined") {
+                alert("Le moteur PDF est encore en train de se charger ou a été bloqué par votre navigateur. Veuillez réessayer dans quelques secondes.");
+                return;
+            }
+
+            const answerField = document.getElementById("userAnswer");
+            const answerText = answerField.value.trim();
+
+            if (answerText !== "" && currentActiveQuestion) {
+                const answerNode = {
+                    chapter: currentActiveQuestion.chapter,
+                    type: currentActiveQuestion.type,
+                    question: currentActiveQuestion.text,
+                    answer: answerText,
+                    timestamp: new Date().toLocaleString('fr-FR')
+                };
+                saveToCache(answerNode);
+                answerField.value = ""; 
+            }
+
+            if (cachedAnswers.length === 0) {
+                alert("Vous n'avez rédigé et soumis aucun plan détaillé pour le moment. Rédigez une réponse et soumettez-la avant de générer le fichier.");
+                return;
+            }
+
+            generateStructuredPDF();
+        }
+
+        function generateStructuredPDF() {
+            const containerNode = document.createElement('div');
+            containerNode.style.position = 'absolute';
+            containerNode.style.top = '-9999px';
+            containerNode.style.left = '-9999px';
+            containerNode.style.width = '190mm';
+            containerNode.style.padding = '30px';
+            containerNode.style.color = '#111827';
+            containerNode.style.backgroundColor = '#ffffff';
+            containerNode.style.fontFamily = '"Segoe UI", Arial, sans-serif';
+
+            let docHTML = `
+                <div style="text-align: center; border-bottom: 3px solid #3b82f6; padding-bottom: 20px; margin-bottom: 35px;">
+                    <h1 style="color: #1e3a8a; margin: 0 0 8px 0; font-size: 2.2rem; font-weight: bold;">Session d'Entraînement : Plans Détaillés SES</h1>
+                    <p style="color: #4b5563; margin: 0; font-size: 1.1rem;">Généré automatiquement le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}</p>
+                    <p style="color: #10b981; margin: 5px 0 0 0; font-size: 0.95rem; font-weight: bold; font-style: italic;">Prêt pour soumission et correction par l'IA</p>
+                </div>
+            `;
+
+            cachedAnswers.forEach((item, index) => {
+                docHTML += `
+                    <div style="margin-bottom: 40px; border: 1px solid #d1d5db; border-radius: 8px; padding: 22px; background-color: #f9fafb;">
+                        <div style="font-size: 0.85rem; color: #6b7280; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">
+                            Chapitre : ${item.chapter}
+                        </div>
+                        <div style="margin-bottom: 15px; display: flex; align-items: flex-start; gap: 10px;">
+                            <span style="background-color: #4f46e5; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; white-space: nowrap;">${item.type}</span>
+                            <strong style="font-size: 1.15rem; color: #111827; line-height: 1.4;">Sujet N°${index + 1} : ${item.question}</strong>
+                        </div>
+                        <div style="margin-top: 15px; border-top: 1px dashed #cccccc; padding-top: 15px;">
+                            <h4 style="margin: 0 0 8px 0; color: #374151; font-size: 1rem; font-weight: bold;">Plan Rédigé :</h4>
+                            <div style="white-space: pre-wrap; font-size: 1rem; color: #111827; line-height: 1.6; font-family: monospace, Courier; background-color: #ffffff; padding: 15px; border: 1px solid #e5e7eb; border-radius: 6px; min-height: 50px; word-break: break-word;">${escapeHtmlSpecialChars(item.answer)}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            containerNode.innerHTML = docHTML;
+            document.body.appendChild(containerNode);
+
+            const pdfOptions = {
+                margin:       12,
+                filename:     `SES_Terminale_Plans_Detailles_${new Date().toISOString().slice(0,10)}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, logging: false, useCORS: true, windowWidth: 1024 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['css', 'legacy'] }
+            };
+
+            html2pdf().set(pdfOptions).from(containerNode).save().then(() => {
+                document.body.removeChild(containerNode);
+                if (confirm("Votre PDF contenant tous vos plans détaillés a été généré avec succès ! Souhaitez-vous vider le cache pour démarrer une nouvelle session d'exercices à blanc ?")) {
+                    clearSessionCache();
+                }
+            });
+        }
+
+        function escapeHtmlSpecialChars(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function clearSessionCache() {
+            cachedAnswers = [];
+            try {
+                localStorage.removeItem('ses_cached_answers');
+            } catch (e) {
+                // Ignoré
+            }
+            updateCounterDisplay();
+            document.getElementById("userAnswer").value = "";
+            document.getElementById("workspaceZone").classList.add("hidden");
+            document.getElementById("initialControls").style.display = "flex";
+            document.getElementById("btnDrawQuestion").classList.add("hidden");
+            document.getElementById("displayZone").innerHTML = `
+                <p style="color: var(--text-muted); font-size: 1.2rem; font-style: italic;">Session réinitialisée. Cliquez sur un bouton ci-dessous pour lancer ton tirage.</p>
+            `;
+        }
+
+        let timerInterval;
+        let initialTime = 45 * 60; 
+        let timeLeft = initialTime;
+
+        function updateTimerDisplay() {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            document.getElementById("timerDisplay").innerText = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if(timeLeft > 0) {
+                    timeLeft--;
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(timerInterval);
+                    alert("Le temps imparti pour l'exercice (45 min) est écoulé !");
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timeLeft = initialTime;
+            updateTimerDisplay();
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    alert(`Erreur d'activation : ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    </script>
+</body>
+</html>
