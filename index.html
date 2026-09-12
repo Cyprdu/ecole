@@ -15,14 +15,12 @@
             --card-bg: rgba(30, 41, 59, 0.7);
             --card-border: rgba(255, 255, 255, 0.1);
         }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
         }
-
         body {
             background-color: var(--bg-color);
             background-image: 
@@ -36,14 +34,12 @@
             align-items: center;
             padding: 2rem;
         }
-
         header {
             text-align: center;
             margin-bottom: 3rem;
             width: 100%;
             max-width: 1000px;
         }
-
         h1 {
             font-size: 3rem;
             font-weight: 800;
@@ -53,12 +49,10 @@
             margin-bottom: 0.5rem;
             letter-spacing: -1px;
         }
-
         p.subtitle {
             color: var(--text-muted);
             font-size: 1.1rem;
         }
-
         /* Navigation / Fil d'ariane */
         .nav-bar {
             width: 100%;
@@ -73,7 +67,6 @@
             border: 1px solid var(--card-border);
             backdrop-filter: blur(10px);
         }
-
         .btn-back {
             background: transparent;
             border: 1px solid var(--accent-color);
@@ -85,23 +78,19 @@
             transition: all 0.3s ease;
             display: none; /* Caché à la racine */
         }
-
         .btn-back:hover {
             background: var(--accent-color);
             color: white;
             box-shadow: 0 0 15px var(--accent-glow);
         }
-
         .breadcrumb {
             color: var(--text-muted);
             font-weight: 600;
             font-size: 1.1rem;
         }
-
         .breadcrumb span {
             color: var(--text-main);
         }
-
         /* Grille de contenu */
         .grid {
             display: grid;
@@ -110,7 +99,6 @@
             width: 100%;
             max-width: 1000px;
         }
-
         /* Cartes (Dossiers et Fichiers) */
         .card {
             background: var(--card-bg);
@@ -128,7 +116,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .card::before {
             content: '';
             position: absolute;
@@ -137,37 +124,30 @@
             transform: skewX(-20deg);
             transition: 0.5s;
         }
-
         .card:hover::before {
             left: 150%;
         }
-
         .card:hover {
             transform: translateY(-8px);
             border-color: var(--accent-color);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--accent-glow);
         }
-
         .card svg {
             width: 48px;
             height: 48px;
             margin-bottom: 1rem;
             transition: transform 0.3s ease;
         }
-
         .card:hover svg {
             transform: scale(1.1);
         }
-
         .card-folder svg { fill: #60a5fa; }
         .card-file svg { fill: #c084fc; }
-
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
             word-break: break-word;
         }
-
         /* Loader */
         .loader {
             display: none;
@@ -179,9 +159,7 @@
             animation: spin 1s linear infinite;
             margin: 3rem auto;
         }
-
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
         /* Messages */
         .message {
             text-align: center;
@@ -192,7 +170,6 @@
     </style>
 </head>
 <body>
-
     <header>
         <h1>Mes Révisions</h1>
         <p class="subtitle">Plateforme d'apprentissage dynamique</p>
@@ -210,15 +187,11 @@
 
     <script>
         // ==========================================
-        // CONFIGURATION - À MODIFIER AVEC TES INFOS
+        // CONFIGURATION (Dépôt Public)
         // ==========================================
         const GITHUB_USERNAME = 'Cyprdu'; 
         const GITHUB_REPO = 'ecole';
         
-        // ⚠️ REMPLACE "VOTRE_TOKEN_ICI" PAR TON VRAI TOKEN (ex: "ghp_xxxxxxxxxxxx")
-        const GITHUB_TOKEN = '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'; 
-        // ==========================================
-
         const API_BASE_URL = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/`;
         
         const grid = document.getElementById('content-grid');
@@ -226,7 +199,7 @@
         const breadcrumb = document.getElementById('breadcrumb');
         const btnBack = document.getElementById('btn-back');
 
-        // Icônes SVG pour le design Pro
+        // Icônes SVG
         const iconFolder = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>`;
         const iconFile = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>`;
 
@@ -235,17 +208,18 @@
             loader.style.display = 'block';
             
             try {
-                // Requête avec le token d'authentification
+                // Requête API publique, sans en-tête d'autorisation
                 const response = await fetch(API_BASE_URL + path, {
                     headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`,
                         'Accept': 'application/vnd.github.v3+json'
                     }
                 });
                 
                 if (!response.ok) {
-                    if (response.status === 401 || response.status === 404) {
-                        throw new Error("Erreur d'accès : Vérifie que ton Token est correct et qu'il a bien les droits 'repo'.");
+                    if (response.status === 404) {
+                        throw new Error("Dépôt introuvable. Assure-toi que le dépôt 'Cyprdu/ecole' est bien public.");
+                    } else if (response.status === 403) {
+                        throw new Error("Limite de requêtes GitHub atteinte. L'accès public est limité à 60 requêtes par heure.");
                     }
                     throw new Error("Erreur lors de la récupération des données GitHub.");
                 }
