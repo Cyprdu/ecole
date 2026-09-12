@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poste de supervision — Glossaire OT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #12161B;
+    --panel: #1A2028;
+    --panel-raised: #202833;
+    --line: #2A323D;
+    --amber: #E8A33D;
+    --amber-dim: #6B5228;
+    --cyan: #49C9C0;
+    --cyan-dim: #21514E;
+    --red: #E2604F;
+    --red-dim: #4A2A24;
+    --text: #E7EAEE;
+    --text-dim: #8D97A5;
+    --text-faint: #5C6673;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 20% -10%, #182029 0%, transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+
+  /* ---------- Header / status bar ---------- */
+  header{
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg, #161B22, #12161B);
+    padding:16px 0;
+    position:sticky;top:0;z-index:10;
+    backdrop-filter:blur(6px);
+  }
+  .status-row{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .led{width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);flex:none;}
+  .brand h1{font-size:15px;font-weight:600;margin:0;letter-spacing:.2px;}
+  .brand .sub{font-family:var(--mono);font-size:11px;color:var(--text-faint);}
+  .readout{font-family:var(--mono);font-size:13px;color:var(--amber);text-align:right;line-height:1.3;}
+  .readout .lbl{color:var(--text-faint);font-size:10px;display:block;}
+
+  nav{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;}
+  .tab{
+    font-family:var(--sans);font-size:13px;font-weight:600;
+    background:var(--panel);border:1px solid var(--line);color:var(--text-dim);
+    padding:8px 13px;border-radius:5px;cursor:pointer;
+    transition:border-color .15s, color .15s;
+    position:relative;
+  }
+  .tab:hover{color:var(--text);border-color:#3A4552;}
+  .tab.active{color:var(--bg);background:var(--amber);border-color:var(--amber);}
+  .tab .badge{
+    font-family:var(--mono);font-size:10px;margin-left:6px;
+    background:var(--red);color:#fff;padding:1px 5px;border-radius:8px;
+  }
+
+  main{padding-top:26px;}
+
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:22px;
+    margin-bottom:16px;
+  }
+  h2{font-size:18px;margin:0 0 6px 0;font-weight:700;}
+  p{color:var(--text-dim);line-height:1.55;font-size:14.5px;margin:0 0 10px 0;}
+  .lead{font-size:14.5px;color:var(--text-dim);}
+
+  /* ---------- Home / mode cards ---------- */
+  .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:560px){.mode-grid{grid-template-columns:1fr;}}
+  .mode-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:18px;cursor:pointer;text-align:left;
+    transition:border-color .15s, transform .1s;
+  }
+  .mode-card:hover{border-color:var(--amber);}
+  .mode-card:active{transform:scale(0.99);}
+  .mode-card .icon{font-size:22px;margin-bottom:8px;display:block;}
+  .mode-card h3{font-size:15px;margin:0 0 4px 0;}
+  .mode-card p{font-size:12.5px;margin:0;color:var(--text-faint);}
+  .mode-card .tag{
+    display:inline-block;margin-top:8px;font-family:var(--mono);font-size:10.5px;
+    color:var(--cyan);
+  }
+
+  /* ---------- Leitner gauge ---------- */
+  .gauge-row{display:flex;gap:6px;align-items:flex-end;height:64px;margin-top:14px;}
+  .gauge-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;justify-content:flex-end;height:100%;}
+  .gauge-bar{width:100%;background:var(--panel-raised);border-radius:3px 3px 0 0;position:relative;overflow:hidden;min-height:4px;border:1px solid var(--line);border-bottom:none;}
+  .gauge-fill{position:absolute;bottom:0;left:0;right:0;background:var(--cyan);}
+  .gauge-label{font-family:var(--mono);font-size:9.5px;color:var(--text-faint);text-align:center;}
+  .gauge-count{font-family:var(--mono);font-size:11px;color:var(--text-dim);}
+
+  /* ---------- Session / study screen ---------- */
+  .session-bar{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .progress-track{flex:1;height:6px;background:var(--panel-raised);border-radius:3px;overflow:hidden;border:1px solid var(--line);}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--amber));width:0%;transition:width .25s;}
+  .progress-count{font-family:var(--mono);font-size:12px;color:var(--text-dim);white-space:nowrap;}
+
+  .card-cat{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.5px;color:var(--text-faint);
+    display:flex;align-items:center;gap:6px;margin-bottom:10px;
+  }
+  .stage-pill{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:10px;border:1px solid var(--line);color:var(--text-dim);}
+  .stage-pill.recall{color:var(--amber);border-color:var(--amber-dim);}
+  .stage-pill.recognize{color:var(--cyan);border-color:var(--cyan-dim);}
+
+  .prompt-box{
+    background:var(--panel-raised);border:1px solid var(--line);border-radius:6px;
+    padding:22px;margin-bottom:16px;
+  }
+  .prompt-icon{font-size:30px;margin-bottom:10px;}
+  .prompt-text{font-size:16px;line-height:1.5;color:var(--text);}
+  .prompt-hint{font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-top:10px;}
+
+  .choices{display:grid;gap:8px;}
+  .choice-btn{
+    text-align:left;font-family:var(--mono);font-size:14px;font-weight:500;
+    background:var(--panel);border:1px solid var(--line);color:var(--text);
+    padding:12px 14px;border-radius:6px;cursor:pointer;
+    transition:border-color .12s, background .12s;
+  }
+  .choice-btn:hover{border-color:var(--amber);}
+  .choice-btn.correct{background:var(--cyan-dim);border-color:var(--cyan);color:#fff;}
+  .choice-btn.wrong{background:var(--red-dim);border-color:var(--red);color:#fff;}
+  .choice-btn:disabled{cursor:default;}
+
+  .input-row{display:flex;gap:8px;}
+  .input-row input{
+    flex:1;font-family:var(--mono);font-size:16px;letter-spacing:1px;
+    background:var(--panel);border:1px solid var(--line);color:var(--text);
+    padding:12px 14px;border-radius:6px;outline:none;text-transform:uppercase;
+  }
+  .input-row input:focus{border-color:var(--amber);}
+  .btn{
+    font-family:var(--sans);font-weight:600;font-size:14px;
+    background:var(--amber);color:#1A1206;border:none;
+    padding:12px 18px;border-radius:6px;cursor:pointer;
+  }
+  .btn:hover{filter:brightness(1.08);}
+  .btn.secondary{background:var(--panel-raised);color:var(--text);border:1px solid var(--line);}
+  .btn:disabled{opacity:.4;cursor:default;}
+
+  .feedback{
+    margin-top:16px;padding:16px;border-radius:6px;border:1px solid var(--line);
+    background:var(--panel-raised);
+  }
+  .feedback.ok{border-color:var(--cyan-dim);}
+  .feedback.ko{border-color:var(--red-dim);}
+  .feedback .verdict{font-family:var(--mono);font-size:12px;font-weight:700;margin-bottom:6px;}
+  .feedback.ok .verdict{color:var(--cyan);}
+  .feedback.ko .verdict{color:var(--red);}
+  .feedback .answer{font-family:var(--mono);font-size:15px;margin-bottom:6px;}
+  .feedback .role{font-size:13.5px;color:var(--text-dim);line-height:1.5;}
+  .feedback .next{font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-top:8px;}
+
+  .actions{display:flex;justify-content:flex-end;margin-top:14px;gap:8px;}
+
+  /* ---------- Cards browse mode ---------- */
+  .flip-card{
+    perspective:1000px;height:190px;cursor:pointer;margin-bottom:14px;
+  }
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-face{
+    position:absolute;inset:0;backface-visibility:hidden;
+    border-radius:8px;border:1px solid var(--line);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:18px;text-align:center;
+  }
+  .flip-front{background:var(--panel-raised);}
+  .flip-front .abbr{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--amber);}
+  .flip-front .cat{font-family:var(--mono);font-size:10.5px;color:var(--text-faint);margin-top:8px;}
+  .flip-back{background:var(--panel-raised);transform:rotateY(180deg);}
+  .flip-back .icon{font-size:24px;margin-bottom:6px;}
+  .flip-back .full{font-family:var(--mono);font-size:14px;color:var(--cyan);margin-bottom:6px;}
+  .flip-back .role{font-size:12.5px;color:var(--text-dim);line-height:1.4;}
+  .browse-nav{display:flex;justify-content:space-between;align-items:center;margin-top:4px;}
+  .browse-nav .pos{font-family:var(--mono);font-size:12px;color:var(--text-faint);}
+
+  /* ---------- Test mode summary ---------- */
+  .score-big{font-family:var(--mono);font-size:44px;font-weight:700;color:var(--amber);}
+  .test-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px;}
+  .test-row:last-child{border-bottom:none;}
+  .test-row .ok{color:var(--cyan);font-family:var(--mono);}
+  .test-row .ko{color:var(--red);font-family:var(--mono);}
+
+  .empty-state{text-align:center;padding:36px 10px;}
+  .empty-state .icon{font-size:34px;margin-bottom:10px;}
+
+  footer{
+    max-width:760px;margin:30px auto 0;padding:0 20px;
+    font-family:var(--mono);font-size:11px;color:var(--text-faint);
+    display:flex;justify-content:space-between;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="status-row">
+      <div class="brand">
+        <span class="led" id="statusLed"></span>
+        <div>
+          <h1>Poste de supervision — Glossaire OT</h1>
+          <span class="sub">Moteur de rappel espacé · 23 abréviations</span>
+        </div>
+      </div>
+      <div class="readout">
+        <span class="lbl">cartes dues</span>
+        <span id="dueReadout">—</span>
+      </div>
+    </div>
+    <nav id="navTabs"></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="app"></div>
+</main>
+
+<footer>
+  <span>Sources : effet de test, estompage de la guidance, double codage, répétition espacée</span>
+  <span id="masteryReadout">0 % maîtrisé</span>
+</footer>
+
+<script>
+(function(){
+
+/* ================= DATA ================= */
+const DATA = [
+  {id:'OT',   abbr:'OT',    full:'Operational Technology',        role:"Technologies permettant de contrôler les processus industriels.", cat:'fond', icon:'🏭'},
+  {id:'IT',   abbr:'IT',    full:'Information Technology',        role:"Technologies de traitement et de gestion de l'information.", cat:'fond', icon:'💻'},
+  {id:'ICS',  abbr:'ICS',   full:'Industrial Control System',     role:"Système de contrôle industriel regroupant PLC, SCADA, HMI, etc.", cat:'fond', icon:'⚙️'},
+  {id:'MES',  abbr:'MES',   full:'Manufacturing Execution System',role:"Système de pilotage de la production.", cat:'fond', icon:'📋'},
+  {id:'ERP',  abbr:'ERP',   full:'Enterprise Resource Planning',  role:"Progiciel de gestion intégré de l'entreprise.", cat:'fond', icon:'🏢'},
+
+  {id:'PLC',  abbr:'PLC',   full:'Programmable Logic Controller', role:"Automate programmable industriel qui contrôle les procédés.", cat:'terrain', icon:'🎛️'},
+  {id:'HMI',  abbr:'HMI',   full:'Human Machine Interface',       role:"Interface Homme-Machine permettant à l'opérateur d'interagir avec le système.", cat:'terrain', icon:'🖥️'},
+  {id:'SCADA',abbr:'SCADA', full:'Supervisory Control And Data Acquisition', role:"Système de supervision et d'acquisition de données.", cat:'terrain', icon:'📡'},
+  {id:'DCS',  abbr:'DCS',   full:'Distributed Control System',    role:"Système de contrôle distribué utilisé dans les grands procédés industriels.", cat:'terrain', icon:'🕸️'},
+  {id:'RTU',  abbr:'RTU',   full:'Remote Terminal Unit',          role:"Unité terminale distante utilisée pour collecter et transmettre des données.", cat:'terrain', icon:'📶'},
+  {id:'IO',   abbr:'I/O',   full:'Input / Output',                role:"Entrées et sorties d'un automate ou d'un équipement.", cat:'terrain', icon:'🔌'},
+  {id:'CPU',  abbr:'CPU',   full:'Central Processing Unit',       role:"Processeur principal d'un automate ou d'un ordinateur.", cat:'terrain', icon:'🧩'},
+  {id:'OEM',  abbr:'OEM',   full:'Original Equipment Manufacturer',role:"Fabricant d'origine de l'équipement.", cat:'terrain', icon:'🏗️'},
+
+  {id:'IP',   abbr:'IP',    full:'Internet Protocol',             role:"Adresse réseau identifiant un équipement connecté.", cat:'reseau', icon:'🌐'},
+  {id:'MAC',  abbr:'MAC',   full:'Media Access Control Address',  role:"Adresse physique unique d'une carte réseau.", cat:'reseau', icon:'🏷️'},
+  {id:'VLAN', abbr:'VLAN',  full:'Virtual Local Area Network',    role:"Réseau local virtuel permettant de segmenter le réseau.", cat:'reseau', icon:'✂️'},
+  {id:'LAN',  abbr:'LAN',   full:'Local Area Network',            role:"Réseau local.", cat:'reseau', icon:'🏠'},
+  {id:'WAN',  abbr:'WAN',   full:'Wide Area Network',             role:"Réseau étendu reliant plusieurs sites.", cat:'reseau', icon:'🗺️'},
+  {id:'DMZ',  abbr:'DMZ',   full:'Demilitarized Zone',            role:"Zone intermédiaire sécurisée entre les réseaux IT et OT.", cat:'reseau', icon:'🛡️'},
+
+  {id:'IDS',  abbr:'IDS',   full:'Intrusion Detection System',    role:"Système de détection d'intrusion.", cat:'secu', icon:'🔍'},
+  {id:'IPS',  abbr:'IPS',   full:'Intrusion Prevention System',   role:"Système de prévention d'intrusion.", cat:'secu', icon:'🚫'},
+  {id:'FW',   abbr:'FW',    full:'Firewall',                      role:"Pare-feu de protection réseau.", cat:'secu', icon:'🧱'},
+  {id:'VPN',  abbr:'VPN',   full:'Virtual Private Network',       role:"Réseau privé virtuel.", cat:'secu', icon:'🔒'},
+];
+
+const CAT_LABELS = {fond:'Fondamentaux', terrain:'Automatismes & terrain', reseau:'Réseau', secu:'Cybersécurité'};
+
+// Leitner intervals in days, indexed by box 0..5 (box 5 = maîtrisé, longue échéance)
+const INTERVALS = [0, 1, 3, 7, 16, 35];
+const DAY_MS = 24*60*60*1000;
+const STORAGE_KEY = 'ot-glossary-progress-v1';
+
+/* ================= STORAGE ================= */
+let progress = null; // { [id]: {box, due, seen, wrong} }
+let storageOk = true;
+
+async function loadProgress(){
+  try{
+    const res = await window.storage.get(STORAGE_KEY, false);
+    if(res && res.value){ progress = JSON.parse(res.value); return; }
+  }catch(e){ /* key absent or storage unavailable */ }
+  progress = {};
+}
+
+function initMissingCards(){
+  const now = Date.now();
+  DATA.forEach(c=>{
+    if(!progress[c.id]){
+      progress[c.id] = {box:0, due:now, seen:0, wrong:0};
+    }
+  });
+}
+
+let saveTimer = null;
+function saveProgress(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async ()=>{
+    try{
+      await window.storage.set(STORAGE_KEY, JSON.stringify(progress), false);
+      storageOk = true;
+    }catch(e){ storageOk = false; }
+    updateStatusLed();
+  }, 150);
+}
+
+/* ================= HELPERS ================= */
+function normalize(s){
+  return (s||'').toUpperCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^A-Z0-9]/g,'');
+}
+function acceptedAnswers(card){
+  return [normalize(card.abbr)];
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function isDue(card){ return progress[card.id].due <= Date.now(); }
+function dueCards(){ return DATA.filter(isDue); }
+function interleave(cards){
+  // group by category then round-robin, so consecutive items differ in category
+  const groups = {};
+  cards.forEach(c=>{ (groups[c.cat] = groups[c.cat]||[]).push(c); });
+  Object.keys(groups).forEach(k=> groups[k] = shuffle(groups[k]));
+  const keys = shuffle(Object.keys(groups));
+  const out = [];
+  let remaining = true;
+  while(remaining){
+    remaining = false;
+    for(const k of keys){
+      if(groups[k].length){ out.push(groups[k].shift()); remaining = true; }
+    }
+  }
+  return out;
+}
+function fmtDays(ms){
+  const days = Math.round(ms/DAY_MS);
+  if(days<=0) return "aujourd'hui";
+  if(days===1) return "demain";
+  return `dans ${days} j`;
+}
+function distractorsFor(card, n){
+  const sameCat = DATA.filter(c=>c.cat===card.cat && c.id!==card.id);
+  const others = DATA.filter(c=>c.cat!==card.cat && c.id!==card.id);
+  const pool = shuffle(sameCat).concat(shuffle(others));
+  return pool.slice(0,n);
+}
+
+/* ================= APP STATE / ROUTER ================= */
+const TABS = [
+  {id:'home', label:'Accueil'},
+  {id:'pretest', label:'Pré-test'},
+  {id:'learn', label:'Apprendre'},
+  {id:'cards', label:'Cartes'},
+  {id:'test', label:'Test'},
+  {id:'stats', label:'Progression'},
+];
+let currentTab = 'home';
+let session = null; // learn/test session state
+
+function renderNav(){
+  const nav = document.getElementById('navTabs');
+  nav.innerHTML = '';
+  TABS.forEach(t=>{
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (currentTab===t.id ? ' active':'');
+    btn.textContent = t.label;
+    if(t.id==='learn'){
+      const n = dueCards().length;
+      if(n>0){
+        const b = document.createElement('span');
+        b.className = 'badge'; b.textContent = n;
+        btn.appendChild(b);
+      }
+    }
+    btn.onclick = ()=>{ session=null; currentTab = t.id; render(); };
+    nav.appendChild(btn);
+  });
+}
+
+function updateStatusLed(){
+  document.getElementById('statusLed').style.background = storageOk ? 'var(--cyan)' : 'var(--red)';
+  document.getElementById('statusLed').style.boxShadow = storageOk ? '0 0 8px var(--cyan)' : '0 0 8px var(--red)';
+}
+
+function updateHeaderReadouts(){
+  document.getElementById('dueReadout').textContent = dueCards().length + ' / ' + DATA.length;
+  const mastered = DATA.filter(c=>progress[c.id].box>=5).length;
+  document.getElementById('masteryReadout').textContent = Math.round(mastered/DATA.length*100) + ' % maîtrisé';
+}
+
+function render(){
+  renderNav();
+  updateHeaderReadouts();
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+  if(currentTab==='home') return renderHome(app);
+  if(currentTab==='pretest') return renderPretest(app);
+  if(currentTab==='learn') return renderLearn(app);
+  if(currentTab==='cards') return renderCards(app);
+  if(currentTab==='test') return renderTest(app);
+  if(currentTab==='stats') return renderStats(app);
+}
+
+/* ================= HOME ================= */
+function renderHome(app){
+  const p = document.createElement('div');
+  p.className='panel';
+  p.innerHTML = `
+    <h2>Comment ce poste apprend à votre place</h2>
+    <p>Chaque terme suit un parcours en trois temps : reconnaissance guidée, rappel écrit sans indice, puis
+    révision espacée sur plusieurs jours pour ancrer le terme durablement — les mêmes principes que
+    l'analyse jointe sur les mécanismes de rétention.</p>
+  `;
+  app.appendChild(p);
+
+  const grid = document.createElement('div');
+  grid.className = 'mode-grid';
+  const modes = [
+    {id:'pretest', icon:'🎯', title:'Pré-test', desc:"Testez-vous avant d'étudier : l'échec crée des repères qui accélèrent l'encodage.", tag:'2 min'},
+    {id:'learn', icon:'🧠', title:'Apprendre', desc:'Session de rappel actif espacé — le cœur du système, priorité aux cartes dues.', tag: dueCards().length+' cartes dues'},
+    {id:'cards', icon:'🗂️', title:'Cartes', desc:'Parcourez le glossaire librement, avec pictogramme et définition (double codage).', tag:'libre'},
+    {id:'test', icon:'📝', title:'Test', desc:'Évaluation chronométrée sur un échantillon mélangé, sans filet.', tag:'10 questions'},
+  ];
+  modes.forEach(m=>{
+    const c = document.createElement('button');
+    c.className='mode-card';
+    c.innerHTML = `<span class="icon">${m.icon}</span><h3>${m.title}</h3><p>${m.desc}</p><span class="tag">${m.tag}</span>`;
+    c.onclick = ()=>{ currentTab = m.id; render(); };
+    grid.appendChild(c);
+  });
+  app.appendChild(grid);
+
+  const leitner = document.createElement('div');
+  leitner.className = 'panel';
+  leitner.style.marginTop='16px';
+  leitner.innerHTML = `<h2 style="margin-bottom:14px;">Répartition dans les boîtes de révision</h2>`;
+  leitner.appendChild(buildGauge());
+  app.appendChild(leitner);
+}
+
+function buildGauge(){
+  const wrap = document.createElement('div');
+  wrap.className = 'gauge-row';
+  const labels = ['Nouveau','J+1','J+3','J+7','J+16','Maîtrisé'];
+  const maxH = 100;
+  const counts = labels.map((_,i)=> DATA.filter(c=>progress[c.id].box===i).length);
+  const maxCount = Math.max(1, ...counts);
+  labels.forEach((lab,i)=>{
+    const col = document.createElement('div');
+    col.className='gauge-col';
+    const count = counts[i];
+    const h = Math.max(4, Math.round(count/maxCount*maxH));
+    col.innerHTML = `
+      <span class="gauge-count">${count}</span>
+      <div class="gauge-bar" style="height:${maxH}px;">
+        <div class="gauge-fill" style="height:${h}px; background:${i===5?'var(--amber)':'var(--cyan)'};"></div>
+      </div>
+      <span class="gauge-label">${lab}</span>
+    `;
+    wrap.appendChild(col);
+  });
+  return wrap;
+}
+
+/* ================= PRE-TEST ================= */
+function renderPretest(app){
+  if(!session || session.mode!=='pretest'){
+    const info = document.createElement('div');
+    info.className='panel';
+    info.innerHTML = `
+      <h2>Pré-test diagnostique</h2>
+      <p>Vous allez voir chaque définition et devrez taper l'abréviation correspondante <em>avant</em> d'avoir étudié.
+      Se tromper est normal et utile : cela ouvre des « cases vides » dans la mémoire que la session
+      Apprendre viendra remplir plus efficacement.</p>
+      <button class="btn" id="startPretest">Démarrer le pré-test (${DATA.length} termes)</button>
+    `;
+    app.appendChild(info);
+    document.getElementById('startPretest').onclick = ()=>{
+      session = {mode:'pretest', queue:interleave(DATA), i:0, correct:0, revealed:false, results:[]};
+      render();
+    };
+    return;
+  }
+  renderRecallScreen(app, {isPretest:true});
+}
+
+/* ================= LEARN (spaced repetition engine) ================= */
+function renderLearn(app){
+  if(!session || session.mode!=='learn'){
+    const due = interleave(dueCards());
+    if(due.length===0){
+      const nextDue = Math.min(...DATA.map(c=>progress[c.id].due));
+      const wrap = document.createElement('div');
+      wrap.className='panel empty-state';
+      wrap.innerHTML = `
+        <div class="icon">✅</div>
+        <h2>Rien à réviser pour l'instant</h2>
+        <p>Toutes les cartes ont été vues récemment. Prochaine échéance : ${fmtDays(nextDue-Date.now())}.
+        Revenez à ce moment-là pour laisser la trace mnésique se consolider — réviser trop tôt n'apporte rien de plus.</p>
+      `;
+      app.appendChild(wrap);
+      return;
+    }
+    session = {mode:'learn', queue:due, i:0, correct:0, revealed:false, total:due.length, requeued:0};
+    render();
+    return;
+  }
+  renderRecallScreen(app, {isPretest:false});
+}
+
+/* Shared engine for pretest + learn: MCQ for low-box cards, written recall for higher-box cards */
+function renderRecallScreen(app, opts){
+  const s = session;
+  if(s.i >= s.queue.length){
+    return renderSessionSummary(app, opts);
+  }
+  const card = s.queue[s.i];
+  const box = progress[card.id].box;
+  const useMCQ = !opts.isPretest && box < 2;
+
+  const bar = document.createElement('div');
+  bar.className='session-bar';
+  const pct = Math.round(s.i/s.queue.length*100);
+  bar.innerHTML = `
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="progress-count">${s.i+1} / ${s.queue.length}</div>
+  `;
+  app.appendChild(bar);
+
+  const promptPanel = document.createElement('div');
+  promptPanel.className='panel';
+
+  const catRow = document.createElement('div');
+  catRow.className='card-cat';
+  catRow.innerHTML = `<span>${CAT_LABELS[card.cat]}</span>
+    <span class="stage-pill ${useMCQ?'recognize':'recall'}">${opts.isPretest?'pré-test':(useMCQ?'reconnaissance':'rappel écrit')}</span>`;
+  promptPanel.appendChild(catRow);
+
+  const box2 = document.createElement('div');
+  box2.className='prompt-box';
+  box2.innerHTML = `<div class="prompt-icon">${card.icon}</div>
+    <div class="prompt-text">${card.role}</div>
+    <div class="prompt-hint">Quelle est l'abréviation ?</div>`;
+  promptPanel.appendChild(box2);
+
+  if(useMCQ){
+    const options = shuffle([card, ...distractorsFor(card,3)]);
+    const choicesWrap = document.createElement('div');
+    choicesWrap.className='choices';
+    options.forEach(opt=>{
+      const b = document.createElement('button');
+      b.className='choice-btn';
+      b.textContent = opt.abbr;
+      b.onclick = ()=> handleAnswer(card, opt.id===card.id, promptPanel, b, choicesWrap, opts);
+      choicesWrap.appendChild(b);
+    });
+    promptPanel.appendChild(choicesWrap);
+  } else {
+    const row = document.createElement('div');
+    row.className='input-row';
+    row.innerHTML = `<input type="text" id="recallInput" placeholder="Tapez l'abréviation…" autocomplete="off" autocapitalize="characters">
+      <button class="btn" id="submitRecall">Valider</button>`;
+    promptPanel.appendChild(row);
+    setTimeout(()=>document.getElementById('recallInput')?.focus(), 30);
+    const submit = ()=>{
+      const val = document.getElementById('recallInput').value;
+      const ok = acceptedAnswers(card).includes(normalize(val));
+      document.getElementById('submitRecall').disabled = true;
+      document.getElementById('recallInput').disabled = true;
+      handleAnswer(card, ok, promptPanel, null, null, opts);
+    };
+    document.getElementById('submitRecall').onclick = submit;
+    document.getElementById('recallInput').addEventListener('keydown', e=>{ if(e.key==='Enter') submit(); });
+  }
+
+  app.appendChild(promptPanel);
+}
+
+function handleAnswer(card, ok, promptPanel, clickedBtn, choicesWrap, opts){
+  if(choicesWrap){
+    Array.from(choicesWrap.children).forEach(b=>{
+      b.disabled = true;
+      if(b.textContent === card.abbr) b.classList.add('correct');
+    });
+    if(clickedBtn && !ok) clickedBtn.classList.add('wrong');
+  }
+
+  const s = session;
+  const st = progress[card.id];
+
+  if(opts.isPretest){
+    s.results.push({card, ok});
+    if(ok) s.correct++;
+    // pretest lightly seeds the box so already-known terms aren't re-taught from zero
+    if(ok) st.box = Math.min(st.box+1, 2);
+  } else {
+    st.seen++;
+    if(ok){
+      s.correct++;
+      st.box = Math.min(st.box+1, 5);
+      st.due = Date.now() + INTERVALS[st.box]*DAY_MS;
+    } else {
+      st.wrong++;
+      st.box = Math.max(st.box-1, 0);
+      st.due = Date.now(); // resurface later in this same session (Zeigarnik: stay open until closed)
+      s.queue.push(card);
+    }
+    saveProgress();
+  }
+
+  const fb = document.createElement('div');
+  fb.className = 'feedback ' + (ok?'ok':'ko');
+  fb.innerHTML = `
+    <div class="verdict">${ok ? 'Correct.' : 'Pas tout à fait.'}</div>
+    <div class="answer">${card.abbr} — ${card.full}</div>
+    <div class="role">${card.icon} ${card.role}</div>
+    ${!opts.isPretest ? `<div class="next">${ok ? 'Prochaine révision : ' + fmtDays(INTERVALS[progress[card.id].box]*DAY_MS) : 'Cette carte revient plus tard dans la session.'}</div>` : ''}
+  `;
+  promptPanel.appendChild(fb);
+
+  const actions = document.createElement('div');
+  actions.className='actions';
+  const next = document.createElement('button');
+  next.className='btn';
+  next.textContent = (s.i+1 >= s.queue.length) ? 'Voir le bilan' : 'Suivant';
+  next.onclick = ()=>{ session.i++; render(); };
+  actions.appendChild(next);
+  promptPanel.appendChild(actions);
+}
+
+function renderSessionSummary(app, opts){
+  const s = session;
+  const total = opts.isPretest ? s.results.length : (s.i);
+  const wrap = document.createElement('div');
+  wrap.className='panel';
+  if(opts.isPretest){
+    const wrongOnes = s.results.filter(r=>!r.ok);
+    wrap.innerHTML = `
+      <h2>Bilan du pré-test</h2>
+      <div class="score-big">${s.correct} / ${s.results.length}</div>
+      <p style="margin-top:10px;">${wrongOnes.length ? `Les ${wrongOnes.length} termes manqués sont désormais des "cases vides" à combler — direction Apprendre pour les remplir.` : "Score parfait : direction Apprendre pour consolider dans la durée."}</p>
+    `;
+  } else {
+    wrap.innerHTML = `
+      <h2>Session terminée</h2>
+      <div class="score-big">${DATA.length - dueCards().length} / ${DATA.length}</div>
+      <p style="margin-top:10px;">cartes à jour. Les cartes révisées reviendront à leur prochaine échéance —
+      ne les repassez pas avant, l'espacement fait le travail de consolidation.</p>
+    `;
+  }
+  const actions = document.createElement('div');
+  actions.className='actions';
+  const btn = document.createElement('button');
+  btn.className='btn';
+  btn.textContent = opts.isPretest ? 'Aller à Apprendre' : "Retour à l'accueil";
+  btn.onclick = ()=>{ session=null; currentTab = opts.isPretest ? 'learn' : 'home'; render(); };
+  actions.appendChild(btn);
+  wrap.appendChild(actions);
+  app.appendChild(wrap);
+}
+
+/* ================= CARDS (browse) ================= */
+let browseIndex = 0;
+function renderCards(app){
+  const card = DATA[browseIndex];
+  const st = progress[card.id];
+
+  const flip = document.createElement('div');
+  flip.className = 'flip-card';
+  flip.innerHTML = `
+    <div class="flip-inner">
+      <div class="flip-face flip-front">
+        <div class="abbr">${card.abbr}</div>
+        <div class="cat">${CAT_LABELS[card.cat]}</div>
+      </div>
+      <div class="flip-face flip-back">
+        <div class="icon">${card.icon}</div>
+        <div class="full">${card.full}</div>
+        <div class="role">${card.role}</div>
+      </div>
+    </div>
+  `;
+  flip.onclick = ()=> flip.classList.toggle('flipped');
+  app.appendChild(flip);
+
+  const nav = document.createElement('div');
+  nav.className='browse-nav';
+  nav.innerHTML = `
+    <button class="btn secondary" id="prevCard">← Précédent</button>
+    <span class="pos">${browseIndex+1} / ${DATA.length} · boîte ${st.box}/5</span>
+    <button class="btn secondary" id="nextCard">Suivant →</button>
+  `;
+  app.appendChild(nav);
+  document.getElementById('prevCard').onclick = ()=>{ browseIndex = (browseIndex-1+DATA.length)%DATA.length; render(); };
+  document.getElementById('nextCard').onclick = ()=>{ browseIndex = (browseIndex+1)%DATA.length; render(); };
+}
+
+/* ================= TEST (timed quiz) ================= */
+function renderTest(app){
+  if(!session || session.mode!=='test'){
+    const info = document.createElement('div');
+    info.className='panel';
+    info.innerHTML = `
+      <h2>Test chronométré</h2>
+      <p>10 questions à choix multiples piochées dans tout le glossaire, mélangées entre catégories.
+      Aucun filet, aucun indice — une vraie évaluation sommative de fin de cycle.</p>
+      <button class="btn" id="startTest">Démarrer le test</button>
+    `;
+    app.appendChild(info);
+    document.getElementById('startTest').onclick = ()=>{
+      const pool = interleave(DATA).slice(0, Math.min(10, DATA.length));
+      session = {mode:'test', queue:pool, i:0, correct:0, results:[]};
+      render();
+    };
+    return;
+  }
+  const s = session;
+  if(s.i >= s.queue.length){
+    const wrap = document.createElement('div');
+    wrap.className='panel';
+    wrap.innerHTML = `<h2>Résultat</h2><div class="score-big">${s.correct} / ${s.queue.length}</div>`;
+    const list = document.createElement('div');
+    list.style.marginTop='16px';
+    s.results.forEach(r=>{
+      const row = document.createElement('div');
+      row.className='test-row';
+      row.innerHTML = `<span>${r.card.abbr} — ${r.card.full}</span><span class="${r.ok?'ok':'ko'}">${r.ok?'✓':'✗'}</span>`;
+      list.appendChild(row);
+    });
+    wrap.appendChild(list);
+    const actions = document.createElement('div');
+    actions.className='actions';
+    const btn = document.createElement('button');
+    btn.className='btn'; btn.textContent="Retour à l'accueil";
+    btn.onclick = ()=>{ session=null; currentTab='home'; render(); };
+    actions.appendChild(btn);
+    wrap.appendChild(actions);
+    app.appendChild(wrap);
+    return;
+  }
+
+  const card = s.queue[s.i];
+  const bar = document.createElement('div');
+  bar.className='session-bar';
+  bar.innerHTML = `<div class="progress-track"><div class="progress-fill" style="width:${Math.round(s.i/s.queue.length*100)}%"></div></div>
+    <div class="progress-count">${s.i+1} / ${s.queue.length}</div>`;
+  app.appendChild(bar);
+
+  const panel = document.createElement('div');
+  panel.className='panel';
+  panel.innerHTML = `
+    <div class="card-cat"><span>${CAT_LABELS[card.cat]}</span></div>
+    <div class="prompt-box"><div class="prompt-icon">${card.icon}</div>
+      <div class="prompt-text">${card.role}</div>
+      <div class="prompt-hint">Choisissez l'abréviation.</div></div>
+  `;
+  const choicesWrap = document.createElement('div');
+  choicesWrap.className='choices';
+  const options = shuffle([card, ...distractorsFor(card,3)]);
+  options.forEach(opt=>{
+    const b = document.createElement('button');
+    b.className='choice-btn';
+    b.textContent = opt.abbr;
+    b.onclick = ()=>{
+      const ok = opt.id===card.id;
+      Array.from(choicesWrap.children).forEach(x=>{
+        x.disabled=true;
+        if(x.textContent===card.abbr) x.classList.add('correct');
+      });
+      if(!ok) b.classList.add('wrong');
+      if(ok) s.correct++;
+      s.results.push({card, ok});
+      const actions = document.createElement('div');
+      actions.className='actions';
+      const next = document.createElement('button');
+      next.className='btn'; next.textContent = (s.i+1>=s.queue.length) ? 'Voir le résultat' : 'Suivant';
+      next.onclick = ()=>{ s.i++; render(); };
+      actions.appendChild(next);
+      panel.appendChild(actions);
+    };
+    choicesWrap.appendChild(b);
+  });
+  panel.appendChild(choicesWrap);
+  app.appendChild(panel);
+}
+
+/* ================= STATS ================= */
+function renderStats(app){
+  const panel = document.createElement('div');
+  panel.className='panel';
+  panel.innerHTML = `<h2>Répartition dans les boîtes de révision</h2>
+    <p>Chaque boîte correspond à un intervalle avant la prochaine révision : plus une carte progresse,
+    plus l'écart grandit, jusqu'à la cristallisation en mémoire à long terme.</p>`;
+  panel.appendChild(buildGauge());
+  app.appendChild(panel);
+
+  const list = document.createElement('div');
+  list.className='panel';
+  list.innerHTML = `<h2>Détail par terme</h2>`;
+  const table = document.createElement('div');
+  DATA.forEach(c=>{
+    const st = progress[c.id];
+    const row = document.createElement('div');
+    row.className='test-row';
+    const dueTxt = st.due<=Date.now() ? 'dû maintenant' : fmtDays(st.due-Date.now());
+    row.innerHTML = `<span>${c.icon} ${c.abbr} <span style="color:var(--text-faint)">— boîte ${st.box}/5</span></span><span class="ok" style="font-family:var(--mono);color:var(--text-dim);">${dueTxt}</span>`;
+    table.appendChild(row);
+  });
+  list.appendChild(table);
+  app.appendChild(list);
+}
+
+/* ================= BOOT ================= */
+(async function boot(){
+  await loadProgress();
+  initMissingCards();
+  render();
+  updateStatusLed();
+})();
+
+})();
+</script>
+</body>
+</html>
