@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révision - Éthique et Droit en Cybersécurité</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Arrière-plan animé et moderne */
+            background: linear-gradient(-45deg, #0f172a, #1e3a8a, #3b0764, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* Effet Glassmorphism */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .timer-bar {
+            transition: width 1s linear;
+        }
+        /* Custom scrollbar pour les questions longues */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
+    </style>
+</head>
+<body class="p-4">
+
+    <!-- ECRAN D'ACCUEIL -->
+    <div id="welcome-screen" class="glass-panel w-full max-w-lg rounded-2xl p-8 text-center transition-opacity duration-500">
+        <h1 class="text-3xl font-bold mb-6 text-blue-300">Module Cyber</h1>
+        <p class="text-gray-300 mb-8">Entraînement : Éthique et droit en cybersécurité.</p>
+        <div class="mb-6">
+            <label for="firstname" class="block text-sm font-medium text-gray-400 mb-2">Quel est ton prénom ?</label>
+            <input type="text" id="firstname" placeholder="Ex: Cyprien" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+        </div>
+        <button onclick="startQuiz()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-lg shadow-lg transition-colors">
+            Commencer la révision
+        </button>
+    </div>
+
+    <!-- ECRAN DU QUIZ -->
+    <div id="quiz-screen" class="glass-panel w-full max-w-2xl rounded-2xl p-8 hidden flex-col transition-opacity duration-500 relative overflow-hidden">
+        
+        <!-- Header & Timer -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 id="greeting-msg" class="text-xl font-semibold text-blue-200"></h2>
+            <div class="flex items-center space-x-2 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-600">
+                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span id="timer-text" class="font-mono text-lg font-bold">20s</span>
+            </div>
+        </div>
+        
+        <!-- Barre de progression du temps -->
+        <div class="w-full bg-slate-700 h-1 rounded-full mb-6 absolute top-0 left-0">
+            <div id="timer-bar" class="bg-blue-500 h-1 rounded-full timer-bar" style="width: 100%;"></div>
+        </div>
+
+        <!-- Zone de Question -->
+        <div id="question-container" class="mb-8">
+            <h3 id="question-text" class="text-2xl font-bold mb-6 text-white leading-tight"></h3>
+            <!-- Les options seront générées ici. On utilise des checkboxes pour les choix multiples possibles. -->
+            <div id="options-container" class="space-y-3"></div>
+        </div>
+
+        <!-- Zone de Correction (cachée pendant le timer) -->
+        <div id="correction-container" class="hidden mb-6 p-4 rounded-lg bg-slate-800/80 border border-slate-600">
+            <h4 class="font-bold text-lg mb-2" id="correction-title"></h4>
+            <p id="correction-text" class="text-gray-300 text-sm leading-relaxed"></p>
+        </div>
+
+        <!-- Bouton d'action -->
+        <button id="action-btn" onclick="validateAnswer()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-lg shadow-lg transition-colors">
+            Valider
+        </button>
+    </div>
+
+    <!-- ECRAN DE FIN -->
+    <div id="end-screen" class="glass-panel w-full max-w-lg rounded-2xl p-8 text-center hidden transition-opacity duration-500">
+        <div class="text-6xl mb-4">🏆</div>
+        <h2 class="text-3xl font-bold mb-4 text-green-400">Félicitations !</h2>
+        <p class="text-gray-300 mb-6">Tu as mémorisé toutes les questions. Ton cours d'éthique et de droit n'a plus de secret pour toi.</p>
+        <button onclick="location.reload()" class="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+            Recommencer
+        </button>
+    </div>
+
+    <script>
+        // BASE DE DONNÉES DU QCM (extraite de ton texte)
+        const dbQuestions = [
+            {
+                id: 1,
+                question: "Quelle loi a introduit le concept de STAD (Système de traitement automatique de données) ?",
+                options: ["La loi Informatique et Liberté", "La loi de programmation militaire", "La loi Godfrain"],
+                correct: [2],
+                explanation: "Le concept de STAD a été introduit par la loi Godfrain."
+            },
+            {
+                id: 3,
+                question: "Quels sont les facteurs aggravants en matière d'atteinte aux STAD ?",
+                options: ["Mise en œuvre par l'état", "Appartenance à un OIV", "Qualité de l'auteur", "Action en bande organisée"],
+                correct: [3],
+                explanation: "L'action en bande organisée est considérée comme un facteur aggravant."
+            },
+            {
+                id: 4,
+                question: "Auprès de quelles autorités doit-on rapporter la perte de données à caractère personnel ?",
+                options: ["Plateforme PHAROS", "Agence régionale de santé (ARS)", "ANSSI", "CNIL"],
+                correct: [3],
+                explanation: "La perte de données personnelles doit être signalée à la CNIL."
+            },
+            {
+                id: 5,
+                question: "Auprès de quelles autorités doit-on rapporter les incidents de type : cyberharcèlement ?",
+                options: ["Plateforme PHAROS", "Agence régionale de santé (ARS)", "ANSSI", "CNIL"],
+                correct: [0],
+                explanation: "Le cyber-harcèlement se signale sur la plateforme PHAROS."
+            },
+            {
+                id: 6,
+                question: "Vis-à-vis du code pénal, ce qui compte c'est :",
+                options: ["L'action", "La technique utilisée", "L'effet de l'action"],
+                correct: [0],
+                explanation: "Devant le code pénal, c'est l'action en elle-même qui est jugée, indépendamment de la technique."
+            },
+            {
+                id: 7,
+                question: "Les organismes d'importance vitale (OIV) doivent signaler les incidents dont ils sont victimes à :",
+                options: ["L'ANSSI", "La gendarmerie nationale", "Les services fiscaux", "La CNIL"],
+                correct: [0],
+                explanation: "Les OIV ont l'obligation légale de signaler les incidents de sécurité à l'ANSSI."
+            },
+            {
+                id: 10,
+                question: "L'agence ANSSI dépend :",
+                options: ["Du ministère de l'Intérieur", "Du ministère des Armées", "Du Premier ministre"],
+                correct: [2],
+                explanation: "L'ANSSI dépend du Premier ministre, et non du ministère de la Défense comme on l'entend souvent."
+            },
+            {
+                id: 12,
+                question: "L'outil open source PIA proposé par la CNIL permet :",
+                options: ["D'identifier les données personnelles", "D'identifier les processus de traitement", "De faire une analyse d'impact relativement au RGPD"],
+                correct: [2],
+                explanation: "L'outil PIA sert spécifiquement à réaliser des analyses d'impact (AIPD) dans le cadre du RGPD."
+            }
+        ];
+
+        // LOGIQUE D'ÉTAT
+        let userName = "";
+        let questionQueue = [];
+        let consecutiveSuccess = {}; // Stocke le nb de succès d'affilée { id_question: nombre }
+        let currentQuestion = null;
+        let timer;
+        let timeLeft = 20;
+        let isWaitingForNext = false; // Permet de savoir si le bouton sert à valider ou passer à la suite
+
+        function startQuiz() {
+            const input = document.getElementById('firstname').value.trim();
+            userName = input !== "" ? input : "Cyprien"; // Valeur par défaut
+            
+            // Initialiser la file d'attente (tous les IDs)
+            questionQueue = dbQuestions.map(q => q.id);
+            // Initialiser les compteurs de succès à 0
+            dbQuestions.forEach(q => { consecutiveSuccess[q.id] = 0; });
+
+            // Mise à jour de l'UI
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('quiz-screen').classList.add('flex');
+            
+            document.getElementById('greeting-msg').innerHTML = `Allez <span class="text-blue-400">${userName}</span>, c'est parti pour ta session de révision !`;
+
+            loadNextQuestion();
+        }
+
+        function loadNextQuestion() {
+            if (questionQueue.length === 0) {
+                endQuiz();
+                return;
+            }
+
+            // Récupère la première question de la file
+            const currentId = questionQueue.shift();
+            currentQuestion = dbQuestions.find(q => q.id === currentId);
+
+            // Reset l'UI
+            document.getElementById('correction-container').classList.add('hidden');
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            document.getElementById('action-btn').innerText = "Valider";
+            document.getElementById('action-btn').classList.replace('bg-green-600', 'bg-blue-600');
+            isWaitingForNext = false;
+
+            // Afficher la question
+            document.getElementById('question-text').innerText = currentQuestion.question;
+            
+            currentQuestion.options.forEach((opt, index) => {
+                const label = document.createElement('label');
+                label.className = "flex items-center space-x-3 p-4 rounded-xl bg-slate-800/60 border border-slate-600 cursor-pointer hover:bg-slate-700 transition-colors";
+                label.innerHTML = `
+                    <input type="checkbox" value="${index}" class="option-checkbox w-5 h-5 text-blue-600 bg-gray-700 border-gray-500 rounded focus:ring-blue-500 focus:ring-2">
+                    <span class="text-gray-200">${opt}</span>
+                `;
+                optionsContainer.appendChild(label);
+            });
+
+            startTimer();
+        }
+
+        function startTimer() {
+            timeLeft = 20;
+            updateTimerUI();
+            
+            clearInterval(timer);
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerUI();
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    validateAnswer(true); // true = validation par timeout
+                }
+            }, 1000);
+        }
+
+        function updateTimerUI() {
+            document.getElementById('timer-text').innerText = timeLeft + "s";
+            const percent = (timeLeft / 20) * 100;
+            const bar = document.getElementById('timer-bar');
+            bar.style.width = percent + "%";
+            
+            if (timeLeft <= 5) {
+                bar.classList.replace('bg-blue-500', 'bg-red-500');
+                document.getElementById('timer-text').classList.add('text-red-400');
+            } else {
+                bar.classList.replace('bg-red-500', 'bg-blue-500');
+                document.getElementById('timer-text').classList.remove('text-red-400');
+            }
+        }
+
+        function validateAnswer(isTimeout = false) {
+            if (isWaitingForNext) {
+                loadNextQuestion();
+                return;
+            }
+
+            clearInterval(timer);
+            isWaitingForNext = true;
+
+            // Récupérer les réponses de l'utilisateur
+            const checkboxes = document.querySelectorAll('.option-checkbox');
+            let userAnswers = [];
+            checkboxes.forEach(cb => {
+                if (cb.checked) userAnswers.push(parseInt(cb.value));
+            });
+
+            // Vérifier si la réponse est parfaitement exacte
+            const correctAnswers = currentQuestion.correct;
+            const isCorrect = !isTimeout && 
+                              userAnswers.length === correctAnswers.length &&
+                              userAnswers.every(val => correctAnswers.includes(val));
+
+            // Logique de répétition espacée
+            if (isCorrect) {
+                consecutiveSuccess[currentQuestion.id]++;
+                // Si on atteint 2 succès d'affilée, on ne la remet pas dans la file (elle est acquise)
+                if (consecutiveSuccess[currentQuestion.id] < 2) {
+                    questionQueue.push(currentQuestion.id);
+                }
+            } else {
+                // Si faux, on reset le compteur et on la remet à la fin de la file
+                consecutiveSuccess[currentQuestion.id] = 0;
+                questionQueue.push(currentQuestion.id);
+            }
+
+            // Affichage des corrections UI
+            checkboxes.forEach((cb, index) => {
+                const label = cb.parentElement;
+                cb.disabled = true; // Empêche de modifier après validation
+                
+                if (correctAnswers.includes(index)) {
+                    // La bonne réponse doit être verte
+                    label.classList.replace('bg-slate-800/60', 'bg-green-900/40');
+                    label.classList.replace('border-slate-600', 'border-green-500');
+                } else if (userAnswers.includes(index) && !correctAnswers.includes(index)) {
+                    // La mauvaise réponse sélectionnée doit être rouge
+                    label.classList.replace('bg-slate-800/60', 'bg-red-900/40');
+                    label.classList.replace('border-slate-600', 'border-red-500');
+                }
+            });
+
+            // Afficher le bloc de correction textuelle
+            const correctionBox = document.getElementById('correction-container');
+            const correctionTitle = document.getElementById('correction-title');
+            correctionBox.classList.remove('hidden');
+            
+            if (isCorrect) {
+                correctionBox.classList.replace('border-slate-600', 'border-green-500');
+                correctionBox.classList.add('bg-green-900/20');
+                correctionTitle.innerText = "✅ Bonne réponse !";
+                correctionTitle.className = "font-bold text-lg mb-2 text-green-400";
+            } else {
+                correctionBox.classList.replace('border-slate-600', 'border-red-500');
+                correctionBox.classList.add('bg-red-900/20');
+                correctionTitle.innerText = isTimeout ? "⏰ Temps écoulé !" : "❌ Mauvaise réponse.";
+                correctionTitle.className = "font-bold text-lg mb-2 text-red-400";
+            }
+            
+            // Compteur pour indiquer où l'utilisateur en est
+            const statusStr = consecutiveSuccess[currentQuestion.id] === 1 ? "(Validée 1/2)" : 
+                              (isCorrect ? "(Acquise 2/2 !)" : "(Remise dans la boucle)");
+            
+            document.getElementById('correction-text').innerHTML = `<strong>Explication :</strong> ${currentQuestion.explanation} <br><br><span class="text-xs text-blue-300">${statusStr}</span>`;
+
+            // Changer le bouton pour passer à la suite
+            const btn = document.getElementById('action-btn');
+            btn.innerText = "Question Suivante ➔";
+            btn.classList.replace('bg-blue-600', 'bg-green-600');
+            btn.classList.replace('hover:bg-blue-500', 'hover:bg-green-500');
+        }
+
+        function endQuiz() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('flex');
+            document.getElementById('end-screen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
