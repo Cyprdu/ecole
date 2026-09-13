@@ -98,6 +98,14 @@
   .footer-row{ display:flex; justify-content:space-between; align-items:center; margin-top: 22px; font-size:0.85rem; color: var(--ink-soft); }
   .streak{ font-family:'Cinzel',serif; font-weight:700; color:var(--brick-dark); }
 
+  .wait-block{ margin-top: 18px; }
+  .wait-label{ font-size:0.8rem; color: var(--crack); text-align:center; margin-bottom:6px; font-style:italic; }
+  .wait-bar{ height: 8px; background: #D8C7A0; border: 1px solid #B8A276; overflow:hidden; margin-bottom: 12px; }
+  .wait-fill{ height:100%; width:0%; background: linear-gradient(180deg, var(--brick), var(--brick-dark)); }
+  #btn-next-wrong{ width:100%; font-family:'Cinzel',serif; font-weight:700; font-size:0.9rem; letter-spacing:0.03em; background: #C9B588; color: #8a7550; border:none; padding: 13px; cursor:not-allowed; transition: background 0.2s, color 0.2s; }
+  #btn-next-wrong:not(:disabled){ background: var(--brick); color:#F4E9CE; cursor:pointer; }
+  #btn-next-wrong:not(:disabled):hover{ background: var(--brick-dark); }
+
   .intro, .pretest, .finished{ background: var(--parchment-dark); border: 1px solid #C1AA7A; padding: 34px 30px; }
   .intro p, .finished p{ line-height:1.55; color: var(--ink-soft); }
   .intro ol{ padding-left: 20px; color: var(--ink-soft); line-height:1.65; }
@@ -176,6 +184,12 @@
       </div>
 
       <div class="feedback" id="feedback"></div>
+
+      <div id="wait-block" class="wait-block hidden">
+        <div class="wait-label" id="wait-label">Mémorise bien avant de continuer…</div>
+        <div class="wait-bar"><div class="wait-fill" id="wait-fill"></div></div>
+        <button id="btn-next-wrong" disabled>Suivant (patiente 10s…)</button>
+      </div>
     </div>
 
     <div class="footer-row">
@@ -248,7 +262,7 @@
 
   const words = RAW.map((r,i)=>({
     id:i, lat:r[0], parts:r[1], core:r[2], cat:r[3], extra:r[4],
-    stageIndex:0, introduced:false, dueAt:0, everWrong:false
+    stageIndex:0, introduced:false, dueAt:0, everWrong:false, wrongCount:0
   }));
 
   // 5 étapes : QCM L->F, écrit L->F, QCM F->L, écrit F->L (1er rappel), écrit F->L (2e rappel espacé)
@@ -280,6 +294,13 @@
   let lastCat = null;
   let lastWordId = null;
   let current = null;
+  let waitTimer = null;
+
+  // Ordre dans lequel les mots NON ENCORE VUS seront proposés pour la première fois.
+  // Mélangé une seule fois au chargement de la page : à chaque actualisation, les
+  // premiers mots proposés sont différents. Sur une même session, tous les mots
+  // y passent quand même puisque cet ordre couvre l'intégralité de la liste.
+  let introOrder = shuffle(words.slice());
 
   const el = id => document.getElementById(id);
 
@@ -373,7 +394,7 @@
     let due = words.filter(w=>w.introduced && w.stageIndex<NUM_STAGES && w.dueAt<=cardCounter);
     let pool = due;
     if(pool.length===0){
-      const notIntroduced = words.filter(w=>!w.introduced);
+      const notIntroduced = introOrder.filter(w=>!w.introduced);
       if(activeIntroducedCount()<ACTIVE_CAP && notIntroduced.length>0){
         pool=[notIntroduced[0]];
       } else {
@@ -416,6 +437,8 @@
 
   function renderCard(){
     if(allMastered()) return showFinished();
+    if(waitTimer){ clearInterval(waitTimer); waitTimer=null; }
+    el('wait-block').classList.add('hidden');
     const w = pickNext();
     const def = STAGE_DEFS[w.stageIndex];
     current = { word:w, def:def, correctAnswer: def.dir==='l2f' ? w.core : w.lat };
@@ -454,6 +477,8 @@
       el('write-input').setAttribute('placeholder', def.dir==='l2f' ? 'traduction en français…' : 'mot latin…');
       const input = el('write-input');
       input.value='';
+      input.disabled = false;
+      el('write-submit').disabled = false;
       setTimeout(()=>input.focus(),30);
     }
 
@@ -488,6 +513,7 @@
       if(w.stageIndex<NUM_STAGES){ w.dueAt = cardCounter + STAGE_SPACING[w.stageIndex-1]; }
     } else {
       w.everWrong = true;
+      w.wrongCount = (w.wrongCount||0) + 1;
       w.dueAt = cardCounter + RETRY_GAP;
     }
   }
@@ -510,6 +536,8 @@
     const w = current.word;
     const val = el('write-input').value;
     const correct = current.def.dir==='l2f' ? checkWrittenFrench(w,val) : checkWrittenLatin(w,val);
+    el('write-input').disabled = true;
+    el('write-submit').disabled = true;
     registerResult(correct);
     advanceOrRetry(w, correct);
     showFeedback(correct, w);
@@ -525,10 +553,65 @@
       '<div class="gloss">'+w.lat+' → <b>'+w.core+'</b></div>'+
       (justMastered ? '<div class="note">Mot maîtrisé — les deux rappels latins espacés sont validés.</div>' : '') +
       (!justMastered && extraNote?('<div class="note">'+extraNote+'</div>'):'');
-    setTimeout(renderCard, correct?900:1500);
+
+    // Correct → dégrisage immédiat (0s). Faux → délai qui grandit avec le nombre
+    // de fois où CE mot a déjà été raté (3s la 1re fois, jusqu'à 15s si le mot
+    // pose vraiment problème), pour forcer à bien regarder la bonne réponse.
+    let delayMs = 0;
+    if(!correct){
+      delayMs = Math.min(15000, 3000 + (w.wrongCount - 1) * 2000);
+    }
+    startWait(delayMs, correct);
+  }
+
+  // Affiche toujours le bloc "Suivant" ; la barre se remplit progressivement
+  // pendant delayMs et le bouton ne se dégrise qu'une fois ce délai écoulé.
+  // delayMs === 0 → bouton dégrisé tout de suite (bonne réponse).
+  function startWait(delayMs, correct){
+    const fillEl = el('wait-fill');
+    const btn = el('btn-next-wrong');
+    const label = el('wait-label');
+    el('wait-block').classList.remove('hidden');
+    if(waitTimer){ clearInterval(waitTimer); waitTimer=null; }
+
+    if(delayMs<=0){
+      label.style.display = correct ? 'block' : 'none';
+      label.textContent = 'Bien joué — continue quand tu veux.';
+      fillEl.style.transition = 'none';
+      fillEl.style.width = '100%';
+      btn.disabled = false;
+      btn.textContent = 'Suivant →';
+      return;
+    }
+
+    label.style.display = 'block';
+    label.textContent = 'Mémorise bien avant de continuer…';
+    fillEl.style.transition = 'none';
+    fillEl.style.width = '0%';
+    btn.disabled = true;
+    const startTime = Date.now();
+    requestAnimationFrame(()=>{ fillEl.style.transition = 'width 0.1s linear'; });
+    waitTimer = setInterval(()=>{
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min(100, (elapsed/delayMs)*100);
+      fillEl.style.width = pct + '%';
+      const secondsLeft = Math.max(0, Math.ceil((delayMs - elapsed)/1000));
+      if(elapsed < delayMs){
+        btn.textContent = 'Suivant (patiente ' + secondsLeft + 's…)';
+      } else {
+        clearInterval(waitTimer);
+        waitTimer = null;
+        btn.disabled = false;
+        btn.textContent = 'Suivant →';
+      }
+    }, 100);
   }
 
   // ---------- events ----------
+  el('btn-next-wrong').onclick = ()=>{
+    if(el('btn-next-wrong').disabled) return;
+    renderCard();
+  };
   el('write-submit').onclick = answerWrite;
   el('write-input').addEventListener('keydown', e=>{ if(e.key==='Enter') answerWrite(); });
   document.addEventListener('keydown', e=>{
