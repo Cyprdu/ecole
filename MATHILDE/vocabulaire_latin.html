@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabula — Vocabulaire latin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment: #ECE1CB;
+    --parchment-dark: #DECBA5;
+    --ink: #2B2116;
+    --ink-soft: #5B4C3A;
+    --brick: #9C3B27;
+    --brick-dark: #7A2C1C;
+    --verdigris: #4F6F5C;
+    --gold: #A9822F;
+    --slate: #4A5568;
+    --crack: #8B2E1F;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--parchment);
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(169,130,47,0.10), transparent 55%),
+      radial-gradient(ellipse at 85% 90%, rgba(122,44,28,0.08), transparent 50%);
+    color: var(--ink);
+    font-family: 'Crimson Pro', serif;
+    min-height: 100vh;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding: 32px 16px 60px;
+  }
+  .stage{ width:100%; max-width: 640px; }
+  h1,h2,h3{ font-family:'Cinzel', serif; font-weight:700; letter-spacing:0.02em; margin:0; color:var(--ink);}
+  .masthead{ text-align:center; margin-bottom: 22px; }
+  .masthead h1{ font-size: 1.7rem; }
+  .masthead p{ margin:6px 0 0; color:var(--ink-soft); font-size:1.02rem; font-style:italic;}
+
+  .via-wrap{ margin: 18px 0 26px; }
+  .via-label{ display:flex; justify-content:space-between; align-items:baseline; font-size:0.92rem; color:var(--ink-soft); margin-bottom:6px; }
+  .via-label strong{ color:var(--ink); font-weight:600; }
+  .via{ position:relative; height: 20px; background: linear-gradient(180deg, #D8C7A0, #C9B588); border: 1px solid #B8A276; overflow:hidden; }
+  .via::before{ content:""; position:absolute; inset:0; background-image: repeating-linear-gradient(90deg, transparent 0 26px, rgba(43,33,22,0.18) 26px 28px); }
+  .via-fill{ position:absolute; top:0; left:0; bottom:0; width:0%; background: linear-gradient(180deg, var(--verdigris), #3d5a49); transition: width 0.5s ease; }
+
+  .stage-dots{ display:flex; gap:6px; justify-content:center; margin: 4px 0 16px; }
+  .stage-dots span{ width:8px; height:8px; border-radius:50%; background:#C9B588; border:1px solid #B8A276; }
+  .stage-dots span.done{ background: var(--verdigris); border-color:var(--verdigris); }
+  .stage-dots span.now{ background: var(--brick); border-color:var(--brick-dark); }
+
+  .mech{ display:flex; align-items:center; gap:10px; font-size: 0.86rem; color:var(--ink-soft); border-left: 3px solid var(--gold); padding: 7px 12px; background: rgba(169,130,47,0.08); margin-bottom: 18px; }
+  .mech b{ color:var(--brick-dark); font-family:'Cinzel',serif; font-weight:700; font-size:0.78rem; letter-spacing:0.03em;}
+
+  .tablet{ background: var(--parchment-dark); border: 1px solid #C1AA7A; box-shadow: inset 0 0 0 1px rgba(43,33,22,0.08), inset 0 2px 14px rgba(43,33,22,0.12); padding: 34px 30px; position:relative; }
+  .tablet::before, .tablet::after{ content:""; position:absolute; width:14px; height:14px; border-radius:50%; background: radial-gradient(circle at 35% 30%, #efe0bd, #8a7038); box-shadow: inset 0 1px 2px rgba(0,0,0,0.4); }
+  .tablet::before{ top:10px; left:10px; }
+  .tablet::after{ top:10px; right:10px; }
+
+  .cat-tag{ display:inline-block; font-family:'Cinzel',serif; font-size:0.68rem; font-weight:700; letter-spacing:0.08em; padding: 3px 10px; margin-bottom: 18px; border: 1px solid currentColor; }
+  .cat-verbe{ color: var(--brick-dark); }
+  .cat-adverbe{ color: var(--verdigris); }
+  .cat-autre{ color: var(--slate); }
+  .dir-flag{ float:right; font-size:0.66rem; letter-spacing:0.06em; color:var(--ink-soft); font-family:'Cinzel',serif; padding-top:6px; }
+
+  .lemma{ text-align:center; font-family:'Cinzel',serif; font-size: 2.1rem; font-weight: 700; color: var(--ink); margin: 6px 0 4px; }
+  .lemma.fr-mode{ font-family:'Crimson Pro', serif; font-style:italic; font-weight:600; color: var(--brick-dark); }
+  .principal-parts{ text-align:center; font-style:italic; color: var(--ink-soft); font-size: 1rem; margin-bottom: 26px; min-height: 1.2em; }
+  .prompt-text{ text-align:center; color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 22px; }
+
+  .options{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 460px){ .options{ grid-template-columns: 1fr; } }
+
+  .opt{ font-family:'Crimson Pro', serif; font-size: 1.05rem; background: var(--parchment); border: 1px solid #B8A276; padding: 14px 16px; text-align:left; cursor:pointer; color: var(--ink); transition: transform 0.12s ease, background 0.15s ease; position:relative; }
+  .opt .k{ display:inline-block; width:20px; color: var(--ink-soft); font-family:'Cinzel',serif; font-size:0.75rem; }
+  .opt:hover{ background: #F4E9CE; }
+  .opt:active{ transform: scale(0.985); }
+  .opt.correct{ background: #DDE8DE; border-color: var(--verdigris); color:#2E4436; }
+  .opt.wrong{ background: #F1DAD3; border-color: var(--crack); color:#5C2016; }
+  .opt.dim{ opacity:0.55; }
+
+  .write-row{ display:flex; gap:10px; margin-top: 4px; }
+  .write-row input{ flex:1; font-family:'Crimson Pro', serif; font-size: 1.1rem; padding: 13px 14px; border: 1px solid #B8A276; background: var(--parchment); color: var(--ink); }
+  .write-row input:focus{ outline: 2px solid var(--gold); outline-offset: 1px; }
+  .write-row button{ font-family:'Cinzel',serif; font-weight:700; font-size:0.85rem; letter-spacing:0.03em; background: var(--brick); color: #F4E9CE; border:none; padding: 0 22px; cursor:pointer; }
+  .write-row button:hover{ background: var(--brick-dark); }
+
+  .feedback{ margin-top: 22px; min-height: 64px; text-align:center; }
+  .feedback .verdict{ font-family:'Cinzel',serif; font-weight:700; font-size:1rem; letter-spacing:0.02em; margin-bottom:4px; }
+  .feedback.correct .verdict{ color: var(--verdigris); }
+  .feedback.wrong .verdict{ color: var(--crack); }
+  .feedback .gloss{ color: var(--ink-soft); font-size:0.96rem; }
+  .feedback .note{ color: var(--gold); font-size:0.86rem; font-style:italic; margin-top:6px; }
+
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; margin-top: 22px; font-size:0.85rem; color: var(--ink-soft); }
+  .streak{ font-family:'Cinzel',serif; font-weight:700; color:var(--brick-dark); }
+
+  .intro, .pretest, .finished{ background: var(--parchment-dark); border: 1px solid #C1AA7A; padding: 34px 30px; }
+  .intro p, .finished p{ line-height:1.55; color: var(--ink-soft); }
+  .intro ol{ padding-left: 20px; color: var(--ink-soft); line-height:1.65; }
+  .intro ol li b{ color: var(--ink); }
+  .intro ul{ padding-left:20px; color:var(--ink-soft); line-height:1.6; }
+  .cta{ display:block; width:100%; font-family:'Cinzel',serif; font-weight:700; font-size:0.95rem; letter-spacing:0.03em; background: var(--brick); color:#F4E9CE; border:none; padding: 15px; margin-top: 22px; cursor:pointer; }
+  .cta:hover{ background: var(--brick-dark); }
+
+  .stat-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:14px; margin: 22px 0; }
+  .stat{ text-align:center; border:1px solid #C1AA7A; padding: 14px 8px; background: var(--parchment); }
+  .stat .n{ font-family:'Cinzel',serif; font-weight:700; font-size:1.5rem; color: var(--brick-dark); }
+  .stat .l{ font-size:0.78rem; color: var(--ink-soft); margin-top:2px; }
+
+  .hidden{ display:none !important; }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="masthead">
+    <h1>TABVLA · Vocabulaire latin</h1>
+    <p>une session d'apprentissage actif, espacé, entrelacé — et bidirectionnel</p>
+  </div>
+
+  <div id="screen-intro" class="intro">
+    <h2 style="font-size:1.15rem; margin-bottom:14px;">Le cycle de validation d'un mot</h2>
+    <p>Un mot n'est considéré comme <b>maîtrisé</b> qu'après avoir réussi, dans l'ordre et espacé dans le temps, ces cinq étapes :</p>
+    <ol>
+      <li><b>Latin → français, QCM</b> — le mot latin est affiché, tu choisis le sens parmi 4 propositions.</li>
+      <li><b>Latin → français, écrit</b> — le même mot latin est affiché, mais sans choix : tu écris le sens de mémoire.</li>
+      <li><b>Français → latin, QCM</b> — le mot français est affiché, tu choisis la forme latine parmi 4 propositions.</li>
+      <li><b>Français → latin, écrit (1er rappel)</b> — le mot français est affiché, tu écris le mot latin de mémoire.</li>
+      <li><b>Français → latin, écrit (2e rappel, espacé)</b> — il faut réussir <b>une seconde fois</b>, après un intervalle plus long, pour confirmer que ce n'est pas resté en mémoire de travail par hasard.</li>
+    </ol>
+    <p>Un échec sur une étape ne fait pas reculer le mot : il refait juste cette même étape un peu plus tard. Entre chaque étape réussie, le mot disparaît puis revient après un nombre <b>croissant</b> de cartes (de plus en plus espacé à mesure qu'on avance dans le cycle) — assez pour que ce ne soit plus dans la mémoire immédiate, assez tôt pour que ce ne soit pas oublié. C'est pour ça que le dernier rappel en latin ne peut jamais arriver « juste après » avoir vu le mot : il est délibérément repoussé loin dans la session.</p>
+    <p><b>Piège dans les QCM</b> : les mauvaises réponses ne sont plus des mots inventés en mélangeant des lettres — ce sont de <b>vrais mots</b> de la liste, de la même catégorie grammaticale (un autre verbe, un autre adverbe...). Ton cerveau doit associer la bonne forme au bon sens précis, pas juste repérer ce qui « a l'air faux ».</p>
+    <button class="cta" id="btn-start-pretest">Commencer par le pré-test (30 secondes)</button>
+  </div>
+
+  <div id="screen-pretest" class="pretest hidden">
+    <h2 style="font-size:1.1rem; margin-bottom:10px;">Pré-test diagnostique</h2>
+    <p style="color:var(--ink-soft); margin-bottom:20px;">Devine le sens, même à l'aveugle — l'objectif est de créer un « manque » que ton cerveau ira combler ensuite. Tape n'importe quoi si tu ne sais pas, puis continue.</p>
+    <div class="lemma" id="pretest-lemma">—</div>
+    <div class="write-row">
+      <input id="pretest-input" type="text" placeholder="ta meilleure hypothèse en français…" autocomplete="off">
+      <button id="pretest-next">Suivant</button>
+    </div>
+    <div class="footer-row"><span id="pretest-progress">0 / 5</span><span></span></div>
+  </div>
+
+  <div id="screen-learn" class="hidden">
+    <div class="via-wrap">
+      <div class="via-label"><span>La voie romaine</span><strong id="via-count">0 / 40 maîtrisés</strong></div>
+      <div class="via"><div class="via-fill" id="via-fill"></div></div>
+    </div>
+
+    <div class="mech" id="mech-badge">
+      <b id="mech-name">RECONNAISSANCE</b><span id="mech-desc">— identifie le sens parmi des propositions proches.</span>
+    </div>
+
+    <div class="tablet">
+      <span class="cat-tag" id="cat-tag">VERBE</span>
+      <span class="dir-flag" id="dir-flag">ÉTAPE 1/5</span>
+      <div class="stage-dots" id="stage-dots">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="lemma" id="lemma">amo</div>
+      <div class="principal-parts" id="principal-parts">as, are, avi, atum</div>
+      <div class="prompt-text" id="prompt-text">Que signifie ce mot ?</div>
+
+      <div id="mcq-block" class="options"></div>
+
+      <div id="write-block" class="write-row hidden">
+        <input id="write-input" type="text" placeholder="écris ta réponse…" autocomplete="off">
+        <button id="write-submit">Valider</button>
+      </div>
+
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+    <div class="footer-row">
+      <span>Cartes vues : <strong id="seen-count">0</strong></span>
+      <span class="streak">série en cours : <span id="streak-count">0</span> 🔥</span>
+    </div>
+  </div>
+
+  <div id="screen-finished" class="finished hidden">
+    <h2 style="font-size:1.2rem;">Voie achevée</h2>
+    <p>Les 40 mots ont franchi les cinq étapes (reconnaissance et production, dans les deux sens, avec double rappel latin) au moins une fois. La mémoire à long terme se construit sur des rappels espacés de plusieurs <i>jours</i> — reviens demain relancer une session pour cristalliser durablement ces mots (cette page ne conserve rien après fermeture : c'est le retour différé, jour après jour, qui fait la rétention).</p>
+    <div class="stat-grid">
+      <div class="stat"><div class="n" id="stat-cards">0</div><div class="l">cartes vues</div></div>
+      <div class="stat"><div class="n" id="stat-acc">0%</div><div class="l">précision globale</div></div>
+      <div class="stat"><div class="n" id="stat-best">0</div><div class="l">meilleure série</div></div>
+    </div>
+    <button class="cta" id="btn-restart">Relancer une session</button>
+  </div>
+
+</div>
+
+<script>
+(function(){
+
+  // ---------- DATA ----------
+  const RAW = [
+    ["agito","as, are, avi, atum","agiter","verbe",["remuer","tourmenter","persécuter"]],
+    ["amo","as, are, avi, atum","aimer","verbe",["amabo te : s'il te plaît"]],
+    ["appello","as, are, avi, atum","appeler","verbe",[]],
+    ["cogito","as, are, avi, atum","penser","verbe",["considérer","méditer","projeter"]],
+    ["crucio","as, are, avi, atum","torturer","verbe",["mettre en croix","supplicier"]],
+    ["debeo","es, ere, debui, debitum","devoir","verbe",["être débiteur","être obligé de"]],
+    ["delecto","as, are, avi, atum","charmer","verbe",["faire plaisir à"]],
+    ["do","das, dare, dedi, datum","donner","verbe",["offrir"]],
+    ["excauo","as, are, avi, atum","creuser","verbe",[]],
+    ["habeo","es, ere, ui, itum","avoir","verbe",["tenir pour","considérer comme"]],
+    ["impleo","es, ere, evi, etum","remplir","verbe",[]],
+    ["iacto","as, are, avi, atum","jeter","verbe",["lancer","agiter","ballotter"]],
+    ["laeto","as, are, avi, atum","se réjouir","verbe",["réjouir","éprouver de la joie"]],
+    ["laudo","as, are, avi, atum","louer","verbe",[]],
+    ["moneo","es, ere, ui, itum","avertir","verbe",["faire souvenir","engager","exhorter"]],
+    ["placo","as, are, avi, atum","calmer","verbe",["apaiser"]],
+    ["respondeo","es, ere, spondi, sponsum","répondre","verbe",[]],
+    ["salueo","es, ere","se bien porter","verbe",["être en bonne santé"]],
+    ["seruo","as, are, avi, atum","sauver","verbe",["préserver","garder"]],
+    ["terreo","es, ere, terrui, territum","effrayer","verbe",["épouvanter"]],
+    ["conseruo","as, are, avi, atum","conserver","verbe",["observer fidèlement"]],
+    ["ualeo","es, ere, ualui, ualiturum","aller bien","verbe",["être fort"]],
+    ["uideo","es, ere, uidi, uisum","voir","verbe",["observer","comprendre"]],
+    ["uoco","as, are, avi, atum","appeler","verbe",["désigner","convoquer","inviter à dîner"]],
+
+    ["cito","adverbe","vite","adverbe",["rapidement"]],
+    ["hodie","adverbe","aujourd'hui","adverbe",[]],
+    ["ibi","adverbe","là","adverbe",["ici"]],
+    ["magis","adverbe","plus","adverbe",["davantage"]],
+    ["mox","adverbe","bientôt","adverbe",[]],
+    ["non","adverbe","ne pas","adverbe",["pas"]],
+    ["optime","adverbe","parfaitement","adverbe",["le mieux du monde"]],
+    ["paene","adverbe","presque","adverbe",[]],
+    ["saepe","adverbe","souvent","adverbe",[]],
+    ["tam","adverbe","tellement","adverbe",["si"]],
+    ["ubi","adverbe","où","adverbe",["là où"]],
+
+    ["me","pronom (acc. ou abl.)","me","autre",[]],
+    ["et","conjonction","et","autre",[]],
+    ["quid","pronom","pourquoi","autre",["que"]],
+    ["nihil","indéfini","rien","autre",[]],
+    ["si","conjonction","si","autre",[]],
+  ];
+
+  const words = RAW.map((r,i)=>({
+    id:i, lat:r[0], parts:r[1], core:r[2], cat:r[3], extra:r[4],
+    stageIndex:0, introduced:false, dueAt:0, everWrong:false
+  }));
+
+  // 5 étapes : QCM L->F, écrit L->F, QCM F->L, écrit F->L (1er rappel), écrit F->L (2e rappel espacé)
+  const STAGE_DEFS = [
+    {dir:'l2f', type:'mcq',   mechKey:'mcq_l2f'},
+    {dir:'l2f', type:'write', mechKey:'write_l2f'},
+    {dir:'f2l', type:'mcq',   mechKey:'mcq_f2l'},
+    {dir:'f2l', type:'write', mechKey:'write_f2l_1'},
+    {dir:'f2l', type:'write', mechKey:'write_f2l_2'},
+  ];
+  const NUM_STAGES = STAGE_DEFS.length;
+  // espacement (en nombre de cartes) avant que l'étape SUIVANTE devienne disponible
+  // volontairement croissant, et le dernier écart est le plus grand : le second
+  // rappel en latin ne doit JAMAIS arriver juste après avoir tapé le mot une 1re fois.
+  const STAGE_SPACING = [5, 10, 16, 26];
+  const RETRY_GAP = 3; // même après une erreur, on ne rejoue pas la carte immédiatement
+  const ACTIVE_CAP = 7; // nombre de mots "en vol" en même temps (charge cognitive)
+
+  const MECH = {
+    mcq_l2f:    ["RECONNAISSANCE",              "identifie le sens en français parmi des propositions proches (de vrais mots de la liste)."],
+    write_l2f:  ["RAPPEL ACTIF",                "aucun choix affiché : écris le sens en français de mémoire."],
+    mcq_f2l:    ["PRODUCTION GUIDÉE",           "retrouve la forme latine exacte parmi d'autres vrais mots latins de la liste."],
+    write_f2l_1:["RAPPEL ACTIF EN LATIN · 1/2", "premier rappel : écris le mot latin de mémoire, sans indice."],
+    write_f2l_2:["RAPPEL ACTIF EN LATIN · 2/2", "second rappel, espacé dans le temps : réussis-le une seconde fois pour valider durablement."],
+  };
+
+  let cardCounter = 0;
+  let seenCount = 0, correctCount = 0, streak = 0, bestStreak = 0;
+  let lastCat = null;
+  let lastWordId = null;
+  let current = null;
+
+  const el = id => document.getElementById(id);
+
+  // ---------- normalization / lenient matching ----------
+  function normalize(s){
+    return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+  }
+  function levenshtein(a,b){
+    const m=a.length,n=b.length;
+    const d=Array.from({length:m+1},(_,i)=>[i].concat(Array(n).fill(0)));
+    for(let j=0;j<=n;j++) d[0][j]=j;
+    for(let i=1;i<=m;i++) for(let j=1;j<=n;j++){
+      d[i][j]=Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+    }
+    return d[m][n];
+  }
+  function acceptableFrenchAnswers(w){
+    const list=[w.core];
+    w.extra.forEach(e=>{ const cand=e.split(':')[0]; if(cand.length<25) list.push(cand); });
+    return list.map(normalize);
+  }
+  function checkWrittenFrench(w, input){
+    const guess=normalize(input);
+    if(!guess) return false;
+    for(const a of acceptableFrenchAnswers(w)){
+      if(!a) continue;
+      if(guess===a) return true;
+      const dist=levenshtein(guess,a);
+      const tol = a.length>=7?2:(a.length>=4?1:0);
+      if(dist<=tol) return true;
+      if(a.length>=4 && guess.includes(a)) return true;
+    }
+    return false;
+  }
+  function checkWrittenLatin(w, input){
+    const guess=normalize(input);
+    if(!guess) return false;
+    const target=normalize(w.lat);
+    if(guess===target) return true;
+    const dist=levenshtein(guess,target);
+    const tol = target.length>=6?1:0;
+    return dist<=tol;
+  }
+
+  // ---------- distracteurs : de VRAIS mots, pas des mots inventés ----------
+  // On pioche en priorité d'autres mots réels de la même catégorie grammaticale
+  // (donc plausibles : un autre verbe pour un verbe, un autre adverbe pour un adverbe...),
+  // et seulement si la catégorie n'en fournit pas assez, on complète avec d'autres
+  // catégories. On dédoublonne par sens/forme normalisés pour éviter les quasi-synonymes
+  // ambigus (ex. "appello" et "uoco" qui se traduisent tous deux par "appeler").
+  function getDistractors(word, direction, count){
+    const targetText = direction==='l2f' ? word.core : word.lat;
+    const targetNorm = normalize(targetText);
+    const seen = new Set([targetNorm]);
+    const result = [];
+
+    function pool(sameCatOnly){
+      return shuffle(
+        words
+          .filter(w=> w.id!==word.id && (sameCatOnly ? w.cat===word.cat : true))
+          .map(w=> direction==='l2f' ? w.core : w.lat)
+      );
+    }
+
+    for(const c of pool(true)){
+      const n = normalize(c);
+      if(seen.has(n)) continue;
+      seen.add(n); result.push(c);
+      if(result.length>=count) break;
+    }
+    if(result.length<count){
+      for(const c of pool(false)){
+        const n = normalize(c);
+        if(seen.has(n)) continue;
+        seen.add(n); result.push(c);
+        if(result.length>=count) break;
+      }
+    }
+    return result.slice(0,count);
+  }
+
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+  // ---------- scheduling ----------
+  function activeIntroducedCount(){ return words.filter(w=>w.introduced && w.stageIndex<NUM_STAGES).length; }
+  function allMastered(){ return words.every(w=>w.stageIndex>=NUM_STAGES); }
+
+  function pickNext(){
+    cardCounter++;
+    let due = words.filter(w=>w.introduced && w.stageIndex<NUM_STAGES && w.dueAt<=cardCounter);
+    let pool = due;
+    if(pool.length===0){
+      const notIntroduced = words.filter(w=>!w.introduced);
+      if(activeIntroducedCount()<ACTIVE_CAP && notIntroduced.length>0){
+        pool=[notIntroduced[0]];
+      } else {
+        const introducedActive = words.filter(w=>w.introduced && w.stageIndex<NUM_STAGES);
+        if(introducedActive.length>0){
+          pool=[introducedActive.sort((a,b)=>a.dueAt-b.dueAt)[0]];
+        } else if(notIntroduced.length>0){
+          pool=[notIntroduced[0]];
+        }
+      }
+    }
+    // évite de répéter la même catégorie ET le même mot juste après
+    let candidates = pool.filter(w=>w.cat!==lastCat && w.id!==lastWordId);
+    if(candidates.length===0) candidates = pool.filter(w=>w.id!==lastWordId);
+    if(candidates.length===0) candidates = pool;
+    candidates.sort((a,b)=>a.dueAt-b.dueAt);
+    const chosen = candidates[0];
+    chosen.introduced = true;
+    lastCat = chosen.cat;
+    lastWordId = chosen.id;
+    return chosen;
+  }
+
+  // ---------- rendering ----------
+  function setMech(key){
+    el('mech-name').textContent = MECH[key][0];
+    el('mech-desc').textContent = "— " + MECH[key][1];
+  }
+  function updateVia(){
+    const mastered = words.filter(w=>w.stageIndex>=NUM_STAGES).length;
+    el('via-count').textContent = mastered + ' / ' + words.length + ' maîtrisés';
+    el('via-fill').style.width = Math.round(100*mastered/words.length) + '%';
+  }
+  function updateStageDots(stageIndex){
+    const dots = el('stage-dots').children;
+    for(let i=0;i<NUM_STAGES;i++){
+      dots[i].className = i<stageIndex ? 'done' : (i===stageIndex ? 'now' : '');
+    }
+  }
+
+  function renderCard(){
+    if(allMastered()) return showFinished();
+    const w = pickNext();
+    const def = STAGE_DEFS[w.stageIndex];
+    current = { word:w, def:def, correctAnswer: def.dir==='l2f' ? w.core : w.lat };
+
+    el('cat-tag').textContent = w.cat.toUpperCase();
+    el('cat-tag').className = 'cat-tag cat-'+w.cat;
+    el('dir-flag').textContent = 'ÉTAPE ' + (w.stageIndex+1) + '/' + NUM_STAGES;
+    updateStageDots(w.stageIndex);
+    el('feedback').innerHTML = '';
+    el('feedback').className = 'feedback';
+    setMech(def.mechKey);
+
+    const lemmaEl = el('lemma');
+    if(def.dir==='l2f'){
+      lemmaEl.textContent = w.lat;
+      lemmaEl.className = 'lemma';
+      el('principal-parts').textContent = w.parts;
+    } else {
+      lemmaEl.textContent = w.core;
+      lemmaEl.className = 'lemma fr-mode';
+      el('principal-parts').textContent = '';
+    }
+
+    if(def.type==='mcq'){
+      el('prompt-text').textContent = def.dir==='l2f' ? 'Que signifie ce mot ?' : 'Quel est le mot latin correspondant ?';
+      el('mcq-block').classList.remove('hidden');
+      el('write-block').classList.add('hidden');
+      renderMCQ(w, def.dir, current.correctAnswer);
+    } else {
+      const isSecondRecall = def.mechKey==='write_f2l_2';
+      el('prompt-text').textContent = def.dir==='l2f'
+        ? 'Écris la traduction en français, sans indice.'
+        : (isSecondRecall ? 'Deuxième rappel : écris à nouveau le mot latin, de mémoire.' : 'Écris le mot latin de mémoire.');
+      el('mcq-block').classList.add('hidden');
+      el('write-block').classList.remove('hidden');
+      el('write-input').setAttribute('placeholder', def.dir==='l2f' ? 'traduction en français…' : 'mot latin…');
+      const input = el('write-input');
+      input.value='';
+      setTimeout(()=>input.focus(),30);
+    }
+
+    el('seen-count').textContent = seenCount;
+    el('streak-count').textContent = streak;
+    updateVia();
+  }
+
+  function renderMCQ(word, direction, correctAnswer){
+    const distractors = getDistractors(word, direction, 3);
+    const opts = shuffle([correctAnswer, ...distractors]);
+    const box = el('mcq-block');
+    box.innerHTML='';
+    opts.forEach((opt,idx)=>{
+      const b=document.createElement('button');
+      b.className='opt';
+      b.dataset.val = opt;
+      b.innerHTML = '<span class="k">'+(idx+1)+'</span>'+opt;
+      b.onclick = ()=>answerMCQ(opt, b);
+      box.appendChild(b);
+    });
+  }
+
+  // ---------- answer handling ----------
+  function registerResult(correct){
+    seenCount++; if(correct) correctCount++;
+    if(correct){ streak++; bestStreak=Math.max(bestStreak,streak); } else { streak=0; }
+  }
+  function advanceOrRetry(w, correct){
+    if(correct){
+      w.stageIndex++;
+      if(w.stageIndex<NUM_STAGES){ w.dueAt = cardCounter + STAGE_SPACING[w.stageIndex-1]; }
+    } else {
+      w.everWrong = true;
+      w.dueAt = cardCounter + RETRY_GAP;
+    }
+  }
+
+  function answerMCQ(chosenText, btnEl){
+    const w = current.word;
+    const correct = normalize(chosenText)===normalize(current.correctAnswer);
+    document.querySelectorAll('#mcq-block .opt').forEach(b=>{
+      b.disabled = true;
+      if(normalize(b.dataset.val)===normalize(current.correctAnswer)) b.classList.add('correct');
+      else if(b===btnEl) b.classList.add('wrong');
+      else b.classList.add('dim');
+    });
+    registerResult(correct);
+    advanceOrRetry(w, correct);
+    showFeedback(correct, w);
+  }
+
+  function answerWrite(){
+    const w = current.word;
+    const val = el('write-input').value;
+    const correct = current.def.dir==='l2f' ? checkWrittenFrench(w,val) : checkWrittenLatin(w,val);
+    registerResult(correct);
+    advanceOrRetry(w, correct);
+    showFeedback(correct, w);
+  }
+
+  function showFeedback(correct, w){
+    const box = el('feedback');
+    box.className = 'feedback ' + (correct?'correct':'wrong');
+    const extraNote = w.extra.length ? w.extra[Math.floor(Math.random()*w.extra.length)] : '';
+    const justMastered = correct && w.stageIndex>=NUM_STAGES;
+    box.innerHTML =
+      '<div class="verdict">'+(correct?'Recta! (Correct)':'Falsum. (Faux)')+'</div>'+
+      '<div class="gloss">'+w.lat+' → <b>'+w.core+'</b></div>'+
+      (justMastered ? '<div class="note">Mot maîtrisé — les deux rappels latins espacés sont validés.</div>' : '') +
+      (!justMastered && extraNote?('<div class="note">'+extraNote+'</div>'):'');
+    setTimeout(renderCard, correct?900:1500);
+  }
+
+  // ---------- events ----------
+  el('write-submit').onclick = answerWrite;
+  el('write-input').addEventListener('keydown', e=>{ if(e.key==='Enter') answerWrite(); });
+  document.addEventListener('keydown', e=>{
+    if(!current || current.def.type!=='mcq') return;
+    const n = parseInt(e.key,10);
+    if(n>=1 && n<=4){
+      const btns = document.querySelectorAll('#mcq-block .opt');
+      if(btns[n-1] && !btns[n-1].disabled) btns[n-1].click();
+    }
+  });
+
+  // ---------- pre-test ----------
+  let pretestPool=[], pretestIdx=0;
+  function startPretest(){
+    pretestPool = shuffle(words.slice()).slice(0,5);
+    pretestIdx=0;
+    el('screen-intro').classList.add('hidden');
+    el('screen-pretest').classList.remove('hidden');
+    showPretestCard();
+  }
+  function showPretestCard(){
+    if(pretestIdx>=pretestPool.length){
+      el('screen-pretest').classList.add('hidden');
+      el('screen-learn').classList.remove('hidden');
+      renderCard();
+      return;
+    }
+    el('pretest-lemma').textContent = pretestPool[pretestIdx].lat;
+    el('pretest-input').value='';
+    el('pretest-progress').textContent = (pretestIdx+1)+' / 5';
+    setTimeout(()=>el('pretest-input').focus(),20);
+  }
+  el('btn-start-pretest').onclick = startPretest;
+  el('pretest-next').onclick = ()=>{ pretestIdx++; showPretestCard(); };
+  el('pretest-input').addEventListener('keydown', e=>{ if(e.key==='Enter'){ pretestIdx++; showPretestCard(); }});
+
+  function showFinished(){
+    el('screen-learn').classList.add('hidden');
+    el('screen-finished').classList.remove('hidden');
+    el('stat-cards').textContent = seenCount;
+    el('stat-acc').textContent = seenCount? Math.round(100*correctCount/seenCount)+'%' : '0%';
+    el('stat-best').textContent = bestStreak;
+  }
+  el('btn-restart').onclick = ()=>{ location.reload(); };
+
+})();
+</script>
+</body>
+</html>
