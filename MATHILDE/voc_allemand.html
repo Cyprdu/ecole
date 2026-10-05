@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wortschatz — Vocabulaire allemand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000; --s1:#0a0a0b; --s2:#111113; --s3:#18181b; --line:#232327; --line2:#34343a;
+  --tx:#f5f5f5; --mu:#a1a1aa; --di:#6b6b73;
+  --ok:#7bd88f; --okbg:rgba(123,216,143,.08); --bad:#f07178; --badbg:rgba(240,113,120,.08); --warn:#e5c07b; --warnbg:rgba(229,192,123,.08);
+  --der:#8ab4f8; --die:#f28b82; --das:#81c995;
+  --r:12px; --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{overflow-x:hidden;background:var(--bg);color:var(--tx);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+input,select{font:inherit;color:inherit}
+svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.hidden{display:none!important}
+kbd{font-family:var(--mono);font-size:11px;color:var(--di);border:1px solid var(--line2);border-radius:4px;padding:0 5px;margin-left:8px}
+
+/* ---------- top bar ---------- */
+header{position:sticky;top:0;z-index:20;background:rgba(0,0,0,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:10px 16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;margin-right:auto;cursor:pointer;white-space:nowrap}
+.brand-mark{width:26px;height:26px;border:1.5px solid var(--tx);border-radius:7px;display:grid;place-items:center;font-size:13px;font-weight:700}
+.brand small{color:var(--di);font-weight:500;font-size:13px}
+nav{display:flex;gap:2px}
+.nav-b{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:9px;color:var(--mu);font-size:14px;font-weight:500;position:relative}
+.nav-b:hover{color:var(--tx);background:var(--s2)}
+.nav-b.on{color:var(--tx);background:var(--s3)}
+.badge{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--tx);color:#000;font-size:11px;font-weight:700;display:inline-grid;place-items:center}
+.icon-b{width:38px;height:38px;border-radius:9px;display:grid;place-items:center;color:var(--mu)}
+.icon-b:hover{color:var(--tx);background:var(--s2)}
+@media(max-width:820px){.nav-b span.lbl{display:none}.brand small{display:none}}
+@media(max-width:520px){.bar{padding:8px 8px;gap:0}.nav-b{padding:8px 7px}.brand{display:none}.icon-b{width:34px}nav{margin-right:auto}}
+
+main{max-width:760px;margin:0 auto;padding:28px 16px 80px}
+h1{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:0 0 4px}
+h2{font-size:17px;font-weight:600;margin:0 0 12px;letter-spacing:-.01em}
+.sub{color:var(--mu);margin:0 0 22px}
+.muted{color:var(--mu)} .dim{color:var(--di)}
+.sec-t{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--di);margin:30px 0 12px}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border-radius:10px;border:1px solid var(--line2);background:var(--s2);font-weight:600;font-size:14px;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--s3);border-color:#4a4a52}
+.btn.primary{background:var(--tx);color:#000;border-color:var(--tx)}
+.btn.primary:hover{background:#d9d9de}
+.btn.primary kbd{color:#555;border-color:#aaa}
+.btn.ghost{background:none;border-color:transparent;color:var(--mu)}
+.btn.ghost:hover{color:var(--tx);background:var(--s2)}
+.btn.sm{padding:7px 12px;font-size:13px}
+.btn.danger{color:var(--bad);border-color:rgba(240,113,120,.35)}
+.btn:disabled{opacity:.4;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:7px 13px;border-radius:999px;border:1px solid var(--line2);color:var(--mu);font-size:13px;font-weight:500}
+.chip:hover{color:var(--tx)}
+.chip.on{background:var(--tx);color:#000;border-color:var(--tx)}
+
+/* ---------- home ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 18px}
+.stat{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;background:var(--s1)}
+.stat b{display:block;font-size:24px;font-weight:700;letter-spacing:-.02em}
+.stat span{color:var(--di);font-size:12px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}}
+.pbar{height:6px;background:var(--s3);border-radius:4px;overflow:hidden;display:flex}
+.pbar i{display:block;height:100%;background:var(--tx);transition:width .4s}
+.pbar i.mid{background:#5a5a62}
+.modes{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(max-width:600px){.modes{grid-template-columns:1fr}}
+.mode{display:flex;gap:14px;align-items:flex-start;text-align:left;border:1px solid var(--line);border-radius:var(--r);padding:16px;background:var(--s1);transition:border-color .15s,background .15s}
+.mode:hover{border-color:var(--line2);background:var(--s2)}
+.mode .ic{width:38px;height:38px;border-radius:10px;border:1px solid var(--line2);display:grid;place-items:center;flex-shrink:0}
+.mode b{display:flex;align-items:center;gap:8px;font-weight:600}
+.mode p{margin:3px 0 0;color:var(--mu);font-size:13px}
+.hero{border:1px solid var(--line);border-radius:var(--r);padding:20px;background:var(--s1);display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.hero .grow{flex:1;min-width:220px}
+.method{border:1px solid var(--line);border-radius:var(--r);background:var(--s1)}
+.method summary{padding:14px 16px;cursor:pointer;font-weight:600;list-style:none;display:flex;align-items:center;gap:10px}
+.method summary::-webkit-details-marker{display:none}
+.method ul{margin:0;padding:0 16px 16px 34px;color:var(--mu);font-size:14px}
+.method li{margin:6px 0}
+.method li b{color:var(--tx);font-weight:600}
+.hardlist{display:flex;flex-direction:column;gap:6px}
+.hardlist div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:6px 0;font-size:14px}
+
+/* ---------- learning card ---------- */
+.top-prog{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:13px;color:var(--mu)}
+.top-prog .pbar{flex:1}
+.card{border:1px solid var(--line);border-radius:16px;background:var(--s1);padding:26px 26px 22px;position:relative}
+@media(max-width:520px){.card{padding:20px 16px}}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:20px}
+.mech{font-size:11px;font-weight:600;letter-spacing:.09em;color:var(--mu);text-transform:uppercase}
+.mech-desc{font-size:12px;color:var(--di);margin-top:2px;letter-spacing:0;text-transform:none;font-weight:400}
+.dots{display:flex;gap:5px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--line2)}
+.dots i.d{background:var(--tx)} .dots i.n{background:var(--tx);box-shadow:0 0 0 3px rgba(255,255,255,.15)}
+.theme-tag{font-size:11px;color:var(--di);border:1px solid var(--line2);border-radius:999px;padding:2px 9px;white-space:nowrap}
+.prompt{text-align:center;padding:8px 0 22px}
+.prompt-lang{font-size:12px;color:var(--di);margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:6px}
+.prompt-word{overflow-wrap:anywhere;font-size:32px;font-weight:700;letter-spacing:-.02em;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.prompt-word.fr{font-weight:600}
+@media(max-width:520px){.prompt-word{font-size:25px}}
+.prompt-sub{color:var(--mu);font-size:14px;margin-top:8px}
+.audio{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);display:inline-grid;place-items:center;color:var(--mu);flex-shrink:0;vertical-align:middle}
+.audio:hover{color:var(--tx);border-color:var(--mu)}
+.audio.sm{width:30px;height:30px}
+.audio.sm svg.i{width:15px;height:15px}
+.audio-row{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.audio-txt{font-size:12px;color:var(--di);display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;border:1px solid var(--line)}
+.audio-txt:hover{color:var(--tx)}
+.art-der{color:var(--der)} .art-die{color:var(--die)} .art-das{color:var(--das)}
+.nocolor .art-der,.nocolor .art-die,.nocolor .art-das{color:inherit}
+
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.opts{grid-template-columns:1fr}}
+.opt{overflow-wrap:anywhere;display:flex;align-items:center;gap:12px;text-align:left;padding:14px 16px;border-radius:11px;border:1px solid var(--line2);background:var(--s2);font-size:16px;font-weight:500;transition:background .12s,border-color .12s}
+.opt:hover{background:var(--s3);border-color:#4a4a52}
+.opt .k{font-family:var(--mono);font-size:11px;color:var(--di);border:1px solid var(--line2);border-radius:5px;width:22px;height:22px;display:grid;place-items:center;flex-shrink:0}
+.opt.spell{font-size:18px;letter-spacing:.01em}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.opt.dimmed{opacity:.4}
+.opts.locked .opt{cursor:default}
+.gender-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gender-opts .opt{justify-content:center;font-size:20px;font-weight:600;padding:18px}
+
+.write{display:flex;gap:8px}
+.write input{flex:1;min-width:0;background:var(--s2);border:1px solid var(--line2);border-radius:11px;padding:14px 16px;font-size:19px;outline:none;transition:border-color .15s}
+.write input:focus{border-color:var(--mu)}
+.write input.shake{animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.uml{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center}
+.uml button{font-family:var(--mono);width:36px;height:32px;border-radius:7px;border:1px solid var(--line2);color:var(--mu);font-size:15px}
+.uml button:hover{color:var(--tx);background:var(--s2)}
+.uml .hint-k{font-size:11px;color:var(--di);margin-left:6px}
+.skel{font-family:var(--mono);font-size:20px;letter-spacing:.18em;text-align:center;color:var(--mu);margin:0 0 16px;word-break:break-word}
+.skel b{color:var(--tx);font-weight:500}
+.msg{margin-top:14px;padding:11px 14px;border-radius:10px;font-size:14px;display:flex;gap:10px;align-items:flex-start}
+.msg.warn{background:var(--warnbg);color:var(--warn)}
+.msg.bad{background:var(--badbg);color:var(--bad)}
+.msg.info{background:var(--s2);color:var(--mu)}
+.msg svg.i{margin-top:1px}
+.cloze{font-size:20px;line-height:1.6;text-align:center;margin:0 0 6px}
+.cloze .blank{display:inline-block;border-bottom:2px solid var(--mu);min-width:80px;color:var(--di);font-family:var(--mono);font-size:15px;letter-spacing:.15em;padding:0 4px}
+.cloze-fr{color:var(--mu);font-size:14px;text-align:center;font-style:italic}
+
+/* ---------- feedback fiche ---------- */
+.fiche{margin-top:20px;border-top:1px solid var(--line);padding-top:18px;animation:fade .2s}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.verdict{display:flex;align-items:center;gap:8px;font-weight:600;margin-bottom:14px}
+.verdict.ok{color:var(--ok)} .verdict.bad{color:var(--bad)} .verdict.warn{color:var(--warn)}
+.verdict .rt{margin-left:auto;font-weight:400;font-size:12px;color:var(--di)}
+.f-main{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.f-de{font-size:22px;font-weight:700;letter-spacing:-.01em}
+.f-fr{color:var(--mu);font-size:16px}
+.f-meta{margin-top:8px;font-size:13px;color:var(--mu);display:flex;gap:18px;flex-wrap:wrap}
+.f-meta b{color:var(--di);font-weight:500}
+.f-rule{margin-top:14px;display:flex;gap:10px;font-size:14px;color:var(--mu);background:var(--s2);border-radius:10px;padding:11px 13px}
+.f-rule svg.i{color:var(--warn);margin-top:2px}
+.f-ex{margin-top:12px;display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.f-ex .de{color:var(--tx)} .f-ex .de b{text-decoration:underline;text-decoration-color:var(--di);text-underline-offset:4px}
+.f-ex .fr{display:block;color:var(--di);font-size:13px;font-style:italic;margin-top:2px}
+.diff{font-family:var(--mono);font-size:16px;margin-top:10px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline}
+.diff .lb{font-family:Inter,sans-serif;font-size:12px;color:var(--di)}
+.msg .diff{color:var(--tx)}
+.diff>span{overflow-wrap:anywhere;min-width:0}
+@media(max-width:520px){.diff{font-size:14px}}
+.diff .x{color:var(--bad);text-decoration:underline}
+.diff .xs{color:var(--bad);text-decoration:line-through}
+.dinl{font-family:var(--mono)}
+.dinl .x{color:var(--bad);text-decoration:underline}.dinl .xs{color:var(--bad);text-decoration:line-through}
+.diff mark{background:rgba(229,192,123,.18);color:var(--warn);border-radius:3px;padding:0 1px}
+.next-row{display:flex;justify-content:flex-end;margin-top:18px;gap:10px}
+.session-line{display:flex;justify-content:center;gap:22px;margin-top:16px;color:var(--di);font-size:12px}
+.session-line b{color:var(--mu);font-weight:600}
+
+/* ---------- exam / list / games ---------- */
+.panel{border:1px solid var(--line);border-radius:var(--r);background:var(--s1);padding:20px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:12px;color:var(--di);margin-bottom:8px;font-weight:500;letter-spacing:.03em}
+.score{font-size:56px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.score small{font-size:22px;color:var(--di);font-weight:500}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:var(--di);font-weight:500;font-size:12px;padding:8px 8px;border-bottom:1px solid var(--line)}
+td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+td.ok{color:var(--ok)} td.bad{color:var(--bad)}
+.res-ic{width:22px}
+.search{width:100%;background:var(--s2);border:1px solid var(--line2);border-radius:10px;padding:11px 14px;outline:none;margin-bottom:14px}
+.search:focus{border-color:var(--mu)}
+.mbar{width:64px;height:4px;background:var(--s3);border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle}
+.mbar i{display:block;height:100%;background:var(--tx)}
+.lst-de{font-weight:600}
+.lst-sub{font-size:12px;color:var(--di)}
+@media(max-width:560px){.hide-sm{display:none}}
+
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.mt{padding:14px;border-radius:10px;border:1px solid var(--line2);background:var(--s2);text-align:center;font-weight:500;min-height:54px;transition:all .15s;font-size:15px}
+.mt:hover{border-color:#4a4a52}
+.mt.sel{border-color:var(--tx);background:var(--s3)}
+.mt.ok{border-color:var(--ok);color:var(--ok);opacity:0;pointer-events:none;transition:opacity .5s .25s,border-color .1s,color .1s}
+.mt.bad{border-color:var(--bad);background:var(--badbg)}
+.game-hud{display:flex;justify-content:space-between;color:var(--mu);font-size:13px;margin-bottom:14px;font-family:var(--mono)}
+
+/* ---------- modal / toast ---------- */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:50;display:grid;place-items:center;padding:16px;animation:fade .15s}
+.modal{width:100%;max-width:480px;background:var(--s1);border:1px solid var(--line2);border-radius:16px;padding:22px;max-height:90vh;overflow:auto}
+.modal h2{display:flex;justify-content:space-between;align-items:center}
+.set-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.set-row select{background:var(--s2);border:1px solid var(--line2);border-radius:8px;padding:6px 8px;max-width:220px}
+.switch{width:40px;height:22px;border-radius:11px;background:var(--line2);position:relative;transition:background .15s;flex-shrink:0}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--mu);transition:all .15s}
+.switch.on{background:var(--tx)} .switch.on::after{left:21px;background:#000}
+input[type=range]{accent-color:#fff}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--s3);border:1px solid var(--line2);color:var(--tx);padding:12px 16px;border-radius:12px;font-size:14px;z-index:60;max-width:min(560px,calc(100vw - 32px));display:flex;gap:10px;align-items:flex-start;box-shadow:0 10px 40px rgba(0,0,0,.6);animation:fade .2s}
+
+/* ---------- focus mode ---------- */
+.focusbar{display:none}
+body.focus header{display:none}
+body.focus .focusbar{display:flex;position:fixed;top:0;left:0;right:0;z-index:30;justify-content:space-between;align-items:center;padding:12px 18px;color:var(--di);font-size:13px;font-family:var(--mono)}
+body.focus main{padding-top:64px;max-width:720px}
+body.focus .no-focus{display:none!important}
+.focusbar .fb-l{display:flex;gap:18px;align-items:center}
+.focusbar button{color:var(--di);display:flex;align-items:center;gap:6px;font-family:Inter,sans-serif;font-size:13px;padding:6px 10px;border-radius:8px}
+.focusbar button:hover{color:var(--tx);background:var(--s2)}
+.break{text-align:center}
+.break .big{font-size:64px;font-weight:700;font-family:var(--mono);letter-spacing:-.02em}
+</style>
+</head>
+<body>
+<header class="no-focus-hdr">
+  <div class="bar">
+    <div class="brand" data-go="home"><div class="brand-mark">W</div><span class="brand-txt">Wortschatz <small>· Weimar &amp; NS</small></span></div>
+    <nav id="nav"></nav>
+    <button class="icon-b" id="btn-focus" title="Mode focus (F)"></button>
+    <button class="icon-b" id="btn-settings" title="Réglages"></button>
+  </div>
+</header>
+<div class="focusbar" id="focusbar">
+  <div class="fb-l"><span id="fb-timer">25:00</span><span id="fb-view"></span><span id="fb-int"></span></div>
+  <button id="fb-exit"></button>
+</div>
+<main id="main"></main>
+
+<script>
+'use strict';
+/* =====================================================================
+   DONNÉES — vocabulaire enrichi (issu de voc.json)
+   Pour chaque mot : genre, pluriel / formes, traduction(s) acceptée(s),
+   pièges orthographiques réalistes, mots confusables de la liste,
+   règle mnémotechnique (genre, morphologie) et phrase de contexte.
+   ===================================================================== */
+/*DATA-START*/
+const DATA = [
+// ------------------------------ WEIMARER REPUBLIK ------------------------------
+{id:'ermordung', th:'W', pos:'n', art:'die', w:'Ermordung', fr:"l'assassinat", alt:['meurtre'], plur:'die Ermordungen',
+ traps:['Ermortung','Ermordnung','Ehrmordung'], conf:['verbrechen','opfer','auspluenderung'],
+ rule:"ermorden (assassiner) + -ung. Tous les noms en -ung sont féminins : die.",
+ ex:"Die {Ermordung} Walther Rathenaus 1922 schockierte die Republik.", exFr:"L'assassinat de Walther Rathenau en 1922 choqua la République."},
+{id:'ausrufung', th:'W', pos:'n', art:'die', w:'Ausrufung', fr:'la proclamation', alt:[], plur:'die Ausrufungen',
+ traps:['Ausruffung','Ausrufnung','Aussrufung'], conf:['verordnung','besetzung','machtuebernahme'],
+ rule:"aus/rufen (proclamer ; rufen = appeler) + -ung → die. Un seul f, un seul s.",
+ ex:"Am 9. November 1918 folgte die {Ausrufung} der Republik.", exFr:"Le 9 novembre 1918 suivit la proclamation de la République."},
+{id:'dolchstoss', th:'W', pos:'n', art:'die', w:'Dolchstoßlegende', fr:'la légende du coup de poignard dans le dos', alt:['legende du coup de poignard','coup de poignard dans le dos','legende du poignard'], plur:'—',
+ traps:['Dolchstosslegende','Dolchstoßlegände','Dolchstoslegende'], conf:['schuld','schlagwort','messer'],
+ rule:"der Dolch (poignard) + der Stoß (coup, avec ß) + die Legende. Le genre d'un mot composé = celui du DERNIER mot → die.",
+ ex:"Die {Dolchstoßlegende} machte die Demokraten für die Niederlage verantwortlich.", exFr:"La légende du coup de poignard rendait les démocrates responsables de la défaite."},
+{id:'arbeitslosigkeit', th:'W', pos:'n', art:'die', w:'Arbeitslosigkeit', fr:'le chômage', alt:[], plur:'—',
+ traps:['Arbeitslosichkeit','Arbeitlosigkeit','Arbeitslossigkeit'], conf:['armut','abm','mangel'],
+ rule:"die Arbeit + -s- de liaison + los (sans) + -igkeit. Suffixe -keit / -igkeit → toujours die.",
+ ex:"1932 stieg die {Arbeitslosigkeit} auf über sechs Millionen.", exFr:"En 1932, le chômage dépassa les six millions."},
+{id:'machtuebernahme', th:'W', pos:'n', art:'die', w:'Machtübernahme', fr:'la prise de pouvoir', alt:['prise du pouvoir'], plur:'—',
+ traps:['Machtübername','Machtubernahme','Machtüberrnahme'], conf:['ausrufung','besetzung','aufruestung'],
+ rule:"die Macht (le pouvoir) + die Übernahme (über/nehmen = prendre en charge) → die. Garde le h : -nahme.",
+ ex:"Die {Machtübernahme} Hitlers erfolgte am 30. Januar 1933.", exFr:"La prise de pouvoir d'Hitler eut lieu le 30 janvier 1933."},
+{id:'verbrechen', th:'W', pos:'n', art:'das', w:'Verbrechen', fr:'le crime', alt:[], plur:'die Verbrechen',
+ traps:['Verbrächen','Ferbrechen','Verbrechn'], conf:['ermordung','schuld','opfer'],
+ rule:"Infinitif devenu nom (verbrechen = commettre un crime) → toujours das. Pluriel invariable.",
+ ex:"Der Mord an Rathenau war ein politisches {Verbrechen}.", exFr:"Le meurtre de Rathenau était un crime politique."},
+{id:'einsetzen', th:'W', pos:'v', w:'einsetzen', d:'ein/setzen', fr:'utiliser', alt:['employer','mettre en oeuvre','engager','deployer'], forms:'setzt ein · setzte ein · hat eingesetzt',
+ traps:['einsätzen','einsezen','einnsetzen'], conf:['abbauen','ausserkraft','praegen'],
+ rule:"Verbe à particule séparable : ein + setzen (poser). Au présent : Er setzt die Armee ein.",
+ ex:"Die Regierung wollte die Armee gegen die Streikenden {einsetzen}.", exFr:"Le gouvernement voulait utiliser l'armée contre les grévistes."},
+{id:'behaupten', th:'W', pos:'v', w:'behaupten', fr:'affirmer', alt:['pretendre','soutenir'], forms:'behauptet · behauptete · hat behauptet',
+ traps:['behaubten','behaupden','behaupen'], conf:['bewerten','hetzen','siegen'],
+ rule:"be- + das Haupt (la tête) : soutenir mordicus. Préfixe inséparable be- → participe sans ge- : behauptet.",
+ ex:"Die Nationalisten {behaupten}, die Armee sei im Feld unbesiegt geblieben.", exFr:"Les nationalistes affirment que l'armée est restée invaincue sur le terrain."},
+{id:'siegen', th:'W', pos:'v', w:'siegen', fr:'vaincre', alt:['gagner',"l'emporter",'remporter la victoire'], forms:'siegt · siegte · hat gesiegt',
+ traps:['sigen','ziegen','siegenn'], conf:['vernichten','behaupten','praegen'],
+ rule:"der Sieg = la victoire. ie = [i:] long ; s initial se prononce [z].",
+ ex:"Die Alliierten wollten um jeden Preis {siegen}.", exFr:"Les Alliés voulaient vaincre à tout prix."},
+{id:'streikbewegung', th:'W', pos:'n', art:'die', w:'Streikbewegung', fr:'la grève (mouvement de grève)', alt:['greve','mouvement de greve'], plur:'die Streikbewegungen',
+ traps:['Streickbewegung','Streikbewegnung','Streikbeweegung'], conf:['widerstand','besetzung','gemeinschaft'],
+ rule:"der Streik (grève) + die Bewegung (mouvement, sich bewegen) → die. Streik s'écrit avec k seul.",
+ ex:"1920 legte eine große {Streikbewegung} das Land lahm.", exFr:"En 1920, un grand mouvement de grève paralysa le pays."},
+{id:'friedensbemuehungen', th:'W', pos:'n', art:'die', pl:true, w:'Friedensbemühungen', fr:'les efforts pour parvenir à la paix', alt:['efforts de paix','efforts pour la paix','efforts pour parvenir a la paix'], plur:'(pluriel)',
+ traps:['Friedenbemühungen','Friedensbemüungen','Friedensbemühhungen'], conf:['abm','leistung','widerstand'],
+ rule:"der Frieden (paix) + -s- + die Bemühung (sich bemühen = s'efforcer). Ici au pluriel : die … -ungen.",
+ ex:"Stresemanns {Friedensbemühungen} brachten ihm 1926 den Friedensnobelpreis.", exFr:"Les efforts de Stresemann pour la paix lui valurent le prix Nobel de la paix en 1926."},
+{id:'angst', th:'W', pos:'n', art:'die', w:'Angst', fr:'la peur', alt:['crainte','angoisse'], plur:'die Ängste',
+ traps:['Anst','Angs','Ankst'], conf:['seele','schuld','geist'],
+ rule:"Mot court mais féminin : die Angst. Angst haben vor + datif = avoir peur de. Pluriel : die Ängste.",
+ ex:"Die {Angst} vor einer neuen Inflation war groß.", exFr:"La peur d'une nouvelle inflation était grande."},
+{id:'seele', th:'W', pos:'n', art:'die', w:'Seele', fr:"l'âme, l'esprit", alt:['ame','esprit'], plur:'die Seelen',
+ traps:['Sele','Seehle','Seelle'], conf:['geist','angst','volk'],
+ rule:"Double e : See-le. Beaucoup de noms terminés par -e sont féminins. Seele = l'âme ≠ der Geist (l'intellect).",
+ ex:"Der Krieg hatte die {Seele} des Volkes tief verletzt.", exFr:"La guerre avait profondément blessé l'âme du peuple."},
+{id:'praegen', th:'W', pos:'v', w:'prägen', fr:'marquer', alt:['faconner','empreindre'], forms:'prägt · prägte · hat geprägt',
+ traps:['pregen','prägenn','brägen'], conf:['bewerten','einsetzen','verbrennen'],
+ rule:"Comme frapper une pièce de monnaie : die Prägung = l'empreinte. geprägt sein von = être marqué par.",
+ ex:"Die Inflation von 1923 sollte eine ganze Generation {prägen}.", exFr:"L'inflation de 1923 allait marquer toute une génération."},
+{id:'widerstand', th:'W', pos:'n', art:'der', w:'Widerstand', fr:'la résistance', alt:[], plur:'die Widerstände',
+ traps:['Wiederstand','Widerstant','Widerstandt'], conf:['wider','besetzung','streikbewegung'],
+ rule:"wider (= contre, SANS e) + der Stand → der. Piège : wieder (avec e) = de nouveau.",
+ ex:"Gegen den Kapp-Putsch leisteten die Arbeiter {Widerstand}.", exFr:"Les ouvriers opposèrent une résistance au putsch de Kapp."},
+{id:'besetzung', th:'W', pos:'n', art:'die', w:'Besetzung', fr:"l'occupation", alt:[], plur:'die Besetzungen',
+ traps:['Besätzung','Besezung','Bessetzung'], conf:['gesetz','verordnung','machtuebernahme'],
+ rule:"besetzen (occuper) + -ung → die. Même racine setzen que Gesetz : tz.",
+ ex:"1923 begann die {Besetzung} des Ruhrgebiets durch Frankreich.", exFr:"En 1923 commença l'occupation de la Ruhr par la France."},
+{id:'drucken', th:'W', pos:'n', art:'das', w:'Drucken', fr:"l'impression", alt:[], plur:'—',
+ traps:['Drücken','Druken','Druckken'], conf:['schrift','verteilung','schlagwort'],
+ rule:"Infinitif nominalisé (drucken = imprimer) → das. Piège : drücken (avec ü) = appuyer.",
+ ex:"Das {Drucken} von immer mehr Geld führte zur Hyperinflation.", exFr:"L'impression de toujours plus d'argent mena à l'hyperinflation."},
+{id:'bewerten', th:'W', pos:'v', w:'bewerten', fr:'évaluer', alt:['juger','apprecier'], forms:'bewertet · bewertete · hat bewertet',
+ traps:['bewärten','beworten','bewertten'], conf:['behaupten','praegen','vernichten'],
+ rule:"be- + der Wert (la valeur) : attribuer une valeur. Inséparable : hat bewertet.",
+ ex:"Historiker {bewerten} die Weimarer Republik sehr unterschiedlich.", exFr:"Les historiens évaluent la République de Weimar de façon très différente."},
+{id:'armut', th:'W', pos:'n', art:'die', w:'Armut', fr:'la pauvreté', alt:['misere'], plur:'—',
+ traps:['Armuth','Armmut','Armud'], conf:['arbeitslosigkeit','mangel','reallohn'],
+ rule:"arm (pauvre) + -ut → die. Contraire : der Reichtum (la richesse).",
+ ex:"Die {Armut} nahm während der Weltwirtschaftskrise stark zu.", exFr:"La pauvreté augmenta fortement pendant la crise économique mondiale."},
+{id:'reallohn', th:'W', pos:'n', art:'der', w:'Reallohn', fr:'le salaire réel', alt:['salaire reel'], plur:'die Reallöhne',
+ traps:['Realohn','Reallon','Reallohnn'], conf:['leistung','armut','nahrungsmittel'],
+ rule:"real + der Lohn (le salaire) → der. Deux l, et un h muet : Lohn. Pluriel avec Umlaut : die Reallöhne.",
+ ex:"Durch die Inflation sank der {Reallohn} der Arbeiter.", exFr:"À cause de l'inflation, le salaire réel des ouvriers baissa."},
+{id:'nahrungsmittel', th:'W', pos:'n', art:'das', w:'Nahrungsmittel', fr:'la nourriture', alt:['aliment','denree alimentaire','vivres','aliments'], plur:'die Nahrungsmittel',
+ traps:['Narungsmittel','Nahrungsmitel','Nahrungmittel'], conf:['mangel','verteilung','reallohn'],
+ rule:"die Nahrung (nourriture) + -s- + das Mittel (moyen) → das (dernier mot). Pluriel invariable.",
+ ex:"Jeden Tag wurden die {Nahrungsmittel} teurer.", exFr:"Chaque jour, la nourriture devenait plus chère."},
+{id:'mangel', th:'W', pos:'n', art:'der', w:'Mangel', tail:'an', fr:'le manque de', alt:['manque','penurie','penurie de'], plur:'die Mängel',
+ traps:['Mangl','Mankel','Mangell'], conf:['armut','nahrungsmittel','arbeitslosigkeit'],
+ rule:"der Mangel an + DATIF : der Mangel an Nahrungsmitteln. Pluriel : die Mängel.",
+ ex:"In den Städten herrschte ein großer {Mangel} an Nahrungsmitteln.", exFr:"Dans les villes régnait un grand manque de nourriture."},
+{id:'ungerecht', th:'W', pos:'adj', w:'ungerecht', fr:'injuste', alt:[],
+ traps:['ungerächt','ungerescht','unngerecht'], conf:['wider','behaupten','vernichten'],
+ rule:"un- (négation) + gerecht (juste). die Gerechtigkeit = la justice.",
+ ex:"Viele Deutsche fanden den Versailler Vertrag {ungerecht}.", exFr:"Beaucoup d'Allemands trouvaient le traité de Versailles injuste."},
+{id:'verteilung', th:'W', pos:'n', art:'die', w:'Verteilung', fr:'la distribution', alt:['repartition'], plur:'die Verteilungen',
+ traps:['Verteillung','Ferteilung','Verteilnung'], conf:['verordnung','leistung','besetzung'],
+ rule:"verteilen (distribuer ; teilen = partager) + -ung → die. Préfixe ver- avec v.",
+ ex:"Die {Verteilung} der Nahrungsmittel war ungerecht.", exFr:"La distribution de la nourriture était injuste."},
+{id:'schlagwort', th:'W', pos:'n', art:'das', w:'Schlagwort', fr:'la devise, le slogan', alt:['devise','slogan',"mot d'ordre"], plur:'die Schlagwörter',
+ traps:['Schlagword','Schlakwort','Schlagwohrt'], conf:['schrift','gesetz','dolchstoss'],
+ rule:"schlagen (frapper) + das Wort → das. Pluriel : die Schlagwörter (avec ö).",
+ ex:"„Arbeit und Brot“ war ein wirksames {Schlagwort}.", exFr:"« Du travail et du pain » était un slogan efficace."},
+{id:'hetzen', th:'W', pos:'v', w:'gegen hetzen', d:'gegen + Akk hetzen', acc:['hetzen gegen','gegen jdn hetzen'], say:'gegen jemanden hetzen', fr:'inciter à la haine contre', alt:['inciter a la haine','attiser la haine contre'], forms:'hetzt · hetzte · hat gehetzt',
+ traps:['gegen + Dat hetzen','gegen + Akk hätzen','gegen + Akk hezen'], conf:['vernichten','behaupten','wider'],
+ rule:"hetzen gegen + ACCUSATIF. die Hetze = la propagande haineuse. tz après voyelle brève.",
+ ex:"Die Nazis begannen, gegen die Demokratie zu {hetzen}.", exFr:"Les nazis commencèrent à inciter à la haine contre la démocratie."},
+{id:'schuld', th:'W', pos:'n', art:'die', w:'Schuld', fr:'la culpabilité', alt:['faute','responsabilite'], plur:'(die Schulden = les dettes)',
+ traps:['Schult','Schuldt','Shuld'], conf:['verbrechen','angst','opfer'],
+ rule:"die Schuld → schuldig (coupable). die Kriegsschuld = la responsabilité de la guerre (art. 231 de Versailles).",
+ ex:"Der Versailler Vertrag gab Deutschland die {Schuld} am Krieg.", exFr:"Le traité de Versailles attribuait à l'Allemagne la culpabilité de la guerre."},
+// ------------------------------ NS-DIKTATUR ------------------------------
+{id:'abbauen', th:'N', pos:'v', w:'abbauen', d:'ab/bauen', fr:'faire baisser', alt:['reduire','diminuer','demanteler','supprimer'], forms:'baut ab · baute ab · hat abgebaut',
+ traps:['apbauen','abauen','abbaun'], conf:['einsetzen','vernichten','ausserkraft'],
+ rule:"Séparable : ab (vers le bas) + bauen (construire). die Arbeitslosigkeit abbauen = faire baisser le chômage.",
+ ex:"Hitler wollte die Arbeitslosigkeit schnell {abbauen}.", exFr:"Hitler voulait faire baisser rapidement le chômage."},
+{id:'messer', th:'N', pos:'n', art:'das', w:'Messer', fr:'le couteau', alt:[], plur:'die Messer',
+ traps:['Meser','Mässer','Messa'], conf:['opfer','gesetz','volk'],
+ rule:"das Messer, pluriel invariable. « Die Nacht der langen Messer » (1934) = la Nuit des longs couteaux.",
+ ex:"In der Nacht der langen {Messer} ließ Hitler die SA-Führung ermorden.", exFr:"Lors de la Nuit des longs couteaux, Hitler fit assassiner la direction de la SA."},
+{id:'gesetz', th:'N', pos:'n', art:'das', w:'Gesetz', fr:'la loi', alt:[], plur:'die Gesetze',
+ traps:['Gesets','Gesez','Gesätz'], conf:['verordnung','besetzung','schrift'],
+ rule:"Ge- + setzen (poser) : « ce qui est posé » → das. das Ermächtigungsgesetz (1933) = loi des pleins pouvoirs.",
+ ex:"Ein neues {Gesetz} gab Hitler 1933 alle Macht.", exFr:"Une nouvelle loi donna en 1933 tous les pouvoirs à Hitler."},
+{id:'volk', th:'N', pos:'n', art:'das', w:'Volk', fr:'le peuple', alt:['nation'], plur:'die Völker',
+ traps:['Folk','Volck','Vollk'], conf:['gemeinschaft','geist','studentenbund'],
+ rule:"V se prononce [f] : das Volk. Pluriel : die Völker. die Volksgemeinschaft = la communauté du peuple.",
+ ex:"Die Propaganda sprach ständig vom deutschen {Volk}.", exFr:"La propagande parlait sans cesse du peuple allemand."},
+{id:'gemeinschaft', th:'N', pos:'n', art:'die', w:'Gemeinschaft', fr:'la communauté', alt:[], plur:'die Gemeinschaften',
+ traps:['Gemeinshaft','Gemainschaft','Gemeinschafft'], conf:['volk','studentenbund','streikbewegung'],
+ rule:"gemein (commun) + -schaft. Suffixe -schaft → toujours die. ei = [aï].",
+ ex:"Die Nazis feierten die {Gemeinschaft} aller „Volksgenossen“.", exFr:"Les nazis célébraient la communauté de tous les « camarades du peuple »."},
+{id:'studentenbund', th:'N', pos:'n', art:'der', w:'Studentenbund', fr:"l'association d'étudiants", alt:["association d'etudiants",'association etudiante','union des etudiants'], plur:'die Studentenbünde',
+ traps:['Studentbund','Studentenbunt','Studendenbund'], conf:['gemeinschaft','volk','streikbewegung'],
+ rule:"die Studenten + der Bund (l'alliance, la ligue) → der. Le NS-Studentenbund organisa les autodafés.",
+ ex:"Der {Studentenbund} organisierte 1933 die Bücherverbrennung.", exFr:"L'association d'étudiants organisa l'autodafé de 1933."},
+{id:'ereignis', th:'N', pos:'n', art:'das', w:'Ereignis', fr:"l'événement", alt:['evenement'], plur:'die Ereignisse',
+ traps:['Ereigniss','Ereichnis','Ereigness'], conf:['verbrechen','leistung','ausrufung'],
+ rule:"Suffixe -nis → le plus souvent das. Un seul s au singulier, deux au pluriel : die Ereignisse.",
+ ex:"Die Bücherverbrennung war ein schockierendes {Ereignis}.", exFr:"L'autodafé fut un événement choquant."},
+{id:'vernichten', th:'N', pos:'v', w:'vernichten', fr:'détruire', alt:['aneantir','exterminer'], forms:'vernichtet · vernichtete · hat vernichtet',
+ traps:['fernichten','vernischten','vernichtten'], conf:['verbrennen','abbauen','siegen'],
+ rule:"ver- + nichts (rien) : réduire à néant. die Vernichtung = l'anéantissement, l'extermination.",
+ ex:"Die Nazis wollten jeden „undeutschen Geist“ {vernichten}.", exFr:"Les nazis voulaient détruire tout « esprit non allemand »."},
+{id:'wider', th:'N', pos:'prep', w:'wider', d:'wider + Akk', fr:'contre', alt:[],
+ traps:['wieder + Akk','wider + Dat','wieder + Dat'], conf:['widerstand','hetzen','geist'],
+ rule:"wider (sans e) = contre, + accusatif. wieder (avec e) = de nouveau. Slogan de 1933 : « Wider den undeutschen Geist ».",
+ ex:"Die Aktion hieß „{Wider} den undeutschen Geist“.", exFr:"L'action s'appelait « Contre l'esprit non allemand »."},
+{id:'geist', th:'N', pos:'n', art:'der', w:'Geist', fr:"l'esprit (l'intellect)", alt:['esprit','intellect'], plur:'die Geister',
+ traps:['Gaist','Geißt','Geisst'], conf:['seele','volk','schrift'],
+ rule:"der Geist = l'esprit, l'intellect (≠ die Seele, l'âme). ei = [aï]. « Wider den undeutschen Geist ».",
+ ex:"Der freie {Geist} der Weimarer Kultur sollte verschwinden.", exFr:"L'esprit libre de la culture de Weimar devait disparaître."},
+{id:'schrift', th:'N', pos:'n', art:'die', w:'Schrift', fr:"l'écrit", alt:['ecrit','ecriture','ouvrage'], plur:'die Schriften',
+ traps:['Schrifft','Shrift','Schrieft'], conf:['schlagwort','gesetz','drucken'],
+ rule:"schreiben (écrire) → die Schrift. Les noms en -t issus d'un verbe sont souvent féminins.",
+ ex:"Jede {Schrift} jüdischer Autoren wurde verbrannt.", exFr:"Chaque écrit d'auteurs juifs fut brûlé."},
+{id:'verbrennen', th:'N', pos:'v', w:'verbrennen', d:'verbrennen (a, a)', fr:'brûler', alt:['incinerer'], forms:'verbrennt · verbrannte · hat verbrannt',
+ traps:['verbrenen','ferbrennen','verbränen'], conf:['vernichten','praegen','einsetzen'],
+ rule:"Verbe mixte (a, a) : verbrannte, hat verbrannt. die Bücherverbrennung = l'autodafé.",
+ ex:"Am 10. Mai 1933 ließen die Nazis Tausende Bücher {verbrennen}.", exFr:"Le 10 mai 1933, les nazis firent brûler des milliers de livres."},
+{id:'verordnung', th:'N', pos:'n', art:'die', w:'Verordnung', fr:'le décret', alt:['ordonnance'], plur:'die Verordnungen',
+ traps:['Verortnung','Verordung','Verordnnung'], conf:['gesetz','verteilung','ausrufung'],
+ rule:"verordnen (ordonner ; die Ordnung = l'ordre) + -ung → die. Reichstagsbrandverordnung, février 1933.",
+ ex:"Eine {Verordnung} hob im Februar 1933 die Grundrechte auf.", exFr:"En février 1933, un décret abolit les droits fondamentaux."},
+{id:'ausserkraft', th:'N', pos:'expr', w:'außer Kraft setzen', d:'außer Kraft setzen', cs:true, fr:'annuler', alt:['abroger','suspendre','mettre hors vigueur'], forms:'setzt außer Kraft · hat außer Kraft gesetzt',
+ traps:['ausser Kraft setzen','außer Kraft sätzen','auser Kraft setzen'], conf:['einsetzen','abbauen','vernichten'],
+ rule:"außer (hors de, avec ß) + die Kraft (la force, majuscule) + setzen : mettre hors de vigueur.",
+ ex:"Die Verordnung sollte die Grundrechte {außer Kraft setzen}.", exFr:"Le décret devait annuler les droits fondamentaux."},
+{id:'opfer', th:'N', pos:'n', art:'das', w:'Opfer', fr:'la victime / le sacrifice', alt:['victime','sacrifice'], plur:'die Opfer',
+ traps:['Ofer','Oppfer','Opfa'], conf:['ermordung','schuld','leistung'],
+ rule:"Toujours neutre, même pour une personne : das Opfer. opfern = sacrifier. Pluriel invariable.",
+ ex:"Millionen Menschen wurden {Opfer} des NS-Regimes.", exFr:"Des millions de personnes furent victimes du régime nazi."},
+{id:'leistung', th:'N', pos:'n', art:'die', w:'Leistung', fr:'la performance / la prestation', alt:['performance','prestation','rendement','resultat'], plur:'die Leistungen',
+ traps:['Leisstung','Laistung','Leistnung'], conf:['reallohn','abm','verteilung'],
+ rule:"leisten (accomplir, fournir) + -ung → die. ei = [aï].",
+ ex:"Im NS-Staat zählte vor allem die {Leistung} für das Volk.", exFr:"Dans l'État nazi comptait surtout la performance au service du peuple."},
+{id:'abm', th:'N', pos:'n', art:'die', pl:true, w:'Arbeitsbeschaffungsmaßnahmen', fr:"les mesures pour la création d'emplois", alt:["mesures de creation d'emplois","mesures pour l'emploi","creation d'emplois"], plur:'(pluriel)',
+ traps:['Arbeitsbeschafungsmaßnahmen','Arbeitsbeschaffungsmassnahmen','Arbeitbeschaffungsmaßnahmen'], conf:['arbeitslosigkeit','aufruestung','friedensbemuehungen'],
+ rule:"die Arbeit + s + die Beschaffung (beschaffen = procurer, ff) + s + die Maßnahme (mesure, ß). Abrégé : ABM.",
+ ex:"Durch {Arbeitsbeschaffungsmaßnahmen} wie den Autobahnbau sank die Arbeitslosigkeit.", exFr:"Grâce aux mesures de création d'emplois comme la construction d'autoroutes, le chômage baissa."},
+{id:'aufruestung', th:'N', pos:'n', art:'die', w:'Aufrüstung', fr:'le réarmement', alt:['rearmement'], plur:'—',
+ traps:['Aufrustung','Aufrüsstung','Aufrüßtung'], conf:['abm','auspluenderung','machtuebernahme'],
+ rule:"auf + rüsten (armer) + -ung → die. Contraire : die Abrüstung (le désarmement).",
+ ex:"Die {Aufrüstung} verstieß gegen den Versailler Vertrag.", exFr:"Le réarmement violait le traité de Versailles."},
+{id:'auspluenderung', th:'N', pos:'n', art:'die', w:'Ausplünderung', fr:'la mise à sac, le pillage', alt:['pillage','mise a sac','spoliation'], plur:'die Ausplünderungen',
+ traps:['Ausplunderung','Ausblünderung','Ausplünnderung'], conf:['aufruestung','ermordung','besetzung'],
+ rule:"aus + plündern (piller, avec ü) + -ung → die.",
+ ex:"Die {Ausplünderung} der besetzten Länder finanzierte den Krieg.", exFr:"Le pillage des pays occupés finança la guerre."}
+];
+/*DATA-END*/
+
+/* =====================================================================
+   OUTILS
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function el(html){ const t=document.createElement('template'); t.innerHTML=html.trim(); return t.content.firstElementChild; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+const sample = a => a[Math.floor(Math.random()*a.length)];
+const today = () => new Date().toISOString().slice(0,10);
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m) return n; if(!n) return m;
+  let prev=Array.from({length:n+1},(_,j)=>j);
+  for(let i=1;i<=m;i++){ const cur=[i]; for(let j=1;j<=n;j++) cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1)); prev=cur; }
+  return prev[n];
+}
+// alignement caractère par caractère (pour montrer précisément les fautes d'orthographe)
+function align(a,b){
+  const m=a.length,n=b.length, d=[];
+  for(let i=0;i<=m;i++){ d[i]=[i]; for(let j=1;j<=n;j++) d[i][j]= i===0 ? j : 0; }
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++) d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+  const ops=[]; let i=m,j=n;
+  while(i>0||j>0){
+    if(i>0&&j>0&&d[i][j]===d[i-1][j-1]+(a[i-1]===b[j-1]?0:1)){ ops.push({t:a[i-1]===b[j-1]?'eq':'sub',a:a[i-1],b:b[j-1]}); i--; j--; }
+    else if(i>0&&d[i][j]===d[i-1][j]+1){ ops.push({t:'del',a:a[i-1]}); i--; }
+    else { ops.push({t:'ins',b:b[j-1]}); j--; }
+  }
+  return ops.reverse();
+}
+function diffParts(user,target){
+  const ops=align(user,target); let u='',t='';
+  for(const o of ops){
+    if(o.t==='eq'){ u+=esc(o.a); t+=esc(o.b); }
+    else if(o.t==='sub'){ u+=`<span class="x">${esc(o.a)}</span>`; t+=`<mark>${esc(o.b)}</mark>`; }
+    else if(o.t==='del'){ u+=`<span class="xs">${esc(o.a)}</span>`; }
+    else { u+=`<span class="x">_</span>`; t+=`<mark>${esc(o.b)}</mark>`; }
+  }
+  return {u,t};
+}
+function diffHTML(user,target){
+  const {u,t}=diffParts(user,target);
+  return `<div class="diff"><span class="lb">Ta réponse</span><span>${u||'<span class="dim">(vide)</span>'}</span><span class="lb">Correct</span><span>${t}</span></div>`;
+}
+
+/* ---------- icônes SVG (trait fin, sobres) ---------- */
+const IC = {
+  home:'<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/>',
+  learn:'<path d="M2 5.5c3-1.5 6.5-1.5 10 1 3.5-2.5 7-2.5 10-1V19c-3-1.5-6.5-1.5-10 1-3.5-2.5-7-2.5-10-1z"/><path d="M12 6.5V20"/>',
+  review:'<path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/>',
+  exam:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v3h6V3"/><path d="m9 13 2 2 4-4"/>',
+  games:'<rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/>',
+  list:'<path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r=".6"/><circle cx="3.5" cy="12" r=".6"/><circle cx="3.5" cy="18" r=".6"/>',
+  focus:'<path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5"/><circle cx="12" cy="12" r="2.5"/>',
+  exit:'<path d="M8 3v5H3M16 3v5h5M8 21v-5H3M16 21v-5h5"/>',
+  settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
+  sound:'<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/>',
+  slow:'<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 9.5a3.5 3.5 0 0 1 0 5"/>',
+  check:'<path d="M20 6 9 17l-5-5"/>',
+  x:'<path d="M18 6 6 18M6 6l12 12"/>',
+  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  bulb:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/>',
+  alert:'<circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  play:'<path d="M7 4v16l13-8z"/>',
+  link:'<path d="M9 15 15 9"/><path d="M11 6.5 13 4.5a4 4 0 0 1 5.7 5.7L16.5 12"/><path d="M13 17.5 11 19.5a4 4 0 0 1-5.7-5.7L7.5 12"/>',
+  ear:'<path d="M6 8.5a6 6 0 1 1 12 0c0 3.5-3 4.5-3 7.5a3 3 0 0 1-6 0"/><path d="M9.5 8.5a2.5 2.5 0 0 1 5 0"/>',
+  type:'<path d="M4 7V5h16v2M9 19h6M12 5v14"/>',
+  brain:'<path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3h0a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3h0a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>',
+  download:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+  upload:'<path d="M12 20V9M7 14l5-5 5 5M5 4h14"/>',
+  trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+  flame:'<path d="M12 21c-4 0-7-2.7-7-6.5 0-3 2-5 3.5-6.5.3 2 1.3 3 2.5 3.5C11 8 12 5 14.5 3c0 3.5 4.5 5.5 4.5 11 0 4-3 7-7 7z"/>',
+};
+const icon = (n,cls='') => `<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
+
+/* =====================================================================
+   PRÉPARATION DES DONNÉES
+   ===================================================================== */
+const THEMES = {W:'Weimarer Republik', N:'NS-Diktatur'};
+const POS = {n:'nom', v:'verbe', adj:'adjectif', prep:'préposition', expr:'expression'};
+const ARTS = ['der','die','das'];
+const byId = {};
+function normDE(s){
+  return String(s).replace(/[»«„“"”]/g,' ').replace(/\(.*?\)/g,' ').replace(/\//g,'')
+    .replace(/\+\s*(akk|dat|d|a)\b\.?/gi,' ').replace(/\b(akk|dat|jdn|jdm|etw|jemanden)\b\.?/gi,' ')
+    .replace(/\+/g,' ').replace(/\s+/g,' ').trim();
+}
+const FR_STOP = new Set(['le','la','les','l','un','une','des','du','d','de']);
+function normFR(s){
+  let t=String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\(.*?\)/g,' ')
+    .replace(/œ/g,'oe').replace(/[’'`]/g,' ').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+  const w=t.split(' '); while(w.length>1 && FR_STOP.has(w[0])) w.shift();
+  return w.join(' ');
+}
+const translit = s => s.toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss');
+const noUml = s => s.toLowerCase().replace(/ä/g,'a').replace(/ö/g,'o').replace(/ü/g,'u').replace(/ß/g,'s').replace(/ae/g,'a').replace(/oe/g,'o').replace(/ue/g,'u').replace(/ss/g,'s');
+
+DATA.forEach((x,i)=>{
+  x.idx=i; byId[x.id]=x;
+  if(x.pos==='n'){
+    x.a = x.art+' '+x.w+(x.tail?' '+x.tail:'');
+    x.d = x.art+' '+x.w+(x.tail?' '+x.tail+' + D':'')+(x.pl?' (pl.)':'');
+    x.say = x.say || (x.art+' '+x.w+(x.tail?' '+x.tail:''));
+  } else {
+    x.a = x.w; x.d = x.d || x.w; x.say = x.say || normDE(x.d);
+  }
+  x.acc = x.acc || [];
+  x.frSet = [...new Set(x.fr.split(/,|\/|;/).concat(x.alt||[]).map(normFR).filter(Boolean))];
+  const m = x.ex.match(/\{(.+?)\}/); x.cz = m ? m[1] : x.w;
+});
+function frOverlap(a,b){ return a.frSet.some(f=>b.frSet.includes(f)); }
+function artHTML(d){
+  const m=String(d).match(/^(der|die|das)\s(.*)$/);
+  return m ? `<span class="art-${m[1]}">${m[1]}</span> ${esc(m[2])}` : esc(d);
+}
+function exHTML(x){ return esc(x.ex).replace(/\{(.+?)\}/,'<b>$1</b>'); }
+const exPlain = x => x.ex.replace(/[{}]/g,'');
+
+/* =====================================================================
+   SAUVEGARDE (localStorage)
+   ===================================================================== */
+const KEY='wortschatz_allemand_v1';
+function defaults(){
+  return { v:1, learn:{}, skills:{}, exams:[], stats:{answers:0, correct:0, days:{}}, games:{},
+    settings:{ autoAudio:true, rate:0.9, voice:'', genderColor:true, theme:'all', focusTip:false, examN:20, examDir:'f2d' } };
+}
+let S = (()=>{ try{ const r=JSON.parse(localStorage.getItem(KEY)); if(r&&r.v===1){ const d=defaults(); return Object.assign(d,r,{settings:Object.assign(d.settings,r.settings||{})}); } }catch(e){} return defaults(); })();
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function record(ok){ S.stats.answers++; if(ok) S.stats.correct++; const t=today(); S.stats.days[t]=(S.stats.days[t]||0)+1; save(); }
+function dayStreak(){ let n=0; const d=new Date(); for(;;){ const k=d.toISOString().slice(0,10); if(S.stats.days[k]) { n++; d.setDate(d.getDate()-1); } else if(n===0 && k===today()) { d.setDate(d.getDate()-1); } else break; } return n; }
+const scope = () => DATA.filter(x=> S.settings.theme==='all' || x.th===S.settings.theme);
+
+/* =====================================================================
+   PLANIFICATEUR FSRS (rétention cible 90 %)
+   Chaque mot est décomposé en compétences indépendantes :
+     m = sens (DE → FR), p = production écrite (FR → DE), g = genre (der/die/das)
+   ===================================================================== */
+const FW=[0.4872,1.4003,3.7145,13.8206,5.1618,1.2298,0.8975,0.031,1.6474,0.1367,1.0461,2.1072,0.0793,0.3246,1.587,0.2272,2.8755];
+const DECAY=-0.5, FACTOR=19/81, DAY=864e5;
+const clampD = d => Math.min(10,Math.max(1,d));
+function retr(sk,now=Date.now()){ const t=Math.max(0,(now-sk.last)/DAY); return Math.pow(1+FACTOR*t/sk.S, DECAY); }
+function newSkill(G){ return {S:FW[G-1], D:clampD(FW[4]-(G-3)*FW[5]), last:Date.now(), reps:1, lapses:G===1?1:0}; }
+function rateSkill(sk,G,slow){
+  const R=retr(sk);
+  let D = sk.D - FW[6]*(G-3); D = clampD(FW[7]*FW[4] + (1-FW[7])*D);
+  let nS;
+  if(G===1){ nS = Math.min(sk.S, FW[11]*Math.pow(sk.D,-FW[12])*(Math.pow(sk.S+1,FW[13])-1)*Math.exp(FW[14]*(1-R))); sk.lapses++; }
+  else {
+    let inc = Math.exp(FW[8])*(11-sk.D)*Math.pow(sk.S,-FW[9])*(Math.exp(FW[10]*(1-R))-1);
+    if(G===2) inc*=FW[15];
+    if(slow && G>=3) inc*=1.2;     // effort de récupération long mais réussi → bonus de stabilité
+    nS = sk.S*(1+inc);
+  }
+  sk.S=Math.max(0.02,nS); sk.D=D; sk.last=Date.now(); sk.reps++;
+}
+const skillKeys = x => x.pos==='n' && !x.pl ? ['m','p','g'] : ['m','p'];
+function graduate(id){
+  const L=S.learn[id]; L.done=true; L.doneAt=Date.now();
+  const G = L.wrong>=3 ? 2 : 3;
+  S.skills[id]={}; skillKeys(byId[id]).forEach(k=> S.skills[id][k]=newSkill(G));
+}
+function wordStrength(id){ // 0..1
+  const sk=S.skills[id]; if(sk){ const ks=Object.values(sk); return ks.reduce((s,k)=>s+retr(k),0)/ks.length; }
+  const L=S.learn[id]; return L ? Math.min(.8,(L.st||0)/8) : 0;
+}
+function dueList(){
+  const out=[], now=Date.now();
+  for(const x of scope()){ const sk=S.skills[x.id]; if(!sk) continue;
+    for(const k in sk){ const R=retr(sk[k],now); if(R<=0.9) out.push({id:x.id,k,R}); } }
+  return out.sort((a,b)=>a.R-b.R);
+}
+
+/* =====================================================================
+   AUDIO — synthèse vocale allemande (Web Speech API, intégrée au navigateur)
+   ===================================================================== */
+let deVoice=null;
+function deVoices(){ return ('speechSynthesis' in window) ? speechSynthesis.getVoices().filter(v=>/^de([-_]|$)/i.test(v.lang)) : []; }
+function pickVoice(){
+  const vs=deVoices();
+  deVoice = (S.settings.voice && vs.find(v=>v.name===S.settings.voice))
+    || vs.find(v=>/natural|online|neural/i.test(v.name)) || vs.find(v=>/google/i.test(v.name))
+    || vs.find(v=>/de-DE/i.test(v.lang)) || vs[0] || null;
+}
+if('speechSynthesis' in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(text, rate){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; if(deVoice) u.voice=deVoice;
+  u.rate = rate || S.settings.rate; speechSynthesis.speak(u);
+}
+const autoSay = x => { if(S.settings.autoAudio) setTimeout(()=>speak(x.say),120); };
+
+/* =====================================================================
+   CORRECTION — allemand (strict mais pédagogique) et français (tolérant)
+   ===================================================================== */
+function findOtherDE(x, core){
+  const c=core.toLowerCase();
+  return DATA.find(o=>o.id!==x.id && (o.w.toLowerCase()===c || o.a.toLowerCase()===c || normDE(o.d).toLowerCase()===c));
+}
+const govOf = s => /\+\s*(akk|a)\b/i.test(s) ? 'akk' : /\+\s*(dat|d)\b/i.test(s) ? 'dat' : null;
+function gradeDE(x, input){
+  let u = normDE(input);
+  if(!u) return {ok:false, kind:'empty'};
+  const res = k => ({ok:k==='ok', kind:k});
+  const ug=govOf(input), xg=govOf(x.d);
+  if(ug && xg && ug!==xg){ const r=gradeDE(x, input.replace(/\+\s*(akk|dat|a|d)\b\.?/i,'')); if(r.ok) return res('gov'); }
+  if(x.pos==='n'){
+    const tk=u.split(' '); let ua=null;
+    if(ARTS.includes(tk[0].toLowerCase())){ ua=tk.shift().toLowerCase(); }
+    let rest=tk.join(' '), tailOk=true;
+    if(x.tail){ const re=new RegExp('\\s+'+x.tail+'$','i'); if(re.test(rest)) rest=rest.replace(re,''); else tailOk=false; }
+    if(rest!==x.w){
+      const other=findOtherDE(x, (ua?ua+' ':'')+rest) || findOtherDE(x, rest);
+      if(other) return {ok:false, kind: frOverlap(x,other)?'synonym':'confusion', other};
+      if(rest.toLowerCase()===x.w.toLowerCase()) return res('case');
+      if(translit(rest)===translit(x.w) || noUml(rest)===noUml(x.w)) return res('umlaut');
+      const tol = x.w.length>=12?2:1;
+      if(lev(rest.toLowerCase(), x.w.toLowerCase())<=tol) return res('near');
+      return res('wrong');
+    }
+    if(!ua) return res('noarticle');
+    if(ua!==x.art) return {ok:false, kind:'article', ua};
+    if(!tailOk) return res('tail');
+    return res('ok');
+  }
+  const cands=[x.a, ...x.acc];
+  if(cands.includes(u)) return res('ok');
+  const ul=u.toLowerCase();
+  if(cands.some(c=>c.toLowerCase()===ul)) return res(x.cs?'case':'ok');
+  const other=findOtherDE(x,u); if(other) return {ok:false, kind: frOverlap(x,other)?'synonym':'confusion', other};
+  if(cands.some(c=>translit(c)===translit(u) || noUml(c)===noUml(u))) return res('umlaut');
+  const tol = x.a.length>=12?2:1;
+  if(cands.some(c=>lev(c.toLowerCase(),ul)<=tol)) return res('near');
+  return res('wrong');
+}
+function gradeCloze(x, input){
+  const u=input.trim().replace(/\s+/g,' '), t=x.cz;
+  if(!u) return {ok:false,kind:'empty'};
+  if(u===t) return {ok:true,kind:'ok'};
+  if(u.toLowerCase()===t.toLowerCase()) return {ok: !(x.pos==='n'||x.cs), kind: (x.pos==='n'||x.cs)?'case':'ok'};
+  if(translit(u)===translit(t) || noUml(u)===noUml(t)) return {ok:false,kind:'umlaut'};
+  if(lev(u.toLowerCase(),t.toLowerCase())<=(t.length>=12?2:1)) return {ok:false,kind:'near'};
+  const other=findOtherDE(x,u); if(other) return {ok:false,kind:'confusion',other};
+  return {ok:false,kind:'wrong'};
+}
+function gradeFR(x, input){
+  const g=normFR(input); if(!g) return {ok:false,kind:'empty'};
+  const match = c => { if(g===c) return true;
+    const tol = c.length>=9?2:(c.length>=5?1:0); if(lev(g,c)<=tol) return true;
+    if(c.length>=5 && g.includes(c)) return true;
+    if(g.length>=5 && c.includes(g) && g.length>=c.length*0.6) return true; return false; };
+  if(x.frSet.some(match)) return {ok:true,kind:'ok'};
+  const other=DATA.find(o=>o.id!==x.id && o.frSet.some(c=>c===g || (c.length>=6 && lev(g,c)<=1)));
+  if(other) return {ok:false,kind:'confusion',other};
+  return {ok:false,kind:'wrong'};
+}
+const MSG = {
+  case:"Presque : en allemand, les noms prennent toujours une majuscule.",
+  umlaut:"Presque : vérifie les Umlaut (ä, ö, ü) et le ß.",
+  near:"Presque : il reste une petite faute d'orthographe. Corrige-la.",
+  noarticle:"Le mot est juste. Ajoute l'article : der, die ou das ?",
+  article:"Le mot est juste, mais pas l'article. Quel est le bon genre ?",
+  tail:"Il manque la préposition qui accompagne ce mot.",
+  gov:"Le mot est juste, mais pas le cas : accusatif ou datif ?",
+  wrong:"Ce n'est pas ça.", empty:"Écris une réponse.",
+};
+function gradeMsg(g, toDE){
+  if(g.kind==='confusion') return toDE ? `Ça, c'est « ${g.other.d} » (${g.other.fr}). Cherche un autre mot.` : `Ça, c'est le sens de « ${g.other.d} ». Cherche un autre sens.`;
+  if(g.kind==='synonym') return `« ${g.other.d} » a un sens proche, mais ici on attend un autre mot de la liste.`;
+  return MSG[g.kind]||MSG.wrong;
+}
+function skeleton(target, level){ // level 1 : 1re lettre ; level 2 : une lettre sur deux
+  const parts=target.split(' ');
+  return parts.map((p,pi)=>{
+    if(ARTS.includes(p) && pi===0 && parts.length>1) return level>=1?`<b>${p}</b>`:'___';
+    return [...p].map((c,i)=> (i===0 || (level>=2 && i%2===0) || /[+]/.test(c)) ? `<b>${esc(c)}</b>` : '_').join('');
+  }).join('&nbsp;&nbsp;');
+}
+
+/* =====================================================================
+   ROUTEUR, NAVIGATION, CLAVIER
+   ===================================================================== */
+const NAV=[['home','Accueil','home'],['learn','Apprendre','learn'],['review','Réviser','review'],['exam','Examen','exam'],['games','Jeux','games'],['list','Liste','list']];
+let view='home', keyHandler=null, cleanups=[];
+function setKeys(fn){ keyHandler=fn; }
+function onCleanup(fn){ cleanups.push(fn); }
+function renderNav(){
+  const due=dueList().length;
+  $('#nav').innerHTML = NAV.map(([v,l,ic])=>`<button class="nav-b ${view===v?'on':''}" data-go="${v}" title="${l}">${icon(ic)}<span class="lbl">${l}</span>${v==='review'&&due?`<span class="badge">${due}</span>`:''}</button>`).join('');
+}
+function go(v, arg){
+  cleanups.forEach(f=>{try{f()}catch(e){}}); cleanups=[]; setKeys(null);
+  if('speechSynthesis' in window) speechSynthesis.cancel();
+  view=v; renderNav();
+  const main=$('#main'); main.innerHTML='';
+  VIEWS[v](main, arg);
+  $('#fb-view').textContent = (NAV.find(n=>n[0]===v)||['','',''])[1];
+  window.scrollTo(0,0);
+}
+document.addEventListener('click', e=>{ const b=e.target.closest('[data-go]'); if(b) go(b.dataset.go); });
+document.addEventListener('keydown', e=>{
+  const typing = e.target.tagName==='INPUT' || e.target.tagName==='SELECT';
+  if(e.altKey && typing && e.target.tagName==='INPUT'){ const map={a:'ä',o:'ö',u:'ü',s:'ß'}; const c=map[e.key.toLowerCase()]; if(c){ e.preventDefault(); insertAt(e.target, e.shiftKey&&c!=='ß'?c.toUpperCase():c); return; } }
+  if(keyHandler && keyHandler(e, typing)) { e.preventDefault(); return; }
+  if(!typing && !e.ctrlKey && !e.metaKey && !e.altKey && (e.key==='f'||e.key==='F') && !$('.overlay')){ e.preventDefault(); toggleFocus(); }
+});
+function insertAt(inp, c){
+  const s=inp.selectionStart??inp.value.length, en=inp.selectionEnd??inp.value.length;
+  inp.value=inp.value.slice(0,s)+c+inp.value.slice(en); inp.setSelectionRange(s+1,s+1); inp.focus();
+  inp.dispatchEvent(new Event('input'));
+}
+function umlBar(inp){
+  const bar=el(`<div class="uml">${['ä','ö','ü','ß','Ä','Ö','Ü'].map(c=>`<button type="button" tabindex="-1">${c}</button>`).join('')}<span class="hint-k">Alt + a / o / u / s</span></div>`);
+  bar.querySelectorAll('button').forEach(b=>b.addEventListener('mousedown',e=>{e.preventDefault(); insertAt(inp,b.textContent);}));
+  return bar;
+}
+function toast(html, ms=6000){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const t=el(`<div class="toast">${html}</div>`); document.body.appendChild(t);
+  setTimeout(()=>t.remove(), ms);
+}
+
+/* =====================================================================
+   FICHE DE RÉTROACTION (après chaque réponse) — contexte + règle + audio
+   ===================================================================== */
+function ficheHTML(x, verdict, extra=''){
+  const meta=[];
+  meta.push(`<span><b>${POS[x.pos]}</b></span>`);
+  if(x.plur) meta.push(`<span><b>Pluriel</b> ${esc(x.plur)}</span>`);
+  if(x.forms) meta.push(`<span><b>Formes</b> ${esc(x.forms)}</span>`);
+  return `<div class="fiche">
+    ${verdict}
+    <div class="f-main"><button class="audio sm" data-say="${esc(x.say)}" title="Écouter">${icon('sound')}</button>
+      <span class="f-de">${artHTML(x.d)}</span><span class="f-fr">${esc(x.fr)}</span></div>
+    ${extra}
+    <div class="f-meta">${meta.join('')}</div>
+    <div class="f-rule">${icon('bulb')}<span>${esc(x.rule)}</span></div>
+    <div class="f-ex"><button class="audio sm" data-say="${esc(exPlain(x))}" title="Écouter la phrase">${icon('sound')}</button>
+      <div><span class="de">${exHTML(x)}</span><span class="fr">${esc(x.exFr)}</span></div></div>
+    <div class="next-row"><button class="btn primary" data-next>Continuer <kbd>Entrée</kbd></button></div>
+  </div>`;
+}
+document.addEventListener('click', e=>{ const a=e.target.closest('[data-say]'); if(a){ speak(a.dataset.say, a.dataset.slow?0.55:undefined); } });
+function verdictHTML(kind, text, rt){
+  const ic = kind==='ok'?'check':kind==='warn'?'alert':'x';
+  return `<div class="verdict ${kind}">${icon(ic)}<span>${text}</span>${rt?`<span class="rt">${(rt/1000).toFixed(1)} s</span>`:''}</div>`;
+}
+
+/* =====================================================================
+   MOTEUR DE TÂCHES (une carte = une tâche)
+   kinds : intro · mcq (d2f | f2d | spell) · write (f2d | d2f, guided, cloze) · gender
+   done({res:'good'|'hard'|'fail', rt, slow, articleWrong})
+   ===================================================================== */
+function cardShell(head, opts={}){
+  return el(`<div class="card">
+    <div class="card-head"><div><div class="mech">${head.label}</div>${head.desc?`<div class="mech-desc">${head.desc}</div>`:''}</div>
+      <div class="row" style="gap:10px">${opts.dots||''}<span class="theme-tag">${THEMES[opts.x.th]}</span></div></div>
+    <div class="prompt"></div><div class="zone"></div><div class="fbk"></div>
+  </div>`);
+}
+function promptFR(x, extra=''){
+  return `<div class="prompt-lang">Français ${icon('arrow')} Allemand</div>
+    <div class="prompt-word fr">${esc(x.fr)}</div>
+    <div class="prompt-sub">${POS[x.pos]}${x.pos==='n'?' · avec l\'article'+(x.pl?' · au pluriel':''):''}${x.tail?' · + préposition':''}${extra}</div>`;
+}
+function promptDE(x, extra=''){
+  return `<div class="prompt-lang">Allemand ${icon('arrow')} Français</div>
+    <div class="prompt-word">${artHTML(x.d)} <button class="audio" data-say="${esc(x.say)}" title="Écouter">${icon('sound')}</button></div>
+    <div class="prompt-sub">${POS[x.pos]}${extra}</div>`;
+}
+
+function taskIntro(t, host, done){
+  const x=t.x;
+  const c=cardShell({label:'Découverte', desc:'Écoute, lis la règle, visualise la phrase. Le test arrive juste après.'},{x,dots:t.dots});
+  c.querySelector('.prompt').innerHTML = `<div class="prompt-lang">Nouveau mot</div>
+    <div class="prompt-word">${artHTML(x.d)} <button class="audio" data-say="${esc(x.say)}">${icon('sound')}</button></div>
+    <div class="prompt-sub" style="font-size:18px;color:var(--tx);margin-top:12px">${esc(x.fr)}</div>
+    <div class="audio-row"><button class="audio-txt" data-say="${esc(x.say)}" data-slow="1">${icon('slow')} Lentement</button></div>`;
+  c.querySelector('.fbk').innerHTML = `<div class="fiche" style="border-top:0;padding-top:0;margin-top:0">
+    <div class="f-meta" style="justify-content:center">${x.plur?`<span><b>Pluriel</b> ${esc(x.plur)}</span>`:''}${x.forms?`<span><b>Formes</b> ${esc(x.forms)}</span>`:''}</div>
+    <div class="f-rule">${icon('bulb')}<span>${esc(x.rule)}</span></div>
+    <div class="f-ex"><button class="audio sm" data-say="${esc(exPlain(x))}">${icon('sound')}</button><div><span class="de">${exHTML(x)}</span><span class="fr">${esc(x.exFr)}</span></div></div>
+    <div class="next-row"><button class="btn ghost" data-known>Je le connais déjà</button><button class="btn primary" data-next>J'ai compris <kbd>Entrée</kbd></button></div></div>`;
+  host.appendChild(c); autoSay(x);
+  const fin = known => { setKeys(null); done({res: known?'known':'good'}); };
+  c.querySelector('[data-next]').onclick=()=>fin(false);
+  c.querySelector('[data-known]').onclick=()=>fin(true);
+  setKeys(e=>{ if(e.key==='Enter'){ fin(false); return true; } });
+}
+
+function mcqOptions(t){
+  const x=t.x, pool=DATA.filter(o=>o.id!==x.id && !frOverlap(o,x));
+  if(t.dir==='d2f'){ // reconnaissance : de VRAIS mots de la liste, de sens éloignés
+    let c = shuffle(pool.filter(o=>o.pos===x.pos && !x.conf.includes(o.id)));
+    if(c.length<3) c=c.concat(shuffle(pool.filter(o=>!c.includes(o)&&!x.conf.includes(o.id))));
+    return {correct:x.fr, opts:shuffle([x.fr, ...c.slice(0,3).map(o=>o.fr)])};
+  }
+  if(t.dir==='f2d'){ // production guidée : mots PROCHES (confusables, même famille, même catégorie)
+    let c = x.conf.map(id=>byId[id]).filter(o=>o && !frOverlap(o,x));
+    const more = shuffle(pool.filter(o=>o.pos===x.pos && !c.includes(o) && o.th===x.th));
+    c=c.concat(more, shuffle(pool.filter(o=>!c.includes(o) && !more.includes(o))));
+    return {correct:x.d, opts:shuffle([x.d, ...c.slice(0,3).map(o=>o.d)])};
+  }
+  // orthographe : le MÊME mot, 4 graphies
+  let v;
+  if(x.pos==='n'){
+    const suf=(x.tail?' '+x.tail+' + D':'')+(x.pl?' (pl.)':'');
+    const wrongArts=ARTS.filter(a=>a!==x.art);
+    const tr=shuffle(x.traps);
+    const withArt = !x.pl && (t.genderTrap ?? Math.random()<0.65);
+    v = withArt ? [x.d, sample(wrongArts)+' '+x.w+suf, x.art+' '+tr[0]+suf, x.art+' '+tr[1]+suf]
+                : [x.d, ...tr.map(w=>x.art+' '+w+suf)];
+  } else v=[x.d, ...x.traps];
+  return {correct:x.d, opts:shuffle([...new Set(v)])};
+}
+const MCQ_HEAD = {
+  d2f:{label:'Reconnaissance · DE → FR', desc:'Retrouve le sens parmi d\'autres mots de la liste.'},
+  f2d:{label:'Production guidée · FR → DE', desc:'Attention : les propositions sont des mots proches.'},
+  spell:{label:'Orthographe · FR → DE', desc:'Même mot, quatre graphies. Une seule est exacte.'},
+};
+function taskMCQ(t, host, done){
+  const x=t.x, {correct, opts}=mcqOptions(t);
+  const c=cardShell(t.head||MCQ_HEAD[t.dir],{x,dots:t.dots});
+  c.querySelector('.prompt').innerHTML = t.dir==='d2f' ? promptDE(x) : promptFR(x, t.dir==='spell'?' · choisis l\'orthographe exacte':'');
+  const zone=c.querySelector('.zone');
+  zone.innerHTML=`<div class="opts">${opts.map((o,i)=>`<button class="opt ${t.dir==='spell'?'spell':''}" data-i="${i}"><span class="k">${i+1}</span><span>${t.dir==='d2f'?esc(o):artHTML(o)}</span></button>`).join('')}</div>`;
+  host.appendChild(c);
+  if(t.dir==='d2f') autoSay(x);
+  const t0=performance.now(); let answered=false;
+  function choose(i){
+    if(answered) return; answered=true;
+    const rt=performance.now()-t0, ok=opts[i]===correct, btns=zone.querySelectorAll('.opt');
+    zone.querySelector('.opts').classList.add('locked');
+    btns.forEach((b,j)=>{ if(opts[j]===correct) b.classList.add('ok'); else if(j===i) b.classList.add('bad'); else b.classList.add('dimmed'); });
+    let extra='';
+    if(!ok && t.dir==='spell') extra=diffHTML(opts[i], correct);
+    let articleWrong = !ok && t.dir==='spell' && x.pos==='n' && opts[i].split(' ')[0]!==x.art;
+    c.querySelector('.fbk').innerHTML = ficheHTML(x, verdictHTML(ok?'ok':'bad', ok?'Exact':(articleWrong?'Mauvais article':'Ce n\'était pas la bonne réponse'), rt), extra);
+    if(t.dir!=='d2f' || !ok) autoSay(x);
+    const fin=()=>{ setKeys(null); done({res:ok?'good':'fail', rt, articleWrong}); };
+    c.querySelector('[data-next]').onclick=fin;
+    setKeys(e=>{ if(e.key==='Enter'){ fin(); return true; } });
+    if(t.fast && ok) setTimeout(()=>{ if(c.isConnected) fin(); }, 650);
+  }
+  zone.querySelectorAll('.opt').forEach(b=>b.onclick=()=>choose(+b.dataset.i));
+  setKeys((e,typing)=>{ if(!typing && /^[1-4]$/.test(e.key) && +e.key<=opts.length){ choose(+e.key-1); return true; } });
+}
+
+function taskGender(t, host, done){
+  const x=t.x;
+  const c=cardShell(t.head||{label:'Genre · der / die / das', desc:'Le genre est mémorisé séparément du sens.'},{x,dots:t.dots});
+  c.querySelector('.prompt').innerHTML=`<div class="prompt-lang">Quel article ?</div><div class="prompt-word">${esc(x.w)}</div><div class="prompt-sub">${esc(x.fr)}</div>`;
+  const zone=c.querySelector('.zone');
+  zone.innerHTML=`<div class="gender-opts opts">${ARTS.map((a,i)=>`<button class="opt" data-a="${a}"><span class="k">${i+1}</span><span class="art-${a}">${a}</span></button>`).join('')}</div>`;
+  host.appendChild(c);
+  const t0=performance.now(); let answered=false;
+  function choose(a){
+    if(answered) return; answered=true;
+    const rt=performance.now()-t0, ok=a===x.art;
+    zone.querySelector('.opts').classList.add('locked');
+    zone.querySelectorAll('.opt').forEach(b=>{ if(b.dataset.a===x.art) b.classList.add('ok'); else if(b.dataset.a===a) b.classList.add('bad'); else b.classList.add('dimmed'); });
+    autoSay(x);
+    const fin=()=>{ setKeys(null); done({res:ok?'good':'fail', rt}); };
+    if(ok && t.fast){ setTimeout(()=>{ if(c.isConnected) fin(); }, 450); return; }
+    c.querySelector('.fbk').innerHTML = ficheHTML(x, verdictHTML(ok?'ok':'bad', ok?'Exact':`C'est « ${x.art} ${x.w} »`, rt));
+    c.querySelector('[data-next]').onclick=fin;
+    setKeys(e=>{ if(e.key==='Enter'){ fin(); return true; } });
+  }
+  zone.querySelectorAll('.opt').forEach(b=>b.onclick=()=>choose(b.dataset.a));
+  setKeys((e,typing)=>{ if(!typing && /^[1-3]$/.test(e.key)){ choose(ARTS[+e.key-1]); return true; } });
+}
+
+const WRITE_HEAD = {
+  guided:{label:'Écriture assistée · FR → DE', desc:'Le squelette du mot est affiché : retrouve chaque lettre.'},
+  cloze:{label:'Contexte · complète la phrase', desc:'Le mot dans une vraie phrase : la mémoire s\'accroche au sens.'},
+  free:{label:'Rappel libre · FR → DE', desc:'Aucune aide : écris le mot complet de mémoire.'},
+  final:{label:'Rappel espacé · FR → DE', desc:'Deuxième rappel, après une pause : valide durablement le mot.'},
+  d2f:{label:'Sens · DE → FR', desc:'Écris la traduction française.'},
+  dict:{label:'Dictée', desc:'Écoute et écris le mot (avec l\'article pour les noms).'},
+};
+function taskWrite(t, host, done){
+  const x=t.x, toDE=t.dir!=='d2f';
+  const target = t.cloze ? x.cz : (toDE ? x.a : x.fr);
+  const shownTarget = t.cloze ? x.cz : (toDE ? (x.pos==='n' ? x.a : x.d) : x.fr);
+  const grade = v => t.cloze ? gradeCloze(x,v) : (toDE ? gradeDE(x,v) : gradeFR(x,v));
+  const c=cardShell(t.head || WRITE_HEAD[t.cloze?'cloze':t.dict?'dict':!toDE?'d2f':t.guided?'guided':t.final?'final':'free'],{x,dots:t.dots});
+  const P=c.querySelector('.prompt');
+  if(t.cloze){
+    const blank=`<span class="blank">${'_'.repeat(Math.min(14,x.cz.length))}</span>`;
+    P.innerHTML=`<div class="prompt-lang">Complète avec le mot qui signifie « ${esc(x.fr)} »</div>
+      <p class="cloze">${esc(x.ex).replace(/\{.+?\}/,'§').split('§').join(blank)}</p><p class="cloze-fr">${esc(x.exFr)}</p>`;
+  } else if(t.dict){
+    P.innerHTML=`<div class="prompt-lang">Écoute</div><div class="audio-row" style="margin:6px 0 4px">
+      <button class="audio" style="width:64px;height:64px" data-say="${esc(x.say)}">${icon('sound')}</button></div>
+      <div class="audio-row"><button class="audio-txt" data-say="${esc(x.say)}" data-slow="1">${icon('slow')} Lentement</button></div>`;
+    setTimeout(()=>speak(x.say),200);
+  } else P.innerHTML = toDE ? promptFR(x) : promptDE(x, x.forms?' · '+esc(x.forms):'');
+  const zone=c.querySelector('.zone');
+  const skel=el(`<div class="skel ${t.guided?'':'hidden'}">${skeleton(target, 1)}</div>`);
+  const form=el(`<form class="write" autocomplete="off"><input type="text" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder="${toDE?'Écris en allemand…':'Écris en français…'}"><button class="btn primary" type="submit">${icon('arrow')}</button></form>`);
+  const inp=form.querySelector('input'), msg=el('<div class="hidden"></div>');
+  zone.append(skel, form); if(toDE) zone.append(umlBar(inp)); zone.append(msg);
+  host.appendChild(c);
+  if(!toDE && !t.dict) autoSay(x);
+  setTimeout(()=>inp.focus(),30);
+  const t0=performance.now(); let attempts=0, rt=null, phase='ask', articleWrong=false;
+  const showMsg=(cls,text)=>{ msg.className='msg '+cls; msg.innerHTML=icon(cls==='bad'?'x':'alert')+`<span>${text}</span>`; };
+  function finish(res){
+    phase='done'; inp.disabled=true; form.querySelector('button').disabled=true; msg.className='hidden';
+    const slow = rt > 7000 + 280*target.length;
+    const vk = res==='good'?'ok':res==='hard'?'warn':'bad';
+    const vt = res==='good'?(slow?'Exact — l\'effort de rappel renforce la trace':'Exact'):res==='hard'?'Juste, avec de l\'aide':'À revoir bientôt';
+    c.querySelector('.fbk').innerHTML = ficheHTML(x, verdictHTML(vk, vt, rt));
+    if(toDE || t.dict) autoSay(x);
+    const fin=()=>{ setKeys(null); done({res, rt, slow, articleWrong}); };
+    c.querySelector('[data-next]').onclick=fin;
+    setTimeout(()=>setKeys(e=>{ if(e.key==='Enter'){ fin(); return true; } }),0);
+  }
+  form.addEventListener('submit', e=>{
+    e.preventDefault(); if(phase==='done') return;
+    const v=inp.value; if(!v.trim()){ inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake'); return; }
+    if(rt===null) rt=performance.now()-t0;
+    const g=grade(v);
+    if(phase==='copy'){
+      if(g.ok) finish('fail'); else { inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake'); showMsg('bad','Recopie exactement la réponse affichée.'); }
+      return;
+    }
+    if(g.ok){ record(true); finish(attempts===0?'good':'hard'); return; }
+    if(g.kind==='synonym'){ showMsg('warn', gradeMsg(g,toDE)); inp.select(); return; }
+    if(g.kind==='article') articleWrong=true;
+    attempts++;
+    if(attempts===1 && !t.noHelp){
+      // échafaudage : on ne révèle pas la réponse, on donne un indice → la réussite au 2e essai déclenche l'erreur de prédiction positive
+      const lvl = t.guided ? 2 : 1;
+      skel.innerHTML = skeleton(target, lvl); skel.classList.remove('hidden');
+      showMsg('warn', gradeMsg(g,toDE) + (['near','case','umlaut','article','noarticle','tail','gov'].includes(g.kind)?'':' Indice : le squelette du mot est affiché.'));
+      inp.select(); return;
+    }
+    record(false);
+    phase='copy';
+    skel.classList.add('hidden');
+    showMsg('bad', `La réponse était <b style="color:var(--tx)">${artHTML(shownTarget)}</b>. ${diffHTML(v.trim(), shownTarget)}<div style="margin-top:8px">Recopie-la pour l'ancrer.</div>`);
+    if(toDE||t.cloze) speak(x.say);
+    inp.value=''; inp.placeholder='Recopie la bonne réponse…'; inp.focus();
+  });
+}
+function runTask(t, host, done){
+  let fired=false; const once = r => { if(fired) return; fired=true; done(r); };
+  ({intro:taskIntro, mcq:taskMCQ, write:taskWrite, gender:taskGender})[t.kind](t, host, once);
+}
+
+/* =====================================================================
+   ACCUEIL
+   ===================================================================== */
+function themeChips(onChange){
+  const opts=[['all','Tout'],['W',THEMES.W],['N',THEMES.N]];
+  const box=el(`<div class="chips">${opts.map(([k,l])=>`<button class="chip ${S.settings.theme===k?'on':''}" data-t="${k}">${l}</button>`).join('')}</div>`);
+  box.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ S.settings.theme=b.dataset.t; save(); LS=null; onChange(); });
+  return box;
+}
+function counts(){
+  const sc=scope(); let acq=0, cur=0;
+  sc.forEach(x=>{ const L=S.learn[x.id]; if(L&&L.done) acq++; else if(L) cur++; });
+  return {total:sc.length, acq, cur, fresh:sc.length-acq-cur, due:dueList().length};
+}
+const VIEWS = {};
+VIEWS.home = main => {
+  const c=counts(), acc=S.stats.answers?Math.round(100*S.stats.correct/S.stats.answers):0, streak=dayStreak();
+  const lastExam=S.exams[S.exams.length-1];
+  main.append(el(`<div><h1>Vocabulaire allemand</h1><p class="sub">${DATA.length} mots · Weimarer Republik &amp; NS-Diktatur. Apprentissage actif, espacé, du français vers l'allemand.</p></div>`));
+  main.append(themeChips(()=>go('home')));
+  main.append(el('<div style="height:18px"></div>'));
+  const next = c.due ? ['review', `Réviser ${c.due} élément${c.due>1?'s':''} arrivé${c.due>1?'s':''} à échéance`, 'La mémoire commence à décliner : c\'est le moment optimal pour la renforcer.']
+    : (c.acq<c.total ? ['learn', c.cur||c.acq ? 'Reprendre l\'apprentissage' : 'Commencer l\'apprentissage', `${c.fresh} nouveau${c.fresh>1?'x':''} · ${c.cur} en cours · ${c.acq} acquis`]
+    : ['exam','Tout est acquis : passe un examen','Vérifie ta maîtrise sans aucune aide.']);
+  const hero=el(`<div class="hero"><div class="grow"><b style="font-size:17px">${next[1]}</b><div class="muted" style="font-size:13px;margin-top:3px">${next[2]}</div>
+    <div class="pbar" style="margin-top:14px"><i style="width:${100*c.acq/c.total}%"></i><i class="mid" style="width:${100*c.cur/c.total}%"></i></div></div>
+    <button class="btn primary" data-go="${next[0]}">Continuer ${icon('arrow')}</button></div>`);
+  main.append(hero);
+  main.append(el(`<div class="stats">
+    <div class="stat"><b>${c.acq}<span style="font-size:14px;color:var(--di)"> / ${c.total}</span></b><span>mots acquis</span></div>
+    <div class="stat"><b>${c.due}</b><span>à réviser</span></div>
+    <div class="stat"><b>${acc}%</b><span>réussite globale</span></div>
+    <div class="stat"><b>${streak}</b><span>jour${streak>1?'s':''} d'affilée</span></div></div>`));
+  main.append(el('<div class="sec-t">Modes</div>'));
+  main.append(el(`<div class="modes">
+    <button class="mode" data-go="learn"><span class="ic">${icon('learn')}</span><span><b>Apprendre</b><p>Découverte, reconnaissance, orthographe, puis écriture libre. 7 étapes espacées par mot.</p></span></button>
+    <button class="mode" data-go="review"><span class="ic">${icon('review')}</span><span><b>Réviser ${c.due?`<span class="badge">${c.due}</span>`:''}</b><p>Répétition espacée : sens, écriture et genre planifiés séparément.</p></span></button>
+    <button class="mode" data-go="exam"><span class="ic">${icon('exam')}</span><span><b>Examen</b><p>Contrôle écrit sans aide, noté sur 20.${lastExam?` Dernier : ${lastExam.score}/20.`:''}</p></span></button>
+    <button class="mode" data-go="games"><span class="ic">${icon('games')}</span><span><b>Mini-jeux</b><p>Relier, der/die/das, dictée, orthographe éclair.</p></span></button>
+    <button class="mode" data-go="list"><span class="ic">${icon('list')}</span><span><b>Liste</b><p>Tout le vocabulaire, avec audio et niveau de maîtrise.</p></span></button>
+    <button class="mode" id="home-focus"><span class="ic">${icon('focus')}</span><span><b>Mode focus</b><p>Plein écran, sans distraction, minuteur 25 min.</p></span></button></div>`));
+  main.querySelector('#home-focus').onclick=()=>{ enterFocus(); go('learn'); };
+  // mots difficiles
+  const hard=scope().filter(x=>S.learn[x.id]&&S.learn[x.id].wrong).sort((a,b)=>S.learn[b.id].wrong-S.learn[a.id].wrong).slice(0,5);
+  if(hard.length){
+    main.append(el('<div class="sec-t">Tes mots les plus difficiles</div>'));
+    main.append(el(`<div class="hardlist">${hard.map(x=>`<div><span>${artHTML(x.d)} <span class="dim">— ${esc(x.fr)}</span></span><span class="dim">${S.learn[x.id].wrong} erreur${S.learn[x.id].wrong>1?'s':''}</span></div>`).join('')}</div>`));
+  }
+  main.append(el('<div class="sec-t">La méthode</div>'));
+  main.append(el(`<details class="method"><summary>${icon('brain')} Pourquoi ça fonctionne</summary><ul>
+    <li><b>Rappel actif.</b> Tu dois produire la réponse : c'est l'effort de récupération qui consolide la mémoire, pas la relecture.</li>
+    <li><b>Difficulté progressive.</b> D'abord reconnaître parmi des mots éloignés, puis parmi des mots proches, puis choisir la bonne orthographe, puis écrire seul.</li>
+    <li><b>Indices plutôt que réponse.</b> En cas d'erreur, un squelette du mot s'affiche : le réussir au 2e essai renforce fortement l'apprentissage.</li>
+    <li><b>Espacement.</b> Un mot ne revient jamais tout de suite. Les révisions suivent l'algorithme FSRS : chaque mot revient quand ta probabilité de t'en souvenir descend à 90 %.</li>
+    <li><b>Genre séparé du sens.</b> der / die / das est suivi comme une compétence à part : une erreur d'article ne te fait pas réapprendre le sens.</li>
+    <li><b>Contexte.</b> Chaque mot est accroché à une phrase historique réelle (Weimar, NS) pour l'intégrer à ce que tu sais déjà.</li>
+    <li><b>Entrelacement.</b> Les deux thèmes alternent, et le temps de réponse est mesuré : un rappel difficile mais réussi compte plus.</li>
+    <li><b>Pauses.</b> En mode focus, une pause est proposée toutes les 25 minutes : la consolidation se fait aussi pendant le repos.</li></ul></details>`));
+};
+
+/* =====================================================================
+   MODE APPRENTISSAGE — 7 étapes par mot, espacées en nombre de cartes
+   ===================================================================== */
+const STAGES = [
+  {kind:'intro'},
+  {kind:'mcq', dir:'d2f'},
+  {kind:'mcq', dir:'f2d'},
+  {kind:'mcq', dir:'spell'},
+  {kind:'write', dir:'f2d', guided:true},
+  {kind:'write', dir:'f2d', cloze:true},
+  {kind:'write', dir:'f2d'},
+  {kind:'write', dir:'f2d', final:true},
+];
+const GAP = [0,2,3,4,5,6,8,12];   // nombre de cartes avant de revoir le mot à l'étape suivante
+const CAP = 6;                     // mots « en vol » simultanément (charge cognitive)
+let LS = null;                     // session d'apprentissage (non persistée)
+function newLS(){
+  const w=shuffle(DATA.filter(x=>x.th==='W')), n=shuffle(DATA.filter(x=>x.th==='N')), order=[];
+  while(w.length||n.length){ if(w.length) order.push(w.shift().id); if(n.length) order.push(n.shift().id); }
+  return {counter:0, due:{}, lastId:null, lastTh:null, order, n:0, ok:0, streak:0};
+}
+function pickLearn(){
+  const ids=scope().map(x=>x.id);
+  const active=ids.filter(id=>S.learn[id] && !S.learn[id].done);
+  const fresh=LS.order.filter(id=>ids.includes(id) && !S.learn[id]);
+  if(!active.length && !fresh.length) return null;
+  const dueOf = id => LS.due[id]||0;
+  const due=active.filter(id=>dueOf(id)<=LS.counter);
+  let pool;
+  if(due.length) pool=due;
+  else if(active.length<CAP && fresh.length) pool=[fresh[0]];
+  else if(active.length) pool=[active.slice().sort((a,b)=>dueOf(a)-dueOf(b))[0]];
+  else pool=[fresh[0]];
+  let c=pool.filter(id=>id!==LS.lastId && byId[id].th!==LS.lastTh);
+  if(!c.length) c=pool.filter(id=>id!==LS.lastId);
+  if(!c.length) c=pool;
+  c.sort((a,b)=>dueOf(a)-dueOf(b) || (S.learn[b]?.st||0)-(S.learn[a]?.st||0));
+  return c[0];
+}
+VIEWS.learn = main => {
+  if(!LS) LS=newLS();
+  const head=el('<div></div>'), host=el('<div></div>'), foot=el('<div class="session-line"></div>');
+  main.append(head, host, foot);
+  function drawHead(){
+    const c=counts();
+    head.innerHTML=`<div class="top-prog"><span>${c.acq} / ${c.total} acquis</span><div class="pbar"><i style="width:${100*c.acq/c.total}%"></i><i class="mid" style="width:${100*c.cur/c.total}%"></i></div><span class="dim">${c.cur} en cours</span></div>`;
+    foot.innerHTML = LS.n ? `<span>Session <b>${LS.n}</b> cartes</span><span>Réussite <b>${Math.round(100*LS.ok/LS.n)}%</b></span><span>Série <b>${LS.streak}</b></span>` : '';
+  }
+  function next(){
+    drawHead(); host.innerHTML='';
+    const id=pickLearn();
+    if(!id) return finished();
+    if(!S.learn[id]) { S.learn[id]={st:0, wrong:0, seen:0, everWrong:false, done:false}; save(); }
+    const L=S.learn[id], x=byId[id], st=Math.min(L.st,7);
+    const dots=`<div class="dots">${[1,2,3,4,5,6,7].map(i=>`<i class="${i<st?'d':i===st?'n':''}"></i>`).join('')}</div>`;
+    LS.lastId=id; LS.lastTh=x.th;
+    runTask(Object.assign({x, dots}, STAGES[st]), host, r=>after(id,st,r));
+  }
+  function after(id, st, r){
+    const L=S.learn[id]; LS.counter++; L.seen++;
+    if(st===0){
+      if(r.res==='known'){ L.st=6; LS.due[id]=LS.counter+2; } else { L.st=1; LS.due[id]=LS.counter+1; }
+    } else {
+      LS.n++; if(st<=3) record(r.res==='good');
+      if(r.res==='good'){
+        LS.ok++; LS.streak++;
+        L.st++;
+        if((L.st===7 && !L.everWrong) || L.st>=8){ graduate(id); toast(`${icon('check')}<span><b>${esc(byId[id].d)}</b> acquis. Il reviendra en révision espacée.</span>`, 3000); }
+        else LS.due[id]=LS.counter+GAP[L.st];
+      } else if(r.res==='hard'){ LS.streak=0; LS.due[id]=LS.counter+3; }
+      else { LS.streak=0; L.wrong++; L.everWrong=true; if(L.st>=5) L.st--; LS.due[id]=LS.counter+3; }
+    }
+    save(); renderNav(); next();
+  }
+  function finished(){
+    drawHead();
+    const c=counts();
+    host.innerHTML=`<div class="card" style="text-align:center;padding:40px 24px"><div style="display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;border:1px solid var(--line2);margin-bottom:14px">${icon('check')}</div>
+      <h2>Tous les mots de cette sélection sont acquis</h2><p class="muted">Ils sont maintenant planifiés en révision espacée. ${c.due?`${c.due} élément(s) à réviser maintenant.`:'Reviens quand des révisions arrivent à échéance.'}</p>
+      <div class="row" style="justify-content:center;margin-top:18px"><button class="btn primary" data-go="${c.due?'review':'exam'}">${c.due?'Réviser':'Passer un examen'}</button><button class="btn" data-go="games">Mini-jeux</button></div></div>`;
+  }
+  next();
+};
+
+/* =====================================================================
+   MODE RÉVISION — FSRS, compétences séparées, entrelacement
+   ===================================================================== */
+function interleave(items){
+  const out=[], rest=items.slice();
+  while(rest.length){
+    const prev=out[out.length-1];
+    let i=rest.findIndex(it=>!prev || (it.id!==prev.id && byId[it.id].th!==byId[prev.id].th));
+    if(i<0) i=rest.findIndex(it=>!prev || it.id!==prev.id);
+    if(i<0) i=0;
+    out.push(rest.splice(i,1)[0]);
+  }
+  return out;
+}
+VIEWS.review = (main, arg) => {
+  const due=dueList();
+  let items;
+  if(arg==='early'){
+    items=[]; scope().forEach(x=>{ const sk=S.skills[x.id]; if(sk) for(const k in sk) items.push({id:x.id,k,R:retr(sk[k])}); });
+    items=items.sort((a,b)=>a.R-b.R).slice(0,20);
+  } else items=due.slice(0,25);
+  if(!items.length){
+    const anySk=scope().some(x=>S.skills[x.id]);
+    main.append(el(`<div class="card" style="text-align:center;padding:40px 24px"><div style="display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;border:1px solid var(--line2);margin-bottom:14px">${icon('clock')}</div>
+      <h2>Rien à réviser pour l'instant</h2><p class="muted">${anySk?'Ta mémoire est encore au-dessus de 90 % sur tous les mots acquis. Réviser trop tôt apporte peu : l\'oubli partiel est ce qui rend la révision efficace.':'Les mots arrivent ici une fois acquis dans le mode Apprendre.'}</p>
+      <div class="row" style="justify-content:center;margin-top:18px">${anySk?'<button class="btn" id="early">Révision anticipée (mots les plus fragiles)</button>':''}<button class="btn primary" data-go="learn">Apprendre</button></div></div>`));
+    const b=main.querySelector('#early'); if(b) b.onclick=()=>go('review','early');
+    return;
+  }
+  let queue=interleave(items), total=queue.length, doneN=0, okN=0;
+  const head=el('<div></div>'), host=el('<div></div>');
+  main.append(head, host);
+  function next(){
+    head.innerHTML=`<div class="top-prog"><span>Révision${arg==='early'?' anticipée':''}</span><div class="pbar"><i style="width:${100*doneN/total}%"></i></div><span class="dim">${doneN} / ${total}</span></div>`;
+    host.innerHTML='';
+    if(!queue.length) return end();
+    const it=queue.shift(), x=byId[it.id];
+    const t = it.k==='g' ? {kind:'gender'} : it.k==='m' ? {kind:'write', dir:'d2f'} : {kind:'write', dir:'f2d'};
+    runTask(Object.assign({x}, t), host, r=>{
+      const G = r.res==='good'?3 : r.res==='hard'?2 : 1;
+      const sk=S.skills[it.id];
+      if(!it.again){ rateSkill(sk[it.k], G, r.slow); if(it.k==='p' && r.articleWrong && sk.g) rateSkill(sk.g,1); }
+      if(it.k==='g') record(G>1);
+      if(G===1 && !it.again){ queue.splice(Math.min(3,queue.length),0,Object.assign({},it,{again:true})); total++; }
+      doneN++; if(G>1) okN++;
+      save(); renderNav(); next();
+    });
+  }
+  function end(){
+    const c=counts();
+    host.innerHTML=`<div class="card" style="text-align:center;padding:40px 24px"><h2>Révision terminée</h2>
+      <p class="muted">${okN} / ${doneN} réussies. ${c.due?`Encore ${c.due} élément(s) à échéance.`:'Prochaines révisions planifiées automatiquement.'}</p>
+      <div class="row" style="justify-content:center;margin-top:18px">${c.due?'<button class="btn primary" data-go="review">Continuer</button>':''}<button class="btn ${c.due?'':'primary'}" data-go="home">Accueil</button></div></div>`;
+  }
+  next();
+};
+
+/* =====================================================================
+   MODE EXAMEN — écrit, sans aide, noté sur 20
+   ===================================================================== */
+VIEWS.exam = main => {
+  main.append(el(`<div><h1>Examen</h1><p class="sub">Contrôle écrit, sans indice ni correction pendant l'épreuve. Les noms doivent être écrits avec leur article.</p></div>`));
+  const p=el(`<div class="panel">
+    <div class="field"><label>THÈME</label></div>
+    <div class="field"><label>SENS</label><div class="chips" id="ex-dir">
+      ${[['f2d','Français → Allemand'],['d2f','Allemand → Français'],['mix','Mélangé']].map(([k,l])=>`<button class="chip ${S.settings.examDir===k?'on':''}" data-k="${k}">${l}</button>`).join('')}</div></div>
+    <div class="field"><label>NOMBRE DE QUESTIONS</label><div class="chips" id="ex-n">
+      ${[[10,'10'],[20,'20'],[0,'Tout']].map(([k,l])=>`<button class="chip ${S.settings.examN===k?'on':''}" data-k="${k}">${l}</button>`).join('')}</div></div>
+    <button class="btn primary" id="ex-go">Commencer l'examen ${icon('arrow')}</button></div>`);
+  p.querySelector('.field').append(themeChips(()=>go('exam')));
+  p.querySelectorAll('#ex-dir .chip').forEach(b=>b.onclick=()=>{ S.settings.examDir=b.dataset.k; save(); p.querySelectorAll('#ex-dir .chip').forEach(o=>o.classList.toggle('on',o===b)); });
+  p.querySelectorAll('#ex-n .chip').forEach(b=>b.onclick=()=>{ S.settings.examN=+b.dataset.k; save(); p.querySelectorAll('#ex-n .chip').forEach(o=>o.classList.toggle('on',o===b)); });
+  main.append(p);
+  if(S.exams.length){
+    main.append(el('<div class="sec-t">Historique</div>'));
+    main.append(el(`<table><tr><th>Date</th><th>Sens</th><th>Questions</th><th>Note</th></tr>${S.exams.slice(-8).reverse().map(e=>`<tr><td>${new Date(e.date).toLocaleDateString('fr-FR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</td><td>${{f2d:'FR → DE',d2f:'DE → FR',mix:'Mélangé'}[e.dir]}</td><td>${e.n}</td><td><b>${e.score}</b> / 20</td></tr>`).join('')}</table>`));
+  }
+  p.querySelector('#ex-go').onclick=()=>runExam(main);
+  setKeys((e,typing)=>{ if(e.key==='Enter' && !typing){ runExam(main); return true; } });
+};
+function runExam(main){
+  setKeys(null);
+  const N=S.settings.examN||scope().length, dir=S.settings.examDir;
+  const qs=shuffle(scope()).slice(0,N).map(x=>({x, dir: dir==='mix'?(Math.random()<.5?'f2d':'d2f'):dir}));
+  const answers=[]; let i=0; const t0=Date.now();
+  main.innerHTML='';
+  const head=el('<div></div>'), host=el('<div></div>'); main.append(head,host);
+  const tick=setInterval(()=>{ const s=Math.floor((Date.now()-t0)/1000); const tm=head.querySelector('.ex-t'); if(tm) tm.textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`; },1000);
+  onCleanup(()=>clearInterval(tick));
+  function q(){
+    if(i>=qs.length) return results();
+    const {x,dir}=qs[i], toDE=dir==='f2d';
+    head.innerHTML=`<div class="top-prog"><span>Question ${i+1} / ${qs.length}</span><div class="pbar"><i style="width:${100*i/qs.length}%"></i></div><span class="dim ex-t" style="font-family:var(--mono)">0:00</span></div>`;
+    host.innerHTML='';
+    const c=el(`<div class="card"><div class="card-head"><div class="mech">Examen · ${toDE?'FR → DE':'DE → FR'}</div><span class="theme-tag">${THEMES[x.th]}</span></div>
+      <div class="prompt">${toDE?promptFR(x):`<div class="prompt-lang">Allemand ${icon('arrow')} Français</div><div class="prompt-word">${artHTML(x.d)}</div><div class="prompt-sub">${POS[x.pos]}</div>`}</div><div class="zone"></div></div>`);
+    const form=el(`<form class="write" autocomplete="off"><input type="text" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder="${toDE?'Réponse en allemand…':'Réponse en français…'}"><button class="btn primary" type="submit">${icon('arrow')}</button></form>`);
+    const inp=form.querySelector('input');
+    c.querySelector('.zone').append(form); if(toDE) c.querySelector('.zone').append(umlBar(inp));
+    c.querySelector('.zone').append(el(`<div class="row" style="justify-content:space-between;margin-top:14px"><span class="dim" style="font-size:12px">Entrée pour valider</span><button class="btn ghost sm" type="button" id="skip">Je ne sais pas</button></div>`));
+    host.append(c); setTimeout(()=>inp.focus(),30);
+    const submit = v => { const g = toDE ? gradeDE(x,v) : gradeFR(x,v); answers.push({x,dir,v,g}); i++; q(); };
+    form.addEventListener('submit',e=>{ e.preventDefault(); if(!inp.value.trim()) return; submit(inp.value); });
+    c.querySelector('#skip').onclick=()=>submit('');
+  }
+  function results(){
+    clearInterval(tick);
+    const ok=answers.filter(a=>a.g.ok).length, score=Math.round(ok/answers.length*40)/2;
+    S.exams.push({date:Date.now(), n:answers.length, ok, score, dir}); S.exams=S.exams.slice(-30);
+    answers.forEach(a=>{ record(a.g.ok); const sk=S.skills[a.x.id]; if(sk){ const k=a.dir==='f2d'?'p':'m'; rateSkill(sk[k], a.g.ok?3:1); if(a.g.kind==='article'&&sk.g) rateSkill(sk.g,1); } });
+    save(); renderNav();
+    const errs=answers.filter(a=>!a.g.ok);
+    const lbl={gov:'cas (Akk / Dat)',article:'article',noarticle:'article manquant',near:'orthographe',case:'majuscule',umlaut:'Umlaut / ß',tail:'préposition',confusion:'confusion',synonym:'autre mot',wrong:'',empty:'sans réponse'};
+    const dur=Math.round((Date.now()-t0)/1000);
+    host.innerHTML=''; head.innerHTML='';
+    const r=el(`<div><div class="panel" style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <div class="score">${String(score).replace('.',',')}<small> / 20</small></div>
+      <div class="grow" style="flex:1;min-width:200px"><b>${ok} / ${answers.length} réponses exactes</b><div class="muted" style="font-size:13px">${Math.floor(dur/60)} min ${dur%60} s · ${errs.length} erreur${errs.length>1?'s':''}</div></div>
+      <div class="row">${errs.length?'<button class="btn primary" id="ex-fix">Retravailler mes erreurs</button>':''}<button class="btn" id="ex-again">Nouvel examen</button></div></div>
+      <div class="sec-t">Correction</div>
+      <table><tr><th class="res-ic"></th><th>Question</th><th>Ta réponse</th><th class="hide-sm">Attendu</th></tr>
+      ${answers.map(a=>{ const toDE=a.dir==='f2d', exp=toDE?a.x.d:a.x.fr;
+        return `<tr><td class="${a.g.ok?'ok':'bad'}">${icon(a.g.ok?'check':'x')}</td><td>${toDE?esc(a.x.fr):artHTML(a.x.d)}</td>
+        <td>${a.g.ok?esc(a.v):(a.v?(toDE?`<span class="dinl">${diffParts(a.v.trim(),exp).u}</span>`:esc(a.v)):'<span class="dim">—</span>')}${!a.g.ok&&lbl[a.g.kind]?`<div class="dim" style="font-size:12px">${lbl[a.g.kind]}</div>`:''}</td>
+        <td class="hide-sm">${toDE?artHTML(exp):esc(exp)} <button class="audio sm" data-say="${esc(a.x.say)}">${icon('sound')}</button></td></tr>`; }).join('')}</table></div>`);
+    host.append(r);
+    r.querySelector('#ex-again').onclick=()=>go('exam');
+    const fx=r.querySelector('#ex-fix');
+    if(fx) fx.onclick=()=>{
+      errs.forEach(a=>{ const id=a.x.id, sk=S.skills[id];
+        if(sk){ for(const k in sk) if(k===(a.dir==='f2d'?'p':'m') || (k==='g'&&a.g.kind==='article')) sk[k].last=Date.now()-sk[k].S*DAY*1.05; }
+        else { const L=S.learn[id]||(S.learn[id]={st:1,wrong:0,seen:0,everWrong:false,done:false}); L.st=Math.min(Math.max(L.st,1),3); L.everWrong=true; L.wrong++; }
+      });
+      save(); LS=null;
+      toast(`${icon('check')}<span>${errs.length} mot(s) remis en travail.</span>`,3000);
+      go(errs.some(a=>S.skills[a.x.id]) ? 'review' : 'learn');
+    };
+  }
+  q();
+}
+
+/* =====================================================================
+   MINI-JEUX — simples, au service de la mémorisation
+   ===================================================================== */
+const GAMES=[
+  ['match','Relier','Associe chaque mot allemand à sa traduction, le plus vite possible.','link'],
+  ['gender','Der · Die · Das','Le bon article en un réflexe. Touches 1, 2, 3.','type'],
+  ['dict','Dictée','Écoute le mot et écris-le correctement.','ear'],
+  ['spell','Orthographe éclair','Le mot en français, quatre graphies : trouve la bonne.','check'],
+];
+function weakFirst(list, n){ // priorité aux mots les plus fragiles, avec un peu de hasard
+  return list.map(x=>({x, s:wordStrength(x.id)+Math.random()*0.35})).sort((a,b)=>a.s-b.s).slice(0,n).map(o=>o.x);
+}
+VIEWS.games = (main, arg) => {
+  if(arg) return GAME_RUN[arg](main);
+  main.append(el(`<div><h1>Mini-jeux</h1><p class="sub">Des exercices courts pour varier la récupération. Les mots les plus fragiles sont proposés en priorité.</p></div>`));
+  main.append(themeChips(()=>go('games')));
+  main.append(el('<div style="height:16px"></div>'));
+  const g=el(`<div class="modes">${GAMES.map(([k,t,d,ic])=>`<button class="mode" data-g="${k}"><span class="ic">${icon(ic)}</span><span><b>${t}</b><p>${d}${S.games[k]!=null?`<br><span class="dim">Record : ${k==='match'?S.games[k]+' s':S.games[k]+' %'}</span>`:''}</p></span></button>`).join('')}</div>`);
+  g.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>go('games',b.dataset.g));
+  main.append(g);
+};
+function gameEnd(host, key, val, label, better){
+  const prev=S.games[key]; const rec = prev==null || better(val,prev);
+  if(rec){ S.games[key]=val; save(); }
+  host.innerHTML=`<div class="card" style="text-align:center;padding:40px 24px"><div class="score">${label}</div>
+    <p class="muted" style="margin-top:12px">${rec?'Nouveau record.':`Record : ${key==='match'?prev+' s':prev+' %'}`}</p>
+    <div class="row" style="justify-content:center;margin-top:18px"><button class="btn primary" id="again">Rejouer <kbd>Entrée</kbd></button><button class="btn" id="back">Autres jeux</button></div></div>`;
+  host.querySelector('#again').onclick=()=>go('games',key);
+  host.querySelector('#back').onclick=()=>go('games');
+  setKeys(e=>{ if(e.key==='Enter'){ go('games',key); return true; } });
+}
+const GAME_RUN = {};
+GAME_RUN.match = main => {
+  const words=weakFirst(scope(),6), left=shuffle(words), right=shuffle(words);
+  main.append(el(`<div class="game-hud"><span>Relier</span><span id="g-t">0.0 s</span><span id="g-e">0 erreur</span></div>`));
+  const board=el(`<div class="match"><div class="match-col">${left.map(x=>`<button class="mt" data-side="L" data-id="${x.id}">${artHTML(x.d)}</button>`).join('')}</div>
+    <div class="match-col">${right.map(x=>`<button class="mt" data-side="R" data-id="${x.id}">${esc(x.fr)}</button>`).join('')}</div></div>`);
+  const host=el('<div></div>'); main.append(board, host);
+  const t0=performance.now(); let sel=null, errors=0, found=0;
+  const tick=setInterval(()=>{ const t=$('#g-t'); if(t) t.textContent=((performance.now()-t0)/1000).toFixed(1)+' s'; },100); onCleanup(()=>clearInterval(tick));
+  board.querySelectorAll('.mt').forEach(b=>b.onclick=()=>{
+    if(b.classList.contains('ok')) return;
+    if(!sel || sel.dataset.side===b.dataset.side){ if(sel) sel.classList.remove('sel'); sel=b; b.classList.add('sel'); if(b.dataset.side==='L') speak(byId[b.dataset.id].say); return; }
+    const a=sel; sel=null; a.classList.remove('sel');
+    if(a.dataset.id===b.dataset.id){ a.classList.add('ok'); b.classList.add('ok'); found++; if(a.dataset.side==='R') speak(byId[a.dataset.id].say);
+      if(found===words.length){ clearInterval(tick); const sec=+((performance.now()-t0)/1000+errors*2).toFixed(1);
+        setTimeout(()=>{ board.remove(); main.querySelector('.game-hud').remove(); gameEnd(host,'match',sec,`${String(sec).replace('.',',')} s`,(v,p)=>v<p);
+          host.querySelector('.muted').insertAdjacentHTML('afterbegin', errors?`${errors} erreur${errors>1?'s':''} (+2 s chacune). `:'Sans erreur. '); },700); } }
+    else { errors++; $('#g-e').textContent=errors+' erreur'+(errors>1?'s':''); [a,b].forEach(z=>{ z.classList.add('bad'); setTimeout(()=>z.classList.remove('bad'),450); }); }
+  });
+};
+function seqGame(main, key, title, list, mk){
+  let i=0, ok=0; const hud=el(`<div class="game-hud"><span>${title}</span><span id="g-p"></span><span id="g-s"></span></div>`), host=el('<div></div>');
+  main.append(hud, host);
+  function step(){
+    if(i>=list.length){ hud.remove(); const pct=Math.round(100*ok/list.length); return gameEnd(host,key,pct,`${pct} %`,(v,p)=>v>p); }
+    $('#g-p').textContent=`${i+1} / ${list.length}`; $('#g-s').textContent=`${ok} juste${ok>1?'s':''}`;
+    host.innerHTML='';
+    runTask(mk(list[i]), host, r=>{ if(r.res==='good') ok++; i++; step(); });
+  }
+  step();
+}
+GAME_RUN.gender = main => seqGame(main,'gender','Der · Die · Das', weakFirst(scope().filter(x=>x.pos==='n'&&!x.pl),15), x=>({kind:'gender', x, fast:true}));
+GAME_RUN.dict = main => seqGame(main,'dict','Dictée', weakFirst(scope(),10), x=>({kind:'write', dir:'f2d', dict:true, x}));
+GAME_RUN.spell = main => seqGame(main,'spell','Orthographe éclair', weakFirst(scope(),12), x=>({kind:'mcq', dir:'spell', x, fast:true}));
+
+/* =====================================================================
+   LISTE
+   ===================================================================== */
+VIEWS.list = main => {
+  main.append(el(`<div><h1>Liste</h1><p class="sub">${DATA.length} mots. Clique sur le haut-parleur pour écouter.</p></div>`));
+  main.append(themeChips(()=>go('list')));
+  const q=el('<input class="search" placeholder="Rechercher (allemand ou français)…" style="margin-top:16px">');
+  const box=el('<div></div>'); main.append(q, box);
+  function draw(){
+    const s=q.value.trim().toLowerCase(), sn=normFR(s);
+    const rows=scope().filter(x=>!s || x.d.toLowerCase().includes(s) || translit(x.d).includes(translit(s)) || normFR(x.fr).includes(sn));
+    box.innerHTML = ['W','N'].map(th=>{ const r=rows.filter(x=>x.th===th); if(!r.length) return '';
+      return `<div class="sec-t">${THEMES[th]}</div><table>${r.map(x=>{ const st=wordStrength(x.id), L=S.learn[x.id];
+        const state = L&&L.done ? `${Math.round(st*100)} %` : L ? `étape ${Math.min(L.st,7)}/7` : 'nouveau';
+        return `<tr><td style="width:40px"><button class="audio sm" data-say="${esc(x.say)}">${icon('sound')}</button></td>
+          <td><div class="lst-de">${artHTML(x.d)}</div><div class="lst-sub">${esc(x.plur&&x.plur!=='—'?'Pl. '+x.plur:x.forms||POS[x.pos])}</div></td>
+          <td>${esc(x.fr)}</td><td class="hide-sm" style="text-align:right;white-space:nowrap"><span class="dim" style="font-size:12px;margin-right:8px">${state}</span><span class="mbar"><i style="width:${st*100}%"></i></span></td></tr>`; }).join('')}</table>`; }).join('') || '<p class="muted">Aucun résultat.</p>';
+  }
+  q.addEventListener('input', draw); draw();
+};
+
+/* =====================================================================
+   MODE FOCUS — plein écran, sans navigation, minuteur 25 / 5 min
+   ===================================================================== */
+let focusOn=false, wakeLock=null, pomo=null, interruptions=0;
+async function enterFocus(){
+  if(focusOn) return; focusOn=true; interruptions=0;
+  document.body.classList.add('focus');
+  try{ await document.documentElement.requestFullscreen({navigationUI:'hide'}); }catch(e){}
+  try{ wakeLock = await navigator.wakeLock.request('screen'); }catch(e){}
+  startPomo(25*60);
+  $('#fb-int').textContent='';
+  if(!S.settings.focusTip){
+    toast(`${icon('alert')}<span>Une page web ne peut pas couper les notifications du système. Pour un vrai silence : <b>Windows + N</b> puis <b>Ne pas déranger</b> (ou Assistant de concentration). Quitte le focus avec <b>Échap</b>.</span>`, 9000);
+    S.settings.focusTip=true; save();
+  }
+}
+function exitFocus(){
+  if(!focusOn) return; focusOn=false;
+  document.body.classList.remove('focus');
+  if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  try{ wakeLock && wakeLock.release(); }catch(e){} wakeLock=null;
+  clearInterval(pomo); pomo=null;
+  document.querySelectorAll('.overlay.break-ov').forEach(o=>o.remove());
+}
+function toggleFocus(){ focusOn ? exitFocus() : enterFocus(); }
+document.addEventListener('fullscreenchange', ()=>{ if(!document.fullscreenElement && focusOn) exitFocus(); });
+document.addEventListener('visibilitychange', ()=>{
+  if(focusOn && document.hidden){ interruptions++; $('#fb-int').textContent = `${interruptions} interruption${interruptions>1?'s':''}`; }
+  if(focusOn && !document.hidden && wakeLock===null){ navigator.wakeLock?.request('screen').then(w=>wakeLock=w).catch(()=>{}); }
+});
+function startPomo(sec){
+  clearInterval(pomo); let left=sec; const out=$('#fb-timer');
+  const draw=()=>out.textContent=`${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}`; draw();
+  pomo=setInterval(()=>{ left--; draw(); if(left<=0){ clearInterval(pomo); breakTime(); } },1000);
+}
+function breakTime(){
+  let left=5*60;
+  const ov=el(`<div class="overlay break-ov"><div class="modal break"><div class="mech" style="margin-bottom:10px">Pause</div><div class="big" id="br-t">5:00</div>
+    <p class="muted">25 minutes de travail. Lève-toi, regarde au loin, bois de l'eau : la consolidation des mots se poursuit pendant la pause.</p>
+    <div class="row" style="justify-content:center;margin-top:16px"><button class="btn primary" id="br-go">Reprendre</button><button class="btn" id="br-q">Quitter le focus</button></div></div></div>`);
+  document.body.append(ov);
+  const t=setInterval(()=>{ left--; const e=ov.querySelector('#br-t'); if(e) e.textContent=`${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}`; if(left<=0){ clearInterval(t); speak('Weiter geht\'s'); } },1000);
+  ov.querySelector('#br-go').onclick=()=>{ clearInterval(t); ov.remove(); startPomo(25*60); };
+  ov.querySelector('#br-q').onclick=()=>{ clearInterval(t); ov.remove(); exitFocus(); };
+}
+
+/* =====================================================================
+   RÉGLAGES
+   ===================================================================== */
+function openSettings(){
+  const vs=deVoices();
+  const ov=el(`<div class="overlay"><div class="modal">
+    <h2>Réglages <button class="icon-b" id="st-x">${icon('x')}</button></h2>
+    <div class="set-row"><span>Lecture audio automatique</span><button class="switch ${S.settings.autoAudio?'on':''}" data-s="autoAudio"></button></div>
+    <div class="set-row"><span>Couleur des articles<br><span class="dim" style="font-size:12px"><span class="art-der">der</span> · <span class="art-die">die</span> · <span class="art-das">das</span></span></span><button class="switch ${S.settings.genderColor?'on':''}" data-s="genderColor"></button></div>
+    <div class="set-row"><span>Voix allemande</span><select id="st-voice">${vs.length?vs.map(v=>`<option ${deVoice&&v.name===deVoice.name?'selected':''}>${esc(v.name)}</option>`).join(''):'<option>Aucune voix allemande détectée</option>'}</select></div>
+    <div class="set-row"><span>Vitesse de lecture <span class="dim" id="st-rv">${S.settings.rate.toFixed(2)}</span></span><input type="range" min="0.5" max="1.2" step="0.05" value="${S.settings.rate}" id="st-rate"></div>
+    <div class="set-row"><span>Tester la voix</span><button class="btn sm" data-say="Die Weimarer Republik">${icon('sound')} Écouter</button></div>
+    <div class="set-row"><span>Sauvegarde de la progression</span><span class="row" style="gap:6px"><button class="btn sm" id="st-exp">${icon('download')} Exporter</button><button class="btn sm" id="st-imp">${icon('upload')} Importer</button></span></div>
+    <div class="set-row" style="border:0"><span>Tout recommencer</span><button class="btn sm danger" id="st-reset">${icon('trash')} Réinitialiser</button></div>
+    <p class="dim" style="font-size:12px;margin:12px 0 0">La progression est enregistrée automatiquement dans ce navigateur, sur cet ordinateur. Pour la voix la plus naturelle, utilise Microsoft Edge (voix « Online (Natural) »).</p>
+  </div></div>`);
+  document.body.append(ov);
+  const close=()=>{ ov.remove(); setKeys(prevKeys); };
+  const prevKeys=keyHandler; setKeys(e=>{ if(e.key==='Escape'){ close(); return true; } });
+  ov.addEventListener('click',e=>{ if(e.target===ov) close(); });
+  ov.querySelector('#st-x').onclick=close;
+  ov.querySelectorAll('.switch').forEach(b=>b.onclick=()=>{ const k=b.dataset.s; S.settings[k]=!S.settings[k]; b.classList.toggle('on',S.settings[k]); save(); applyPrefs(); });
+  ov.querySelector('#st-voice').onchange=e=>{ S.settings.voice=e.target.value; save(); pickVoice(); speak('Guten Tag'); };
+  ov.querySelector('#st-rate').oninput=e=>{ S.settings.rate=+e.target.value; ov.querySelector('#st-rv').textContent=S.settings.rate.toFixed(2); save(); };
+  ov.querySelector('#st-exp').onclick=()=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'})); a.download=`wortschatz-progression-${today()}.json`; a.click(); };
+  ov.querySelector('#st-imp').onclick=()=>{ const f=document.createElement('input'); f.type='file'; f.accept='.json,application/json'; f.onchange=async()=>{ try{ const d=JSON.parse(await f.files[0].text()); if(d.v!==1) throw 0; S=Object.assign(defaults(),d); save(); LS=null; toast(`${icon('check')}<span>Progression importée.</span>`,3000); close(); }catch(e){ toast(`${icon('alert')}<span>Fichier invalide.</span>`,3000); } }; f.click(); };
+  ov.querySelector('#st-reset').onclick=()=>{ if(confirm('Effacer toute la progression ? Cette action est définitive.')){ const keep=S.settings; S=defaults(); S.settings=Object.assign(S.settings,keep,{focusTip:keep.focusTip}); save(); LS=null; ov.remove(); go('home'); } };
+}
+function applyPrefs(){ document.body.classList.toggle('nocolor', !S.settings.genderColor); }
+
+/* =====================================================================
+   DÉMARRAGE
+   ===================================================================== */
+$('#btn-focus').innerHTML=icon('focus'); $('#btn-focus').onclick=toggleFocus;
+$('#btn-settings').innerHTML=icon('settings'); $('#btn-settings').onclick=openSettings;
+$('#fb-exit').innerHTML=icon('exit')+'Quitter le focus'; $('#fb-exit').onclick=exitFocus;
+applyPrefs();
+go('home');
+
+</script>
+</body>
+</html>
